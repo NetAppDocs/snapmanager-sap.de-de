@@ -1,0 +1,69 @@
+---
+permalink: windows/task-updating-storage-system-name-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, ability, update, host, name, ip, address, storage, system, associate, profile 
+summary: Mit SnapManager 3.3 oder höher können der Hostname oder die IP-Adresse eines Speichersystems, das einem Profil zugeordnet ist, aktualisiert werden. 
+---
+= Der Name des Speichersystems, der einem Profil zugeordnet ist, wird aktualisiert
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager 3.3 oder höher können der Hostname oder die IP-Adresse eines Speichersystems, das einem Profil zugeordnet ist, aktualisiert werden.
+
+Sie müssen Folgendes sicherstellen:
+
+* Das Profil verfügt über mindestens eine Sicherung.
++
+Wenn das Profil keine Sicherungskopie hat, ist es nicht erforderlich, den Namen des Speichersystems für dieses Profil zu aktualisieren.
+
+* Für das Profil wird kein Vorgang ausgeführt.
+
+
+Sie können den Namen des Storage-Systems oder die IP-Adresse über die SnapManager Befehlszeilenschnittstelle (CLI) aktualisieren. Beim Aktualisieren des Namens des Speichersystems werden die in der Repository-Datenbank gespeicherten Metadaten aktualisiert. Nachdem Sie den Namen des Storage-Systems umbenannt haben, können Sie alle SnapManager-Vorgänge wie zuvor ausführen.
+
+
+NOTE: Sie können den Namen des Storage-Systems nicht mit der SnapManager Graphical User Interface (GUI) ändern.
+
+Sie müssen sicherstellen, dass Snapshot Kopien im neuen Storage-System verfügbar sind. SnapManager überprüft nicht, ob die Snapshot Kopien im Storage-System vorhanden sind.
+
+Sie müssen jedoch Folgendes beachten, während Sie ein Rolling Upgrade und Rollback des Hosts durchführen, nachdem Sie den Namen des Speichersystems umbenannt haben:
+
+* Wenn Sie nach der Umbenennung des Speichersystemnamens ein Rolling Upgrade des Hosts durchführen, müssen Sie das Profil mit dem neuen Speichersystemnamen aktualisieren.
+* Wenn Sie den Host nach der Umbenennung des Storage-Systems wieder starten, müssen Sie sicherstellen, dass Sie den Namen des Storage-Systems zurück auf den früheren Namen des Storage-Systems ändern, damit Sie die Profile, Backups und Klone des früheren Storage-Systems zur Durchführung von SnapManager-Vorgängen verwenden können.
++
+.. Geben Sie den folgenden Befehl ein: `smsap storage rename -profileprofile-oldnameold_storage_name-newnamenew_storage_name [quiet | -verbose`]
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+Aktualisieren Sie den Namen des Speichersystems, der einem Profil zugeordnet ist
+ a| 
+Geben Sie die Option -profile an.
+
+
+
+ a| 
+Aktualisieren Sie den Namen des Speichersystems oder die IP-Adresse, die einem Profil zugeordnet ist
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+*** -Oldnameold_Storage_Name ist der Hostname oder die IP-Adresse des Speichersystems.
+*** -Newnamenew_Storage_Name ist der Hostname oder die IP-Adresse des Speichersystems.
+
+
+|===
+
+
+
+
+Im folgenden Beispiel wird der aktualisierte Speichersystemname angezeigt:
+
+[listing]
+----
+smsap storage rename -profile mjullian -oldname lech -newname hudson -verbose
+----

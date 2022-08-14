@@ -1,0 +1,53 @@
+---
+permalink: windows/reference-the-smosmsap-storage-list-command.html 
+sidebar: sidebar 
+keywords: run, storage, list, command, display, system, associate, profile, smsap 
+summary: Sie können den Befehl Storage list ausführen, um die Liste der Speichersysteme anzuzeigen, die einem bestimmten Profil zugeordnet sind. 
+---
+= Befehl smsap Storage list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `storage list` Befehl zum Anzeigen der Liste der mit einem bestimmten Profil verknüpften Speichersysteme.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap storage list
+-profile profile
+----
+
+
+== Parameter
+
+* *`-profile _profile_`*
++
+Gibt den Namen des Profils an. Der Name kann bis zu 30 Zeichen lang sein und muss innerhalb des Hosts eindeutig sein.
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel werden die Speichersysteme angezeigt, die dem Profil mjullian zugeordnet sind:
+
+[listing]
+----
+smsap storage list -profile mjullian
+----
+[listing]
+----
+
+Sample Output:
+Storage Controllers
+--------------------
+FAS3020-RTP07OLD
+----

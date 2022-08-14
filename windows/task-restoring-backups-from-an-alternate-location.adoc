@@ -1,0 +1,29 @@
+---
+permalink: windows/task-restoring-backups-from-an-alternate-location.html 
+sidebar: sidebar 
+keywords: restore, alternate, location, data, file, intermediate, system, active, restoring, backup 
+summary: Sie können die Datendateien von einem alternativen Speicherort wiederherstellen, um sie von einem Zwischendateisystem in ein aktives Dateisystem wiederherzustellen. 
+---
+= Wiederherstellen von Backups von einem alternativen Speicherort
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Datendateien von einem alternativen Speicherort wiederherstellen, um sie von einem Zwischendateisystem in ein aktives Dateisystem wiederherzustellen.
+
+* Erstellen Sie eine XML-Datei für die Wiederherstellungsspezifikation, und geben Sie den Typ der Wiederherstellungsmethode an, die Sie verwenden möchten.
+
+
+Sie können den Befehl smsap Backup Restore verwenden und die XML-Datei für die wiederherstellende Spezifikation angeben, die Sie erstellt haben, um die Sicherung von einem anderen Speicherort wiederherzustellen.
+
+. Geben Sie den folgenden Befehl ein:
++
+`smsap backup restore -profileprofile-labellabel-complete-alllogs-restorespecrestorespec`
+
+
+
+*Verwandte Informationen*
+
+xref:reference-the-smosmsapbackup-restore-command.adoc[Der Befehl smsap Backup Restore]

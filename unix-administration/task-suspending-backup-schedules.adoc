@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-suspend-backup-schedules.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, suspend, backup, schedule, resume 
+summary: SnapManager ermöglicht Ihnen die Unterbrechung eines Backup-Zeitplans, bis der Backup-Zeitplan wiederaufgenommen wird. 
+---
+= Unterbrechen Sie die Backup-Zeitpläne
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht Ihnen die Unterbrechung eines Backup-Zeitplans, bis der Backup-Zeitplan wiederaufgenommen wird.
+
+*Über diese Aufgabe*
+
+Sie können die aktiven Zeitpläne unterbrechen. Wenn Sie versuchen, den Backup-Zeitplan zu unterbrechen, der bereits ausgesetzt ist, wird möglicherweise eine Fehlermeldung angezeigt ``"Cannot suspend: schedule <schedulename> already in suspend state".``
+
+.Schritt
+. Um den Backup-Zeitplan vorübergehend zu unterbrechen, geben Sie folgenden Befehl ein:
++
+`*smsap schedule suspend -profile _profile_name_ -schedule-name _schedulename_ [-quiet | -verbose]*`
+
+

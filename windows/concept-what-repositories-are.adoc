@@ -1,0 +1,28 @@
+---
+permalink: windows/concept-what-repositories-are.html 
+sidebar: sidebar 
+keywords: snapmanager, information, profile, repositories, repository 
+summary: SnapManager organisiert die Informationen in Profile, die dann den Repositories zugeordnet werden. Profile enthalten Informationen über die zu verwaltende Datenbank, während das Repository Daten zu den Vorgängen enthält, die auf Profilen ausgeführt werden. 
+---
+= Repositories
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager organisiert die Informationen in Profile, die dann den Repositories zugeordnet werden. Profile enthalten Informationen über die zu verwaltende Datenbank, während das Repository Daten zu den Vorgängen enthält, die auf Profilen ausgeführt werden.
+
+Das Repository zeichnet auf, wann ein Backup durchgeführt wurde, welche Dateien gesichert wurden und ob ein Klon aus dem Backup erstellt wurde. Wenn Datenbankadministratoren eine Datenbank wiederherstellen oder einen Teil davon wiederherstellen, fragt SnapManager das Repository ab, um zu ermitteln, was gesichert wurde.
+
+Da das Repository die Namen der während des Backup erstellten Datenbank-Snapshot-Kopien speichert, kann die Repository-Datenbank nicht in derselben Datenbank vorhanden sein und kann auch nicht Teil derselben Datenbank sein, die von SnapManager gesichert wird. Sie müssen mindestens zwei Datenbanken (die SnapManager Repository-Datenbank und die von SnapManager gemanagte Zieldatenbank) einrichten und ausführen, wenn Sie SnapManager Vorgänge ausführen.
+
+Wenn Sie versuchen, die grafische Benutzeroberfläche (GUI) zu öffnen, wenn die Repository-Datenbank nicht verfügbar ist, wird die folgende Fehlermeldung in der protokolliert `sm_gui.log` Datei: [WARNUNG]: `SMSAP-01106: Error occurred while querying the repository: No more data to read from socket`. Außerdem schlägt das SnapManager-Verfahren fehl, wenn die Repository-Datenbank ausfällt. Weitere Informationen zu den verschiedenen Fehlermeldungen finden Sie unter _Fehlerbehebung bekannter Probleme_.
+
+Sie können jeden beliebigen Host-Namen, Dienstnamen oder Benutzernamen verwenden, um Vorgänge auszuführen. Damit ein Repository SnapManager-Vorgänge unterstützt, müssen der Projektarchiv-Benutzername und der Dienstname nur aus den folgenden Zeichen bestehen: Alphabetische Zeichen (A-Z), Ziffern (0-9), Minuszeichen (-), Unterstrich (_) und Punkt (.).
+
+Der Repository-Port kann eine beliebige gültige Portnummer sein, und der Repository-Hostname kann einen beliebigen gültigen Hostnamen sein. Der Hostname muss aus alphabetischen Zeichen (A-Z), Ziffern (0-9), Minuszeichen (-) und Periode (.) bestehen, jedoch nicht aus einem Unterstrich (_).
+
+Das Repository muss in einer Oracle-Datenbank erstellt werden. Die von SnapManager verwendete Datenbank sollte gemäß den Oracle Verfahren für die Datenbankkonfiguration eingerichtet werden.
+
+Ein einziges Repository kann Informationen über mehrere Profile enthalten, jedoch ist jede Datenbank normalerweise nur mit einem Profil verknüpft. Sie können mehrere Repositorys haben, wobei jedes Repository mehrere Profile enthält.

@@ -1,0 +1,106 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapvault-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, integrate, snapvault, technology, archive, snapshot, copies, copy, disk, configure, intialize, data-protection, relationship, source, volume, destination, volume, initialization, data, block, preparing, prepare, storage, system, replication 
+summary: Bevor Sie die integrierte SnapVault Technologie von SnapManager zur Archivierung von Snapshot Kopien auf der Festplatte verwenden können, müssen Sie ein Datensicherungs-Verhältnis zwischen den Quell- und Ziel-Volumes konfigurieren und initialisieren. Bei der Initialisierung erstellt SnapVault eine Snapshot Kopie des Quell-Volume, überträgt dann die Kopie und alle Datenblöcke, auf die sie auf das Ziel-Volume verweist. 
+---
+= Storage-Systeme für die SnapVault-Replizierung vorbereiten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie mithilfe der integrierten SnapVault Technologie von SnapManager Snapshot Kopien auf der Festplatte archivieren können, müssen Sie eine _Datensicherungsbeziehung_ zwischen den Quell- und Ziel-Volumes konfigurieren und initialisieren. Bei der Initialisierung erstellt SnapVault eine Snapshot Kopie des Quell-Volume, überträgt dann die Kopie und alle Datenblöcke, auf die sie auf das Ziel-Volume verweist.
+
+*Was Sie brauchen*
+
+* Im SnapManager Configuration Wizard müssen Sie einen Datensatz für den primären Speicherort konfiguriert haben.
+* Alle LUNs müssen sich in qtrees befinden, bei einer LUN pro qtree.
+
+
+
+IMPORTANT: Wenn Sie Datenbankdateien und Transaktions-Logs auf verschiedenen Laufwerken speichern, müssen Sie für die Transaktions-Logs Beziehungen zwischen den Quell- und Ziel-Volumes für die Datenbankdateien sowie zwischen den Quell- und Ziel-Volumes erstellen.
+
+.Schritte
+. Aktivieren Sie SnapVault auf den Quell- und Zielsystemkonsolen:
++
+*Beispiel*
+
++
+[listing]
+----
+options snapvault.enable on
+----
+. Verwenden Sie an der Konsole des Quellsystems den `options snapvault.access` Befehl zum Festlegen der Hostnamen von Systemen, die Daten direkt aus dem Quellsystem kopieren dürfen.
++
+*Beispiel*
+
++
+Der folgende Befehl ermöglicht die Replikation zu Destination_systemB:
+
++
+[listing]
+----
+options snapvault.access host=destination_systemB
+----
+. Verwenden Sie an der Ziel-Systemkonsole das `options snapvault.access` Befehl zum Angeben der Host-Namen der Systeme, auf die kopierte Daten wiederhergestellt werden können.
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl können kopierte Daten in source_systema wiederhergestellt werden:
+
++
+[listing]
+----
+options snapvault.access host=destination_systemA
+----
+. Verwenden Sie an der Konsole des Quellsystems den `ndmpd on` Befehl zum Aktivieren von NDMP.
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird NDMP aktiviert:
+
++
+[listing]
+----
+ndmpd on
+----
+. Verwenden Sie an der Ziel-Systemkonsole das `vol create` Befehl zum Erstellen eines SnapMirror Ziel-Volume, das dieselbe oder eine größere Größe als das Quell-Volume hat.
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird ein 2 GB großes Ziel-Volume namens vol2 auf dem Aggregat aggr1 erzeugt:
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. Fügen Sie in der OnCommand Unified Manager (um) NetApp Management Console den Ressourcen-Pool für das Ziel-Volume hinzu:
++
+.. Klicken Sie auf *Daten* > *Ressourcen-Pools*, um die Seite *Ressourcen-Pools* zu öffnen.
+.. Klicken Sie auf der Seite Ressourcen-Pools auf *Hinzufügen*, um den Assistenten *Ressourcen-Pool hinzufügen* zu starten.
+.. Befolgen Sie die Anweisungen im Assistenten, um das Aggregat für das Ziel-Volume festzulegen.
+.. Klicken Sie auf *Fertig stellen*, um den Assistenten zu beenden.
+
+
+. Weisen Sie in der um NetApp Management-Konsole den Ressourcen-Pool dem Datensatz zu, den Sie im SnapManager-Konfigurationsassistenten erstellt haben:
++
+.. Klicken Sie auf *Daten* > *Datasets*, um die Seite Datensätze zu öffnen.
+.. Wählen Sie auf der Seite *Datasets* den von Ihnen erstellten Datensatz aus und klicken Sie auf *Bearbeiten*.
+.. Klicken Sie auf der Seite *Edit Dataset* auf *Backup* > *Provisioning/Resource Pools*, um den Assistenten *Configure Dataset Node* zu öffnen.
+.. Befolgen Sie die Anweisungen im Assistenten, um dem Datensatz den Ressourcen-Pool zuzuweisen.
++
+Die Ressourcen-Pool-Zuweisung bestimmt die Datensicherungsbeziehung zwischen den Quell- und Ziel-Volumes.
+
+.. Klicken Sie auf *Fertig stellen*, um den Assistenten zu beenden und die Datensicherungsbeziehung zu initialisieren.
++
+Der Initialisierungsvorgang führt einen _Baseline Transfer_ zum Ziel-Volume durch. SnapVault erstellt eine Snapshot-Kopie des Quell-Volume und überträgt dann die Kopie mit allen Datenblöcken, die er auf das Ziel-Volume verweist.
+
+
+
+

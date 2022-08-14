@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/concept-clone-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, flexclone, technology, writable, space-efficient, clone, database, modify, backup, clone 
+summary: SnapManager erstellt mithilfe der FlexClone Technologie einen beschreibbaren, platzsparenden Klon eines Datenbank-Backups. Sie können einen Klon ändern, ohne die Backup-Quelle zu ändern. 
+---
+= Datenbank-Backup-Klone
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager erstellt mithilfe der FlexClone Technologie einen beschreibbaren, platzsparenden Klon eines Datenbank-Backups. Sie können einen Klon ändern, ohne die Backup-Quelle zu ändern.
+
+Möglicherweise möchten Sie Datenbanken klonen, um Tests oder Upgrades in nicht produktiven Umgebungen zu ermöglichen. Sie können eine Datenbank mit einem primären oder sekundären Storage klonen. Ein Klon kann sich auf demselben Host oder einem anderen Host befinden wie die Datenbank.
+
+Mit der FlexClone Technologie können SnapManager Snapshot-Kopien der Datenbank verwenden, sodass keine vollständige physische Disk-to-Disk-Kopie erstellt werden muss. Snapshot Kopien benötigen weniger Erstellungszeit und belegen deutlich weniger Speicherplatz als physische Kopien.
+
+In der Data ONTAP Dokumentation finden Sie weitere Informationen zur FlexClone Technologie.
+
+*Verwandte Informationen*
+
+http://support.netapp.com/documentation/productsatoz/index.html["Data ONTAP-Dokumentation"^]

@@ -1,0 +1,31 @@
+---
+permalink: windows/task-create-or-update-post-scripts.html 
+sidebar: sidebar 
+keywords: create, post, script, default, install, directory, plugin, update 
+summary: Sie können entweder neue Post-Skripte erstellen oder die Skripte verwenden, die unter default_install_Directory\Plugins\Backup\create\post verfügbar sind. 
+---
+= Erstellen oder aktualisieren Sie die Post-Skripte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können entweder neue Post-Skripte erstellen oder die Skripte verwenden, die unter verfügbar sind `default_install_directory`\Plugins\Backup\create\post.
+
+
+
+== Über diese Aufgabe
+
+Das Skript muss so strukturiert werden, dass es im Kontext einer SnapManager Operation ausgeführt werden kann. Erstellen Sie das Skript auf der Grundlage der erwarteten Vorgänge, der verfügbaren Eingabeparameter und der Rückgabekonventionen.
+
+.Schritte
+. Erstellen Sie ein neues Skript oder verwenden Sie die verfügbaren Beispielskripte.
+. Ändern oder schließen Sie die Funktionen, Variablen und Parameter nach Bedarf an.
+. Speichern Sie das benutzerdefinierte Skript.
+. Fügen Sie den Skriptnamen und die erforderlichen Eingaben in der XML-Datei für die Aufgabe nach der Verarbeitung hinzu oder geben Sie die Eingaben aus der GUI durch Auswahl des richtigen Skripts und Eingabeparameters an.
++
+
+NOTE: Sie müssen keine sekundären Speicherdetails in der XML-Datei für die Aufgabenspezifikation angeben.
+
+

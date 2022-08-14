@@ -1,0 +1,63 @@
+---
+permalink: windows/concept-error-handling-in-custom-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, custom, script, return, code, clone, process, influence, standard, output, execution, error, handle 
+summary: SnapManager verarbeitet das benutzerdefinierte Skript auf Basis der jeweiligen Rückgabecodes. Wenn Ihr benutzerdefiniertes Skript beispielsweise den Wert 0, 1, 2 oder 3 zurückgibt, wird der Klonprozess von SnapManager fortgesetzt. Der Rückgabecode beeinflusst auch die Prozesse von SnapManager und gibt die Standardausgabe Ihrer Skriptausführung zurück. 
+---
+= Fehlerbehandlung in benutzerdefinierten Skripts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager verarbeitet das benutzerdefinierte Skript auf Basis der jeweiligen Rückgabecodes. Wenn Ihr benutzerdefiniertes Skript beispielsweise den Wert 0, 1, 2 oder 3 zurückgibt, wird der Klonprozess von SnapManager fortgesetzt. Der Rückgabecode beeinflusst auch die Prozesse von SnapManager und gibt die Standardausgabe Ihrer Skriptausführung zurück.
+
+|===
+| Rückgabecode | Beschreibung | Fahren Sie mit der Verarbeitung des Vorgangs fort 
+
+
+ a| 
+0
+ a| 
+Das Skript wurde erfolgreich abgeschlossen.
+ a| 
+Ja.
+
+
+
+ a| 
+1
+ a| 
+Das Skript wurde erfolgreich mit Informationsmeldungen abgeschlossen.
+ a| 
+Ja.
+
+
+
+ a| 
+2
+ a| 
+Das Skript wurde abgeschlossen, enthält jedoch Warnungen
+ a| 
+Ja.
+
+
+
+ a| 
+3
+ a| 
+Das Skript schlägt fehl, der Vorgang wird jedoch fortgesetzt.
+ a| 
+Ja.
+
+
+
+ a| 
+4 oder >4
+ a| 
+Das Skript schlägt fehl, und der Vorgang wird beendet.
+ a| 
+Nein
+
+|===

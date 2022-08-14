@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsapprofile-dump-command.html 
+sidebar: sidebar 
+keywords: run, profile, dump, command, create, jar, file, contain, diagnostic, information, smsap 
+summary: Sie können den Profildump-Befehl ausführen, um die .jar-Datei zu erstellen, die Diagnoseinformationen zu einem Profil enthält. 
+---
+= Der Befehl smsap Profile dump
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `profile dump` Befehl zum Erstellen des `.jar` Datei, die Diagnoseinformationen zu einem Profil enthält.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile dump
+-profile _profile_name_
+[-quiet | -verbose]]
+----
+
+
+== Parameter
+
+* ``*-profile _profile_name_*``
++
+Gibt das Profil an, für das Sie die Speicherauszugsdateien erstellen möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* ``*-quiet*``
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* ``*-verbose*``
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an. ----
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel wird ein Dump für das Profil SALES1 erstellt:
+
+[listing]
+----
+smsap profile dump -profile SALES1
+Dump file created
+Path:/userhomedirectory/.netapp/smsap/3.3.0/smsap_dump_SALES1_hostname.jar
+----
+'''

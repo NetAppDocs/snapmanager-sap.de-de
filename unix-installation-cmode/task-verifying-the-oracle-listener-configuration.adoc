@@ -1,0 +1,27 @@
+---
+permalink: unix-installation-cmode/task-verify-the-oracle-listener-configuration.html 
+sidebar: sidebar 
+keywords: listener, process, listen, client, connection, request, receive, income, connection, request, traffic, database, target, repository, status, command, configuration, verify, oracle 
+summary: Der Listener ist ein Prozess, der Client-Verbindungsanforderungen abhört. Es empfängt eingehende Client-Verbindungsanfragen und verwaltet den Datenverkehr dieser Anfragen an die Datenbank. Bevor Sie eine Verbindung zu einer Zieldatenbank oder einer Repository-Datenbankinstanz herstellen, können Sie mit dem STATUS-Befehl die Listener-Konfiguration überprüfen. 
+---
+= Überprüfen Sie die Oracle Listener-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Listener ist ein Prozess, der Client-Verbindungsanforderungen abhört. Es empfängt eingehende Client-Verbindungsanfragen und verwaltet den Datenverkehr dieser Anfragen an die Datenbank. Bevor Sie eine Verbindung zu einer Zieldatenbank oder einer Repository-Datenbankinstanz herstellen, können Sie das verwenden `STATUS` Befehl zum Überprüfen der Listener-Konfiguration.
+
+
+
+== Über diese Aufgabe
+
+Der `STATUS` Der Befehl zeigt grundlegende Statusinformationen zu einem bestimmten Listener an, einschließlich einer Zusammenfassung der Listener-Konfigurationseinstellungen, Listener-Protokolladressen und einer Zusammenfassung der bei diesem Listener registrierten Dienste.
+
+.Schritt
+. Geben Sie an der Eingabeaufforderung den folgenden Befehl ein: `*lsnrctl STATUS*`
++
+Der dem Listener-Port zugewiesene Standardwert ist 1521.
+
+

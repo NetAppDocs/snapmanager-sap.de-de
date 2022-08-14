@@ -1,0 +1,61 @@
+---
+permalink: windows/task-configuring-summary-e-mail-notification-for-multiple-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, configure, summary, email, notification, multiple, profile, repository, database, configuring 
+summary: Mit SnapManager können Sie eine E-Mail-Benachrichtigung für mehrere Profile unter einer Repository-Datenbank konfigurieren. 
+---
+= Konfigurieren einer E-Mail-Benachrichtigung mit Zusammenfassung für mehrere Profile
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie eine E-Mail-Benachrichtigung für mehrere Profile unter einer Repository-Datenbank konfigurieren.
+
+Sie können den SnapManager-Server-Host als Benachrichtigungs-Host festlegen, von dem aus die zusammenfassende Benachrichtigung E-Mail an die Empfänger gesendet wird. Wenn der Hostname oder die IP-Adresse des SnapManager-Servers geändert wird, kann auch der Benachrichtigungs-Host aktualisiert werden.
+
+Sie können eine der Zeitplanzeiten auswählen, zu denen Sie eine E-Mail-Benachrichtigung benötigen:
+
+* Stündlich: Um jede Stunde eine E-Mail-Benachrichtigung zu erhalten
+* Täglich: Um täglich eine E-Mail-Benachrichtigung zu erhalten
+* Wöchentlich: Um wöchentlich eine E-Mail-Benachrichtigung zu erhalten
+* Monatlich: Um monatlich eine E-Mail-Benachrichtigung zu erhalten
+
+
+Sie müssen eine einzelne E-Mail-Adresse oder eine kommagetrennte Liste von E-Mail-Adressen eingeben, um Benachrichtigungen für Vorgänge zu erhalten, die mit diesen Profilen durchgeführt werden. Wenn Sie mehrere E-Mail-Adressen eingeben, müssen Sie sicherstellen, dass zwischen Komma und der nächsten E-Mail-Adresse kein Leerzeichen vorhanden ist.
+
+
+NOTE: Sie müssen sicherstellen, dass Sie den Satz von mehreren E-Mail-Adressen in doppelte Anführungszeichen eingeben.
+
+SnapManager ermöglicht Ihnen das Hinzufügen eines benutzerdefinierten E-Mail-Betreff unter Verwendung der folgenden Variablen:
+
+* Profilname, der für den Datenbankvorgang verwendet wird.
+* Datenbankname
+* SID der Datenbank
+* Name des Hostservers
+* Startzeit des Datenbankvorgangs im Format yyyymmdd:hh:ss
+* Endzeit des Datenbankvorgangs im Format yyyyymmdd:hh:ss
+* Status des Datenbankvorgangs
+
+
+Wenn Sie kein angepasstes Thema hinzufügen möchten, zeigt SnapManager eine Fehlermeldung an: Missing value -subject.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`+smsap notification update-summary-notification -repository-portrepo_port-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-emailemail_address1,email_address2-subjectsubject-pattern-frequency {-daily-timedaily_time | -hourly-timehourly_time | -monthly-timemonthly_time-date {1|2...|31} | -weekly-timeweekly_time-day {1|2|3|4|5|6|7}} -profilesprofile1profile2-notification-hostnotification-host+`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+[-Force] [-noprompt]
+
++
+[quiet | -verbose]
+----
+
+smsap notification update-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5 –email-address admin@org.com –subject success –frequency -daily -time 19:30:45 –profiles sales1 -notification-host wales
+----
+

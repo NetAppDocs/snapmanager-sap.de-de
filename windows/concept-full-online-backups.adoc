@@ -1,0 +1,36 @@
+---
+permalink: windows/concept-full-online-backups.html 
+sidebar: sidebar 
+keywords: full, online, backup, snapmanager, back up, database, create, snapshot, copies, copy, volume, level, tablespace 
+summary: 'Während eines vollständigen Online-Backups sichert SnapManager die gesamte Datenbank und erstellt Snapshot-Kopien auf Volume-Ebene (nicht auf Ebene der Tablespaces).' 
+---
+= Vollständige Online-Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Während eines vollständigen Online-Backups sichert SnapManager die gesamte Datenbank und erstellt Snapshot-Kopien auf Volume-Ebene (nicht auf Ebene der Tablespaces).
+
+SnapManager erstellt für jedes Backup zwei Snapshot-Kopien. Wenn sich alle von der Datenbank benötigten Dateien in einem einzigen Volume befinden, werden beide Snapshot-Kopien in diesem Volume angezeigt.
+
+Wenn Sie eine vollständige Sicherung angeben, führt SnapManager die folgenden Aktionen durch:
+
+.Schritte
+. Platziert die gesamte Datenbank in den Online-Backup-Modus
+. Erstellt Snapshot Kopien aller Volumes, die Datenbankdateien enthalten
+. Modus für Online-Backups wird die Datenbank aus dem Online-Backup entfernt
+. Erzwingt einen Protokollschalter und archiviert dann die Protokolldateien
++
+Dies überträgt auch die Redo-Informationen auf die Festplatte.
+
+. Generiert Backup-Kontrolldateien
+. Erstellt eine Snapshot Kopie der Log-Dateien und der Backup-Kontrolldateien
+
+
+Während eines vollständigen Backups wird die gesamte Datenbank von SnapManager in den Online-Backup-Modus versetzt. Ein einzelner Tablespace (z. B. `E:\data\system.data1`) Befindet sich im Online-Backup-Modus länger als bestimmte Tabellen oder Datendateien, die angegeben wurden.
+
+Wenn eine Datenbank in den Backup-Modus wechselt, schreibt Oracle ganze Blöcke in die Protokolle und schreibt nicht nur das Delta zwischen Backups. Da Datenbanken im Online Backup-Modus mehr Arbeit leisten, stellt die Auswahl eines vollständigen Backups eine größere Last für den Host dar.
+
+Obwohl die Durchführung vollständiger Backups eine größere Belastung des Hosts bewirkt, benötigen vollständige Backups weniger Snapshot-Kopien, was zu weniger Storage-Anforderungen führt.

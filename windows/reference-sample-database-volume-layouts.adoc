@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-sample-database-volume-layouts.html 
+sidebar: sidebar 
+keywords: refer, sample, database, volume, layout, configure 
+summary: Weitere Informationen finden Sie unter Beispiel-Datenbank-Volume-Layouts für die Konfiguration Ihrer Datenbank.Beispiel-Datenbank-Volume-Layouts 
+---
+= Beispiel für Datenbank-Volume-Layouts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Weitere Informationen zur Konfiguration Ihrer Datenbank finden Sie unter Beispiel-Datenbank-Volume-Layouts.
+
+
+
+== Single-Instance-Datenbanken
+
+|===
+| Dateitypen | Volume-Namen | Dediziertes Volume für Dateitypen | Automatische Snapshot Kopien 
+
+
+ a| 
+Oracle-Binärdateien
+ a| 
+Orabin_ `_host name_`
+ a| 
+Ja.
+ a| 
+Ein
+
+
+
+ a| 
+Datendateien
+ a| 
+Oradata_ `_sid_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Temporäre Datendateien
+ a| 
+Oratep_ `_sid_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Kontrolldateien
+ a| 
+Oracntrl01_ `_sid_` (Multipliziert)
+
+Oracntrl02_ `_sid_` (Multipliziert)
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Wiederherstellungsprotokolle
+ a| 
+Oralogen01_ `_sid_` (Multipliziert)
+
+Oralogen02_ `_sid_` (Multipliziert)
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Archivprotokolle
+ a| 
+Oraarch_ `_sid_`
+ a| 
+Ja.
+ a| 
+Aus
+
+|===

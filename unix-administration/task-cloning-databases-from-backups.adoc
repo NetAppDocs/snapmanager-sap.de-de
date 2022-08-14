@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-clone-databases-from-backups.html 
+sidebar: sidebar 
+keywords: clone, database, backup, create, command, cloning 
+summary: Sie können eine Datenbank aus einer Sicherung klonen, indem Sie den Befehl „Clone create“ verwenden. 
+---
+= Klonen von Datenbanken aus Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Datenbank aus einer Sicherung mit klonen `clone create` Befehl.
+
+*Über diese Aufgabe*
+
+Sie müssen zuerst eine Klon-Spezifikations-Datei für die Datenbank erstellen. SnapManager erstellt den Klon auf der Grundlage der Informationen in dieser Spezifikationsdatei.
+
+Nachdem Sie eine Datenbank geklont haben, möchten Sie Ihr möglicherweise aktualisieren `tnsnames.ora` Dateien auf Ihren Client-Rechnern mit den neuen geklonten Informationen zur Datenbankverbindung. Der `tnsnames.ora` Dateien werden verwendet, um eine Verbindung zu einer Oracle Instanz herzustellen, ohne dass die vollständigen Datenbankinformationen angegeben werden müssen. SnapManager aktualisiert das nicht `tnsnames.ora` Dateien:
+
+SnapManager erstellt immer eine Sicherung einschließlich Archiv-Log-Dateien, wenn Sie das mit erstellte Profil verwenden `-include-with-online-backups`. SnapManager ermöglicht Ihnen das Klonen nur der vollständigen Datenbank-Backups.
+
+SnapManager (3.2 oder höher) ermöglicht Ihnen, die Backups zu klonen, die die Datendateien und archivierte Log-Dateien enthalten.
+
+Wenn das Archivprotokoll von einem externen Standort aus verfügbar ist, können Sie beim Klonen den externen Standort angeben, um die geklonte Datenbank in einen konsistenten Status wiederherzustellen. Sie müssen sicherstellen, dass Oracle auf den externen Speicherort zugreifen kann. Das Klonen der rein archivprotokollbasierten Backups wird nicht unterstützt.
+
+Obwohl das Backup des Archivprotokolls zusammen mit dem Online-Backup eines partiellen Backups erstellt wird, können Sie mit diesem Backup keinen Datenbankklon erstellen.
+
+Sie können die Datenbanksicherung vom Speicherort der externen Archivprotokolldatei nur für eine eigenständige Datenbank klonen.
+
+Das Klonen der Online-Datenbanksicherung der RAC-Datenbank (Real Application Clusters) unter Verwendung des Speicherorts für externe Archivprotokolldateien schlägt aufgrund eines Fehlers bei der Wiederherstellung fehl. Dies liegt daran, dass die Oracle Datenbank während des Klonens des Datenbank-Backups die Archivprotokolldateien nicht für die Recovery vom externen Speicherort des Archivierungsprotokolls findet und wendet sie an.
+
+Sie können den angeben `-dump` Option als optionaler Parameter zum Sammeln der Dump-Dateien nach dem erfolgreichen oder fehlgeschlagenen Klonerstellung.
+
+*Datendatei-Backup ohne Archiv-Log-Backup* klonen
+
+Wenn die Datensicherung der Datendateien nicht das Archiv-Log-Backup umfasst, klont SnapManager for SAP die Datenbank auf Basis der während des Backups aufgezeichneten Systemänderungsnummer (SCN). Wenn die geklonte Datenbank nicht wiederhergestellt werden kann, führt der ein `Archived log file for thread <number> and change <SCN> required to complete recovery` Fehlermeldung wird angezeigt, obwohl SnapManager für SAP weiterhin die Datenbank klont, und schließlich gelingt es, den Klon zu erstellen.
+
+Beim Klonen unter Verwendung der Datendateien Backup ohne Einbindung des Archivprotokolls stellt SnapManager die geklonte Datenbank bis zum letzten Archivprotokoll-SCN wieder her, das während des Backups aufgezeichnet wird.
+
+.Schritte
+. Erstellen einer Clone Specification File.
+. Geben Sie zum Erstellen eines Klons den folgenden Befehl ein:
++
+`*smsap clone create-backup-label _backup_name_ -newsid _new_sid_ -label _clone_label_ -profile _profile_name_ -clonespec _full_path_to_clonespecfile_ [-taskspec _taskspec_] [-recover-from-location] _path1 [,<path2>...]_] [-dump]*`
+
+

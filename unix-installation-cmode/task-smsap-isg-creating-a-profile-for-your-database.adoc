@@ -1,0 +1,171 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-create-a-profile-for-your-database.html 
+sidebar: sidebar 
+keywords: create, profile, database, perform, operation, contain, information, reference, multiple 
+summary: Sie müssen ein Profil erstellen, damit Ihre Datenbank alle Vorgänge in dieser Datenbank ausführen kann. Das Profil enthält Informationen über die Datenbank und kann nur auf eine Datenbank verweisen. Eine Datenbank kann jedoch durch mehrere Profile referenziert werden. Ein Backup, das mit einem Profil erstellt wird, kann nicht von einem anderen Profil aus aufgerufen werden, auch wenn beide Profile mit derselben Datenbank verknüpft sind. 
+---
+= Erstellen Sie ein Profil für Ihre Datenbank
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen ein Profil erstellen, damit Ihre Datenbank alle Vorgänge in dieser Datenbank ausführen kann. Das Profil enthält Informationen über die Datenbank und kann nur auf eine Datenbank verweisen. Eine Datenbank kann jedoch durch mehrere Profile referenziert werden. Ein Backup, das mit einem Profil erstellt wird, kann nicht von einem anderen Profil aus aufgerufen werden, auch wenn beide Profile mit derselben Datenbank verknüpft sind.
+
+
+
+== Was Sie benötigen
+
+Sie müssen sicherstellen, dass die Details der Zieldatenbank in enthalten sind `/etc/oratab` Datei:
+
+
+
+== Über diese Aufgabe
+
+Mit diesen Schritten wird die Erstellung eines Profils für Ihre Datenbank mithilfe der SnapManager-Benutzeroberfläche erläutert. Sie können auch die CLI verwenden, wenn Sie es bevorzugen.
+
+Informationen zum Erstellen von Profilen mithilfe der CLI finden Sie im Handbuch _SnapManager for SAP Administration for UNIX_.
+
+.Schritte
+. Klicken Sie in der Repository-Struktur mit der rechten Maustaste auf das Repository oder den Host und wählen Sie *Profil erstellen* aus.
+. Geben Sie auf der Seite *Profile Configuration Information* den benutzerdefinierten Namen und das Kennwort für das Profil ein.
+. Geben Sie auf der Seite *Datenbankkonfigurationsinformationen* die folgenden Informationen ein:
++
+|===
+| In diesem Feld... | Tun Sie das... 
+
+
+ a| 
+*Datenbankname*
+ a| 
+Geben Sie den Namen der Datenbank ein, die Sie sichern möchten.
+
+
+
+ a| 
+* Datenbank-SID*
+ a| 
+Geben Sie die sichere ID (SID) der Datenbank ein. Der Datenbankname und die Datenbank-SID können identisch sein.
+
+
+
+ a| 
+*Gastgeber*
+ a| 
+Geben Sie die IP-Adresse des Hosts ein, auf dem sich die Zieldatenbank befindet. Sie können auch den Hostnamen angeben, wenn der Hostname im Domain Name System (DNS) angegeben ist.
+
+
+
+ a| 
+*Host-Konto*
+ a| 
+Geben Sie den Oracle-Benutzernamen der Zieldatenbank ein. der Standardwert für den Benutzer ist oracle.
+
+
+
+ a| 
+*Host-Gruppe*
+ a| 
+Geben Sie den Namen der Oracle-Benutzergruppe ein. Der Standardwert ist dba.
+
+|===
+. Wählen Sie auf der Seite *Datenbankverbindungsinformationen* eine der folgenden Optionen aus:
++
+|===
+| Wählen Sie diese Option... | Ihr Ziel ist 
+
+
+ a| 
+*O/S-Authentifizierung verwenden*
+ a| 
+Verwenden Sie die vom Betriebssystem gepflegten Anmeldeinformationen, um Benutzer zu authentifizieren, die auf die Datenbank zugreifen.
+
+
+
+ a| 
+*Datenbankauthentifizierung Verwenden*
+ a| 
+Erlauben Sie Oracle, einen administrativen Benutzer mithilfe der Authentifizierung von Kennwortdateien zu authentifizieren. Geben Sie die entsprechenden Informationen zur Datenbankverbindung ein.
+
+** Geben Sie im Feld *SYSDBA Privileged User Name* den Namen des Datenbankadministrators mit Administratorrechten ein.
+** Geben Sie im Feld *Passwort* das Passwort des Datenbankadministrators ein.
+** Geben Sie im Feld *Port* die Portnummer ein, die für die Verbindung mit dem Host verwendet wird, auf dem sich die Datenbank befindet.
++
+Der Standardwert ist 1527.
+
+
+
+
+
+ a| 
+*Verwendung der ASM-Instanz-Authentifizierung*
+ a| 
+Zulassen, dass die ASM-Datenbankinstanz einen administrativen Benutzer authentifiziert. Geben Sie die entsprechenden Authentifizierungsdaten für die ASM-Instanz ein.
+
+** Geben Sie im Feld *SYSDBA/SYSASM Privileged User Name* den Benutzernamen des ASM-Instanzadministrators mit Administratorrechten ein.
+** Geben Sie im Feld *Passwort* das Passwort des Administrators ein.
+
+
+|===
++
+[NOTE]
+====
+Sie können den ASM-Authentifizierungsmodus nur auswählen, wenn Sie eine ASM-Instanz auf dem Datenbank-Host haben.
+
+====
+. Wählen Sie auf der Seite *RMAN-Konfigurationsinformationen* eine der folgenden Optionen aus:
++
+|===
+| Wählen Sie diese Option... | Wenn... 
+
+
+ a| 
+***Verwenden Sie nicht RMAN***
+ a| 
+Sie verwenden RMAN nicht für das Management von Backup- und Restore-Vorgängen.
+
+
+
+ a| 
+***Verwenden Sie RMAN über die Steuerdatei***
+ a| 
+Sie verwalten das RMAN-Repository mit Steuerdateien.
+
+
+
+ a| 
+***Verwenden Sie RMAN über den Wiederherstellungskatalog***
+ a| 
+Sie verwalten das RMAN-Repository mithilfe der Recovery-Katalogdatenbank. Geben Sie den Benutzernamen ein, der Zugriff auf die Datenbank des Wiederherstellungspatalogs, das Kennwort und den Oracle-Nettodienstnamen der Datenbank hat, die die TNS-Verbindung (Transparent Network Substrat) verwaltet.
+
+|===
+. Wählen Sie auf der Seite *Snapshot Naming Information* die Variablen aus, um ein Benennungsformat für die Snapshot Kopie anzugeben.
++
+Sie müssen die smid-Variable in das Benennungsformat aufnehmen. Die Variable _smid_ erstellt eine eindeutige Snapshot-Kennung.
+
+. Führen Sie auf der Seite *Richtlinieneinstellungen* folgende Schritte aus:
++
+.. Geben Sie Anzahl und Dauer der Aufbewahrung für jede Aufbewahrungsklasse ein.
+.. Wählen Sie aus der Dropdown-Liste *Schutzrichtlinie* die Schutzrichtlinie aus.
++
+Je nachdem, ob SnapMirror oder SnapVault Beziehung aufgebaut ist, müssen Sie entweder _SnapManager_cDOT_Mirror_ oder _SnapManager_cDOT_Vault_ Richtlinien auswählen.
+
+.. Wenn Sie Archivprotokolle separat sichern möchten, aktivieren Sie das Kontrollkästchen *Archivprotokolle separat sichern*, legen Sie die Aufbewahrung fest und wählen Sie die Schutzrichtlinie aus.
++
+Sie können eine Richtlinie auswählen, die sich von der für Datendateien verknüpften Richtlinie unterscheidet. Wenn Sie beispielsweise _SnapManager_cDOT_Mirror_ für Datendateien ausgewählt haben, können Sie _SnapManager_cDOT_Vault_ für Archivprotokolle auswählen.
+
+
+
+. Geben Sie auf der Seite *Benachrichtigungseinstellungen konfigurieren* die Einstellungen für E-Mail-Benachrichtigungen an.
+. Wählen Sie auf der Seite *Verlauf Konfigurationsdaten* eine der Optionen aus, um den Verlauf der SnapManager-Vorgänge beizubehalten.
+. Überprüfen Sie auf der Seite *Vorgang erstellen* die Informationen und klicken Sie auf *Erstellen*.
+. Klicken Sie auf *Fertig stellen*, um den Assistenten zu schließen.
++
+Wenn der Vorgang fehlschlägt, klicken Sie auf *Betriebsdetails*, um anzuzeigen, was den Vorgang zum Scheitern verurteilt hat.
+
+
+
+*Verwandte Informationen*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["SnapManager 3.4.1 für SAP – Administratorhandbuch für UNIX"^]

@@ -1,0 +1,38 @@
+---
+permalink: windows/concept-advantages-of-using-snapmanager.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, database, manage, data, advantage, use 
+summary: Mit SnapManager für SAP können verschiedene Aufgaben an den Datenbanken ausgeführt und Daten effizient gemanagt werden. 
+---
+= Vorteile von SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager für SAP können verschiedene Aufgaben an den Datenbanken ausgeführt und Daten effizient gemanagt werden.
+
+SnapManager für SAP arbeitet mit Storage-Systemen zusammen und ermöglicht die folgenden Aufgaben:
+
+* Erstellen Sie platzsparende Backups auf primärem oder sekundärem Storage und planen Sie Backups.
++
+Sie können vollständige und teilweise Datenbank-Backups erstellen und Richtlinien für die Aufbewahrungsdauer anwenden.SnapManager (3.2 oder höher) ermöglicht Ihnen, nur die Datendateien und Archivprotokolle zu erstellen.
+
++
+** SnapManager (3.2 oder höher) ermöglicht die Vorverarbeitung bzw. Nachbearbeitung der Backup- und Restore-Vorgänge vor oder nach der Durchführung.
+** SnapManager (3.2 oder höher) ermöglicht Ihnen den Schutz von Backups mithilfe der Nachbearbeitungsskripte.
+
+
+* Stellen Sie vollständige oder teilweise Datenbanken mithilfe des dateibasierten Wiederherstellungsvorgangs wieder her.
+* Automatisches Wiederherstellen und Wiederherstellen von Datenbank-Backups.
++
+SnapManager (3.2 oder höher) ermöglicht die automatische Wiederherstellung und Wiederherstellung von Datenbank-Backups. SnapManager stellt die wiederhergestellte Datenbank automatisch wieder her, indem die Archiv-Log-Dateien aus den Backups erkannt, Mounten und angewendet werden.
+
+* Bei der Erstellung von Backups nur für die Archivprotokolle Archivprotokolldateien aus den Archivprotokollzielen abschneiden.
+* Bewahren Sie die minimale Anzahl von Backups für Archivprotokolle automatisch auf, indem Sie nur die Backups mit einzigartigen Archivprotokolldateien aufbewahren.
+* Verfolgen Sie die Betriebsdetails und erstellen Sie Berichte nach Host, Profil, Backup oder Klon.
+* Überprüfen Sie den Backup-Status.
+* Historie der einem Profil zugehörigen SnapManager Vorgänge beibehalten
+* Erstellung platzsparender Backup-Klone auf dem Primärspeicher
+

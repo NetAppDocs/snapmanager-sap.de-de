@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/task-enable-role-based-access-control.html 
+sidebar: sidebar 
+keywords: snapmanager, role-based, access, control, rbac, enable, snapdrive, installation, disable, default, operation 
+summary: 'Die rollenbasierte Zugriffssteuerung (Role Based Access Control, RBAC) von SnapManager wird mithilfe von SnapDrive aktiviert. Bei der Installation von SnapDrive ist die RBAC standardmäßig deaktiviert. Nachdem Sie die RBAC in SnapDrive aktiviert haben, führt SnapManager dann alle Vorgänge mit aktivierter rollenbasierter Zugriffssteuerung durch.' 
+---
+= Rollenbasierte Zugriffssteuerung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die rollenbasierte Zugriffssteuerung (Role Based Access Control, RBAC) von SnapManager wird mithilfe von SnapDrive aktiviert. Bei der Installation von SnapDrive ist die RBAC standardmäßig deaktiviert. Nachdem Sie die RBAC in SnapDrive aktiviert haben, führt SnapManager dann alle Vorgänge mit aktivierter rollenbasierter Zugriffssteuerung durch.
+
+*Über diese Aufgabe*
+
+Der `snapdrive.config` File in SnapDrive bietet viele Optionen, von denen eine die RBAC unterstützt.
+
+Die SnapDrive-Dokumentation enthält Details zum SnapDrive.
+
+.Schritte
+. Öffnen Sie das `snapdrive.conf` Datei in einem Editor.
+. RBAC wird im Wert der Cloud ermöglicht `rbac-method` Parameter von `*native*` Bis `*dfm*`.
++
+Der Standardwert für diesen Parameter ist `*native*`, Die RBAC deaktiviert.
+
+
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site"^]

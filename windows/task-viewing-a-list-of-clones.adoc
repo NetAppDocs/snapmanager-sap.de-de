@@ -1,0 +1,36 @@
+---
+permalink: windows/task-viewing-a-list-of-clones.html 
+sidebar: sidebar 
+keywords: view, list, clone, associate, particular, profile 
+summary: Sie können eine Liste von Klonen anzeigen, die mit einem bestimmten Profil verknüpft sind. 
+---
+= Anzeigen einer Liste von Klonen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Liste von Klonen anzeigen, die mit einem bestimmten Profil verknüpft sind.
+
+Die Liste enthält die folgenden Informationen über die Klone in einem Profil:
+
+* Die ID für den Klon
+* Der Status des Klonvorgangs
+* Oracle SID für den Klon
+* Host, auf dem sich der Klon befindet
+* Etikett für den Klon
+
+
+Wenn Sie die Option -verbose angeben, werden in der Ausgabe auch die Kommentare für den Klon angezeigt.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um eine Liste aller Klone für ein Profil anzuzeigen:
++
+`smsap clone list -profileprofile_name [-quiet | -verbose]`
+
+
+
+*Verwandte Informationen*
+
+xref:reference-the-smosmsapclone-list-command.adoc[Der Befehl smsap Clone list]

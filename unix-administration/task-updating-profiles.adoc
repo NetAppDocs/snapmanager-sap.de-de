@@ -1,0 +1,157 @@
+---
+permalink: unix-administration/task-update-profiles.html 
+sidebar: sidebar 
+keywords: update, profile, modify, password, database, operating, system, os, authentication, updating, information, host, database, oracle, updating 
+summary: 'Sie können die Profile aktualisieren, um das Profilkennwort, die Anzahl der zu behaltenden Backups, den Zugriff auf die Datenbank, die Betriebssystemauthentifizierung (OS) auf die Datenbankauthentifizierung und umgekehrt sowie Informationen zum Host zu ändern. Wenn sich die Kennwortinformationen der Oracle-Datenbank ändern, müssen Sie diese Informationen auch im Profil ändern.' 
+---
+= Profile aktualisieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Profile aktualisieren, um das Profilkennwort, die Anzahl der zu behaltenden Backups, den Zugriff auf die Datenbank, die Betriebssystemauthentifizierung (OS) auf die Datenbankauthentifizierung und umgekehrt sowie Informationen zum Host zu ändern. Wenn sich die Kennwortinformationen der Oracle-Datenbank ändern, müssen Sie diese Informationen auch im Profil ändern.
+
+*Über diese Aufgabe*
+
+Wenn die Schutzrichtlinie für das Profil aktiviert ist, kann die Richtlinie nicht über SnapManager geändert werden. Der Storage-Administrator muss die Richtlinie über die Konsole von Protection Manager ändern.
+
+Mit SnapManager (3.2 oder höher) können Sie das Profil aktualisieren, um Archiv-Log-Backups von den Datensicherungen der Datendatei mit dem zu trennen `-separate-archivelog-backups` Option. Sie können eine separate Aufbewahrungsdauer und eine Sicherungsrichtlinie für das Backup des Archivprotokolls festlegen. Mit SnapManager können Sie das Archivprotokoll-Backup zusammen mit dem Online-Datenbank-Backup einbeziehen. Außerdem können Sie zum Klonen eine Online-Datendatei-Backup- und ein Archivprotokoll-Backup erstellen. Wenn Sie eine Sicherung von Online-Datendateien erstellen, werden die Archivprotokolle sofort zusammen mit den Datendateien erstellt.
+
+.Schritte
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap profile update -profile _profile_ [-new-profile _new_profile_name_] [-profile-password _profile_password_][-database-dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_][-asminstance -asmusername _asminstance_username_ -asmpassword _asminstance_password_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_}}} | -remove-rman]-osaccount _osaccount_ -osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname -pattern _pattern_][[-protect [-protection-policy _policy_name_]]| [[-noprotect]] [-summary-notification] [-notification [-success-email _email_address1, email_address2_ -subject _subject_pattern_] [-failure-email _email_address1, email_address2_ -subject _subject_pattern_]] [-separate-archivelog-backups-retain-archivelog-backups-hours _hours_ | -days _days_ | -weeks _weeks_| -months _months_ [-protect [-protection-policy _policy_name_] | -noprotect] [-include-with-online-backups | -no-include-with-online-backups]] [-dump]*`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+``[-force] [-noprompt]``
+
++
+``[-quiet | verbose]``
+
++
+[cols="2a,4a"]
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Ändern Sie das Profil, um die Betriebssystemauthentifizierung zu verwenden*
+ a| 
+Geben Sie Folgendes an, anstatt den Benutzernamen, das Passwort und den Port hinzuzufügen:
+
+** `-osaccount _account_name_` Als Name des Betriebssystemkontos
+** `-osgroup _osgroup_` Als Gruppe, die mit dem Betriebssystemkonto verknüpft ist, wird normalerweise das Konto verwendet, um Oracle zu installieren
+
+
+
+
+ a| 
+*Verwenden Sie die Authentifizierung der Automatic Storage Management (ASM)-Instanz, um das Profil zu erstellen*
+ a| 
+Geben Sie die Anmeldeinformationen für die Authentifizierung der ASM-Instanz an.
+
+** `-asmusername _asminstance_username_` Ist der Benutzername, der zur Anmeldung bei der ASM-Instanz verwendet wird.
+** `-asmpassword _asminstance_password_` Ist das Passwort, das zur Anmeldung bei der ASM-Instanz verwendet wird.
+
+
+
+
+ a| 
+*Verwenden Sie einen Katalog als Oracle Recovery Manager (RMAN)-Repository oder Sie möchten RMAN* entfernen
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** `-tnsname _tnsname_` Wie der im definierte tnsname `tnsnames.ora` Datei:
+** `-login -username _username_` Als Benutzername, der für die Verbindung zum RMAN-Katalog erforderlich ist.
++
+Wenn nicht angegeben, verwendet SnapManager die Authentifizierungsdaten des Betriebssystems. Sie können die Betriebssystemauthentifizierung nicht mit RAC-Datenbanken (Real Application Clusters) verwenden.
+
+** `-password _password_` Als RMAN-Kennwort für die Verbindung mit dem RMAN-Katalog.
+** `-controlfile` Wenn Sie die Steuerdatei als RMAN-Repository verwenden.
+** `-remove-rman` Um RMAN zu entfernen.
+
+
+
+
+ a| 
+*Ändern Sie die Backup Retention Policy für Backups der Datenbank im Profil*
+ a| 
+Geben Sie entweder den Aufbewahrungszeitraum oder die Aufbewahrungsdauer für eine Aufbewahrungsklasse oder beides an, um die Aufbewahrungsrichtlinie zu ändern. Die Dauer ist in Einheiten der Klasse (z. B. Stunden für Stunde, Tage für Tag).
+
+** `-hourly` Ist die Stunde Aufbewahrungsklasse, wofür `[-count _n_] [-duration _m_]]` Zählen jeweils die Aufbewahrungsdauer und die Aufbewahrungsdauer.
+** `-daily` Ist die tägliche Aufbewahrungsklasse, für die `[-count _n_] [-duration _m_]]` Zählen jeweils die Aufbewahrungsdauer und die Aufbewahrungsdauer.
+** `-weekly` Ist die wöchentliche Aufbewahrungsklasse, für die `[-count _n_] [-duration _m_]]` Zählen jeweils die Aufbewahrungsdauer und die Aufbewahrungsdauer.
+** `-monthly` Ist die monatliche Aufbewahrungsklasse, für die `[-count _n_] [-duration _m_]]` Zählen jeweils die Aufbewahrungsdauer und die Aufbewahrungsdauer.
+
+
+
+
+ a| 
+*Sicherer Schutz für das Profil deaktivieren*
+ a| 
+Angeben `-noprotect` So schützen Sie die mit dem Profil erstellten Datenbank-Backups nicht. Für ein Profil, das hatte `-protect` Aktiviert. Wenn Sie den Schutz deaktivieren möchten, wird eine Warnmeldung angezeigt, die besagt, dass diese Aktion den Datensatz löscht und Sie keine Backups für dieses Profil wiederherstellen oder klonen können.
+
+
+
+ a| 
+*E-Mail-Benachrichtigungen für den Abschlussstatus der Datenbankvorgänge* aktivieren
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** `-summary-notification` Ermöglicht die Konfiguration einer E-Mail-Benachrichtigung für mehrere Profile unter einer Repository-Datenbank.
+** `-notification` Hiermit erhalten Sie eine E-Mail-Benachrichtigung über den Abschlussstatus des Datenbankvorgangs für ein Profil.
+** `-success -email _email_address2_` Hiermit erhalten Sie eine E-Mail-Benachrichtigung, nachdem Sie einen erfolgreichen Datenbankvorgang abgeschlossen haben, der mit einem neuen oder einem vorhandenen Profil durchgeführt wird.
+** `-failure -email _email_address2_` Hiermit erhalten Sie eine E-Mail-Benachrichtigung über einen fehlgeschlagenen Datenbankvorgang, der mit einem neuen oder einem vorhandenen Profil durchgeführt wird.
+** `-subject _subject_text_` Gibt den Subjekttext für die E-Mail-Benachrichtigung an, während ein neues Profil oder ein vorhandenes Profil erstellt wird. Wenn die Benachrichtigungseinstellungen nicht für das Repository konfiguriert sind und Sie versuchen, Profile- oder Übersichtsbenachrichtigungen mithilfe der Befehlszeilenschnittstelle (CLI) zu konfigurieren, wird die folgende Meldung im Konsolenprotokoll protokolliert: `SMSAP-14577: Notification Settings not configured`.
++
+Wenn Sie die Benachrichtigungseinstellungen konfiguriert haben und versuchen, eine zusammenfassende Benachrichtigung mithilfe der CLI zu konfigurieren, ohne dass eine zusammenfassende Benachrichtigung für das Repository aktiviert wird, wird die folgende Meldung im Konsole-Protokoll protokolliert: `SMSAP-14575: Summary notification configuration not available for this repository`
+
+
+
+
+
+ a| 
+*Aktualisieren Sie das Profil, um eine Sicherung der Archiv-Log-Dateien separat zu erstellen*
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** `-separate-archivelog-backups` Ermöglicht die Erstellung einer Sicherungskopie der Archivprotokolldateien getrennt von den Datenbankdateien.
++
+Nachdem Sie diese Option angegeben haben, können Sie entweder ein Datendatei-only Backup oder ein Backup nur mit Archivdateien erstellen. Sie können keine vollständige Sicherung erstellen. Außerdem können Sie die Profileinstellungen nicht durch Trennen der Sicherung zurücksetzen. SnapManager behält die Backups auf Basis der Aufbewahrungsrichtlinie für die Backups bei, die vor der Erstellung eines rein archivorientierten Backups erstellt wurden.
+
+** `-retain-archivelog-backups` Legt die Aufbewahrungsdauer für Backups im Archivprotokoll fest.
++
+
+NOTE: Wenn Sie das Profil zum ersten Mal aktualisieren, können Sie die Archiv-Log-Backups von der Datensicherung mit dem trennen `-separate-archivelog-backups` Option; Sie müssen die Aufbewahrungsdauer für die Backups des Archivprotokolls mithilfe des angeben `-retain-archivelog-backups` Option. Die Einstellung der Aufbewahrungsdauer ist optional, wenn Sie das Profil später aktualisieren.
+
+** `-protect` Erstellt einen Applikationsdatensatz im Data Fabric Manager (DFM)-Server und fügt Mitglieder hinzu, die sich auf die Datenbank, Datendatei, Kontrolldateien und Archivprotokolle beziehen.
++
+Wenn der Datensatz vorhanden ist, wird er bei der Erstellung eines Profils erneut verwendet.
+
+** `-protection-policy` Legt die Schutzrichtlinie auf die Backups des Archivprotokolls fest.
+** `-include-with-online-backups` Gibt an, dass das Backup des Archivprotokolls zusammen mit dem Datenbank-Backup enthalten ist.
+** `-no-include-with-online-backups` Gibt an, dass die Sicherung der Archivprotokolldatei nicht zusammen mit dem Datenbank-Backup enthalten ist.
+
+
+
+
+ a| 
+*Ändern Sie den Hostnamen der Zieldatenbank*
+ a| 
+Angeben `-host _new_db_host_` So ändern Sie den Hostnamen des Profils.
+
+
+
+ a| 
+*Sammeln Sie die Dump-Dateien nach dem Profil-Update-Vorgang*
+ a| 
+Geben Sie die an `-dump` Option.
+
+|===
+. Geben Sie den folgenden Befehl ein, um das aktualisierte Profil anzuzeigen: `smsap profile show`
+

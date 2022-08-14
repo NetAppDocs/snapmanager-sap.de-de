@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/concept-configuring-e-mail-notification.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, email, notification, completion, status, profile-executed, database, operation, configuring, configure 
+summary: Mit SnapManager erhalten Sie eine E-Mail-Benachrichtigung über den Abschlussstatus der von den Profilen ausgeführten Datenbankvorgänge. SnapManager generiert die E-Mail und hilft Ihnen, entsprechend dem Status des Datenbankvorgangs entsprechende Maßnahmen zu ergreifen. Die Konfiguration der E-Mail-Benachrichtigung ist ein optionaler Parameter. 
+---
+= Konfigurieren einer E-Mail-Benachrichtigung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager erhalten Sie eine E-Mail-Benachrichtigung über den Abschlussstatus der von den Profilen ausgeführten Datenbankvorgänge. SnapManager generiert die E-Mail und hilft Ihnen, entsprechend dem Status des Datenbankvorgangs entsprechende Maßnahmen zu ergreifen. Die Konfiguration der E-Mail-Benachrichtigung ist ein optionaler Parameter.
+
+Sie können eine E-Mail-Benachrichtigung für ein einzelnes Profil als Profilbenachrichtigung und für mehrere Profile in einer Repository-Datenbank als zusammenfassende Benachrichtigung konfigurieren.
+
+*Profilbenachrichtigung*
+
+Für ein individuelles Profil können Sie eine E-Mail für erfolgreiche oder fehlerhafte Datenbankvorgänge erhalten.
+
+
+NOTE: Standardmäßig ist die E-Mail-Benachrichtigung für fehlgeschlagene Datenbankvorgänge aktiviert.
+
+*Zusammenfassende Benachrichtigung*
+
+Mit der Übersichtsbenachrichtigung erhalten Sie eine E-Mail über Datenbankvorgänge, die mit mehreren Profilen durchgeführt werden. Sie können stündliche, tägliche, wöchentliche oder monatliche Benachrichtigungen aktivieren.
+
+
+NOTE: Ab SnapManager 3.3 werden zusammenfassende Benachrichtigungen nur dann gesendet, wenn Sie den Hostserver angeben, der die Benachrichtigung senden soll. Wenn Sie SnapManager von einer Version vor 3.3 aktualisieren, werden die zusammenfassenden Benachrichtigungen möglicherweise nicht gesendet, wenn Sie den Host-Server in der Konfiguration für Übersichtsbenachrichtigungen nicht angegeben hatten.
+
+
+NOTE: Wenn Sie ein Repository in einem Knoten einer Datenbank erstellen, die sich in einer RAC-Umgebung (Real Application Clusters) befindet und eine zusammenfassende Benachrichtigung aktivieren, wird später, wenn Sie dasselbe Repository einem anderen Knoten der Datenbank hinzufügen, die E-Mail mit der Zusammenfassung zweimal gesendet.
+
+Sie können Benachrichtigungen auf Profilebene oder eine zusammenfassende Benachrichtigung gleichzeitig verwenden.
+
+SnapManager ermöglicht die E-Mail-Benachrichtigung für die folgenden profilausgeführten Datenbankvorgänge:
+
+* Backup auf dem Primärspeicher
+* Restore von Backups
+* Erstellen von Klonen
+* Split Clones
+* Backup-Überprüfung
+
+
+Nachdem Sie Profile mit aktivierter E-Mail-Benachrichtigung erstellt oder aktualisiert haben, können Sie sie deaktivieren. Wenn Sie die E-Mail-Benachrichtigung deaktivieren, erhalten Sie für diese profilausgeführten Datenbankvorgänge keine E-Mail-Benachrichtigungen mehr.
+
+Die E-Mail, die Sie erhalten, enthält folgende Details:
+
+* Name des Datenbankvorgangs, z. B. für Backup, Wiederherstellung oder Klonen
+* Profilname, der für den Datenbankvorgang verwendet wird
+* Name des Hostservers
+* Systemkennung der Datenbank
+* Start- und Endzeit des Datenbankvorgangs
+* Status des Datenbankvorgangs
+* Fehlermeldung, falls vorhanden
+* Warnmeldungen, falls vorhanden
+
+
+Sie können Folgendes konfigurieren:
+
+* Mailserver für ein Repository
+* E-Mail-Benachrichtigung für ein neues Profil
+* E-Mail-Benachrichtigung für ein bestehendes Profil
+* Zusammenfassende E-Mail-Benachrichtigung für mehrere Profile unter einem Repository
+
+
+
+NOTE: Sie können die E-Mail-Benachrichtigung sowohl über die Befehlszeilenschnittstelle (CLI) als auch über die grafische Benutzeroberfläche (GUI) konfigurieren.

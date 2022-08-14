@@ -1,0 +1,72 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-create-the-database-profile-for-a-local-backup.html 
+sidebar: sidebar 
+keywords: database, administrator, snapmanager, database, initiate, local, storage, primary, system, creation, process, involve, manager 
+summary: Die Datenbankadministratoren erstellen mithilfe von SnapManager ein Datenbankprofil, mit dem ein Backup im lokalen Storage eines primären Storage-Systems initiiert wird. Die gesamte Profilerstellung und Backup-Erstellung werden in SnapManager vollständig durchgeführt – einschließlich Protection Manager ist also nicht erforderlich. 
+---
+= Verwenden Sie SnapManager für SAP, um das Datenbankprofil für ein lokales Backup zu erstellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Datenbankadministratoren erstellen mithilfe von SnapManager ein Datenbankprofil, mit dem ein Backup im lokalen Storage eines primären Storage-Systems initiiert wird. Die gesamte Profilerstellung und Backup-Erstellung werden in SnapManager vollständig durchgeführt – einschließlich Protection Manager ist also nicht erforderlich.
+
+*Über diese Aufgabe*
+
+Ein Profil enthält die Informationen über die zu verwaltende Datenbank, einschließlich der Anmeldeinformationen, Backup-Einstellungen und Sicherungseinstellungen für Backups. Wenn Sie ein Profil erstellen, müssen Sie bei jeder Operation in dieser Datenbank keine Datenbankdetails angeben, sondern nur den Profilnamen angeben. Ein Profil kann nur auf eine Datenbank verweisen. Auf dieselbe Datenbank kann von mehr als einem Profil verwiesen werden.
+
+.Schritte
+. Wechseln Sie zum SnapManager für SAP-Client.
+. Klicken Sie in der Struktur SnapManager-Repositories mit der rechten Maustaste auf den Host, der mit diesem Profil verknüpft werden soll, und wählen Sie *Profil erstellen* aus.
+. Geben Sie auf der Seite Profilkonfigurationsinformationen die folgenden Informationen ein und klicken Sie auf *Weiter*.
++
+** Profilname: Gehaltsabrechnung_Prod
+** Profilpasswort: Payrol123
+** Kommentar: Production Payroll Datenbank
+
+
+. Geben Sie auf der Seite Datenbankkonfigurationsinformationen die folgenden Informationen ein und klicken Sie auf *Weiter*.
++
+** Datenbankname: PAYDB
+** Datenbank-SID: Payrolldb
+** Datenbank-Host: Standard akzeptieren
++
+Da Sie ein Profil von einem Host in der Repository-Struktur erstellen, zeigt SnapManager den Hostnamen an.
+
+
+
+. Akzeptieren Sie auf der zweiten Seite Datenbankkonfigurationsinformationen die folgenden Datenbankinformationen und klicken Sie auf *Weiter*:
++
+** Hostkonto, Vertretung des Oracle-Benutzerkontos (für ora<sid>): Orapayrolldb
+** Host-Gruppe, die die Oracle-Gruppe repräsentiert: dba
+
+
+. Wählen Sie auf der Seite Datenbankverbindungsinformationen die Option *Datenbankauthentifizierung verwenden* aus, damit Benutzer sich mit Datenbankinformationen authentifizieren können.
++
+Geben Sie für dieses Beispiel die folgenden Informationen ein und klicken Sie auf *Weiter*.
+
++
+** SYSDBA Privileged User Name, der den Systemadministrator der Systemdatenbank repräsentiert, der über Administratorrechte verfügt: Sys
+** Kennwort (SYSDBA-Kennwort): oracle
+** Port zur Verbindung mit Datenbank-Host: 1527
+
+
+. Geben Sie auf der Seite Snapshot Naming Information eine Namenskonvention für die mit diesem Profil verknüpften Snapshots an, indem Sie Variablen auswählen. Die einzige Variable, die benötigt wird, ist die *smid*-Variable, die eine eindeutige Snapshot-Kennung erstellt.
++
+Gehen Sie in diesem Beispiel wie folgt vor:
+
++
+.. Wählen Sie in der Liste Variable Token die Variable *{usertext}* aus und klicken Sie auf *Hinzufügen*.
+.. Geben Sie „prod01.sample.com_" als Host-Name ein und klicken Sie auf *OK*.
+.. Klicken Sie auf *links*, bis der Hostname kurz nach "smsap" im Feld Format angezeigt wird.
+.. Klicken Sie Auf *Weiter*.
+
+
++
+Die Namenskonvention von Snapshot `_smsap_hostname_smsapprofile_dbsid_scope_mode_smid_` Wird „smsap_prpd01.sample.com_P01_BACKUP_P01_f_a_x"“ (wobei „f“ auf eine vollständige Sicherung hinweist, „A“ den automatischen Modus angibt und „x“ den eindeutigen SMID darstellt).
+
+. Überprüfen Sie auf der Seite Vorgang durchführen die Informationen und klicken Sie auf *Erstellen*.
+. Klicken Sie auf *Operation Details*, um Informationen über den Vorgang zum Erstellen von Profilen und zur Volume-basierten Wiederherstellung anzuzeigen.
+

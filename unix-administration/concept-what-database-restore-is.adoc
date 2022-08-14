@@ -1,0 +1,135 @@
+---
+permalink: unix-administration/concept-what-database-restore-is.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, volume-based, file-based, backup, restore, operation, database, restore 
+summary: SnapManager ermöglicht die Durchführung von Volume- oder dateibasierten Backup- und Restore-Vorgängen. 
+---
+= Was ist Datenbank-Restore
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht die Durchführung von Volume- oder dateibasierten Backup- und Restore-Vorgängen.
+
+In der folgenden Tabelle werden die Wiederherstellungsmethoden beschrieben:
+
+[cols="1a,3a"]
+|===
+| Wiederherstellungsprozess | Details 
+
+
+ a| 
+Schnelle, Volume-basierte Restores (vom Primärspeicher)
+ a| 
+SnapManager stellt durch die Wiederherstellung eines vollständigen Volumes die Datendateien einer Datenbank wieder her. Dieser Standardprozess ist die schnellste Methode zum Wiederherstellen Ihrer Datenbank.
+
+
+
+ a| 
+Dateibasierte Restores
+ a| 
+Storage-seitige Wiederherstellung eines vollständigen File-Systems (von primärem oder sekundärem): SnapManager führt eine vollständige Wiederherstellung der Logical Unit Number (LUN) durch.
+
+
+
+ a| 
+Storage-seitige Datei-Wiederherstellung: SnapManager führt eine einzige Datei Snap Restore (SFSR) in einer NAS-Umgebung durch. In einem SFSR werden jede der Dateien oder LUNs, die die geschützten Objekte darstellen, wiederhergestellt.
+
+
+
+ a| 
+Wiederherstellung von Host-seitigen Dateikopien (von primärem oder sekundärem): SnapManager klont den lokalen Backup mit entweder einer LUN oder einem FlexClone. Der Klon ist gemountet und dann kopiert SnapManager die Host-Dateien aus dem Klon in das aktive Dateisystem.
+
+|===
+
+NOTE: Sie können ein Backup nicht aus dem sekundären Speicher wiederherstellen, wenn auch das Backup auf dem primären Speicher vorhanden ist.
+
+Wenn der schnelle Restore-Vorgang abgeschlossen ist, führt SnapManager die folgenden Aufgaben aus:
+
+* Gibt aktuellere Backups (nach Wiederherstellung des Backups erstellt) in demselben Profil frei, da die Snapshot Kopien nicht mehr im Primär-Storage vorhanden sind.
+* Löscht alle Snapshot-Kopien für Backups im selben Profil, in dem alle Snapshot-Kopien automatisch durch den schnellen Wiederherstellungsprozess gelöscht wurden.
++
+Dadurch wird verhindert, dass Backups teilweise freigegeben werden. Beispiel: Backup_A wurde zuerst erstellt und dann Backup_B erstellt. Jeder verfügt über eine Snapshot Kopie für die Datendateien und eine für die Archivprotokolle. Nachdem SnapManager Backup_A mithilfe des schnellen Wiederherstellungsprozesses wiederhergestellt hat, löscht SnapManager automatisch die Snapshot Kopie der Datendatei aus Backup_B. Da das Archivprotokoll im schnellen Restore nicht wiederhergestellt wird, muss SnapManager nach Abschluss des schnellen Restore-Prozesses die Snapshot-Kopie von Backup_B der Archivprotokolle löschen.
+
+
+
+
+
+== Schnelle Wiederherstellung
+
+Der Name der schnellen Wiederherstellung oder Volume-basierten Wiederherstellung ist so hoch, da es sich um die schnellstmögliche Wiederherstellungsmethode handelt. Das gesamte Storage-System-Volume wird auf eine Snapshot Kopie zurückgesetzt. Auf Storage-Ebene erfolgt diese Wiederherstellung nahezu verzögerungsfrei. Eine Wiederherstellung eines Volumes kann jedoch die folgenden negativen Folgen haben und muss daher mit Vorsicht verwendet werden:
+
+* Das gesamte Storage-seitige Volume wird zurückgesetzt, einschließlich:
++
+** Dateien, die nicht als Teil des Backups betrachtet wurden
+** Andere Dateien, Filesysteme oder LUNs auf dem Volume
+
+
+* Alle Snapshot Kopien, die nach der Snapshot Kopie erstellt wurden, auf die das Volume zurückgesetzt wird, werden gelöscht.
++
+Sie können zum Beispiel das Backup am Dienstag nicht mehr wiederherstellen, wenn Sie das Volume am Montag wiederhergestellt haben.
+
+* Beziehungen zu sekundären Storage-Systemen werden beschädigt, wenn die wiederhergestellte Snapshot Kopie älter als die zugrunde liegende Snapshot Kopie in der Beziehung ist.
+
+
+
+
+== Storage-seitig komplette Wiederherstellung des Dateisystems
+
+Wenn keine Volume-Wiederherstellung möglich ist, wird ein Storage-seitiges File-System wiederhergestellt, das gesamte File-System kann jedoch auf dem Storage-System wiederhergestellt werden.
+
+Wenn eine Storage-seitige Wiederherstellung eines Dateisystems durchgeführt wird, geschieht Folgendes:
+
+* In einer SAN-Umgebung sind alle vom Filesystem verwendeten LUNs (und ggf. die zugrunde liegende Volume-Gruppe) auf dem Storage-System wiederhergestellt.
+* In einer NAS-Umgebung wird jede Datei im Filesystem auf dem Storage-System wiederhergestellt.
++
+In NAS-Umgebungen bietet dieser Wiederherstellungsmechanismus keine zusätzlichen Vorteile bei der Wiederherstellung von Dateien auf Storage-Seite.
+
+
+
+Wenn eine Storage-seitige Wiederherstellung des Filesystems erfolgt, hängt vom Speicherort ab:
+
+* Bei SnapManager-Restores von primären Storage-Systemen werden die LUNs (SAN) oder Dateien (NAS) an Ort und Stelle über SFSR wiederhergestellt.
+* Wenn SnapManager aus sekundären Storage-Systemen wiederhergestellt wird, werden LUNs (SAN) oder Dateien (NAS) von sekundären Storage-Systemen über das Netzwerk zurück in das primäre Storage-System kopiert.
+
+
+Da das Filesystem vollständig wiederhergestellt ist, werden auch Dateien, die nicht zum Backup gehören, zurückgesetzt. Eine Überschreibung ist erforderlich, wenn Dateien, die nicht Teil der Wiederherstellung sind, im Dateisystem vorhanden sind, das wiederhergestellt wird.
+
+
+
+== Datei-Restore auf Storage-Seite
+
+Eine Speicherseitige Dateiwiederherstellung wird manchmal durchgeführt, wenn eine speicherseitige Dateisystemwiederherstellung nicht möglich ist. Bei einer File-Wiederherstellung ohne Storage-Systeme werden einzelne Dateien innerhalb eines Filesystems direkt in den Storage-Systemen wiederhergestellt.
+
+Diese Art von Wiederherstellung kann nur in NFS-Umgebungen oder in bestimmten Fällen in ASM-Umgebungen durchgeführt werden.
+
+Wenn eine Wiederherstellung von Dateien auf Storage-Seite durchgeführt wird, geschieht Folgendes:
+
+* Wenn SnapManager NFS-Dateien aus den primären Storage-Systemen wiederherstellt, werden die einzelnen Dateien mittels SFSR wiederhergestellt.
+* Wenn SnapManager NFS-Dateien aus sekundären Storage-Systemen wiederherstellt, werden die einzelnen Dateien über das Storage-Netzwerk zurück in das primäre Storage-System kopiert.
+
+
+
+
+== Host-seitiges Datei-Restore
+
+Eine Wiederherstellung von Host-seitigen Dateikopien dient als letztes Mittel in SAN-Umgebungen, wenn keine schnelle Wiederherstellung, eine rasche Wiederherstellung auf Storage-Seite eines Filesystems und die Wiederherstellung von Dateien auf Storage-Seite durchgeführt werden kann.
+
+Zur Wiederherstellung einer Host-seitigen Dateikopie gehören die folgenden Aufgaben:
+
+* Klonen des Speichers
+* Verbinden des geklonten Speichers mit dem Host
+* Kopieren von Dateien aus den Klon-Dateisystemen zurück in die aktiven Dateisysteme
+* Trennen des Klonspeichers vom Host
+* Löschen des Klonspeichers
+
+
+Beim Restore aus dem sekundären Storage versucht SnapManager zunächst, Daten direkt aus dem sekundären Storage-System in das primäre Storage-System (ohne Beteiligung des Hosts) wiederherzustellen. Wenn SnapManager diese Art der Wiederherstellung nicht ausführen kann (z. B. wenn Dateien nicht Teil der Wiederherstellung in einem Dateisystem vorhanden sind), führt SnapManager die Wiederherstellung der Host-seitigen Dateikopie durch. SnapManager verfügt über zwei Methoden zur Wiederherstellung einer Host-seitigen Dateikopie aus dem sekundären Storage. Die gewählte Methode SnapManager wird im konfiguriert `smsap.config` Datei:
+
+* Direkt: SnapManager klont die Daten auf dem sekundären Storage, bindet die geklonten Daten vom sekundären Storage-System an den Host und kopiert dann Daten aus dem Klon in die aktive Umgebung. Dies ist die standardmäßige sekundäre Zugriffsrichtlinie.
+* Indirekt: SnapManager kopiert die Daten zunächst auf ein temporäres Volume im Primärspeicher, bindet die Daten dann vom temporären Volume an den Host und kopiert dann Daten aus dem temporären Volume in die aktive Umgebung. Diese sekundäre Zugriffsrichtlinie sollte nur verwendet werden, wenn der Host keinen direkten Zugriff auf das sekundäre Speichersystem hat. Bei Wiederherstellungen mit dieser Methode dauert die Methode doppelt so lange wie die Richtlinie für den direkten sekundären Zugriff, da zwei Kopien der Daten erstellt werden.
+
+
+Die Entscheidung, ob die direkte oder indirekte Methode verwendet werden soll, wird durch den Wert des gesteuert `restore.secondaryAccessPolicy` Parameter in `smsap.config` Konfigurationsdatei Die Standardeinstellung lautet „direkt“.

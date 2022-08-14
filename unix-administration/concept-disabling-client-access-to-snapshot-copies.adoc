@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/concept-disabling-client-access-to-snapshot-copies.html 
+sidebar: sidebar 
+keywords: storage, system, volume, nfs, protocol, sap, tools, snapshot, copies, copy, snapshot, directory, directories, backup, diable, disabling, client, access 
+summary: Bei jedem Storage-System-Volume, das das NFS-Protokoll nutzt und über BR*Tools gesicherte SAP-Daten enthält, müssen Sie den Client-Zugriff auf die Snapshot-Kopien dieses Volumes deaktivieren. Wenn der Clientzugriff aktiviert ist, versucht BR*Tools, Backups der versteckten Snapshot-Verzeichnisse zu erstellen, die frühere Backups enthalten. 
+---
+= Deaktivieren des Client-Zugriffs auf Snapshot Kopien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei jedem Storage-System-Volume, das das NFS-Protokoll nutzt und über BR*Tools gesicherte SAP-Daten enthält, müssen Sie den Client-Zugriff auf die Snapshot-Kopien dieses Volumes deaktivieren. Wenn der Clientzugriff aktiviert ist, versucht BR*Tools, Backups der versteckten Snapshot-Verzeichnisse zu erstellen, die frühere Backups enthalten.
+
+Verwenden Sie eine der folgenden Methoden, um den Client-Zugriff zu deaktivieren.
+
+* Verwenden von Data ONTAP: Geben Sie über die Data ONTAP-Befehlszeilenschnittstelle den folgenden Befehl ein: vol Optionen Volume_Name nosnadir, auf dem Volume_Name der Name des Volumes ist, das SAP-Daten enthält, beispielsweise `/vol/falls_sap_cer9i_data1`
+* Verwendung von FilerView: Um den Zugriff über die grafische Benutzeroberfläche von FilerView zu deaktivieren, müssen Sie bereits über eine Snapshot Kopie des Volume verfügen.
++
+.. Wählen Sie im linken FilerView Fensterbereich *Volumen* > *Snapshots* > *Verwalten* aus.
+.. Klicken Sie auf der Seite Snapshots managen in der Spalte Volume auf den Volume-Namen.
+.. Deaktivieren Sie auf der Seite Snapshots konfigurieren das Kontrollkästchen Snapshot-Verzeichnis sichtbar und klicken Sie auf *Anwenden.*
+
+
+
+
+Weitere Informationen zum Deaktivieren des Client-Zugriffs auf Snapshot Kopien finden Sie im Kapitel über das Snapshot Management der Version von Data ONTAP im Handbuch „ _Data ONTAP Datensicherung Online-Backup und -Recovery_“.

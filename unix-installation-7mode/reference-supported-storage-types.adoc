@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/reference-supported-storage-types.html 
+sidebar: sidebar 
+keywords: snapmanager, support, wide, range, storage, type, physical, virtual, machine, install, upgrade 
+summary: SnapManager unterstützt zahlreiche Storage-Typen sowohl auf physischen als auch auf Virtual Machines. Sie müssen die Unterstützung Ihres Storage-Typs überprüfen, bevor Sie SnapManager installieren oder aktualisieren. 
+---
+= Unterstützte Speichertypen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager unterstützt zahlreiche Storage-Typen sowohl auf physischen als auch auf Virtual Machines. Sie müssen die Unterstützung Ihres Storage-Typs überprüfen, bevor Sie SnapManager installieren oder aktualisieren.
+
+[cols="1a,2a"]
+|===
+| Maschine | Storage-Typ 
+
+
+ a| 
+Physischer Server
+ a| 
+* Volumes mit NFS-Anbindung
+* FC-verbundene LUNs
+* ISCSI-verbundene LUNs
+
+
+
+
+ a| 
+VMware ESX
+ a| 
+* NFS-Volumes sind direkt mit dem Gastbetriebssystem verbunden
+* RDM-LUNs auf dem Gastbetriebssystem
+
+
+|===

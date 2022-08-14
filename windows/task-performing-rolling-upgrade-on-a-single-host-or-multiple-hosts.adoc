@@ -1,0 +1,95 @@
+---
+permalink: windows/task-performing-rolling-upgrade-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, single, multiple, snapmanager, server, host, command-line, interface, cli 
+summary: 'Sie können Rolling Upgrades auf einem einzelnen oder mehreren SnapManager-Server-Hosts über die Befehlszeilenschnittstelle \(CLI\) durchführen. Der aktualisierte SnapManager-Server-Host wird dann nur mit der späteren Version von SnapManager verwaltet.' 
+---
+= Durchführung von Rolling Upgrade auf einem einzelnen oder mehreren Hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Rolling Upgrades für einen einzelnen oder mehrere SnapManager Server Hosts über die Befehlszeilenschnittstelle (CLI) durchführen. Der aktualisierte SnapManager-Server-Host wird dann nur mit der späteren Version von SnapManager verwaltet.
+
+Sie müssen sicherstellen, dass alle Voraussetzungen für das Durchführen eines Rolling Upgrades abgeschlossen sind.
+
+. Geben Sie den folgenden Befehl ein, um ein Rolling Upgrade auf einem einzelnen Host durchzuführen:
++
+`smsaprepository rollingupgrade-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-upgradehosthost_with_target_database-force [-quiet | -verbose]`
+
++
+Der folgende Befehl führt das Rolling Upgrade aller auf HostA eingebundenen Zieldatenbanken und einer Repository-Datenbank namens repoA auf repo_Host durch:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA
+----
+. Geben Sie den folgenden Befehl ein, um ein Rolling Upgrade auf mehreren Hosts durchzuführen: `smsaprepository rollingupgrade-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-upgradehosthost_with_target_database1,host_with_target_database2-force [-quiet | -verbose]`
++
+
+NOTE: Geben Sie bei mehreren Hosts die durch Komma getrennten Hostnamen ein, und stellen Sie sicher, dass Sie keinen Speicherplatz zwischen dem Komma und dem nächsten Hostnamen angeben.Stellen Sie außerdem sicher, dass Sie alle Hostnamen in doppelte Anführungszeichen eingeben.
+
++
+Der folgende Befehl führt das Rolling Upgrade aller auf den Hosts eingebundenen Zieldatenbanken, hostA und hostB sowie einer Repository-Datenbank namens repoA auf repo_Host durch:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -upgradehost hostA,hostB
+----
+. Um ein Rolling Upgrade auf allen Hosts einer Repository-Datenbank durchzuführen, geben Sie den folgenden Befehl ein: `smsaprepository rollingupgrade-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-allhosts-force [-quiet | -verbose]`
++
+Nachdem Sie die Repository-Datenbank erfolgreich aktualisiert haben, können Sie alle SnapManager-Vorgänge auf der Zieldatenbank ausführen.
+
++
+Der folgende Befehl führt das Rolling Upgrade aller Zieldatenbanken durch, die in einer Repository-Datenbank mit dem Namen „repoA“ auf repo_Host verfügbar sind:
+
++
+[listing]
+----
+
+smsap repository rollingupgrade
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+      -allhosts
+----
++
+** Wenn der SnapManager-Server automatisch startet, müssen Sie den Server neu starten, um sicherzustellen, dass Sie die Zeitpläne anzeigen können.
+** Wenn Sie einen der beiden zugehörigen Hosts aktualisieren, müssen Sie nach dem ersten Upgrade des zweiten Hosts ein Upgrade durchführen.
++
+Wenn Sie beispielsweise einen Klon von Host A nach Host B erstellt oder ein Backup von Host A an Host B angehängt haben, hängen die Hosts A und B miteinander zusammen. Wenn Sie Host A aktualisieren, wird eine Warnmeldung angezeigt, in der Sie aufgefordert werden, den Host B bald nach dem Upgrade von Host A zu aktualisieren
+
++
+
+NOTE: Die Warnmeldungen werden angezeigt, obwohl der Klon gelöscht wurde oder das Backup während des Rolling Upgrades von Host A von Host B abgehängt wurde Dies liegt daran, dass Metadaten im Repository für die Vorgänge vorhanden sind, die auf dem Remote-Host durchgeführt werden.
+
+
+
+
+
+*Verwandte Informationen*
+
+xref:concept-prerequisites-for-performing-rolling-upgrade.adoc[Voraussetzungen für Rolling Upgrades]

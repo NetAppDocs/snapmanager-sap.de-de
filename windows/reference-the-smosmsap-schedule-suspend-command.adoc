@@ -1,0 +1,40 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-suspend-command.html 
+sidebar: sidebar 
+keywords: command, suspend, backup, schedule, resume, smsap 
+summary: Mit diesem Befehl wird ein Backup-Zeitplan so lange unterbrochen, bis der Backup-Zeitplan wieder aufgenommen wird. 
+---
+= Der Befehl smsap schedule suspend
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl wird ein Backup-Zeitplan so lange unterbrochen, bis der Backup-Zeitplan wieder aufgenommen wird.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap schedule suspend
+-profile profile_name
+-schedule-name schedule_name
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt den Namen des Profils an, das mit der Datenbank verknüpft ist, die einen Backup-Zeitplan aussetzen soll. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-schedule-name schedule_name`*
++
+Gibt den Planungsnamen an, den Sie beim Erstellen eines Backup-Zeitplans angegeben haben.
+
+

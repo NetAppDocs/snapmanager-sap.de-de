@@ -1,0 +1,70 @@
+---
+permalink: unix-administration/concept-general-layout-and-configuration.html 
+sidebar: sidebar 
+keywords: recommend, general, database, layout, storage, configuration, help, avoid, issue, relate, disk, group, file, type, tablespace 
+summary: Durch das Wissen der empfohlenen allgemeinen Datenbank-Layouts und Storage-Konfigurationen können Sie Probleme in Bezug auf Festplattengruppen, Dateitypen und Tablespaces vermeiden. 
+---
+= Empfohlene allgemeine Datenbanklayouts und Speicherkonfigurationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Durch das Wissen der empfohlenen allgemeinen Datenbank-Layouts und Storage-Konfigurationen können Sie Probleme in Bezug auf Festplattengruppen, Dateitypen und Tablespaces vermeiden.
+
+* Fügen Sie keine Dateien aus mehr als einem SAN-Dateisystem oder Volume-Manager in Ihre Datenbank ein.
++
+Alle Dateien, die eine Datenbank erstellen, müssen sich auf demselben Dateisystem befinden.
+
+* SnapManager erfordert mehrere 4 KB Blockgröße.
+* Fügen Sie die Datenbanksystemkennung in das ein `oratab` Datei:
++
+Fügen Sie einen Eintrag in das ein `oratab` Datei für jede zu verwaltende Datenbank. SnapManager verlässt sich auf das `oratab` Datei zur Bestimmung des Home-Office von Oracle.
+
+
+
+Wenn Sie die neue Volume-basierte Wiederherstellung oder vollständige Laufwerksgruppenswiederherstellung nutzen möchten, sollten Sie die folgenden Richtlinien in Bezug auf Dateisysteme und Laufwerksgruppen berücksichtigen:
+
+* Eine Laufwerksgruppe, die Datendateien enthält, kann keine anderen Dateitypen enthalten.
+* Die LUN (Logical Unit Number) für die Datendatei-Festplattengruppe muss das einzige Objekt im Storage-Volume sein.
+
+
+Nachfolgend sind einige Richtlinien für die Volume-Trennung aufgeführt:
+
+* Die Datendateien für nur eine Datenbank müssen sich im Volume befinden.
+* Sie müssen separate Volumes für jede der folgenden Dateiklassifizierungen verwenden: Datenbankbinärdateien, Datendateien, Online-Wiederherstellungsprotokolle, archivierte Wiederherstellungsprotokolle und Kontrolldateien.
+* Sie müssen kein separates Volume für temporäre Datenbankdateien erstellen, da SnapManager keine temporären Datenbankdateien erstellt.
+
+
+SAP verwendet ein Standard-Layout für die Installation von Oracle Datenbanken. In diesem Layout speichert SAP Kopien der Oracle-Kontrolldatei in `E:\oracle\SID\origlogA, E:\oracle\SID\origlogB`, und `E:\oracle\SID\sapdata1 file systems`.
+
+Die Kontrolldatei im sapdata1-Dateisystem steht in Konflikt mit den SnapManager-Anforderungen für die Trennung der Steuerdateien und Datendateien in separate Volumes und muss angepasst werden, damit eine schnelle Wiederherstellung möglich ist.
+
+
+NOTE: Da BR*Tools-Backups die Oracle- und SAP-Profile im dbs-Unterverzeichnis der Oracle-Installation enthalten, muss sich die Oracle-Installation im Storage befinden.
+
+Im Falle einer neuen Installation können Sie den Speicherort der Steuerdateien mit SAPINST ändern und die Steuerdatei, die normalerweise im sapdata1-Dateisystem abgelegt wird, in ein Dateisystem verschieben, das sich nicht im selben Volume befindet wie die Datendateien. (SAPINST ist das Tool, das SAP zur Installation von SAP-Systemen bereitstellt.)
+
+Im Falle eines bereits installierten Systems müssen Sie jedoch die Steuerdatei vom Dateisystem verschieben, um eine schnelle Wiederherstellung mit SnapManager zu ermöglichen. Sie können dies tun, indem Sie ein neues Dateisystem in einem Volume erstellen, das keine Datendateien enthält, die Steuerdatei auf dieses Dateisystem verschieben und dann einen symbolischen Link aus dem vorherigen Dateisystem in das Verzeichnis für das neue Dateisystem erstellen. Um Datenbankfehler zu vermeiden, müssen SAP und die Oracle-Datenbank beim Verschieben der Kontrolldatei angehalten werden.
+
+Bevor Sie Änderungen vornehmen, könnte die Liste der Dateien im sapdata1-Verzeichnis mit der Kontrolldatei wie folgt aussehen:
+
+[listing]
+----
+hostname:/
+#  ls -l /oracle/SID/sapdata1/cntrl
+-rw-r----- 1 orasid  dba  9388032 Jun 19 01:51 cntrlSID.dbf
+----
+Nach der Änderung könnte die Liste wie folgt aussehen:
+
+[listing]
+----
+hostname:/
+# ls -sl /oracle/SID/sapdata1
+0 lrwxrwxrwx 1 root root 19 2008-08-06 14:55 cntrl -> /oracle/SID/control
+0 -rw-r--r-- 1 root root 0 2008-08-06 14:57 data01.dbf
+
+# ls -sl /oracle/SID/control
+0 -rw-r--r-- 1 root root 0 2008-08-06 14:56 cntrlSID.dbf
+----

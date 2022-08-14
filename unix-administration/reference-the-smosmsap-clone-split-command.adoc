@@ -1,0 +1,240 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-split-command.html 
+sidebar: sidebar 
+keywords: run, clone, split, command, independent, original, snapmanager, smsap, operation, profile 
+summary: Sie können den Befehl Clone Split ausführen, um einen Klon aufzuteilen. Der Split-Klon ist unabhängig vom ursprünglichen Klon. SnapManager generiert nach der Teilung des Klons ein neues Profil, und Sie können dieses Profil zum Verwalten des Split-Klons verwenden. 
+---
+= Der Befehl smsap Clone Split
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `clone split` Befehl zum Teilen eines Klons. Der Split-Klon ist unabhängig vom ursprünglichen Klon. SnapManager generiert nach der Teilung des Klons ein neues Profil, und Sie können dieses Profil zum Verwalten des Split-Klons verwenden.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split
+-profile _clone-profile_
+[-host hostname\]
+{-label _clone-label_ | -id _clone-id_} [-split-label _split-operation_label_\]
+[-comment _comment_\]
+-new-profile _new-profile-name_ [-profile-password _new-profile_password_\]
+-repository -dbname _repo_service_name_
+-host _repo_host_
+-port _repo_port_
+-login -username _repo_username_
+-database -dbname _db_dbname_
+-host _db_host_ [-sid _db_sid_\] [-login -username _db_username_ -password _db_password_
+-port _db_port_\]
+[-rman {{-controlfile | {-login -username _rman_username_
+-password _rman_password_} -tnsname _rman_tnsname_}}\]
+-osaccount _osaccount_
+-osgroup _osgroup_
+[-retain
+[-hourly [-count _n_\] [-duration  _m_\]\]
+[-daily [-count _n_\] [-duration _m_\]\]
+[-weekly  [-count _n_\] [-duration _m_\]\]
+[-monthly [-count _n_\] [-duration _m_\]\] \]
+[-profile-comment _profile-comment_\]
+[-snapname-pattern _pattern_\]
+[-protect [-protection-policy _policy_name_\]\] | [-noprotect\]\]
+[-summary-notification
+[-notification
+[-success -email _email_address1,email_address2_
+-subject subject-pattern\]
+[failure -email _email_address1,email_address2_
+-subject _subject-pattern_\] \]
+[-separate-archivelog-backups
+-retain-archivelog-backups -hours  _hours_ |
+-days _days_ |
+-weeks _weeks_ |
+-months _months_
+[-protect [-protection-policy _policy_name_ | -noprotect\]
+[-include-with-online-backups | -no-include-with-online-backups\]\]
+[-dump\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _clone-profile_*`
++
+Gibt den Profilnamen an, aus dem der Klon erstellt wird.
+
+* `*-host _hostname_*`
++
+Gibt den Host-Namen an, in dem der Klon vorhanden ist.
+
+* `*label _clone-label_*`
++
+Gibt den vom Klonvorgang erzeugten Namen an.
+
+* `*-id _clone-id_*`
++
+Gibt die eindeutige ID an, die vom Klonvorgang generiert wird.
+
+* `*-split-label split-_operation_label_*`
++
+Gibt den vom Klonvorgang erzeugten Namen an.
+
+* `*-new-profile _new-profile_name_*`
++
+Gibt den neuen Profilnamen an, den SnapManager nach einem erfolgreichen Split-Vorgang generieren wird.
+
+* `*-profile-password _new-profile_password_*`
++
+Gibt das Kennwort für das Profil an.
+
+* `*-repository*`
++
+Gibt die Details der Datenbank für das Repository an.
+
+* `*-dbname _repo_service_name_*`
++
+Gibt den Namen der Datenbank an, in der das Repository gespeichert wird. Sie können entweder den globalen Namen oder die Systemkennung verwenden.
+
+* `*-host _repo_host_*`
++
+Gibt den Namen oder die IP-Adresse des Hostcomputers an, auf dem sich die Repository-Datenbank befindet.
+
+* `*-port _repo_port_*`
++
+Gibt die TCP-Portnummer (Transmission Control Protocol) an, die für den Zugriff auf den Host verwendet wird, auf dem sich die Repository-Datenbank befindet.
+
+* `*-login*`
++
+Gibt die Anmeldedaten für das Repository an. Dies ist optional. Wenn nicht angegeben, verwendet SnapManager standardmäßig den Verbindungsmodus für OS-Authentifizierung.
+
+* `*-username _repo_username_*`
++
+Gibt den Benutzernamen an, der für den Zugriff auf den Host benötigt wird, auf dem sich die Repository-Datenbank befindet.
+
+* `*-database*`
++
+Gibt die Details der Datenbank an, die gesichert, wiederhergestellt oder geklont werden soll.
+
+* `*-dbname _db_dbname_*`
++
+Gibt den Namen der Datenbank an, die das Profil beschreibt. Sie können entweder den globalen Namen oder die Systemkennung verwenden.
+
+* `*-host _db_host_*`
++
+Gibt den Namen oder die IP-Adresse des Hostcomputers an, auf dem sich die Datenbank befindet.
+
+* `*-sid _db_sid_*`
++
+Gibt die Systemkennung der Datenbank an, die das Profil beschreibt. Standardmäßig verwendet SnapManager den Datenbanknamen als Systemkennung. Wenn sich die System-ID vom Datenbanknamen unterscheidet, müssen Sie sie mit der angeben `-sid` Option.
+
+* `*-login*`
++
+Gibt die Anmeldedaten für die Datenbank an.
+
+* `*-username _db_username_*`
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Datenbank erforderlich ist, die das Profil beschreibt.
+
+* `*-password _db_password_*`
++
+Gibt das Kennwort an, das für den Zugriff auf die Datenbank erforderlich ist, die das Profil beschreibt.
+
+* `*-osaccount _osaccount_*`
++
+Gibt den Namen des Benutzerkontos für die Oracle-Datenbank an. SnapManager verwendet dieses Konto, um die Oracle-Vorgänge wie dem Starten und Herunterfahren durchzuführen. Es ist normalerweise der Benutzer, der die Oracle-Software auf dem Host besitzt, zum Beispiel orasid.
+
+* `*-osgroup _osgroup_*`
++
+Gibt den Namen der Oracle-Datenbankgruppe an, die mit dem Orasid-Konto verknüpft ist.
+
++
+
+NOTE: Der `-osaccount` Und `-osgroup` Variablen sind für UNIX erforderlich, aber nicht zulässig für Datenbanken, die unter Windows ausgeführt werden.
+
+* `*-retain [-hourly [-count n] [-duration m]] [-daily [-count n] [-duration m]] [-weekly [-count n] [-duration m]] [-monthly [-count n] [-duration m]]*`
++
+Gibt die Aufbewahrungsrichtlinie für ein Backup an.
+
++
+Für jede Aufbewahrungsklasse kann entweder der Aufbewahrungszähler oder die Aufbewahrungsdauer angegeben werden. Die Dauer ist in Einheiten der Klasse (z. B. Stunden für Stunde, Tage für Tag). Wenn Sie beispielsweise nur eine Aufbewahrungsdauer von 7 für tägliche Backups angeben, wird SnapManager die Anzahl der täglichen Backups für das Profil nicht begrenzen (da die Aufbewahrungsanzahl 0 ist), aber SnapManager löscht automatisch tägliche Backups, die vor über 7 Tagen erstellt wurden.
+
+* `*-profile-comment _profile-comment_*`
++
+Gibt den Kommentar für ein Profil an, das die Profildomäne beschreibt.
+
+* `*-snapname-pattern _pattern_*`
++
+Gibt das Benennungsmuster für Snapshot Kopien an. Außerdem können Sie in allen Namen von Snapshot Kopien benutzerdefinierten Text einfügen, beispielsweise HAOPS für hochverfügbare Vorgänge. Sie können das Benennungsmuster der Snapshot Kopie ändern, wenn Sie ein Profil erstellen oder nachdem das Profil erstellt wurde. Das aktualisierte Muster gilt nur für Snapshot Kopien, die noch nicht erstellt wurden. Snapshot Kopien, die vorhanden sind, behalten das vorherige SnapName-Muster bei. Sie können mehrere Variablen im Mustertext verwenden.
+
+* `*-protect -protection-policy _policy_name_*`
++
+Gibt an, ob das Backup auf dem sekundären Speicher gesichert werden soll.
+
++
+
+NOTE: Wenn `-protect` Wird ohne angegeben `-protection-policy`, Dann wird der Datensatz keine Schutzpolitik haben. Wenn `-protect` Wird und angegeben `-protection-policy` Wird nicht festgelegt, wenn das Profil erstellt wird, dann kann es später durch das festgelegt werden `smsap profile update` Führen Sie einen Befehl oder einen Satz durch den Storage-Administrator mithilfe der Konsole von Protection Manager aus.
+
+* `*-summary-notification*`
++
+Gibt die Details zur Konfiguration einer E-Mail-Benachrichtigung für mehrere Profile unter einer Repository-Datenbank an. SnapManager generiert diese E-Mail.
+
+* `*-notification*`
++
+Gibt die Details zur Konfiguration der E-Mail-Benachrichtigung für das neue Profil an. SnapManager generiert diese E-Mail. Die E-Mail-Benachrichtigung ermöglicht es dem Datenbankadministrator, E-Mails über den Status erfolgreich oder fehlgeschlagen des Datenbankvorgangs zu erhalten, der mit diesem Profil ausgeführt wird.
+
+* `*-success*`
++
+Gibt an, dass die E-Mail-Benachrichtigung für ein Profil aktiviert ist, für das der SnapManager-Vorgang erfolgreich ist.
+
+* `*-email _email address 1 email address 2_*`
++
+Gibt die E-Mail-Adresse des Empfängers an.
+
+* `*-subject _subject-pattern_*`
++
+Gibt den Betreff für die E-Mail an.
+
+* `*-failure*`
++
+Gibt an, dass die E-Mail-Benachrichtigung für ein Profil aktiviert ist, für das der SnapManager-Vorgang fehlschlägt.
+
+* `*-separate-archivelog-backups*`
++
+Gibt an, dass die Backup des Archivprotokolls von der Datendatei-Sicherung getrennt ist. Dies ist ein optionaler Parameter, den Sie bei der Erstellung des Profils angeben können. Nachdem die Backups mit dieser Option getrennt wurden, können Sie entweder nur Datendateien Backup oder ausschließlich Archivprotokolle erstellen.
+
+* `*-retain-archivelog-backups -hours _hours_ | -days _days_ | -weeks _weeks_| -months _months_*`
++
+Gibt an, dass die Archiv-Log-Backups auf Basis der Aufbewahrungsdauer des Archivprotokolls (stündlich, täglich, wöchentlich oder monatlich) aufbewahrt werden.
+
+* `*protect [-protection-policy _policy_name_] | -noprotect*`
++
+Gibt an, dass die Archivprotokolldateien auf der Grundlage der Archivierungsprotokollschutzrichtlinie geschützt sind.
+
++
+Gibt an, dass die Archivprotokolldateien nicht mit dem geschützt sind `-noprotect` Option.
+
+* `*-include-with-online-backups | -no-include-with-online-backups*`
++
+Gibt an, dass das Backup des Archivprotokolls zusammen mit dem Online-Datenbank-Backup enthalten ist.
+
++
+Gibt an, dass die Archiv-Log-Backups nicht zusammen mit dem Online-Datenbank-Backup enthalten sind.
+
+* `*-dump*`
++
+Gibt an, dass die Dump-Dateien nach dem erfolgreichen Erstellen des Profils nicht erfasst werden.
+
+* `*-quiet*`
++
+Zeigt nur Fehlermeldungen in der Konsole an. Die Standardeinstellung zeigt Fehler- und Warnmeldungen an.
+
+* `*-verbose*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+

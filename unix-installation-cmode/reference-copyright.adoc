@@ -1,0 +1,25 @@
+---
+permalink: unix-installation-cmode/reference-copyright.html 
+sidebar: sidebar 
+keywords: copyright, information 
+summary: Copyright-Informationen 
+---
+= Copyright-Informationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Copyright © 1994-2017, NetApp. Alle Rechte vorbehalten. Gedruckt in den USA
+
+Dieses urheberrechtlich geschützte Dokument darf ohne die vorherige schriftliche Genehmigung des Urheberrechtsinhabers in keiner Form und durch keine Mittel- weder grafische noch elektronische oder mechanische, einschließlich Fotokopieren, Aufnehmen, Verkleben oder Speichern in einem elektronischen Abrufsystem - ohne vorherige schriftliche Genehmigung des Urheberrechtsinhabers.
+
+Software, die von urheberrechtlich geschütztem NetApp Material abgeleitet wird, unterliegt der folgenden Lizenz und dem folgenden Haftungsausschluss:
+
+DIE VORLIEGENDE SOFTWARE WIRD IN DER VORLIEGENDEN FORM VON NETAPP ZUR VERFÜGUNG GESTELLT, D. H. OHNE JEGLICHE EXPLIZITE ODER IMPLIZITE GEWÄHRLEISTUNG, EINSCHLIESSLICH, JEDOCH NICHT BESCHRÄNKT AUF DER STILLSCHWEIGENDEN GEWÄHRLEISTUNG DER MARKTGÄNGIGKEIT UND EIGNUNG FÜR EINEN BESTIMMTEN ZWECK, DIE HIERMIT AUSGESCHLOSSEN WERDEN. NETAPP ÜBERNIMMT KEINERLEI HAFTUNG FÜR DIREKTE, INDIREKTE, ZUFÄLLIGE, BESONDERE ODER FOLGESCHÄDEN (EINSCHLIESSLICH, JEDOCH NICHT BESCHRÄNKT AUF DIE BESCHAFFUNG ODER DEN ERSATZ VON WAREN ODER DIENSTLEISTUNGEN, NUTZUNGS-, DATEN- ODER GEWINNVERLUST, ODER BETRIEBSUNTERBRECHUNG) JEDOCH VERURSACHT UND AUF JEDE ART VON HAFTUNG, OB VERTRAGLICH, STRENG HAFTBAR ODER SOFORT (EINSCHLIESSLICH FAHRLÄSSIGKEIT ODER AUF ANDERE WEISE), DIE IN IRGENDEINER WEISE AUS DER NUTZUNG DIESER SOFTWARE, AUCH WENN AUF DIE MÖGLICHKEIT EINES SOLCHEN SCHADENS HINGEWIESEN.
+
+NetApp behält sich das Recht vor, die hierin beschriebenen Produkte jederzeit und ohne Vorankündigung zu ändern. NetApp übernimmt keine Verantwortung oder Haftung für die Verwendung der hier beschriebenen Produkte, sofern nicht ausdrücklich in schriftlicher Form von NetApp angegeben. Die Verwendung oder der Erwerb dieses Produkts stellt keine Lizenzierung im Rahmen eines Patentrechts, Markenrechts oder eines anderen Rechts an geistigem Eigentum von NetApp dar.
+
+Das in diesem Handbuch beschriebene Produkt kann durch ein oder mehrere US-amerikanische Patente, ausländische Patente oder Patentanmeldungen geschützt sein.
+
+LEGENDE ZU „RESTRICTED RIGHTS“: Verwendung, Vervielfältigung oder Offenlegung durch die US-Regierung unterliegt den Einschränkungen gemäß Unterpunkt (c)(1)(ii) Klausel „Rights in Technical Data and Computer Software“ DFARS 252.277-7103 (Oktober 1988) und FAR 52-227-19 (Juni 1987).

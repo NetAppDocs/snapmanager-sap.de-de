@@ -1,0 +1,33 @@
+---
+permalink: windows/concept-restoring-a-backup-to-a-different-host.html 
+sidebar: sidebar 
+keywords: brrestore, smsap, restore, command, backup, brbackup, host, run, snapmanager, sap 
+summary: Sie können den Befehl BRRESTORE oder smsap Restore verwenden, um eine Sicherung, die Sie mit BRBACKUP auf einem anderen Host erstellt haben, wiederherzustellen. Der neue Host muss auch SnapManager für SAP ausführen. 
+---
+= Wiederherstellen einer Sicherung auf einem anderen Host
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das BRRESTORE oder verwenden `smsap restore` Befehl zum Wiederherstellen eines Backups, das Sie mit BRBACKUP auf einem anderen Host erstellt haben. Der neue Host muss auch SnapManager für SAP ausführen.
+
+
+
+== SnapManager Profil verfügbar machen
+
+Bevor Sie BRRESTORE ausführen können, müssen Sie das SnapManager-Profil des ursprünglichen Hosts dem neuen Host zur Verfügung stellen. Führen Sie folgende Schritte aus:
+
+* Anmeldedaten für Repository festlegen: Verwenden Sie das `smsap credential set` Befehl zum Aktivieren des neuen Hosts für den Zugriff auf das SnapManager-Repository, das für das ursprüngliche Backup verwendet wird.
+* Anmeldeinformationen für Profil festlegen: Verwenden Sie das `smsap credential set` Befehl zum Aktivieren des neuen Hosts für den Zugriff auf das SnapManager-Profil, das für das ursprüngliche Backup verwendet wird.
+* Laden Sie das Profil auf den neuen Host: Verwenden Sie das `smsap profile sync` Befehl zum Laden der SnapManager-Profilinformationen auf den neuen Host.
+
+
+
+
+== Starten Sie BRESTORE
+
+Konfigurieren Sie neuen Speicher auf dem neuen Host mit den gleichen Pfaden wie der ursprüngliche Speicher auf dem ursprünglichen Host.
+
+Verwenden Sie die `BRRESTORE` Befehl zum Wiederherstellen des Backups auf dem neuen Host. Standardmäßig werden die Dateien auf den ursprünglichen Pfad-Speicherorten wiederhergestellt. Sie können einen alternativen Pfad für die wiederhergestellten Dateien mit angeben `-m` Option des `BRRESTORE` Befehl. Weitere Informationen finden Sie in der SAP-Dokumentation `BRRESTORE`.

@@ -1,0 +1,74 @@
+---
+permalink: windows/task-update-target-database-hostname-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, provide, ability, update, host, name, target, database, profile, associate 
+summary: 'Mit SnapManager (3.2 oder höher) für SAP kann der Hostname der Zieldatenbank im SnapManager-Profil aktualisiert werden.' 
+---
+= Aktualisieren Sie den Host-Namen der Zieldatenbank, der einem Profil zugeordnet ist
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager (3.2 oder höher) für SAP kann der Hostname der Zieldatenbank im SnapManager-Profil aktualisiert werden.
+
+
+
+== Was Sie benötigen
+
+* Das Home-Verzeichnis des lokalen Benutzers muss die Zuordnung zu den Profilen und Repositorys kennen.
+* Die Sitzungen der SnapManager Graphical User Interface (GUI) müssen geschlossen werden.
+
+
+
+
+== Über diese Aufgabe
+
+Sie können das Profil mit dem neuen Hostnamen aktualisieren, indem Sie nur die CLI verwenden.
+
+*Szenarien werden nicht unterstützt, wenn der Hostname der Zieldatenbank im Profil* geändert werden soll
+
+Die folgenden Szenarien werden beim Ändern des Hostnamen der Zieldatenbank im Profil nicht unterstützt:
+
+* Ändern des Host-Namens der Zieldatenbank mithilfe der SnapManager-GUI
+* Rollback der Repository-Datenbank nach Aktualisierung des Host-Namens der Zieldatenbank des Profils durchführen
+* Aktualisieren mehrerer Profile für einen neuen Hostnamen der Zieldatenbank durch Ausführen eines einzigen Befehls
+* Ändern des Host-Namens der Zieldatenbank, wenn ein SnapManager-Vorgang ausgeführt wird
+
+
+
+NOTE: Nachdem Sie den Hostnamen der Zieldatenbank im Profil aktualisiert haben, wird nur der Hostname der Zieldatenbank geändert. Alle anderen Konfigurationsparameter, die im Profil festgelegt sind, werden beibehalten.
+
+Nachdem Sie den Hostnamen der Zieldatenbank aktualisiert haben, können Sie das Backup nicht löschen oder unmounten, wenn der Klon oder das bereitgestellte Backup nicht auf dem neuen Host verfügbar ist. In solchen Szenarien führen die Ausführung der SnapManager Vorgänge vom neuen Host zu Ausfällen sowie zu veralteten Einträgen im früheren Host. Um SnapManager-Vorgänge durchzuführen, müssen Sie zu dem früheren Host-Namen mithilfe von zurückkehren `profile update`.
+
+.Schritte
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap profile update -profile _profile_ [-profile-password _profile_password_][-database -dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login-username _db_username_ -password _db_password_ -port _db_port_]] [{-rman{-controlfile | {-login-username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_}}} | -remove-rman] [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][-summary-notification] [-notification [-success -email _email_address1_, _email_address2_ -subject _subject_pattern_] [-failure -email _email_address1_, _email_address2_ -subject _subject_pattern_]] [-separate-archivelog-backups-retain-archivelog-backups -hours _hours_ | -days _days_ | -weeks _weeks_| -months _months_ [-protect [-include-with-online-backups | -no-include-with-online-backups]] [-dump]*`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+[`-force`] [`-noprompt`]
+
++
+[`quiet` . `-verbose`]
+
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Ändern Sie den Hostnamen der Zieldatenbank*
+ a| 
+Angeben `-host _new_db_host_`
+
+|===
+. Geben Sie den folgenden Befehl ein, um den Host-Namen der Zieldatenbank des Profils anzuzeigen:
++
+`smsap profile show`
+
+

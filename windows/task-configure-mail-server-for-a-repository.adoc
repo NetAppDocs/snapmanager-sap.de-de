@@ -1,0 +1,77 @@
+---
+permalink: windows/task-configure-mail-server-for-a-repository.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, mail, server, detail, email, alert, configure, repository 
+summary: Mit SnapManager können Sie die E-Mail-Serverdetails angeben, von denen die E-Mail-Warnungen gesendet werden. 
+---
+= Konfigurieren Sie einen Mail-Server für ein Repository
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie die E-Mail-Serverdetails angeben, von denen die E-Mail-Warnungen gesendet werden.
+
+
+
+== Über diese Aufgabe
+
+Mit SnapManager können Sie den Hostnamen oder die IP-Adresse des Absenders sowie die Portnummer des E-Mail-Servers für einen Repository-Datenbanknamen angeben, der eine E-Mail-Benachrichtigung erfordert. Sie können die Portnummer des Mail-Servers in einem Bereich von 0 bis 65535 konfigurieren; der Standardwert ist 25. Wenn Sie eine Authentifizierung für die E-Mail-Adresse benötigen, können Sie den Benutzernamen und das Kennwort angeben.
+
+Sie müssen den Namen oder die IP-Adresse des Hostservers angeben, der die E-Mail-Benachrichtigung verarbeitet.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um den E-Mail-Server zum Senden von E-Mail-Warnungen zu konfigurieren:
++
+`*smsap notification set -sender-email _email_address_ -mailhost _mailhost_ -mailport _mailport_ [-authentication -username _username_ -password _password_] -repository -port _repo_port_ -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_*`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+[`-force`]
+
++
+[`quiet` . `-verbose`]
+
++
+|===
+| Gehen Sie wie folgt vor: | Dann... 
+
+
+ a| 
+*Um die E-Mail-Adresse des Absenders anzugeben.*
+ a| 
+Geben Sie die an `-sender-email` Option. Unter SnapManager 3.2 für SAP können Sie Bindestrich (-) einfügen, während Sie den Domain-Namen der E-Mail-Adresse angeben. Sie können beispielsweise die Absender-E-Mail-Adresse als angeben -`+sender-emailuser@org-corp.com+`.
+
+
+
+ a| 
+*Um den E-Mail-Server-Hostnamen oder die IP-Adresse des Absenders anzugeben.*
+ a| 
+Geben Sie die an `-mailhost` Option.
+
+
+
+ a| 
+*Zur Angabe der Port-Nummer des E-Mail-Servers für einen Repository-Datenbanknamen, der eine E-Mail-Benachrichtigung erfordert. Sie können die Portnummer des Mail-Servers in einem Bereich von null bis 65535 konfigurieren; der Standardwert ist 25.*
+ a| 
+Geben Sie die an `-mailport` Option.
+
+
+
+ a| 
+*Geben Sie den Benutzernamen und das Passwort an, wenn Sie eine Authentifizierung für die E-Mail-Adresse benötigen.*
+ a| 
+Angeben `-authentication` Option gefolgt von Benutzername und Passwort.
+
+|===
+
+
+Im folgenden Beispiel wird der Mail-Server konfiguriert.
+
+[listing]
+----
+smsap notification set -sender-email admin1@org.com -mailhost hostname.org.com -mailport 25 authentication -username admin1 -password admin1 -repository -port 1521 -dbname SMSAPREPO -host hotspur -login -username grabal21 -verbose
+----

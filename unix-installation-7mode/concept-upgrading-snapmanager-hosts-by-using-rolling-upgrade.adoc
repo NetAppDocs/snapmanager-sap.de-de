@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/concept-upgrading-snapmanager-hosts-by-using-rolling-upgrade.html 
+sidebar: sidebar 
+keywords: roll, upgrade, approach, enable, host, stagger, host-by-host, manner, support, snapmanager, upgrading 
+summary: Der Rolling Upgrade-Ansatz, mit dem Sie Hosts auf gestaffelte, Host-für-Host-Art aktualisieren können, wird von SnapManager 3.1 unterstützt. 
+---
+= Aktualisieren von SnapManager-Hosts mithilfe von Rolling Upgrade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Rolling Upgrade-Ansatz, mit dem Sie Hosts auf gestaffelte, Host-für-Host-Art aktualisieren können, wird von SnapManager 3.1 unterstützt.
+
+Mit SnapManager 3.0 oder einer älteren Version konnten Sie nur alle Hosts gleichzeitig aktualisieren. Dies führte zu Ausfallzeiten aller SnapManager-Hosts und der geplanten Betrieb während des Upgrade-Vorgangs.
+
+Das Rolling Upgrade bietet folgende Vorteile:
+
+* Verbesserte SnapManager Performance, da nur ein Host gleichzeitig aktualisiert wird.
+* Fähigkeit, die neuen Funktionen auf einem SnapManager Server Host zu testen, bevor ein Upgrade der anderen Hosts durchgeführt wird
+
+
+
+NOTE: Rolling Upgrades können nur über die Befehlszeilenschnittstelle (CLI) durchgeführt werden.
+
+image::../media/scrn_en_drw_rollupgrade_architecture.gif[Upgrade-Architektur für Scrn en drw]
+
+Nach erfolgreichem Abschluss des Rolling Upgrade verfügen die SnapManager Hosts, Profile, Zeitpläne, Backups, Klone, die mit den Profilen der Zieldatenbanken verbunden sind, werden von der Repository-Datenbank der früheren SnapManager Version in die Repository-Datenbank der neuen Version migriert. Details zu den Vorgängen, die mithilfe der Profile, Zeitpläne, Backups und Klone, die in der früheren SnapManager Version erstellt wurden, stehen nun in der Repository-Datenbank der neuen Version zur Verfügung. Sie können die GUI mit den Standardkonfigurationswerten der Datei user.config starten. Die in der Datei User.config der früheren Version von SnapManager konfigurierten Werte werden nicht berücksichtigt.
+
+Der aktualisierte SnapManager-Server kann jetzt mit der aktualisierten Repository-Datenbank kommunizieren. Die Hosts, die kein Upgrade durchgeführt haben, können ihre Zieldatenbanken mithilfe des Repositorys der früheren Version von SnapManager managen. Somit können die in der früheren Version verfügbaren Funktionen genutzt werden.
+
+
+NOTE: Bevor Sie ein Rolling Upgrade durchführen, müssen Sie sicherstellen, dass alle Hosts unter der Repository-Datenbank aufgelöst werden können. Informationen zum Beheben der Hosts finden Sie im Abschnitt Fehlerbehebung in _SnapManager for SAP Administration Guide for UNIX_.
+
+*Verwandte Informationen*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["SnapManager 3.4.1 für SAP – Administratorhandbuch für UNIX"^]

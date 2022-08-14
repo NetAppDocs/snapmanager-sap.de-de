@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-the-smosmsaprepository-create-command.html 
+sidebar: sidebar 
+keywords: command, create, repository, store, database, profile, associate, credential, adequate, smsap 
+summary: Mit diesem Befehl wird ein Repository erstellt, in dem Datenbankprofile und zugehörige Anmeldedaten gespeichert werden. Dieser Befehl überprüft außerdem, ob die Blockgröße geeignet ist. 
+---
+= Der Befehl smsap Repository create
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+
+
+== Syntax
+
+Mit diesem Befehl wird ein Repository erstellt, in dem Datenbankprofile und zugehörige Anmeldedaten gespeichert werden. Dieser Befehl überprüft außerdem, ob die Blockgröße geeignet ist.
+
+[listing]
+----
+
+smsap repository create
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-repository`*
++
+Die Optionen, die dem -Repository folgen, geben die Details der Datenbank für das Repository an
+
+* *`-port _repo_port_`*
++
+Gibt die TCP-Portnummer an, die für den Zugriff auf die Datenbank verwendet wird, in der das Repository gespeichert ist.
+
+* *`-dbname _repo_service_name_`*
++
+Gibt den Namen der Datenbank an, in der das Repository gespeichert wird. Verwenden Sie entweder den globalen Namen oder den SID.
+
+* *`-host _repo_host_`*
++
+Gibt den Namen oder die IP-Adresse des Hostcomputers an, auf dem die Repository-Datenbank ausgeführt wird.
+
+* *`-login`*
++
+Startet die Repository-Anmeldedaten.
+
+* *`-username _repo_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Datenbank erforderlich ist, in der das Repository gespeichert ist.
+
+* *`-force`*
++
+Versucht, die Erstellung des Repositorys zu erzwingen. Wenn Sie diese Option verwenden, werden Sie von SnapManager aufgefordert, das Repository zu sichern, bevor Sie das Repository erstellen.
+
+* *`-noprompt`*
++
+Zeigt nicht die Aufforderung zum Sichern des Repository an, bevor es erstellt wird, wenn Sie den verwenden `-force` Option. Verwenden der `-noprompt` Mit dieser Option wird sichergestellt, dass die Eingabeaufforderung nicht angezeigt wird. Dies erleichtert das Erstellen von Repositorys mithilfe eines Skripts.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+
+
+== Befehlsbeispiel
+
+Im folgenden Beispiel wird ein Repository in der Datenbank SMSAPREPO auf dem Host hotspur erstellt.
+
+[listing]
+----
+smsap repository create -repository -port 1521 -dbname SMSAPREPO -host hotspur -login -username grabal21 -verbose
+SMSAP-09202 [INFO ]: Creating new schema as grabal21 on jdbc:oracle:thin:@//hotspur:1521/SMSAPREPO.
+SMSAP-09205 [INFO ]: Schema generation complete.
+SMSAP-09209 [INFO ]: Performing repository version INSERT.
+SMSAP-09210 [INFO ]: Repository created with version: 30
+SMSAP-13037 [INFO ]: Successfully completed operation: Repository Create
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:08.844
+----

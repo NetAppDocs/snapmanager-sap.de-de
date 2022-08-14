@@ -1,0 +1,43 @@
+---
+permalink: unix-installation-7mode/concept-limitations-for-performing-a-rollback.html 
+sidebar: sidebar 
+keywords: scenario, perform, rollback, task, limitation 
+summary: Sie müssen die Szenarien kennen, in denen Sie kein Rollback durchführen können. In einigen dieser Szenarien können Sie jedoch einige zusätzliche Aufgaben ausführen, bevor Sie das Rollback durchführen. 
+---
+= Einschränkungen bei der Durchführung eines Rollbacks
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Szenarien kennen, in denen Sie kein Rollback durchführen können. In einigen dieser Szenarien können Sie jedoch einige zusätzliche Aufgaben ausführen, bevor Sie das Rollback durchführen.
+
+Die Szenarien, in denen Sie kein Rollback durchführen können oder die zusätzlichen Aufgaben ausführen müssen, sind wie folgt:
+
+* Wenn Sie nach einem Rolling Upgrade einen der folgenden Vorgänge ausführen:
++
+** Erstellen Sie ein neues Profil.
+** Teilen Sie einen Klon auf.
+** Ändern Sie den Schutzstatus des Profils.
+** Zuweisung von Sicherungsrichtlinien, Aufbewahrungsklassen oder SnapVault- und SnapMirror-Beziehungen
++
+In diesem Szenario müssen Sie nach dem Durchführen eines Rollback die zugewiesene Sicherungsrichtlinie, die Aufbewahrungsklasse oder die zugewiesene SnapVault- und SnapMirror-Beziehung manuell entfernen.
+
+** Ändern Sie den Mount-Status des Backups.
++
+In diesem Szenario müssen Sie zuerst den Mount-Status in den ursprünglichen Zustand ändern und dann ein Rollback durchführen.
+
+** Stellen Sie ein Backup wieder her.
+** Ändern Sie den Authentifizierungsmodus von der Datenbankauthentifizierung in die Betriebssystemauthentifizierung.
++
+In diesem Szenario müssen Sie nach einem Rollback den Authentifizierungsmodus manuell von OS in die Datenbank ändern.
+
+
+
+* Wenn der Hostname des Profils geändert wird
+* Wenn Profile getrennt sind, um Archiv-Log-Backups zu erstellen
++
+In diesem Szenario können Sie keine Rollbacks auf eine Version durchführen, die früher als SnapManager 3.2 ist.
+
+

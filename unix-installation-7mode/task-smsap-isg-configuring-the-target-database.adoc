@@ -1,0 +1,22 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-configure-the-target-database.html 
+sidebar: sidebar 
+keywords: target, database, oracle, configure, standalone, real, application, cluster, rac, automatic, storage, management, asm, support, combination, configuring 
+summary: 'Die Zieldatenbank ist eine Oracle-Datenbank, die entweder als Standalone, Real Application Clusters (RAC), Automatic Storage Management (ASM) oder als andere unterstützte Kombinationen konfiguriert werden kann.' 
+---
+= Konfigurieren Sie die Zieldatenbank
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Zieldatenbank ist eine Oracle-Datenbank, die entweder als Standalone, Real Application Clusters (RAC), Automatic Storage Management (ASM) oder als andere unterstützte Kombinationen konfiguriert werden kann.
+
+.Schritt
+. Konfiguration der Zieldatenbank unter Verweis auf _NetApp Technical Report 3633: Best Practices für Oracle Datenbanken auf NetApp Storage_.
+
+
+*Verwandte Informationen*
+
+http://www.netapp.com/us/media/tr-3633.pdf["NetApp Technical Report 3633: Best Practices for Oracle Databases on NetApp Storage"^]

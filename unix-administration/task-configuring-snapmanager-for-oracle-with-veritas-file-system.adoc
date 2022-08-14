@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/task-configure-snapmanager-for-oracle-with-veritas-file-system.html 
+sidebar: sidebar 
+keywords: snapmanager, install, solaris, configure, configuring, support, veritas, sfrac, environment, oracle, rac, sfrac 
+summary: 'Wenn SnapManager auf Solaris installiert ist, können Sie SnapManager so konfigurieren, dass die Veritas Storage Foundation for Oracle RAC-Umgebung (SFRAC) unterstützt wird.' 
+---
+= Konfiguration von SnapManager zur Unterstützung der Veritas SFRAC-Umgebung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn SnapManager auf Solaris installiert ist, können Sie SnapManager so konfigurieren, dass die Veritas Storage Foundation for Oracle RAC-Umgebung (SFRAC) unterstützt wird.
+
+*Was Sie brauchen*
+
+* Auf dem Host müssen Solaris, Host Utilities und Veritas installiert sein.
+
+
+.Schritte
+. Erstellen Sie mithilfe von SnapDrive für UNIX eine gemeinsame Laufwerksgruppe und ein Dateisystem für SnapManager, sodass die Dateisysteme gleichzeitig auf beiden Knoten des Real Application Clusters (RAC) gemountet sind.
++
+Informationen zum Erstellen einer freigegebenen Laufwerksgruppe und eines Dateisystems finden Sie in der SnapDrive-Dokumentation.
+
+. Installieren und konfigurieren Sie die SAP-Datenbank, die auf den freigegebenen Dateisystemen gemountet werden soll.
+. Starten Sie eine Datenbankinstanz auf einem beliebigen Knoten des RAC.
+
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site"^]

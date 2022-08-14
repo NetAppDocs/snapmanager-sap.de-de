@@ -1,0 +1,92 @@
+---
+permalink: windows/reference-the-smosmsapbackup-unmount-command.html 
+sidebar: sidebar 
+keywords: run, backup, unmount, command, smsap 
+summary: Sie können den Befehl Backup unmount ausführen, um die Bereitstellung eines Backups zu aufheben. 
+---
+= Der Befehl smsap Backup unmount
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup unmount` Befehl zum Aufheben der Bereitstellung eines Backups.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap backup unmount
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id id]
+[-force]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt das Profil an, für das die Bereitstellung eines Backups aufgehoben werden soll. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-id _id_`*
++
+Hängt das Backup mit der angegebenen GUID ab. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können das verwenden `smsap backup list` Befehl zum Anzeigen der GUID für jedes Backup.
+
+* *`-label _label_`*
++
+Hängt das Backup mit dem angegebenen Etikett ab.
+
+* *`-data`*
++
+Gibt die Datendateien an.
+
+* *`-archivelogs`*
++
+Gibt die Archivprotokolldateien an.
+
+* *`-dump`*
++
+Sammelt die Speicherauszugsdateien nach einem erfolgreichen oder fehlgeschlagenen Aushängevorgang.
+
+* *`-force`*
++
+Hängt das Backup ab, selbst wenn beim Freigeben der mit dem Backup verbundenen Ressourcen Probleme auftreten. SnapManager versucht, die Bereitstellung des Backups rückgängig zu machen und die zugehörigen Ressourcen zu bereinigen. Das Protokoll zeigt den Vorgang zum Aufheben der Bereitstellung als erfolgreich an. Bei Fehlern im Protokoll müssen Sie jedoch möglicherweise Ressourcen manuell bereinigen.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+Im Folgenden finden Sie ein Beispiel für einen unmontierten Vorgang:
+
+[listing]
+----
+# smsap backup unmount -label test -profile SALES1 -verbose
+----
+[listing]
+----
+[INFO ]: SMSAP-13051: Process PID=9788
+[INFO ]: SMSAP-13036: Starting operation Backup Unmount on host hadley.domain.private
+[INFO ]: SMSAP-13036: Starting operation Backup Unmount on host hadley.domain.private
+[INFO ]: SMSAP-13046: Operation GUID 8abc015738849a3d0138849a43900001 starting on Profile FAS_P1
+[INFO ]: SD-00031: Beginning to disconnect filesystem(s) [C:\SnapManager_auto_mounts\H-2012071400592312_0, C:\SnapManager_auto_mounts\I-2012071400592328_0].
+[INFO ]: SD-00032: Finished disconnecting filesystem(s) [C:\SnapManager_auto_mounts\H-2012071400592312_0, C:\SnapManager_auto_mounts\I-2012071400592328_0].
+[INFO ]: SMSAP-13048: Backup Unmount Operation Status: SUCCESS
+[INFO ]: SMSAP-13049: Elapsed Time: 0:07:26.754
+----

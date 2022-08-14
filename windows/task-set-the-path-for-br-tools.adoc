@@ -1,0 +1,26 @@
+---
+permalink: windows/task-set-the-path-for-br-tools.html 
+sidebar: sidebar 
+keywords: set, path, br, tools, command 
+summary: Sie müssen den Pfad für BR*Tools festlegen, um den Befehl BR*Tools verwenden zu können. 
+---
+= Legen Sie den Pfad für BR*Tools fest
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen den Pfad für BR*Tools festlegen, um den Befehl BR*Tools verwenden zu können.
+
+
+
+== Über diese Aufgabe
+
+Wenn der Pfad nicht eingestellt ist und Sie versuchen, den Systemdump-Vorgang mithilfe von BR*Tools durchzuführen, wird die folgende Fehlermeldung protokolliert `config_summary.txt: 'brtools' is not recognized as an internal or external command, operable program or batch file`
+
+.Schritte
+. Klicken Sie auf *Start* > *Arbeitsplatz* und dann mit der rechten Maustaste auf *Eigenschaften* > *Erweitert* > *Umgebungsvariablen*.
+. Klicken Sie im Fenster *Umgebungsvariablen* auf *Neu*, um einen neuen BR*Tools-Pfad hinzuzufügen, oder auf *Bearbeiten*, um den vorhandenen BR*Tools-Pfad für die Systemvariablen und Benutzervariablen zu bearbeiten.
+. Klicken Sie auf *OK*, um Ihre Änderungen zu speichern.
+

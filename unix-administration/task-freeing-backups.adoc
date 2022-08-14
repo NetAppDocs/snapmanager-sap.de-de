@@ -1,0 +1,116 @@
+---
+permalink: unix-administration/task-free-backups.html 
+sidebar: sidebar 
+keywords: free, backup, delete, snapshot, copies, copy, deleting, metadata, function, smsap, command 
+summary: Sie können Backups freigeben, die die Snapshot Kopien löschen, ohne die Backup-Metadaten zu löschen. Diese Funktion gibt den Speicherplatz frei, der durch das Backup belegt wird. Sie können den kostenlosen Befehl smsap Backup verwenden, um die Backups zu befreien. 
+---
+= Kostenlose Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Backups freigeben, die die Snapshot Kopien löschen, ohne die Backup-Metadaten zu löschen. Diese Funktion gibt den Speicherplatz frei, der durch das Backup belegt wird. Sie können den kostenlosen Befehl smsap Backup verwenden, um die Backups zu befreien.
+
+*Was Sie brauchen*
+
+Damit ein Backup zur Freigabe berechtigt ist, müssen Sie Folgendes sicherstellen:
+
+* Das Backup war erfolgreich
+* Backup soll nicht angehängt werden
+* Backup verfügt nicht über Klone
+* Der Backup darf nicht durch eine Richtlinie zur unbegrenzten Aufbewahrung beibehalten werden
+* Das Backup wird nicht bereits freigegeben
+
+
+*Über diese Aufgabe*
+
+Wenn die Sicherung im Profil aktiviert wird und die Sicherungsrichtlinie Verbindungen vom primären Node enthält, die eine Spiegelbeziehung verwenden, werden Snapshot-Kopien auf dem primären Node gelöscht, wenn ein Backup freigegeben wird. Diese Snapshot-Kopien werden auch bei der nächsten Übertragung zum sekundären Storage von den Spiegelknoten gelöscht.
+
+Wenn Sie ein geschütztes Backup freigeben, fordert SnapManager an, dass Protection Manager die lokalen Snapshot-Kopien für das Backup entfernt. Wenn der freie Backup-Vorgang für die geschützten Backups erfolgreich ist, werden die Snapshot Kopien asynchron durch den Protection Manager gelöscht.
+
+[cols="2a,1a,3a,3a,4a"]
+|===
+| Sicherungsstatus | Lokaler Status | Aktion für den Primär-Storage | Aktion auf dem sekundären Storage | Erklärung 
+
+
+ a| 
+Nicht angefordert (zu schützen)
+ a| 
+Vorhanden
+ a| 
+Nimmt das Backup frei
+ a| 
+Keine Aktion erforderlich
+ a| 
+SnapManager befreit das lokale Backup.
+
+
+
+ a| 
+Freigegeben
+ a| 
+Keine Aktion erforderlich
+ a| 
+Keine Aktion erforderlich
+ a| 
+Das lokale Backup wird bereits freigegeben.
+
+
+
+ a| 
+Nicht geschützt
+ a| 
+Vorhanden
+ a| 
+Nimmt das Backup frei
+ a| 
+Keine Aktion erforderlich
+ a| 
+SnapManager befreit das lokale Backup, auch wenn im sekundären Storage keine Kopien vorhanden sind.
+
+
+
+ a| 
+Freigegeben
+ a| 
+Keine Aktion erforderlich
+ a| 
+Keine Aktion erforderlich
+ a| 
+Das lokale Backup wird bereits freigegeben.
+
+
+
+ a| 
+Geschützt
+ a| 
+Vorhanden
+ a| 
+Nimmt das Backup frei
+ a| 
+Keine Aktion erforderlich; das Backup auf dem Sekundärsystem bleibt erhalten
+ a| 
+SnapManager befreit das lokale Backup. Kopien verbleiben auf dem sekundären Storage.
+
+
+
+ a| 
+Freigegeben
+ a| 
+Keine Aktion erforderlich
+ a| 
+Keine Aktion erforderlich
+ a| 
+Das lokale Backup wird bereits freigegeben.
+
+|===
+Sie können die Option -dump als optionalen Parameter angeben, um die Dump-Dateien nach dem erfolgreichen oder fehlgeschlagenen freien Backup-Vorgang zu sammeln.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} -force[-dump] [-quiet] [-force]*`
+
+

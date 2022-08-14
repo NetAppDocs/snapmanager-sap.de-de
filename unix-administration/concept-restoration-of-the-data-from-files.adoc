@@ -1,0 +1,18 @@
+---
+permalink: unix-administration/concept-restoration-of-the-data-from-files.html 
+sidebar: sidebar 
+keywords: restore, alternate, location, file, snapvault, restoration, data 
+summary: Bevor Sie ein Restore von einem alternativen Speicherort aus durchführen, müssen Sie die erforderlichen Dateien von einem beliebigen Storage-Medium wiederherstellen und die Dateien von Applikationen wie SnapVault oder SnapMirror in einem Dateisystem wiederherstellen, das auf dem lokalen Host gemountet ist. 
+---
+= Wiederherstellung der Daten aus Dateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie ein Restore von einem alternativen Speicherort aus durchführen, müssen Sie die erforderlichen Dateien von einem beliebigen Storage-Medium wiederherstellen und die Dateien von Applikationen wie SnapVault oder SnapMirror in einem Dateisystem wiederherstellen, das auf dem lokalen Host gemountet ist.
+
+Sie können die Wiederherstellung aus einem alternativen Speicherort verwenden, um die Dateien von einem alternativen Dateisystem auf ein aktives Dateisystem zu kopieren.
+
+Sie müssen die alternativen Speicherorte angeben, von denen die Originaldateien wiederhergestellt werden sollen, indem Sie eine Wiederherstellungsspezifikation erstellen.

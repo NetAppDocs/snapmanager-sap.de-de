@@ -1,0 +1,36 @@
+---
+permalink: windows/task-clone-databases-in-the-current-state.html 
+sidebar: sidebar 
+keywords: create, backup, clone, database, command, current, state 
+summary: Sie können mit einem einzigen Befehl ein Backup und einen Klon der Datenbank aus dem aktuellen Status der Datenbank erstellen. 
+---
+= Klonen von Datenbanken im aktuellen Status
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können mit einem einzigen Befehl ein Backup und einen Klon der Datenbank aus dem aktuellen Status der Datenbank erstellen.
+
+
+
+== Über diese Aufgabe
+
+Wenn Sie das Profil mit angeben `-current` Option, SnapManager erstellt zuerst ein Backup und dann einen Klon aus dem aktuellen Status der Datenbank.
+
+Wenn Sie in der Profileinstellung das Backup von Datendateien und Archivprotokollen zum Klonen zusammen aktiviert haben, werden bei jedem Backup der Online-Datendateien auch die Archivprotokolle gesichert. Während des Klonens der Datenbank erstellt SnapManager das Backup der Datendateien zusammen mit dem Archivprotokoll-Backup und erstellt den Datenbankklon. Wenn die Backup des Archivprotokolls nicht enthalten ist, erstellt SnapManager nicht das Backup des Archivprotokolls und kann daher nicht den Klon der Datenbank erstellen.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um die Datenbank in ihrem aktuellen Status zu klonen:
++
+`*smsap clone create -profileprofile_name-current -labelclone_name-clonespecclonespec.xml*`
+
++
+Dieser Befehl erstellt sofort ein vollständiges automatisches Backup (das Backup-Label generiert) und erstellt anhand einer vorhandenen Klonspezifikation einen Klon aus diesem Backup.
+
++
+
+NOTE: Sie können den angeben `-dump` Option als optionaler Parameter zum Sammeln der Speicherauszugsdateien nach erfolgreichen oder fehlgeschlagenen Vorgängen. Der Dump wird sowohl für die Backup- als auch für Klonvorgänge erfasst.
+
+

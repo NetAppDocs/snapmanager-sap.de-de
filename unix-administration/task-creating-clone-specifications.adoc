@@ -1,0 +1,334 @@
+---
+permalink: unix-administration/task-create-clone-specifications.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, clone, specification, xml, file, mapping, option, parameter, operation, information, diagnostic, creating, create 
+summary: SnapManager für SAP verwendet eine XML-Datei für die Klonspezifikation, die die Zuordnungen, Optionen und Parameter für die Verwendung im Klonvorgang umfasst. SnapManager verwendet diese Informationen, um zu bestimmen, wo die von ihm klonen und wie mit Diagnosedaten, Kontrolldateien, Parametern usw. umzugehen ist. 
+---
+= Erstellen von Klonspezifikationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager für SAP verwendet eine XML-Datei für die Klonspezifikation, die die Zuordnungen, Optionen und Parameter für die Verwendung im Klonvorgang umfasst. SnapManager verwendet diese Informationen, um zu bestimmen, wo die von ihm klonen und wie mit Diagnosedaten, Kontrolldateien, Parametern usw. umzugehen ist.
+
+*Über diese Aufgabe*
+
+Sie können die Klon-Spezifikationsdatei über die grafische Benutzeroberfläche von SnapManager (GUI), die Befehlszeilenschnittstelle (CLI) oder einen Texteditor erstellen.
+
+Wenn Sie die Clone Specification-Datei mithilfe eines Texteditors erstellen, müssen Sie sie als speichern `.xml` Datei: Sie können diese XML-Datei für andere Klonvorgänge verwenden.
+
+Sie können auch eine Vorlage für Klonspezifikationen erstellen und diese dann anpassen. Sie können das verwenden `smsap clone template` Verwenden Sie mit dem Befehl oder in der GUI den Klon-Assistenten.
+
+SnapManager für SAP fügt einer beliebigen Klon-Spezifikations-Vorlage, die sie erstellt, einen Versionsstring hinzu. SnapManager für SAP geht von der aktuellen Version jeder Klon-Spezifikations-Datei aus, die keine Versionszeichenfolge aufweist.
+
+Wenn Sie Remote-Klone durchführen möchten, ändern Sie in der Klonspezifikationsdatei nicht die Standardorte der Datendateien, Wiederherstellungsprotokolle und Kontrolldateien. Wenn Sie den Standardspeicherort ändern, erstellt SnapManager nicht den Klon oder erstellt den Klon für einer Datenbank, die keine Snapshot-Funktion unterstützt. Daher schlägt die automatische Profilerstellung fehl.
+
+
+NOTE: Obwohl Mount-Punkt- und ASM-Datenträgergruppen-Informationen über die GUI editierbar sind, können Sie nur den Dateinamen und nicht die Dateiorte ändern.
+
+Sie können eine Aufgabe mehrfach ausführen, entweder mit den gleichen oder mit unterschiedlichen Parameter- und Wertkombinationen.
+
+SAP verwendet bestimmte Oracle Einstellungen für die Datenbankkonfiguration. Diese Einstellungen finden Sie in `init<SID>.ora` Befindet sich unter `$ORACLE_HOME/dbs`. Sie sollten diese in Ihre Klonspezifikation aufnehmen.
+
+.Schritte
+. Öffnen Sie eine Textdatei und geben Sie Text ein, wie im folgenden Beispiel gezeigt:
++
+*Beispiel*
+
++
+[listing]
+----
+<clone-specification xmlns="http://www.example.com>
+     <storage-specification/>
+     <database-specification/>
+ </clone-specification>
+----
+. Geben Sie in der Komponente Speicherspezifikation die Bereitstellungspunkte für die Datendateien ein.
++
+In der Storage-Spezifikation werden die Speicherorte für den für den Klon erstellten neuen Storage aufgeführt, wie z. B. Mount-Punkte für Datendateien und Rohgeräte. Diese Elemente müssen vom Quell- dem Ziel zugeordnet werden.
+
++
+Das folgende Beispiel zeigt einen einzelnen NFS-Bereitstellungspunkt auf einem NFS-Attached Storage:
+
++
+*Beispiel*
+
++
+[listing]
+----
+<mountpoint>
+      <source>/oracle/<SOURCE SID>_sapdata</source>
+      <destination>/oracle/<TARGET SID>_sapdata</destination>
+</mountpoint>
+----
+. *Optional:* Wenn Sie ein RAW-Gerät auf der Quelle haben, müssen Sie den Pfad für das RAW-Gerät auf der Quelle angeben und dann angeben
++
+`*destination auto-generate=”true”*`
+
++
+Für den Bestimmungsort zu erhalten.
+
++
+Anders als in der Clone Mapping-Datei früherer Versionen von SnapManager für SAP können Sie keinen Speicherort für das RAW-Gerät auf dem Ziel angeben. SnapManager für SAP wählt den nächsten verfügbaren Gerätenamen für das geklonte RAW-Gerät aus.
+
++
+*Beispiel*
+
++
+Im folgenden Beispiel wird die Syntax der RAW-Geräte angezeigt, die Sie in der Klonspezifikation verwenden:
+
++
+[listing]
+----
+<raw-device>
+     <source>/dev/raw/raw1</source>
+     <destination auto-generate="true"/>
+</raw-device>
+----
+. Geben Sie in der Komponente Datenbankspezifikation die Informationen der Steuerdatei als eine Liste der Steuerdateien an, die Sie für den Klon erstellen möchten.
++
+Die Datenbankspezifikation gibt die Datenbankoptionen für den Klon an, z. B. Kontrolldateien, Wiederherstellungsprotokolle, Archivprotokolle und Oracle Parameter.
+
++
+*Beispiel*
+
++
+Im folgenden Beispiel wird die Syntax der Kontrolldatei angezeigt, die Sie in der Klonspezifikation verwenden:
+
++
+[listing]
+----
+<controlfiles>
+     <file>/oracle/<TARGET SID>/origlogA/cntrl/cntrl<TARGET SID>.dbf</file>
+     <file>/oracle/<TARGET SID>/origlogB/cntrl/cntrl<TARGET SID>.dbf</file>
+     <file>/oracle/<TARGET SID>/sapdata1/cntrl/cntrl<TARGET SID>.dbf</file>
+</controlfiles>
+----
+. Geben Sie die Struktur des Wiederherstellungsprotokolls für den Klon an.
++
+*Beispiel*
+
++
+Im folgenden Beispiel wird die Struktur des Wiederherstellungsprotokollverzeichnisses für das Klonen angezeigt:
+
++
+[listing]
+----
+<redologs>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogA/log_g11m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogA/log_g11m2.dbf</file>
+        <number>1</number>
+        <size unit="M">100</size>
+     </redogroup>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogB/log_g12m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogB/log_g12m2.dbf</file>
+        <number>2</number>
+        <size unit="M">100</size>
+     </redogroup>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogA/log_g13m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogA/log_g13m2.dbf</file>
+        <number>3</number>
+        <size unit="M">100</size>
+     </redogroup>
+     <redogroup>
+        <file>/oracle/<TARGET SID>/origlogB/log_g14m1.dbf</file>
+        <file>/oracle/<TARGET SID>/mirrlogB/log_g14m2.dbf</file>
+        <number>4</number>
+        <size unit="M">100</size>
+     </redogroup>
+</redologs>
+----
+. Geben Sie die Oracle-Parameter an, die in der geklonten Datenbank auf unterschiedliche Werte festgelegt werden sollen. Wenn Sie Oracle 10 verwenden, müssen Sie die folgenden Parameter angeben:
++
+** Hintergrundauszug
+** Core Dump
+** User Dump
+** *Optional:* Archiv-Logs
++
+
+NOTE: Wenn die Parameterwerte nicht richtig festgelegt sind, wird der Klonvorgang angehalten, und Sie erhalten eine Fehlermeldung.
+
+
+
++
+Wenn Sie nicht den Speicherort für Archivprotokolle angeben, erstellt SnapManager den Klon in `noarchivelog` Modus. SnapManager kopiert diese Parameterinformationen in das `init.ora` Datei des Klons.
+
+
+
+*Beispiel*
+
+Im folgenden Beispiel wird die Parametersyntax angezeigt, die Sie in der Klonspezifikation verwenden: +
+
+[listing]
+----
+<parameters>
+     <parameter>
+          <name>log_archive_dest</name>
+          <value>LOCATION=>/oracle/<TARGET SID>/oraarch</value>
+     </parameter>
+     <parameter>
+          <name>background_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+          <name>core_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+     <name>user_dump_dest</name>
+     <value>/oracle/<TARGET SID>/saptrace/usertrace</value>
+     </parameter>
+</parameters>
+----
+*Beispiel*
+
+Sie können einen Standardwert verwenden, indem Sie ein Standardelement innerhalb des Parameterelements verwenden. Im folgenden Beispiel wird der verwendet `os_authentication_prefix` Der Parameter erhält den Standardwert, da das Standardelement angegeben wird:
+
+[listing]
+----
+<parameters>
+     <parameter>
+          <name>os_authent_prefix</name>
+          <default></default>
+     </parameter>
+</parameters>
+----
+*Beispiel*
+
+Sie können eine leere Zeichenfolge als Wert für einen Parameter angeben, indem Sie ein leeres Element verwenden. Im folgenden Beispiel wird der verwendet `os_authentication_prefix` Wird auf einen leeren String gesetzt:
+
+[listing]
+----
+<parameters>
+     <parameter>
+          <name>os_authent_prefix</name>
+          <value></value>
+     </parameter>
+</parameters>
+----
+
+NOTE: Sie können den Wert aus der Quelldatenbank verwenden `init.ora` Datei für den Parameter, indem Sie kein Element angeben.
+
+*Beispiel*
+
+Wenn ein Parameter mehrere Werte hat, können Sie die durch Kommas getrennten Parameterwerte angeben. Wenn Sie beispielsweise die Datendateien von einem Speicherort zu einem anderen verschieben möchten, können Sie das verwenden `db_file_name_convert` Parameter und geben die Datendateipfade durch Kommas getrennt an, wie im folgenden Beispiel dargestellt:
+
+*Beispiel*
+
+Wenn Sie die Protokolldateien von einem Speicherort zu einem anderen verschieben möchten, können Sie im Folgenden die verwenden `log_file_name_convert` Parameter und geben Sie die Protokolldateipfade durch Kommas getrennt an, wie im Beispiel gezeigt:
+
+. *Optional:* Geben Sie beliebige SQL-Anweisungen an, die gegen den Klon ausgeführt werden sollen, wenn er online ist.
++
+Sie können die SQL-Anweisungen verwenden, um Aufgaben auszuführen, wie z. B. das Neuerstellen des `temp files` In der geklonten Datenbank.
+
++
+
+NOTE: Sie müssen sicherstellen, dass am Ende der SQL-Anweisung kein Semikolon enthalten ist.
+
++
+Im Folgenden finden Sie eine Beispiel-SQL-Anweisung, die Sie im Rahmen des Klonvorgangs ausführen:
+
++
+[listing]
+----
+<sql-statements>
+   <sql-statement>
+     ALTER TABLESPACE TEMP ADD
+     TEMPFILE '/mnt/path/clonename/temp_user01.dbf'
+     SIZE 41943040 REUSE AUTOEXTEND ON NEXT 655360
+     MAXSIZE 32767M
+   </sql-statement>
+</sql-statements>
+----
++
+* Beispiel für die Klonspezifikation*
+
++
+Im folgenden Beispiel wird die Klonspezifikationsstruktur angezeigt, die sowohl die Komponenten für die Storage- als auch die Datenbankspezifikation enthält:
+
++
+[listing]
+----
+<clone-specification xmlns="http://www.example.com>
+
+   <storage-specification>
+     <storage-mapping>
+        <mountpoint>
+           <source>/oracle/<SOURCE SID>_sapdata</source>
+           <destination>/oracle/<TARGET SID>_sapdata</destination>
+        </mountpoint>
+        <raw-device>
+          <source>/dev/raw/raw1</source>
+          <destination auto-generate="true"/>
+        </raw-device>
+        <raw-device>
+          <source>/dev/raw/raw2</source>
+          <destination auto-generate="true"/>
+        </raw-device>
+     </storage-mapping>
+   </storage-specification>
+
+   <database-specification>
+     <controlfiles>
+        <file>/oracle/<TARGET SID>/origlogA/cntrl/cntrl<TARGET SID>.dbf</file>
+        <file>/oracle/<TARGET SID>/origlogB/cntrl/cntrl<TARGET SID>.dbf</file>
+        <file>/oracle/<TARGET SID>/sapdata1/cntrl/cntrl<TARGET SID>.dbf</file>
+       </controlfiles>
+
+       <redologs>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogA/log_g11m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogA/log_g11m2.dbf</file>
+          <number>1</number>
+          <size unit="M">100</size>
+        </redogroup>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogB/log_g12m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogB/log_g12m2.dbf</file>
+          <number>2</number>
+          <size unit="M">100</size>
+        </redogroup>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogA/log_g13m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogA/log_g13m2.dbf</file>
+          <number>3</number>
+          <size unit="M">100</size>
+        </redogroup>
+        <redogroup>
+          <file>/oracle/<TARGET SID>/origlogB/log_g14m1.dbf</file>
+          <file>/oracle/<TARGET SID>/mirrlogB/log_g14m2.dbf</file>
+          <number>4</number>
+          <size unit="M">100</size>
+       </redogroup>
+       </redologs>
+
+    <parameters>
+      <parameter>
+          <name>log_archive_dest</name>
+          <value>LOCATION=>/oracle/<TARGET SID>/oraarch</value>
+     </parameter>
+     <parameter>
+          <name>background_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+          <name>core_dump_dest</name>
+          <value>/oracle/<TARGET SID>/saptrace/background</value>
+     </parameter>
+     <parameter>
+     <name>user_dump_dest</name>
+     <value>/oracle/<TARGET SID>/saptrace/usertrace</value>
+     </parameter>
+
+    </parameters>
+   </database-specification>
+</clone-specification>
+----
++
+'''
+

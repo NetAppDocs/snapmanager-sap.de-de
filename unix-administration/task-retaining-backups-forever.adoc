@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-retain-backups-forever.html 
+sidebar: sidebar 
+keywords: specify, backup, ineligible, deletion, retention, policy, indefinitely, retain, forever 
+summary: Sie können angeben, dass ein Backup durch die Aufbewahrungsrichtlinie nicht zur Löschung berechtigt sein sollte, um das Backup auf unbestimmte Zeit zu halten. 
+---
+= Unbefristet Backup-Aufbewahrung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können angeben, dass ein Backup durch die Aufbewahrungsrichtlinie nicht zur Löschung berechtigt sein sollte, um das Backup auf unbestimmte Zeit zu halten.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um anzugeben, dass ein Backup unbegrenzt aufbewahrt werden soll:
++
+`*smsap backup update -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_} -retain -unlimited*`
+
+

@@ -1,0 +1,88 @@
+---
+permalink: unix-administration/task-preview-backup-restore-information.html 
+sidebar: sidebar 
+keywords: preview, information, backup, restore, process, snapmanager, sap, successful 
+summary: Sie können eine Vorschau von Informationen zu einem Backup-Wiederherstellungsprozess vor seiner Einführung anzeigen, um Informationen über die Berechtigung zur Wiederherstellung, die SnapManager für SAP auf Ihrem Backup gefunden. SnapManager analysiert die Daten für Ihr Backup, um festzustellen, ob der Wiederherstellungsprozess erfolgreich abgeschlossen werden kann. 
+---
+= Vorschau der Backup-Wiederherstellungsinformationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Vorschau von Informationen zu einem Backup-Wiederherstellungsprozess vor seiner Einführung anzeigen, um Informationen über die Berechtigung zur Wiederherstellung, die SnapManager für SAP auf Ihrem Backup gefunden. SnapManager analysiert die Daten für Ihr Backup, um festzustellen, ob der Wiederherstellungsprozess erfolgreich abgeschlossen werden kann.
+
+*Über diese Aufgabe*
+
+Die Vorschau zur Wiederherstellung enthält die folgenden Informationen:
+
+* Über den welcher Restore-Mechanismus (schnelle Wiederherstellung, Storage-seitige Filesystem-Wiederherstellung, Storage-seitige Datei-Wiederherstellung oder Host-seitige Datei-Kopie-Wiederherstellung) kann jede Datei wiederhergestellt werden.
+* Warum effizientere Mechanismen nicht verwendet wurden, um jede Datei wiederherzustellen, wenn Sie die angeben `-verbose` Option.
+
+
+Wenn Sie den angeben `-preview` Wählen Sie im `backup restore` Befehl, SnapManager stellt nichts wieder her, listet aber die wiederherzustellenden Dateien auf und gibt an, wie sie wiederhergestellt werden.
+
+
+NOTE: Sie können alle Arten von Wiederherstellungsmechanismen in einer Vorschau anzeigen. Die Vorschau zeigt Informationen über bis zu 20 Dateien.
+
+.Schritte
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -preview -verbose*`
+
++
+*Beispiel*
+
++
+Geben Sie beispielsweise Folgendes ein:
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -preview -verbose
+----
++
+Das folgende Beispiel zeigt einige Dateien, die mit dem Host-seitigen Dateikopierprozess wiederhergestellt werden, und erklärt auch, warum einige Dateien mit der Option fast Restore nicht wiederhergestellt werden können. Wenn Sie den angeben `-verbose` Option: SnapManager zeigt einen Vorschaubereich und einen Analysebereich an, der erklärt, warum jede Datei nicht über den schnellen Wiederherstellungsprozess wiederhergestellt werden kann.
+
++
+[listing]
+----
+PREVIEW:
+The following files will be restored via host side file copy restore:
++DG2/sid/datafile10.dbf
++DG2/sid/datafile11.dbf
+
+ANALYSIS:
+The following reasons prevent certain files from being restored via fast restore:
+Reasons:
+ Newer snapshots of /vol/volume2 have volume clones: SNAP_1
+*Newer backups will be freed: nightly2, nightly3
+Files to Restore:
+/mnt/systemB/volume2/system.dbf
+/mnt/systemB/volume2/users.dbf
+/mnt/systemB/volume2/sysaux.dbf
+/mnt/systemB/volume2/datafile04.dbf
+/mnt/systemB/volume2/datafile05.dbf
+
+The following reasons prevent certain files from being restored via fast restore:
+Reasons:
+* Newer snapshots of /vol/adm_disks will be lost: ADM_SNAP_5
+* Luns present which were created after snapshot SNAP_0 was created: /vol/adm_disks/disk5.lun
+* Files not part of the restore scope will be reverted in file system: +DG2
+
+Files Not in Restore Scope: +DG2/someothersid/data01.dbf
++DG2/someothersid/data02.dbf
+Files to Restore:
++DG2/sid/datafile08.dbf +DG2/sid/datafile09.dbf
++DG2/sid/datafile10.dbf +DG2/sid/datafile11.dbf
+
+* Reasons denoted with an asterisk (*) are overridable.
+----
+. Prüfen Sie die Gründe, warum andere Wiederherstellungsprozesse nicht verwendet werden können.
+. Starten Sie den Wiederherstellungsvorgang ohne `-preview` Option, wenn nur Gründe angezeigt werden, die überschreibbar sind.
++
+Sie können nicht obligatorische Prüfungen weiterhin überschreiben.
+
+

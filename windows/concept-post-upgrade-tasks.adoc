@@ -1,0 +1,17 @@
+---
+permalink: windows/concept-post-upgrade-tasks.html 
+sidebar: sidebar 
+keywords: upgrade, version, snapmanager, update, exist, repository, modify, backup, retention, class, assign, post-upgrade, task 
+summary: Nach dem Upgrade auf eine neuere Version von SnapManager müssen Sie das vorhandene Repository aktualisieren. Sie können auch die Backup-Aufbewahrungsklasse ändern, die den vorhandenen Backups zugewiesen ist. 
+---
+= Aufgaben nach dem Upgrade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Upgrade auf eine neuere Version von SnapManager müssen Sie das vorhandene Repository aktualisieren. Sie können auch die Backup-Aufbewahrungsklasse ändern, die den vorhandenen Backups zugewiesen ist.
+
+
+NOTE: Nach dem Upgrade auf SnapManager 3.3 oder höher müssen Sie einstellen `_sqlnet.authentication_services_` An *NONE*, wenn Sie Datenbank (DB) Authentifizierung als einzige Authentifizierungsmethode verwenden möchten. Diese Funktion wird für RAC-Datenbanken nicht unterstützt.

@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-splitestimate-command.html 
+sidebar: sidebar 
+keywords: command, enable, view, clone, split, storage, consume, estimate, smsap, split-estimate 
+summary: Mit diesem Befehl können Sie die abgeteilte Menge des für den Klon belegten Speicherplatzes anzeigen. 
+---
+= Der Befehl smsap Clone Split-Schätzen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl können Sie die abgeteilte Menge des für den Klon belegten Speicherplatzes anzeigen.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-estimate
+-profile _profile_
+[-host _hostname_\]
+[-label _clone-label_ | -id _clone-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_*`
++
+Gibt den Profilnamen des Klons an.
+
+* `*-host _hostname_*`
++
+Gibt den Hostnamen an, in dem der Klon vorhanden ist.
+
+* `*-label _clone-label_*`
++
+Gibt den durch den Klonprozess generierten Namen an.
+
+* `*_-id clone-id_*`
++
+Gibt die eindeutige ID an, die durch den Klonprozess generiert wurde.
+
+* `*_-quiet_*`
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*_-verbose_*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+

@@ -1,0 +1,75 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-secondary-backup-schedules.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, configure, schedule 
+summary: Um das Backup der Datenbank auf dem sekundären Storage zu unterstützen, verwendet der Storage-Administrator Protection Manager zum Konfigurieren eines Backup-Zeitplans. 
+---
+= Verwenden Sie Protection Manager, um sekundäre Backup-Pläne zu konfigurieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um das Backup der Datenbank auf dem sekundären Storage zu unterstützen, verwendet der Storage-Administrator Protection Manager zum Konfigurieren eines Backup-Zeitplans.
+
+*Was Sie brauchen*
+
+Vor der Konfiguration des Zeitplans für sekundäre Backups gibt der Storage-Administrator folgende Informationen mit dem DBA-Partner:
+
+* Den Zeitplan, den der DBA die sekundären Backups befolgen möchte.
++
+In diesem Fall finden einmal täglich Sicherungen um 7 Uhr statt Und einmal wöchentlich erfolgen Backups samstags um 1 Uhr
+
+
+
+.Schritte
+. Wechseln Sie zur NetApp Management-Konsole des Protection Manager.
+. Klicken Sie in der Menüleiste auf *Richtlinien* > *Schutz* > *Zeitpläne*.
++
+Die Registerkarte Zeitpläne im Fenster Schutzrichtlinien wird angezeigt.
+
+. Wählen Sie in der Terminliste den Tagesplan**täglich um 8:00 Uhr** aus.
+. Klicken Sie Auf *Kopieren*.
++
+Ein neuer Tagesplan, *Kopie des Tages um 8:00 Uhr*, wird in der Liste angezeigt. Sie ist bereits ausgewählt.
+
+. Klicken Sie Auf *Bearbeiten*.
++
+Die Eigenschaftenblatt „Tagesplan bearbeiten“ wird auf der Registerkarte „Zeitplan“ geöffnet.
+
+. Ändern Sie den Terminplannamen um 7 Uhr auf *Payroll Daily*, aktualisieren Sie die Beschreibung und klicken Sie dann auf *Apply*.
++
+Ihre Änderungen werden gespeichert.
+
+. Klicken Sie auf die Registerkarte * Tagesereignisse*.
++
+Die aktuelle tägliche Backup-Zeit des Zeitplans liegt bei 8:00 Uhr Wird angezeigt.
+
+. Klicken Sie auf *Hinzufügen* und geben Sie *7:00 PM* in das neue Zeitfeld ein, und klicken Sie dann auf *Anwenden*.
++
+Die aktuelle tägliche Backup-Zeit des Zeitplans ist jetzt 7:00 Uhr
+
+. Klicken Sie auf *OK*, um Ihre Änderungen zu speichern und das Eigenschaftenblatt zu verlassen.
++
+Ihr neuer Tagesplan, *Payroll Daily um 7 Uhr*, wird in der Terminliste angezeigt.
+
+. Wählen Sie den Wochenplan**Sonntag um 8:00 Uhr plus täglich** in der Terminliste aus.
+. Klicken Sie Auf *Kopieren*.
++
+Ein neuer Wochenplan, *Kopie des Sonntags um 8:00 Uhr plus täglich*, wird in der Liste angezeigt. Sie ist bereits ausgewählt.
+
+. Klicken Sie Auf *Bearbeiten*.
++
+Das Eigenschaftenblatt Wochenplan bearbeiten wird auf der Registerkarte Zeitplan geöffnet.
+
+. Ändern Sie den Terminplannamen in *Payroll Samstag um 1 UHR plus täglich um 7 Uhr* und aktualisieren Sie die Beschreibung.
+. Wählen Sie aus der Dropdown-Liste *Tagesplan* den soeben erstellten Tagesplan *Payroll Daily um 7 Uhr* aus.
++
+Wenn Sie *Payroll Daily um 7 Uhr* auswählen, wird in diesem Zeitplan festgelegt, wann der tägliche Betrieb stattfinden soll, wenn der *Gehaltsabrechnungsplan Samstag um 1 UHR plus täglich um 7 Uhr* auf eine Richtlinie angewendet wird.
+
+. Klicken Sie auf *OK*, um Ihre Änderungen zu speichern und das Eigenschaftenblatt zu verlassen.
++
+Ihr neuer Wochenplan, *Payroll Samstag um 1:00 Uhr plus täglich um 7:00 Uhr*, wird in der Terminliste angezeigt.
+
+

@@ -1,0 +1,182 @@
+---
+permalink: unix-administration/reference-sample-database-volume-layouts.html 
+sidebar: sidebar 
+keywords: sample, database, volume, layout, configuring, configure 
+summary: Weitere Informationen zur Konfiguration Ihrer Datenbank finden Sie unter Beispiel-Datenbank-Volume-Layouts. 
+---
+= Beispiel für Datenbank-Volume-Layouts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Weitere Informationen zur Konfiguration Ihrer Datenbank finden Sie unter Beispiel-Datenbank-Volume-Layouts.
+
+
+
+== Single-Instance-Datenbanken
+
+[cols="1a,3a,1a,1a"]
+|===
+| Dateitypen | Volume-Namen | Dediziertes Volume für Dateitypen | Automatische Snapshot Kopien 
+
+
+ a| 
+Oracle-Binärdateien
+ a| 
+Orabin_ `_host name_`
+ a| 
+Ja.
+ a| 
+Ein
+
+
+
+ a| 
+Datendateien
+ a| 
+Oradata_ `_sid_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Temporäre Datendateien
+ a| 
+Oratep_ `_sid_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Kontrolldateien
+ a| 
+Oracntrl01_ `_sid_` (Multipliziert)
+
+Oracntrl02_ `_sid_` (Multipliziert)
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Wiederherstellungsprotokolle
+ a| 
+Oralogen01_ `_sid_` (Multipliziert)
+
+Oralogen02_ `_sid_` (Multipliziert)
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Archivprotokolle
+ a| 
+Oraarch_ `_sid_`
+ a| 
+Ja.
+ a| 
+Aus
+
+|===
+
+
+== RAC-Datenbanken (Real Application Clusters)
+
+[cols="1a,3a,1a,1a"]
+|===
+| Dateitypen | Volume-Namen | Dediziertes Volume für Dateitypen | Automatische Snapshot Kopien 
+
+
+ a| 
+Oracle-Binärdateien
+ a| 
+Orabin_ `_host name_`
+ a| 
+Ja.
+ a| 
+Ein
+
+
+
+ a| 
+Datendateien
+ a| 
+Oradata_ `_dbname_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Temporäre Datendateien
+ a| 
+Oratep_ `_dbname_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Kontrolldateien
+ a| 
+Oracntrl01_ `_dbname_` (Multipliziert)
+
+Oracntrl02_ `_dbname_` (Multipliziert)
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Wiederherstellungsprotokolle
+ a| 
+Oralogen01_ `_dbname_` (Multipliziert)
+
+Oralogen02_ `_dbname_` (Multipliziert)
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Archivprotokolle
+ a| 
+Oraarch_ `_dbname_`
+ a| 
+Ja.
+ a| 
+Aus
+
+
+
+ a| 
+Cluster-Dateien
+ a| 
+Oracrs_ `_clustername_`
+ a| 
+Ja.
+ a| 
+Ein
+
+|===

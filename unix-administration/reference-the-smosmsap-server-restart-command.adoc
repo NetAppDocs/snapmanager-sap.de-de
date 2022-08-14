@@ -1,0 +1,50 @@
+---
+permalink: unix-administration/reference-the-smosmsap-server-restart-command.html 
+sidebar: sidebar 
+keywords: command, restart, snapmanager, host, server, enter, root, smsap_server 
+summary: Mit diesem Befehl wird der SnapManager-Hostserver neu gestartet und als root eingegeben. 
+---
+= Der Befehl smsap_Server restart
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl wird der SnapManager-Hostserver neu gestartet und als root eingegeben.
+
+
+
+== Syntax
+
+[listing]
+----
+smsap_server restart
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* `*-quiet*`
++
+Gibt an, dass nur Fehlermeldungen auf der Konsole angezeigt werden. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*-verbose*`
++
+Gibt an, dass Fehler-, Warn- und Informationsmeldungen auf der Konsole angezeigt werden.
+
+
+
+'''
+
+
+== Beispielbefehl
+
+Im folgenden Beispiel wird der Host-Server neu gestartet.
+
+[listing]
+----
+smsap_server restart
+----
+'''

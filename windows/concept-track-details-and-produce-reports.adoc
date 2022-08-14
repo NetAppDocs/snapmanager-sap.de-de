@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-track-details-and-produce-reports.html 
+sidebar: sidebar 
+keywords: snapmanager, reduce, level, detail, database, administrator, track, status, operation, monitor, interface, produce, report 
+summary: SnapManager bietet nicht nur detaillierte Datenbankadministratoren, die den Status verschiedener Vorgänge verfolgen müssen, sondern mithilfe von Methoden, die Vorgänge über eine einheitliche Benutzeroberfläche überwachen. 
+---
+= Verfolgen Sie die Details und erstellen Sie Berichte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager bietet nicht nur detaillierte Datenbankadministratoren, die den Status verschiedener Vorgänge verfolgen müssen, sondern mithilfe von Methoden, die Vorgänge über eine einheitliche Benutzeroberfläche überwachen.
+
+Nachdem Administratoren festlegen, welche Datenbanken gesichert werden sollen, identifiziert SnapManager die Datenbankdateien für das Backup automatisch. SnapManager zeigt Informationen zu Repositorys, Hosts, Profilen, Backups und Klonen an. Sie können die Vorgänge auf bestimmten Hosts oder Datenbanken überwachen.

@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-prerequisites-for-data-protection.html 
+sidebar: sidebar 
+keywords: aware, consideration, perform, data, protection 
+summary: Beachten Sie bei der Durchführung von Datensicherung bestimmte Überlegungen. 
+---
+= Überlegungen zur Durchführung der Datensicherung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beachten Sie bei der Durchführung von Datensicherung bestimmte Überlegungen.
+
+* Um Klon- oder Wiederherstellungsvorgänge von sekundären Systemen durchzuführen, müssen Sie das Ziel-Volume im Namespace mounten und ordnungsgemäß exportieren.
+* Sie müssen den SnapDrive-Konfigurationsparameter deaktivieren `check-export-permission-nfs-clone` Indem Sie den Wert auf *aus* setzen.
++
+Die Dokumentation zu SnapDrive für UNIX auf der NetApp Support-Website enthält zusätzliche Informationen zum `check-export-permission-nfs-clone parameter`.
+
+* Sie müssen die SnapMirror Beziehung für die angeforderten sekundären Storage-Volumes im sekundären Storage-System konfigurieren.
+* Sie müssen die SnapVault-Beziehung für die angeforderten sekundären Storage-qtrees im sekundären Storage-System für Data ONTAP 7-Mode konfigurieren.
+* Sie müssen eine Richtlinie und Regeln für das benutzerdefinierte SnapMirror-Etikett definieren, wenn Sie SnapVault Post-Script für Clustered Data ONTAP verwenden.
++
+SnapVault Post-Script unterstützt geclusterte Data ONTAP Volumes und die SnapMirror Beziehungstypen DP und XDP. Die ONTAP-Dokumentation auf der NetApp Support-Website enthält Informationen zur Konfiguration von SnapMirror und SnapVault.
+
+
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site"^]

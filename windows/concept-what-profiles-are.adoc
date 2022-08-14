@@ -1,0 +1,48 @@
+---
+permalink: windows/concept-what-profiles-are.html 
+sidebar: sidebar 
+keywords: snapmanager, profile, store, information, perform, operation, database, credential, backup, clone 
+summary: SnapManager verwendet Profile, um die zur Durchführung von Operationen in einer bestimmten Datenbank erforderlichen Informationen zu speichern. Ein Profil enthält die Informationen zur Datenbank einschließlich aller Anmeldeinformationen, Backups und Klone. Wenn Sie ein Profil erstellen, müssen Sie keine Datenbankdetails angeben, wenn Sie eine Operation in dieser Datenbank ausführen. 
+---
+= Welche Profile sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager verwendet Profile, um die zur Durchführung von Operationen in einer bestimmten Datenbank erforderlichen Informationen zu speichern. Ein Profil enthält die Informationen zur Datenbank einschließlich aller Anmeldeinformationen, Backups und Klone. Wenn Sie ein Profil erstellen, müssen Sie keine Datenbankdetails angeben, wenn Sie eine Operation in dieser Datenbank ausführen.
+
+Ein Profil kann nur auf eine Datenbank verweisen. Auf dieselbe Datenbank kann mit mehr als einem Profil verwiesen werden. Auf Backups, die mit einem Profil erstellt werden, kann nicht über ein anderes Profil zugegriffen werden, auch wenn beide Profile auf dieselbe Datenbank verweisen.
+
+Profilinformationen werden in einem Repository gespeichert. Das Repository enthält sowohl die Profilinformationen für die Datenbank als auch Informationen zu den Snapshot-Kopien, die als Datenbank-Backup dienen. Die tatsächlichen Snapshot Kopien werden im Storage-System gespeichert. Die Namen der Snapshot Kopie werden im Repository gespeichert, das das Profil für diese Datenbank enthält. Wenn Sie einen Vorgang in einer Datenbank ausführen, müssen Sie das Profil aus dem Repository auswählen.
+
+Die folgende Abbildung zeigt, wie Repositories mehrere Profile aufnehmen können, aber auch dass jedes Profil nur eine Datenbank definieren kann:
+
+image::../media/prnt_en_drw_smo_smsap_rep_prof.gif[prnt en drw smo smsap rep prof]
+
+Im vorhergehenden Beispiel befindet sich Repository2 auf Datenbank DB1 und Repository1 befindet sich auf der Datenbank DB4.
+
+Jedes Profil enthält die Anmeldeinformationen für die Datenbank, die mit dem Profil verknüpft ist. Mit den Anmeldeinformationen kann SnapManager eine Verbindung zur Datenbank herstellen und mit der Datenbank arbeiten. Die gespeicherten Anmeldeinformationen umfassen den Benutzernamen und die Kennwortpaare für den Zugriff auf den Host, das Repository, die Datenbank und die erforderlichen Verbindungsinformationen, wenn Sie Oracle Recovery Manager (RMAN) verwenden.
+
+Sie können nicht auf ein Backup zugreifen, das mit einem Profil aus einem anderen Profil erstellt wurde, auch wenn beide Profile mit derselben Datenbank verknüpft sind. SnapManager legt eine Sperre auf die Datenbank ab, um zu verhindern, dass zwei inkompatible Vorgänge gleichzeitig ausgeführt werden.
+
+*Profil zur Erstellung vollständiger und partieller Backups*
+
+Sie können Profile erstellen, um vollständige Backups oder partielle Backups zu erstellen.
+
+Die Profile, die Sie zur Erstellung der vollständigen und partiellen Backups angeben, enthalten sowohl die Datendateien als auch die Archivprotokolldateien. SnapManager erlaubt solche Profile nicht, die Backups des Archivprotokolls von den Backups der Datendatei zu trennen. Die vollständigen und teilweisen Backups werden gemäß den bestehenden Richtlinien zur Backup-Aufbewahrung aufbewahrt. Sie können vollständige und teilweise Backups basierend auf der zu Ihnen passt Uhrzeit und Häufigkeit planen.
+
+*Profile für die Erstellung von datenbasierten Backups und nur-Archiv-Backups*
+
+Mit SnapManager (3.2 oder höher) können Sie Profile erstellen, die Backups der Archivprotokolldateien getrennt von den Datendateien machen. Nachdem Sie das Profil zur Trennung der Backup-Typen verwendet haben, können Sie entweder Datendateien-only-Backups oder lediglich Archiv-Log-Backups der Datenbank erstellen. Sie können auch ein Backup erstellen, das sowohl die Datendateien als auch die Archivprotokolldateien enthält.
+
+Die Aufbewahrungsrichtlinie gilt für alle Datenbank-Backups, wenn die Archiv-Log-Backups nicht getrennt sind. Nachdem Sie die Archiv-Log-Backups getrennt haben, können Sie mit SnapManager unterschiedliche Aufbewahrungszeiten festlegen.
+
+*Aufbewahrungsrichtlinie*
+
+SnapManager legt fest, ob ein Backup aufbewahrt werden soll, indem sowohl die Anzahl der Aufbewahrung (z. B. 15 Backups) als auch die Aufbewahrungsdauer (z. B. 10 Tage tägliche Backups) berücksichtigt werden. Ein Backup läuft ab, wenn sein Alter die für seine Aufbewahrungsklasse festgelegte Aufbewahrungsdauer überschreitet und die Anzahl der Backups die Anzahl der Backups übersteigt. Beispiel: Wenn die Backup-Anzahl 15 beträgt (was bedeutet, dass SnapManager 15 erfolgreiche Backups erstellt hat) und die Dauer für tägliche Backups von 10 Tagen festgelegt wurde, verfallen die fünf ältesten, erfolgreichen und infrage kommenden Backups.
+
+*Aufbewahrungsdauer des Archivprotokolls*
+
+Nach Trennung der Backup-Protokolle werden sie basierend auf der Aufbewahrungsdauer des Archivprotokolls aufbewahrt. Backups von Archivprotokolldateien, die mit Backups von Datendateien erstellt werden, werden immer zusammen mit Backups dieser Datendateien aufbewahrt, unabhängig von der Aufbewahrungsdauer für das Archivprotokoll.

@@ -1,0 +1,99 @@
+---
+permalink: windows/reference-the-smosmsapbackup-mount-command.html 
+sidebar: sidebar 
+keywords: run, backup, mount, command, perform, recover, operation, external, tool, smsap 
+summary: Sie können den Befehl Backup Mount ausführen, um ein Backup anzuhängen, um einen Wiederherstellungsvorgang mit einem externen Tool durchzuführen. 
+---
+= Der Befehl smsap Backup Mount
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup mount` Befehl zum Mounten eines Backups, um einen Wiederherstellungsvorgang mit einem externen Tool durchzuführen.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap backup mount
+-profile profile_name
+[-label label [-data | -archivelogs] | [-id id]
+[-host  host]
+
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt das Profil an, das mit dem Backup verknüpft ist, das Sie mounten möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-id _guid_`*
++
+Bindet das Backup mit der angegebenen GUID ein. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können das verwenden `smsap backup list` Befehl zum Anzeigen der GUID für jedes Backup.
+
+* *`-label _label_`*
++
+Bindet das Backup mit dem angegebenen Etikett an.
+
+* *`-data`*
++
+Gibt die Datendateien an.
+
+* *`-archivelogs`*
++
+Gibt die Archivprotokolldateien an.
+
+* *`-host _host_`*
++
+Gibt den Host an, auf dem das Backup gemountet werden soll.
+
+* *`-dump`*
++
+Sammelt die Speicherauszugsdateien nach dem erfolgreichen oder fehlgeschlagenen Mount-Vorgang.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+NOTE: Sie müssen diesen Befehl nur verwenden, wenn Sie ein externes Tool wie Oracle Recovery Manager (RMAN) verwenden. SnapManager übernimmt bei Verwendung des automatisch das Mounten von Backups `smsap backup restore` Befehl zum Wiederherstellen des Backups. Mit diesem Befehl wird eine Liste angezeigt, die die Pfade anzeigt, auf denen die Snapshot Kopien angehängt wurden. Diese Liste wird nur angezeigt, wenn der angezeigt wird `-verbose` Option ist angegeben.
+
+
+
+== Beispiel
+
+Das folgende Beispiel hängt den Backup ab:
+
+[listing]
+----
+smsap backup mount -profile S10_BACKUP -label full_monthly_10 -verbose
+[INFO ]: SMSAP-13051: Process PID=6852
+[INFO ]: SMSAP-13036: Starting operation Backup Mount on host hadley.domain.private
+[INFO ]: SMSAP-13036: Starting operation Backup Mount on host hadley.domain.private
+[INFO ]: SMSAP-13046: Operation GUID 8abc01573883daf0013883daf5ac0001 starting on Profile FAS_P1
+[INFO ]: SD-00025: Beginning to connect filesystem(s) [I:\] from snapshot smsap_fas_p1_fasdb_d_h_2_8abc0157388344bc01388344c2d50001_0.
+[INFO ]: SD-00016: Discovering storage resources for C:\SnapManager_auto_mounts\I-2012071400592328_0.
+[INFO ]: SD-00017: Finished storage discovery for C:\SnapManager_auto_mounts\I-2012071400592328_0
+[INFO ]: SD-00026: Finished connecting filesystem(s) [I:\] from snapshot smsap_fas_p1_fasdb_d_h_2_8abc0157388344bc01388344c2d50001_0.
+[INFO ]: SD-00025: Beginning to connect filesystem(s) [H:\] from snapshot smsap_fas_p1_fasdb_d_h_1_8abc0157388344bc01388344c2d50001_0.
+[INFO ]: SD-00016: Discovering storage resources for C:\SnapManager_auto_mounts\H-2012071400592312_0.
+[INFO ]: SD-00017: Finished storage discovery for C:\SnapManager_auto_mounts\H-2012071400592312_0.
+[INFO ]: SD-00026: Finished connecting filesystem(s) [H:\] from snapshot smsap_fas_p1_fasdb_d_h_1_8abc0157388344bc01388344c2d50001_0.
+[INFO ]: SMSAP-13048: Backup Mount Operation Status: SUCCESS
+[INFO ]: SMSAP-13049: Elapsed Time: 0:19:05.620
+----

@@ -1,0 +1,15 @@
+---
+permalink: unix-administration/reference-trademark.html 
+sidebar: sidebar 
+keywords: trademark 
+summary: Marke 
+---
+= Marke
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+NetApp, das NETAPP Logo und die auf der NetApp Markenseite aufgeführten Marken sind Marken von NetApp Inc. Andere Firmen- und Produktnamen können Marken der jeweiligen Eigentümer sein.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]

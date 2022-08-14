@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/task-define-the-database-home-with-the-oratab-file.html 
+sidebar: sidebar 
+keywords: snapmanager, oratab, file, operation, determine, oracle, database, home, directory, software, installation, defining, define 
+summary: SnapManager verwendet die oratab-Datei während Operationen, um das Home-Verzeichnis der Oracle-Datenbank zu bestimmen. Ein Eintrag für Ihre Oracle-Datenbank muss in der oratab-Datei sein, damit SnapManager ordnungsgemäß funktionieren kann. Die oratab-Datei wird während der Oracle-Softwareinstallation erstellt. 
+---
+= Definieren Sie das Datenbank-Home mit der oratab-Datei
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager verwendet das `oratab` Datei während Operationen zur Bestimmung des Home-Verzeichnisses für die Oracle Datenbank. Ein Eintrag für Ihre Oracle-Datenbank muss im enthalten sein `oratab` Datei für die korrekte Ausführung von SnapManager. Der `oratab` Die Datei wird während der Oracle Software-Installation erstellt.
+
+
+NOTE: Das Oracle Home-Verzeichnis wird in festgelegt `oratab` Eine Datei für SAP Systeme erstellen, wie sie auch für reine Oracle-Systeme ist. SAP-Systeme verfügen über ein Datenbank-Home-Verzeichnis, das normalerweise der Regel ist `/oracle/SID/ _xxx_yy_,` Wo `xxx` Stellt die Datenbankversion und dar `yy` Entweder 32 oder 64.
+
+Der `oratab` Die Datei befindet sich auf Basis des Host-Betriebssystems an verschiedenen Speicherorten, wie in der folgenden Tabelle dargestellt:
+
+|===
+| Host-Betriebssystem | Speicherort der Datei 
+
+
+ a| 
+Linux
+ a| 
+/Etc/oratab
+
+
+
+ a| 
+Solaris
+ a| 
+/Var/opt/oracle/oratab
+
+
+
+ a| 
+IBM AIX
+ a| 
+/Etc/oratab
+
+|===
+Der Probe `oratab` Die Datei enthält folgende Informationen:
+
+[listing]
+----
++ASM1:/u01/app/11.2.0/grid:N   # line added by Agent
+oelpro:/u01/app/11.2.0/oracle:N         # line added by Agent
+# SnapManager generated entry          (DO NOT REMOVE THIS LINE)
+smsapclone:/u01/app/11.2.0/oracle:N
+----
+
+NOTE: Nach der Installation von Oracle müssen Sie sicherstellen, dass die `oratab` Die Datei befindet sich an dem in der vorherigen Tabelle angegebenen Speicherort. Wenn der `oratab` Die Datei befindet sich nicht am richtigen Speicherort für Ihr Betriebssystem. Wenden Sie sich an den technischen Support, um Hilfe zu erhalten.

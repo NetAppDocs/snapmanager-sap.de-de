@@ -1,0 +1,118 @@
+---
+permalink: unix-installation-7mode/task-prepare-storage-systems-for-snapmirror-replication-7-mode.html 
+sidebar: sidebar 
+keywords: snapmanager, snapmirror, technology, mirror, snapshot, copies, copy, configure, initialize, data-protection, relationship, destination, volume, prepare, preparing, storage, system, replication 
+summary: Bevor Sie SnapManager’s integrierte SnapMirror Technologie zur Spiegelung von Snapshot Kopien verwenden können, müssen Sie ein Datensicherungs-Verhältnis zwischen den Quell- und Ziel-Volumes konfigurieren und initialisieren. Bei der Initialisierung erstellt SnapMirror eine Snapshot Kopie des Quell-Volume, überträgt dann die Kopie und alle Datenblöcke, auf die sie auf das Ziel-Volume verweist. Es überträgt außerdem alle anderen, weniger neuesten Snapshot Kopien auf dem Quell-Volume auf das Ziel-Volume. 
+---
+= Storage-Systeme für die SnapMirror Replizierung vorbereiten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie die integrierte SnapMirror Technologie von SnapManager zur Spiegelung von Snapshot Kopien verwenden können, müssen Sie eine _Datensicherungsbeziehung_ zwischen den Quell- und Ziel-Volumes konfigurieren und initialisieren. Bei der Initialisierung erstellt SnapMirror eine Snapshot Kopie des Quell-Volume, überträgt dann die Kopie und alle Datenblöcke, auf die sie auf das Ziel-Volume verweist. Es überträgt außerdem alle anderen, weniger neuesten Snapshot Kopien auf dem Quell-Volume auf das Ziel-Volume.
+
+*Über diese Aufgabe*
+
+Sie können diese Aufgaben mit der ONTAP CLI oder mit OnCommand System Manager ausführen. Das folgende Verfahren basiert auf der Annahme, dass Sie CLI verwenden. Weitere Informationen finden Sie im https://library.netapp.com/ecm/ecm_download_file/ECMP1368826["Data ONTAP 8.2 Datensicherheit Online Backup und Recovery Guide für 7-Mode"^].
+
+
+NOTE: Sie können SnapManager nicht zum Spiegeln von qtrees verwenden. SnapManager unterstützt nur Volume Mirroring.
+
+Sie können SnapManager nicht für die synchrone Spiegelung verwenden. SnapManager unterstützt nur das asynchrone Spiegeln.
+
+
+IMPORTANT: Wenn Sie Datenbankdateien und Transaktions-Logs auf verschiedenen Laufwerken speichern, müssen Sie für die Transaktions-Logs Beziehungen zwischen den Quell- und Ziel-Volumes für die Datenbankdateien sowie zwischen den Quell- und Ziel-Volumes erstellen.
+
+. Verwenden Sie an der Konsole des Quellsystems den `options snapmirror.access` Befehl zum Festlegen der Hostnamen von Systemen, die Daten direkt aus dem Quellsystem kopieren dürfen.
++
+*Beispiel*
+
++
+Der folgende Eintrag ermöglicht die Replikation auf Destination_SystemB:
+
++
+[listing]
+----
+options snapmirror.access host=destination_systemB
+----
+. Erstellen oder bearbeiten Sie auf dem Zielsystem die `/etc/snapmirror.conf` Datei zur Angabe des zu kopierenden Volumes.
++
+*Beispiel*
+
++
+Der folgende Eintrag gibt die Replikation von vol0 von source_systema zu vol2 von Destination_systemB an:
+
++
+[listing]
+----
+source_systemA:vol0 destination_systemB:vol2
+----
+. Verwenden Sie auf den Quell- und Zielsystemkonsolen das `snapmirror on` Befehl zum Aktivieren von SnapMirror
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird SnapMirror aktiviert:
+
++
+[listing]
+----
+snapmirror on
+----
+. Verwenden Sie an der Ziel-Systemkonsole das `vol create` Befehl zum Erstellen eines SnapMirror Ziel-Volume, das dieselbe oder eine größere Größe als das Quell-Volume hat.
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird ein 2 GB großes Ziel-Volume namens vol2 auf dem Aggregat aggr1 erzeugt:
+
++
+[listing]
+----
+vol create vol2 aggr1 2g
+----
+. Verwenden Sie auf der Ziel-System-Konsole den Befehl vol restrict, um das Ziel-Volume als beschränkt zu markieren.
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird das Zielvol2 als eingeschränkt markiert:
+
++
+[listing]
+----
+vol restrict vol2
+----
+. Verwenden Sie an der Konsole des Quellsystems den `snap sched` Befehl zum Deaktivieren geplanter Transfers.
++
+*Beispiel*
+
++
+Sie müssen geplante Transfers deaktivieren, um Planungskonflikte mit SnapDrive zu vermeiden.
+
++
+Mit dem folgenden Befehl werden geplante Transfers deaktiviert:
+
++
+[listing]
+----
+snap sched vol1 -----
+----
+. Verwenden Sie an der Ziel-Systemkonsole das `snapmirror initialize` Befehl, um eine Beziehung zwischen den Quell- und Ziel-Volumes zu erstellen, und initialisiert die Beziehung.
++
+Der Initialisierungsvorgang führt einen _Baseline Transfer_ zum Ziel-Volume durch. SnapMirror erstellt eine Snapshot-Kopie des Quell-Volume und überträgt dann die Kopie mit allen Datenblöcken, die er auf das Ziel-Volume verweist. Sie überträgt zudem alle anderen Snapshot Kopien auf dem Quell-Volume auf das Ziel-Volume.
+
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird eine SnapMirror Beziehung zwischen dem Quell-Volume vol0 auf source_systema und dem Ziel-Volume vol2 auf Destination_SystemB erstellt und die Beziehung initialisiert:
+
++
+[listing]
+----
+snapmirror initialize -S source_systemA:vol0 destination_systemB:vol2
+----
+

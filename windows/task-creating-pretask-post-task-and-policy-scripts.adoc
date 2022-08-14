@@ -1,0 +1,179 @@
+---
+permalink: windows/task-creating-pretask-post-task-and-policy-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, script, preprocess, activity, post-process, policy, task, backup, restore, clone, operation, installation, directory, pretask, post-task, creating 
+summary: SnapManager ermöglicht das Erstellen von Skripten für die Vorverarbeitung, die Nachbearbeitung und die Richtlinienaufgaben für Backup, Wiederherstellung und Klonvorgänge. Sie müssen die Skripte in das richtige Installationsverzeichnis platzieren, um die Vorverarbeitung, die Nachbearbeitungsaktivität und die Richtlinienaufgaben des SnapManager-Vorgangs auszuführen. 
+---
+= Erstellen von vor-, Post-Task- und Richtlinienskripten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht das Erstellen von Skripten für die Vorverarbeitung, die Nachbearbeitung und die Richtlinienaufgaben für Backup, Wiederherstellung und Klonvorgänge. Sie müssen die Skripte in das richtige Installationsverzeichnis platzieren, um die Vorverarbeitung, die Nachbearbeitungsaktivität und die Richtlinienaufgaben des SnapManager-Vorgangs auszuführen.
+
+*Skriptinhalt vor und nach der Aufgabe*
+
+Alle Skripte müssen Folgendes enthalten:
+
+* Spezifische Vorgänge (prüfen, beschreiben und ausführen)
+* (Optional) vordefinierte Umgebungsvariablen
+* Spezifischer Fehlercode (Rückgabecode (rc))
+
+
+
+NOTE: Sie müssen den korrekten Code für die Fehlerbehandlung angeben, um das Skript zu validieren.
+
+Sie können die Vortaskskripte für viele Zwecke verwenden, zum Beispiel, um einen Festplattenspeicher vor dem Start des SnapManager-Vorgangs zu bereinigen. So können Sie beispielsweise auch die Skripts für die Nachbearbeitung verwenden, um einschätzen zu können, ob SnapManager über genügend Festplattenspeicher verfügt, um den Vorgang abzuschließen.
+
+*Policy Task Skript Inhalt*
+
+Sie können das Richtlinienskript ausführen, ohne bestimmte Aufgaben wie das Prüfen, Beschreiben und Ausführen von auszuführen. Das Skript enthält die vordefinierten Umgebungsvariablen (optional) und den spezifischen Code zur Fehlerbehandlung.
+
+Das Richtlinienskript wird vor der Backup-, Wiederherstellungs- und Klonvorgänge ausgeführt.
+
+* Unterstützte Formate*
+
+Als Prescript und Post-Script kann eine Befehlsdatei mit Erweiterung .cmd verwendet werden.
+
+
+NOTE: Wenn Sie die Shell-Skriptdatei auswählen, antwortet der SnapManager-Vorgang nicht. Um dies zu beheben, müssen Sie die Befehlsdatei im Plug-in-Verzeichnis angeben und den SnapManager-Vorgang erneut ausführen.
+
+*Skript-Installationsverzeichnis*
+
+Das Verzeichnis, in dem Sie das Skript installieren, beeinflusst die Verwendung. Sie können die Skripte in das Verzeichnis platzieren und das Skript ausführen, bevor oder nach dem Backup-, Wiederherstellungs- oder Klonvorgang erfolgt. Sie müssen das Skript in das in der Tabelle angegebene Verzeichnis legen und es auf optionaler Basis verwenden, wenn Sie den Backup-, Wiederherstellungs- oder Klonvorgang angeben.
+
+
+NOTE: Sie müssen sicherstellen, dass das Plugin-Verzeichnis die ausführbare Berechtigung hat, bevor Sie die Skripte für den SnapManager-Betrieb verwenden.
+
+|===
+
+
+| Aktivität | Backup | Wiederherstellen | Klon 
+
+
+ a| 
+Vorverarbeitung
+ a| 
+<default_Installation_Directory>\Plugins\Backup\create\pre
+ a| 
+<default_Installation_Directory>\Plugins\restore\create\pre
+ a| 
+<default_Installation_Directory>\Plugins\Clone\create\pre
+
+
+
+ a| 
+Nachbearbeitet
+ a| 
+<default_Installation_Directory>\Plugins\Backup\create\post
+ a| 
+<default_Installation_Directory>\Plugins\restore\create\post
+ a| 
+<default_Installation_Directory>\Plugins\Clone\create\post
+
+
+
+ a| 
+Richtlinienbasiert
+ a| 
+<default_Installation_Directory>\Plugins\Backup\create\Policy
+ a| 
+<default_Installation_Directory>\Plugins\restore\create\Policy
+ a| 
+<default_Installation_Directory>\Plugins\Clone\create\Policy
+
+|===
+*Sample scripts Position*
+
+Im Folgenden sind einige Beispiele für die Skripte vor und nach der Aufgabe für die Backup- und Klonvorgänge aufgeführt, die im Installationspfad verfügbar sind:
+
+* <default_Installation_Directory>\Plugins\Beispiele\Backup\create\pre
+* <default_Installation_Directory>\Plugins\Beispiele\Backup\create\post
+* <default_Installation_Directory>\Plugins\Beispiele\Clone\create\pre
+* <default_Installation_Directory>\Plugins\Beispiele\Clone\create\post
+
+
+*Was Sie im Skript ändern können*
+
+Wenn Sie ein neues Skript erstellen, können Sie nur die Operationen beschreiben und ausführen ändern. Jedes Skript muss die folgenden Variablen enthalten: Kontext, Timeout und Parameter.
+
+Die Variablen, die Sie in der Beschreiben-Funktion des Skripts beschrieben haben, müssen zu Beginn des Skripts deklariert werden. Sie können neue Parameterwerte in Parameter=() hinzufügen und dann die Parameter in der Funktion Ausführen verwenden.
+
+
+
+== Beispielskript
+
+Im Folgenden ist ein Beispielskript mit einem vom Benutzer angegebenen Rückgabecode zur Schätzung des Speicherplatzes im SnapManager-Host:
+
+[listing]
+----
+@echo off
+REM $Id: //depot/prod/capstan/Rcapstan_ganges/src/plugins/windows/examples/clone/create/policy/validate_sid.cmd#1 $
+REM $Revision: #1 $ $Date: 2011/12/06 $
+REM
+REM
+
+set /a EXIT=0
+
+set name="Validate SID"
+set description="Validate SID used on the target system"
+set parameter=()
+
+rem reserved system IDs
+set INVALID_SIDS=("ADD" "ALL" "AND" "ANY" "ASC" "COM" "DBA" "END" "EPS" "FOR" "GID" "IBM" "INT" "KEY" "LOG" "MON" "NIX" "NOT" "OFF" "OMS" "RAW" "ROW" "SAP" "SET" "SGA" "SHG" "SID" "SQL" "SYS" "TMP" "UID" "USR" "VAR")
+
+if /i "%1" == "-check" goto :check
+if /i "%1" == "-execute" goto :execute
+if /i "%1" == "-describe" goto :describe
+
+:usage:
+	echo usage: %0 "{ -check | -describe | -execute }"
+	set /a EXIT=99
+	goto :exit
+
+:check
+	set /a EXIT=0
+	goto :exit
+
+:describe
+	echo SM_PI_NAME:%name%
+	echo SM_PI_DESCRIPTION:%description%
+	set /a EXIT=0
+	goto :exit
+
+:execute
+	set /a EXIT=0
+
+	rem SM_TARGET_SID must be set
+	if "%SM_TARGET_SID%" == "" (
+		set /a EXIT=4
+		echo SM_TARGET_SID not set
+		goto :exit
+	)
+
+	rem exactly three alphanumeric characters, with starting with a letter
+	echo %SM_TARGET_SID% | findstr "\<[a-zA-Z][a-zA-Z0-9][a-zA-Z0-9]\>" >nul
+	if %ERRORLEVEL% == 1 (
+		set /a EXIT=4
+		echo SID is defined as a 3 digit value starting with a letter. [%SM_TARGET_SID%] is not valid.
+		goto :exit
+	)
+
+	rem not a SAP reserved SID
+	echo %INVALID_SIDS% | findstr /i \"%SM_TARGET_SID%\" >nul
+	if %ERRORLEVEL% == 0 (
+		set /a EXIT=4
+		echo SID [%SM_TARGET_SID%] is reserved by SAP
+		goto :exit
+	)
+
+	goto :exit
+
+
+
+:exit
+	echo Command complete.
+	exit /b %EXIT%
+----

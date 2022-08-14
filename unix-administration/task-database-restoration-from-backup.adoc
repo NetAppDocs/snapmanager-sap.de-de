@@ -1,0 +1,14 @@
+---
+permalink: unix-administration/task-database-restore-from-backup.html 
+sidebar: sidebar 
+keywords: active, content, payroll, database, accidentally, lost, destroy, snapmanager, netapp, management, console, data, protection, capability, support, restoration, local, backup, secondary, storage 
+summary: Wenn der aktive Inhalt der Gehaltsabrechnungsdatenbank versehentlich verloren geht oder zerstört wird, unterstützen SnapManager und die Datensicherheitsfunktion der NetApp Management Console die Wiederherstellung dieser Daten entweder aus einem lokalen Backup oder einem sekundären Storage. 
+---
+= Datenbank-Restore aus Backup
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn der aktive Inhalt der Gehaltsabrechnungsdatenbank versehentlich verloren geht oder zerstört wird, unterstützen SnapManager und die Datensicherheitsfunktion der NetApp Management Console die Wiederherstellung dieser Daten entweder aus einem lokalen Backup oder einem sekundären Storage.

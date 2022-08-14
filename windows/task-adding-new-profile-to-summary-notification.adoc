@@ -1,0 +1,23 @@
+---
+permalink: windows/task-adding-new-profile-to-summary-notification.html 
+sidebar: sidebar 
+keywords: configure, summary, email, notification, repository, database, profile, command, add 
+summary: Nachdem Sie eine E-Mail-Benachrichtigung für die Repository-Datenbank konfiguriert haben, können Sie mithilfe des Befehls Summary Notification ein neues Profil zur zusammenfassenden Benachrichtigung hinzufügen. 
+---
+= Hinzufügen eines neuen Profils zu E-Mail-Benachrichtigungen mit Zusammenfassung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie eine E-Mail-Benachrichtigung für die Repository-Datenbank konfiguriert haben, können Sie mithilfe des Befehls Summary Notification ein neues Profil zur zusammenfassenden Benachrichtigung hinzufügen.
+
+. Geben Sie den folgenden Befehl ein: `smsap profile create -profileprofile_name [-profile-passwordprofile_password] -repository-dbnamerepo_service_name-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | \{-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly-countn] [-durationm]] [-daily-countn] [-durationm]] [-weekly-countn] [-durationm]] [-monthly-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][ [ ]] [-summary-notification]`
++
+Weitere Optionen für diesen Befehl:
+
++
+[-Force]
+
+

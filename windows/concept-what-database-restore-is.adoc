@@ -1,0 +1,60 @@
+---
+permalink: windows/concept-what-database-restore-is.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, perform, file-based, backup, restore, operation, database 
+summary: SnapManager ermöglicht die Durchführung dateibasierter Backup- und Restore-Vorgänge. 
+---
+= Was ist Datenbank-Restore
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht die Durchführung dateibasierter Backup- und Restore-Vorgänge.
+
+In der folgenden Tabelle werden die Wiederherstellungsmethoden beschrieben:
+
+|===
+| Wiederherstellungsprozess | Details 
+
+
+ a| 
+Dateibasierte Restores
+ a| 
+Storage-seitige Wiederherstellung eines vollständigen File-Systems (von primärem oder sekundärem): SnapManager führt eine vollständige Wiederherstellung der Logical Unit Number (LUN) durch.
+
+|===
+
+
+== Storage-seitig komplette Wiederherstellung des Dateisystems
+
+Wenn keine Volume-Wiederherstellung möglich ist, wird ein Storage-seitiges File-System wiederhergestellt, das gesamte File-System kann jedoch auf dem Storage-System wiederhergestellt werden.
+
+Wenn eine Storage-seitige Wiederherstellung eines Dateisystems durchgeführt wird, geschieht Folgendes:
+
+* In einer SAN-Umgebung sind alle vom Filesystem verwendeten LUNs (und ggf. die zugrunde liegende Volume-Gruppe) auf dem Storage-System wiederhergestellt.
+
+
+Wenn eine Storage-seitige Wiederherstellung des Filesystems erfolgt, hängt vom Speicherort ab:
+
+* Wenn SnapManager aus den primären Storage-Systemen wiederhergestellt wird, sind die LUNs (SAN) vorhanden über SFSR wiederhergestellt.
+* Wenn SnapManager aus sekundären Storage-Systemen wiederhergestellt wird, werden die LUNs (SAN) aus sekundären Storage-Systemen über das Netzwerk zurück in das primäre Storage-System kopiert.
+
+
+Da das Filesystem vollständig wiederhergestellt ist, werden auch Dateien, die nicht zum Backup gehören, zurückgesetzt. Eine Überschreibung ist erforderlich, wenn Dateien, die nicht Teil der Wiederherstellung sind, im Dateisystem vorhanden sind, das wiederhergestellt wird.
+
+
+
+== Host-seitiges Datei-Restore
+
+Eine Wiederherstellung der Host-seitigen Dateikopien dient als letztes Mittel in SAN-Umgebungen, wenn die Wiederherstellung von Storage-seitigen Dateisystemen und die Wiederherstellung von Dateien auf Storage-Seite nicht durchgeführt werden kann.
+
+Zur Wiederherstellung einer Host-seitigen Dateikopie gehören die folgenden Aufgaben:
+
+* Klonen des Speichers
+* Verbinden des geklonten Speichers mit dem Host
+* Kopieren von Dateien aus den Klon-Dateisystemen zurück in die aktiven Dateisysteme
+* Trennen des Klonspeichers vom Host
+* Löschen des Klonspeichers
+

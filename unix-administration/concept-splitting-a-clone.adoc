@@ -1,0 +1,31 @@
+---
+permalink: unix-administration/concept-splitting-a-clone.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, split, manage, clone, exist, flexclone, technology, data, block, database 
+summary: Mit SnapManager können Sie einen vorhandenen Klon aufteilen und managen, der mit der FlexClone Technologie erstellt wurde. In der FlexClone Technologie nutzen der Klon und die ursprüngliche Datenbank dieselben physischen Datenblöcke. 
+---
+= Durch das Aufteilen eines Klons
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie einen vorhandenen Klon aufteilen und managen, der mit der FlexClone Technologie erstellt wurde. In der FlexClone Technologie nutzen der Klon und die ursprüngliche Datenbank dieselben physischen Datenblöcke.
+
+Bevor Sie den Split-Vorgang des Klons durchführen, können Sie wissen, dass die geschätzte Größe des zu teilenden Klons und der erforderliche Speicherplatz im Aggregat verfügbar sind.
+
+Ein neues Profil wird von SnapManager generiert, wenn der Klonvorgang erfolgreich abgeschlossen ist. Wenn SnapManager das neue Profil nicht erstellt, können Sie manuell ein neues Profil erstellen. Mit dem neuen Profil können Datenbank-Backups erstellt, Daten wiederhergestellt und Klone erstellt werden. Wenn der Klonteilvorgang erfolgreich ist, unabhängig davon, ob das neue Profil erstellt wird oder nicht, werden die klonbezogenen Metadaten aus der Repository-Datenbank entfernt.
+
+Sie können die folgenden Aufgaben für das Aufteilen von Klonen ausführen:
+
+* Sehen Sie sich die Schätzung für die Teilung von Klonen an.
+* Teilen Sie einen Klon auf einem primären Storage auf.
+* Teilen Sie einen Klon auf einem sekundären Storage auf.
+* Zeigen Sie den Status des Vorgangs „Clone Split“ an.
+* Beenden Sie den Klon-Split-Vorgang.
+* Zerstören Sie das Profil zusammen mit dem zugrunde liegenden Storage.
+* Löschen Sie das Profil, das für einen geteilten Klon erstellt wurde.
+
+
+Wenn Sie einen Klon vom übergeordneten Volume teilen, werden die dem geklonten Volume zugeordneten Snapshot Kopien gelöscht. Die für die geklonte Datenbank erstellten Backups vor dem Klonteilungsprozess können nicht verwendet werden, da die Snapshot-Kopien dieser Backups gelöscht werden und die Backups als veraltete Einträge im Repository verbleiben.

@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/task-free-or-delete-retention-policy-exempt-backups.html 
+sidebar: sidebar 
+keywords: backup, retention, class, unlimited, delete, free, directly, assign, hourly, daily, weekly, monthly, deletion, eligible, exempt 
+summary: Backups mit einer unbegrenzten Aufbewahrungsklasse können nicht direkt gelöscht oder freigegeben werden. Um diese Backups zu löschen oder zu löschen, müssen Sie zunächst eine andere Aufbewahrungsklasse wie stündlich, täglich, wöchentlich oder monatlich zuweisen. Um ein Backup zu löschen oder zu befreien, das von der Aufbewahrungsrichtlinie ausgenommen ist, müssen Sie zuerst das Backup aktualisieren, um es für die Löschung berechtigt zu machen oder es freizumachen. 
+---
+= Kostenlose oder gelöschte Retention Policy Exempt Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Backups mit einer „unbegrenzten“ Aufbewahrungsklasse können nicht direkt gelöscht oder freigegeben werden. Um diese Backups zu löschen oder zu löschen, müssen Sie zunächst eine andere Aufbewahrungsklasse wie stündlich, täglich, wöchentlich oder monatlich zuweisen. Um ein Backup zu löschen oder zu befreien, das von der Aufbewahrungsrichtlinie ausgenommen ist, müssen Sie zuerst das Backup aktualisieren, um es für die Löschung berechtigt zu machen oder es freizumachen.
+
+.Schritte
+. Um das Backup zu aktualisieren, damit es durch die Aufbewahrungsrichtlinie zum Löschen berechtigt ist, geben Sie den folgenden Befehl ein:
++
+`*smsap backup update -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_} -retain [-hourly | -daily | -weekly | -monthly]*`
+
+. Nachdem Sie die Sicherung aktualisiert haben, damit sie gelöscht werden kann, können Sie entweder das Backup löschen oder kostenlose Backup-Ressourcen.
++
+** Geben Sie zum Löschen des Backups den folgenden Befehl ein:
++
+`*smsap backup delete -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all}*`
+
+** Geben Sie den folgenden Befehl ein, um die Backup-Ressourcen freizumachen, anstatt das Backup zu löschen:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} [-force] [ -dump] [-quiet | -verbose]*`
+
+
+
+

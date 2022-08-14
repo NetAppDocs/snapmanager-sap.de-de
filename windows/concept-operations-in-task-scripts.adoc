@@ -1,0 +1,71 @@
+---
+permalink: windows/concept-operations-in-task-scripts.html 
+sidebar: sidebar 
+keywords: pretask, post-task, script, create, standard, snapmanager, sap, plug-in, structure 
+summary: Die von Ihnen erstellten Pre-Task- oder Post-Task-Skripte müssen einer standardmäßigen SnapManager-Plug-in-Struktur für SAP entsprechen. 
+---
+= Vorgänge in Taskskripten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die von Ihnen erstellten Pre-Task- oder Post-Task-Skripte müssen einer standardmäßigen SnapManager-Plug-in-Struktur für SAP entsprechen.
+
+Die vor- und Nachaufgaben-Skripte müssen die folgenden Vorgänge umfassen:
+
+* Prüfen
+* Beschreiben
+* Ausführen
+
+
+Wenn einer dieser Vorgänge nicht im Skript für die Aufgabe vor oder nach der Aufgabe angegeben ist, wird das Skript ungültig.
+
+Wenn Sie den ausführen `smsap plugin check` Befehl für die Pre- oder Post-Task-Skripte, der zurückgegebene Status der Skripte zeigt Fehler (weil der zurückgegebene Statuswert ist nicht Null).
+
+|===
+| Betrieb | Beschreibung 
+
+
+ a| 
+Prüfen
+ a| 
+Auf dem SnapManager Server wird der ausgeführt `plugin.sh -check` Befehl, um sicherzustellen, dass das System über die Ausführungsberechtigung auf den Plug-in-Skripten verfügt. Sie können auch die Überprüfung der Dateiberechtigungen auf dem Remote-System einschließen.
+
+
+
+ a| 
+Beschreiben
+ a| 
+Auf dem SnapManager Server wird der ausgeführt `plugin.sh -describe` Befehl, um Informationen über Ihr Skript zu erhalten und die Elemente der Spezifikationsdatei zu entsprechen. Ihr Plug-in-Skript muss die folgenden Beschreibungen enthalten:
+
+* `SM_PI_NAME`: Skriptname. Sie müssen für diesen Parameter einen Wert angeben.
+* `SM_PI_DESCRIPTION`: Beschreibung des Zweckes des Skripts. Sie müssen für diesen Parameter einen Wert angeben.
+* `SM_PI_CONTEXT`: Kontext, in dem das Skript ausgeführt werden soll - zum Beispiel root oder orasid. Sie müssen für diesen Parameter einen Wert angeben.
+* `SM_PI_TIMEOUT`: Die maximale Zeit (in Millisekunden), die SnapManager warten sollte, bis das Skript die Verarbeitung beendet und die Ausführung beendet. Sie müssen für diesen Parameter einen Wert angeben.
+* `SM_PI_PARAMETER`: Ein oder mehrere benutzerdefinierte Parameter, die für die Verarbeitung Ihres Plug-in-Skripts erforderlich sind. Jeder Parameter sollte in einer neuen Ausgabezeile aufgeführt werden und den Namen des Parameters sowie eine Beschreibung enthalten. Wenn das Skript die Verarbeitung abgeschlossen hat, wird Ihrem Skript der Parameterwert durch eine Umgebungsvariable zur Verfügung gestellt.
+
+
+Im Folgenden finden Sie eine Beispielausgabe des Skripts Followup_Aktivitäten.
+
+[listing]
+----
+plugin.sh - describe
+
+SM_PI_NAME:Followup_activities
+SM_PI_DESCRIPTION:this script contains follow-up activities to be executed after the clone create
+operation.
+SM_PI_CONTEXT:root
+SM_PI_TIMEOUT:60000
+SM_PI_PARAMETER:SCHEMAOWNER:Name of the database schema owner.
+Command complete.
+----
+
+
+ a| 
+Ausführen
+ a| 
+Auf dem SnapManager Server wird der ausgeführt `plugin.sh -execute` Befehl zum Starten des Skripts zum Ausführen des Skripts.
+
+|===

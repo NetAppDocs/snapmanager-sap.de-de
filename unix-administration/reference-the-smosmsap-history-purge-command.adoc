@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/reference-the-smosmsap-history-purge-command.html 
+sidebar: sidebar 
+keywords: command, enable, delete, history, snapmanager, operation, smsap, purge 
+summary: Mit diesem Befehl können Sie den Verlauf des SnapManager-Vorgangs löschen. 
+---
+= Der Befehl smsap history purge
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl können Sie den Verlauf des SnapManager-Vorgangs löschen.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap history purge
+-profile {-name _profile_name_ [_profile_name1_, _profile_name2_\] | -all
+-repository -login [-password _repo_password_\] -username _repo_username_
+-host _repo_host_
+-dbname _repo_dbname_
+-port repo_port}
+-operation {-operations _operation_name_ [_operation_name1_, _operation_name2_\] | -all}
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_*`
++
+Gibt den Namen des Profils an. Dieser Name kann bis zu 30 Zeichen lang sein und muss innerhalb des Hosts eindeutig sein.
+
+* `*-repository*`
++
+Die Optionen, die dem -Repository folgen, geben die Details der Datenbank an, in der das Profil gespeichert wird.
+
+* `*-dbname _repo_dbname_*`
++
+Gibt den Namen der Datenbank an, in der das Profil gespeichert wird. Verwenden Sie entweder den globalen Namen oder den SID.
+
+* `*-host _repo_host_*`
++
+Gibt den Namen oder die IP-Adresse des Hostcomputers an, auf dem die Repository-Datenbank ausgeführt wird.
+
+* `*-login*`
++
+Startet die Repository-Anmeldedaten.
+
+* `*-username _repo_username_*`
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Datenbank erforderlich ist, in der das Repository gespeichert ist.
+
+* `*-port repo_port*`
++
+Gibt die TCP-Portnummer an, die für den Zugriff auf die Datenbank verwendet wird, in der das Repository gespeichert ist.
+
+* `*-operation {-operations _operation_name_ [_operation_name1, operation_name2_] | -all*`
++
+Gibt den SnapManager-Vorgang an, für den Sie den Verlauf konfigurieren.
+
+* `*-quiet*`
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*-verbose*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+'''
+
+
+== Beispielbefehl
+
+[listing]
+----
+ smsap history purge -profile -name PROFILE1 -operation -operations backup
+ -verbose
+----
+'''

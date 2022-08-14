@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/task-view-backup-details.html 
+sidebar: sidebar 
+keywords: view, detail, information, backup, smsap, show, command 
+summary: Sie können die detaillierten Informationen über eine bestimmte Sicherung in einem Profil anzeigen, indem Sie den Befehl smsap Backup show verwenden. 
+---
+= Zeigen Sie Backup-Details an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die detaillierten Informationen über eine bestimmte Sicherung in einem Profil mit Hilfe von smsap anzeigen `backup show` Befehl.
+
+*Über diese Aufgabe*
+
+Der `smsap backup show` Mit dem Befehl werden die folgenden Informationen für jedes Backup angezeigt:
+
+* Die Backup-ID
+* Ob die Sicherung erfolgreich war oder fehlgeschlagen ist
+* Backup-Umfang (vollständig, teilweise, online oder offline)
+* Backup-Modus
+* Mount-Status
+* Das Backup-Etikett
+* Kommentar
+* Das Datum und die Uhrzeit, zu der der Vorgang gestartet und beendet wurde
+* Informationen darüber, ob das Backup verifiziert wurde
+* Die Kategorie für die Aufbewahrung von Backups
+* Die Datenbank und der Hostname
+* Die Kontrollpunkt-Systemänderungsnummer (SCN)
+* Das Ende-Backup-SCN (nur für Online-Backups)
+* Die Tabellen und Datendateien der gesicherten Datenbank
+* Die Kontrolldateien aus der Datenbank gesichert
+* Die Archivprotokolle aus der gesicherten Datenbank
+* Das Storage-System und die Volumes, auf denen sich die Dateien befinden
+* Die erstellten Snapshot Kopien und deren Speicherort
+* Der Status der primären Storage-Ressourcen
+* Der Sicherungsstatus
+* Eine Liste der Kopien auf dem sekundären Speicher in Form von Backup_copy ID - Node Name
+* Backup-Modus
+
+
+Wenn Sie den angeben `-verbose` Die folgenden zusätzlichen Informationen werden angezeigt:
+
+* Die Klone, die aus dem Backup erstellt werden, sofern vorhanden sind
+* Verifizierungsinformationen
+* Wenn das Backup gemountet ist, zeigt SnapManager die verwendeten Mount-Punkte an
+
+
+Für die Sicherung der Archivprotokolldatei werden dieselben Informationen angezeigt wie die der anderen Datenbanksicherung, mit Ausnahme der folgenden Informationen:
+
+* Checkpoint SCN
+* Backup-SCN beenden
+* Tablespace
+* Kontrolldateien
+
+
+Die Sicherung der Archivprotokolldatei enthält jedoch die folgenden zusätzlichen Informationen:
+
+* Die erste Änderungsnummer des Backups
+* Die nächste Nummer des Backups
+* Thread-Nummer
+* Protokoll-ID zurücksetzen
+* Inkarnation
+* Name der Protokolldatei
+
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup show -profile _profile_name_ {-labellabel [data | -archivelogs] | -id id [-quiet | -verbose]*`
+
+

@@ -1,0 +1,56 @@
+---
+permalink: windows/task-use-post-processing-task-specification-to-vault-qtrees.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, script, vault, qtrees, backup, operation, windows, environment, post-process, task, specification 
+summary: Mit SnapManager für SAP können Sie das Skript zur Vault der qtrees verwenden, nachdem der Backup-Vorgang in einer Windows Umgebung durchgeführt wurde. 
+---
+= Verwenden Sie eine Aufgabespezifikation für die Nachbearbeitung, um qtrees zu archivieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager für SAP können Sie das Skript zur Vault der qtrees verwenden, nachdem der Backup-Vorgang in einer Windows Umgebung durchgeführt wurde.
+
+.Schritte
+. Erstellen Sie eine XML-Datei für die Aufgabenspezifikation.
+. Geben Sie in der XML-Datei den Skriptnamen als Eingabeparameter ein.
+. Speichern Sie die XML-Datei für die Aufgabenspezifikation.
+. Erstellen Sie mit dem folgenden Befehl ein geschütztes Backup der Datenbank auf dem sekundären Speicher.
++
+Beim Erstellen des geschützten Backups müssen Sie den vollständigen Pfad der XML-Datei für die gespeicherte Aufgabenspezifikation nach dem angeben -`taskspec` Option.
+
++
+Beispiel: `smsapbackup create -profile test_profile -full -online -taskspec "C:\\mirror\\snapvault.xml"`
+
+
+
+Das folgende Beispiel zeigt die Struktur der Aufgabenspezifikation nach der Verarbeitung, wenn Sie Data ONTAP im 7-Mode verwenden:
+
+[listing]
+----
+# <post-tasks>
+#                <task>
+#                  <name>Vault the backup</name>
+#                   <description>Vault the backup</description>
+#              </task>
+#         <post-tasks>
+----
+Das folgende Beispiel zeigt die Struktur der Aufgabenspezifikation nach der Verarbeitung, wenn Sie Clustered Data ONTAP verwenden:
+
+[listing]
+----
+# <task-specification>
+#                <post-tasks>
+#                  <task>
+#                   <name>"Vault the backup for cDOT"</name>
+#                 <parameter>
+#                    <name>SNAPSHOT_LABEL</name>
+#                    <value>TST</value>
+#                    </parameter>
+#                  </task>
+#                </post-tasks>
+#              </task-specification>
+#            </preposttask-specification>
+----

@@ -1,0 +1,87 @@
+---
+permalink: unix-administration/concept-creating-task-specification-file-and-scripts-for-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, task, specification, extensible, markup, language, xml, pretask, backup, restore, clone, operation, creating, create, file, script, operation 
+summary: 'SnapManager für SAP verwendet eine XML-Datei (Extensible Markup Language) der Aufgabenspezifikation, die die Voraufgaben und Nachaufgaben für die Backup-, Wiederherstellungs- und Klonvorgänge anzeigt. Sie können die Skriptnamen vor und nach der Aufgabe in die XML-Datei einfügen, damit die Aufgaben vor oder nach den Backup-, Wiederherstellungs- und Klonvorgängen ausgeführt werden.' 
+---
+= Erstellen von Aufgabenspezifikationsdatei und Skripten für SnapManager-Vorgänge
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager für SAP verwendet eine XML-Datei (Extensible Markup Language) der Aufgabenspezifikation, die die Voraufgaben und Nachaufgaben für die Backup-, Wiederherstellungs- und Klonvorgänge anzeigt. Sie können die Skriptnamen vor und nach der Aufgabe in die XML-Datei einfügen, damit die Aufgaben vor oder nach den Backup-, Wiederherstellungs- und Klonvorgängen ausgeführt werden.
+
+In SnapManager (3.1 oder früher) können Sie die Skripte für Voraufgabe und Nachaufgaben nur für den Klonvorgang ausführen. In SnapManager (3.2 oder höher) für SAP können die Pre- und Post-Task-Skripte für Backup-, Restore- und Klonvorgänge ausgeführt werden.
+
+In SnapManager (3.1 oder früher) ist der Abschnitt für die Aufgabenspezifikation Teil der XML-Datei für die Klonspezifikation. Aus SnapManager 3.2 für SAP ist der Abschnitt für die Aufgabenspezifikation eine separate XML-Datei.
+
+
+NOTE: SnapManager 3.3 oder höher unterstützt nicht die Verwendung der XML-Datei für die Klonspezifikation, die in den Versionen vor SnapManager 3.2 erstellt wurde.
+
+In SnapManager (3.2 oder höher) für SAP müssen Sie sicherstellen, dass die folgenden Voraussetzungen für den erfolgreichen SnapManager-Betrieb erfüllt sind:
+
+* Verwenden Sie für Sicherungs- und Wiederherstellungsvorgänge die XML-Datei für die Aufgabenspezifikation.
+* Geben Sie für den Klonvorgang zwei Spezifikationsdateien an: Eine XML-Datei für die Klonspezifikation und eine XML-Datei für die Aufgabenspezifikation.
++
+Wenn Sie Voraufgaben oder Nachaufgaben aktivieren möchten, können Sie optional die XML-Datei für die Aufgabenspezifikation hinzufügen.
+
+
+
+Sie können die Aufgabenspezifikationsdatei über die grafische Benutzeroberfläche (GUI) von SnapManager, die Befehlszeilenschnittstelle (CLI) oder einen Texteditor erstellen. Sie müssen eine Erweiterung .XML verwenden, damit die Datei entsprechende Bearbeitungsfunktionen ermöglicht. Vielleicht möchten Sie diese Datei speichern, damit Sie sie für zukünftige Backup-, Restore- und Klonvorgänge verwenden können.
+
+Die XML-Datei für die Aufgabenspezifikation enthält zwei Abschnitte:
+
+* Der Abschnitt „Voraufgaben“ enthält Skripte, die vor Backup-, Wiederherstellungs- und Klonvorgängen ausgeführt werden können.
+* Der Abschnitt „Aufgaben nach“ enthält Skripte, die nach Backup-, Restore- und Klonvorgängen ausgeführt werden können.
+
+
+Die Werte, die in den Abschnitten vor und nach Aufgaben enthalten sind, müssen den folgenden Richtlinien entsprechen:
+
+* Aufgabenname: Der Name der Aufgabe muss mit dem Namen des Skripts übereinstimmen, der beim Ausführen des angezeigt wird `plugin.sh -describe` Befehl.
++
+
+NOTE: Wenn eine Diskrepanz vorliegt, wird möglicherweise die folgende Fehlermeldung angezeigt: `the file not found`.
+
+* Parametername: Der Name des Parameters muss ein String sein, der als Umgebungsvariable-Einstellung verwendet werden kann.
++
+Die Zeichenfolge muss mit dem Parameternamen im benutzerdefinierten Skript übereinstimmen, das beim Ausführen von angezeigt wird `plugin.sh -describe` Befehl.
+
+
+
+Sie können die Spezifikationsdatei basierend auf der Struktur der folgenden Beispielaufgabe Spezifikationsdatei erstellen:
+
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+
+NOTE: Die XML-Datei für die Aufgabenspezifikation darf keine Richtlinien enthalten.
+
+Über die SnapManager-Benutzeroberfläche können Sie den Parameterwert festlegen und die XML-Datei speichern. Sie können die Seite „Task Enabling“ des Assistenten „Backup Create“, „Restore“ oder „Recovery“ und „Clone Create“ verwenden, um die vorhandene XML-Datei für die Aufgabenspezifikation zu laden und die ausgewählte Datei für die Voraufgabe oder die Nachbearbeitung zu verwenden.
+
+Eine Aufgabe kann mehrfach ausgeführt werden, entweder mit den gleichen oder mit unterschiedlichen Parameter- und Wertkombinationen. Zum Beispiel können Sie eine Aufgabe Speichern verwenden, um mehrere Dateien zu speichern.
+
+
+NOTE: SnapManager verwendet die in der Aufgabenspezifikationsdatei angegebenen XML-Tags für die Vorverarbeitung oder Nachbearbeitung der Backup-, Wiederherstellungs- und Klonvorgänge unabhängig von der Dateierweiterung der Aufgabenspezifikationsdatei.

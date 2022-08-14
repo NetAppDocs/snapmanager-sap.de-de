@@ -1,0 +1,121 @@
+---
+permalink: unix-administration/task-delete-backups.html 
+sidebar: sidebar 
+keywords: delete, backup, free, space, remove, snapshot, copies, copy, volume, deleting 
+summary: Sie müssen Backups löschen, wenn Sie sie nicht mehr benötigen. Dadurch wird der Speicherplatz frei, den diese Backups belegen. Wenn Sie Backups entfernen, reduzieren Sie die Wahrscheinlichkeit, dass pro Volume 255 Snapshot Kopien erreicht werden. 
+---
+= Backups löschen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen Backups löschen, wenn Sie sie nicht mehr benötigen. Dadurch wird der Speicherplatz frei, den diese Backups belegen. Wenn Sie Backups entfernen, reduzieren Sie die Wahrscheinlichkeit, dass pro Volume 255 Snapshot Kopien erreicht werden.
+
+*Was Sie brauchen*
+
+* Sie müssen sicherstellen, dass das Backup nicht zum Erstellen eines Klons verwendet wurde.
+
+
+*Über diese Aufgabe*
+
+Wenn Sie ein geschütztes Backup löschen, löscht SnapManager das Backup aus dem sekundären Storage und dem SnapManager Repository. Die folgende Tabelle zeigt die Aktionen, die beim Löschen eines lokalen Backups sowohl für den primären als auch für den sekundären Storage durchgeführt wurden:
+
+[cols="2a,1a,3a,3a,4a"]
+|===
+| Sicherungsstatus | Lokaler Status | Aktion für den Primär-Storage | Aktion auf dem sekundären Storage | Erklärung 
+
+
+ a| 
+Nicht angefordert (zu schützen)
+ a| 
+Vorhanden
+ a| 
+Löscht die Snapshot Kopien
+ a| 
+Keine Aktion erforderlich
+ a| 
+SnapManager löscht das lokale Backup.
+
+
+
+ a| 
+Freigegeben
+ a| 
+Keine Aktion erforderlich
+ a| 
+Keine Aktion erforderlich
+ a| 
+Das lokale Backup wird bereits freigegeben. Wenn Sie ein freizugebenden Backup löschen, werden die Backup-Metadaten aus dem Repository entfernt.
+
+
+
+ a| 
+Nicht geschützt
+ a| 
+Vorhanden
+ a| 
+Löscht die Snapshot Kopien
+ a| 
+Keine Aktion erforderlich
+ a| 
+SnapManager löscht das lokale Backup unabhängig davon, ob das Backup geschützt ist.
+
+
+
+ a| 
+Freigegeben
+ a| 
+Keine Aktion erforderlich
+ a| 
+Keine Aktion erforderlich
+ a| 
+Das lokale Backup wird bereits freigegeben. Wenn Sie ein freizugebenden Backup löschen, werden die Backup-Metadaten aus dem Repository entfernt.
+
+
+
+ a| 
+Geschützt
+ a| 
+Vorhanden
+ a| 
+Löscht die Snapshot Kopien
+ a| 
+SnapManager löscht das Backup im sekundären Storage
+ a| 
+SnapManager löscht das lokale Backup und die sekundären Kopien.
+
+
+
+ a| 
+Freigegeben
+ a| 
+Keine Aktion erforderlich
+ a| 
+SnapManager befreit das Backup auf sekundärem Storage
+ a| 
+SnapManager löscht das lokale Backup und die sekundären Kopien.
+
+|===
+Wenn Sie versuchen, ein Backup zu löschen, das durch sekundären Storage geschützt ist, werden die Snapshot Kopien möglicherweise zum Löschen markiert und später durch Protection Manager gelöscht.
+
+Sie können Backups, die unbegrenzt aufbewahrt werden, ohne die Aufbewahrungsklasse zu ändern.
+
+Optional können Sie die Dump-Dateien nach dem erfolgreichen oder fehlgeschlagenen Backup-Löschvorgang sammeln.
+
+Wenn Sie die Backups des Archivprotokolls löschen möchten, müssen Sie die für die Sicherung des Archivprotokolls festgelegte Aufbewahrungsdauer überprüfen. Wenn das Backup des Archivprotokolls innerhalb der Aufbewahrungsdauer liegt und die Archivprotokolldateien für die Wiederherstellung einer wiederhergestellten Datenbank erforderlich sind, können Sie das Backup des Archivprotokolls nicht löschen.
+
+.Schritte
+. Überprüfen Sie, ob die Vorgänge abgeschlossen sind, indem Sie den folgenden Befehl eingeben:
++
+`*smsap operation list -profile _profile_name_-dump-quiet-verbose*`
+
+. Geben Sie zum Löschen eines Backups den folgenden Befehl ein:
++
+`*smsap backup delete -profile _profile_name_ [-label _label_ [data | -archivelogs] | -id _id_ | -all] [-force] [ -dump] [-quiet | -verbose]*`
+
++
+Verwenden Sie die Option -Force, um das Entfernen des Backups zu erzwingen. Wenn Sie das Entfernen eines Backups erzwingen, bei dem unvollständige Vorgänge ausgeführt werden, ist das Backup möglicherweise inkonsistent.
+
+

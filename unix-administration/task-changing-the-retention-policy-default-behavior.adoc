@@ -1,0 +1,49 @@
+---
+permalink: unix-administration/task-change-the-retention-policy-default-behavior.html 
+sidebar: sidebar 
+keywords: backup, expire, base, retention, policy, snapmanager, determine, delete, back, up, setting, behavior, unprotect, protect, changing, change 
+summary: Wenn ein Backup basierend auf der Aufbewahrungsrichtlinie abläuft, bestimmt SnapManager basierend auf den Aufbewahrungseinstellungen, ob das Backup gelöscht werden soll. Das Löschen von Backups ist das Standardverhalten. Sie können dieses Standardverhalten ändern und stattdessen die ungeschützten Backups freigeben. 
+---
+= Ändern Sie das Standardverhalten der Aufbewahrungsrichtlinie
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn ein Backup basierend auf der Aufbewahrungsrichtlinie abläuft, bestimmt SnapManager basierend auf den Aufbewahrungseinstellungen, ob das Backup gelöscht werden soll. Das Löschen von Backups ist das Standardverhalten. Sie können dieses Standardverhalten ändern und stattdessen die ungeschützten Backups freigeben.
+
+*Über diese Aufgabe*
+
+Standardmäßig löscht SnapManager Backups, je nachdem, ob sie wie folgt geschützt sind oder nicht:
+
+* Für geschützte Backups entlastet SnapManager die lokalen Backups, sobald diese ablaufen.
+* Bei ungesicherten Backups löscht SnapManager die lokalen Backups nach ihrem Ablauf.
++
+Sie können dieses Standardverhalten ändern.
+
+
+
+Bei geschützten Backups berücksichtigt SnapManager nicht die folgenden Kriterien bei der Bestimmung, ob die lokale Kopie gelöscht werden soll:
+
+* Das Backup auf den sekundären Storage ist ausgefallen oder wird gerade geschützt.
++
+Dies ermöglicht die Übertragung von Backups auf den Sekundärspeicher, bevor die Aufbewahrungsrichtlinie angewendet wird.
+
+* Die Kopie wurde anschließend aus dem Sekundärspeicher gelöscht.
+
+
+.Schritte
+. Zugriff auf den folgenden Standardspeicherort:
++
+`_default smsap installation location_/properties/smsap.config`
+
+. Bearbeiten Sie das `smsap.config` Datei:
+. Stellen Sie die ein `retain.alwaysFreeExpiredBackups` Das Hotel befindet sich im `smsap.config` Datei zu wahr.
++
+Beispiel:
+
++
+`*retain.alwaysFreeExpiredBackups = true*`
+
+

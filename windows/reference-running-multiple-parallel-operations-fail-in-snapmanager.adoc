@@ -1,0 +1,29 @@
+---
+permalink: windows/reference-running-multiple-parallel-operations-fail-in-snapmanager.html 
+sidebar: sidebar 
+keywords: multiple, run, parallel, operation, seperate, database, reside, storage, system, igroup, lun, associate, delete, snapmanager, display, error, message 
+summary: Wenn Sie mehrere parallele Vorgänge auf separaten Datenbanken ausführen, die sich im selben Storage-System befinden, wird die Initiatorgruppe für LUNs, die beiden Datenbanken zugeordnet sind, möglicherweise aufgrund eines der Vorgänge gelöscht. Wenn später der andere Vorgang versucht, die gelöschte Initiatorgruppe zu verwenden, zeigt SnapManager eine Fehlermeldung an. 
+---
+= Ausführung mehrerer paralleler Vorgänge schlägt in SnapManager fehl
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie mehrere parallele Vorgänge auf separaten Datenbanken ausführen, die sich im selben Storage-System befinden, wird die Initiatorgruppe für LUNs, die beiden Datenbanken zugeordnet sind, möglicherweise aufgrund eines der Vorgänge gelöscht. Wenn später der andere Vorgang versucht, die gelöschte Initiatorgruppe zu verwenden, zeigt SnapManager eine Fehlermeldung an.
+
+Wenn beispielsweise Backup-Löschvorgänge und Backup-Erstellungsvorgänge für verschiedene Datenbanken nahezu gleichzeitig ausgeführt werden, schlägt der Backup-Vorgang fehl. Die folgenden sequenziellen Schritte zeigen, was passiert, wenn Sie Backup löschen und Backup erstellen Vorgänge auf verschiedenen Datenbanken fast gleichzeitig ausführen.
+
+.Schritte
+. Führen Sie die aus `backup delete` Befehl.
+. Führen Sie die aus `backup create` Befehl.
+. Der `backup create` Der Befehl gibt die bereits vorhandene Initiatorgruppe an und verwendet dieselbe Initiatorgruppe zum Zuordnen der LUN.
+. Der `backup delete` Durch Befehl wird die Backup-LUN gelöscht, die derselben Initiatorgruppe zugeordnet wurde.
+. Der `backup delete` Der Befehl löscht dann die Initiatorgruppe, da der Initiatorgruppe keine LUNs zugeordnet sind.
+. Der `backup create` Befehl erstellt das Backup und versucht, der Initiatorgruppe zuzuordnen, die nicht vorhanden ist, und somit schlägt der Vorgang fehl.
+
+
+*Was zu tun*
+
+Sie müssen eine Initiatorgruppe für jedes Storage-System erstellen, das von der Datenbank verwendet wird. Verwenden Sie dazu den folgenden Befehl: `*sdcli igroup create*`

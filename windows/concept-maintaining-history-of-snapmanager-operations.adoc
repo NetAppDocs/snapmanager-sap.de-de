@@ -1,0 +1,37 @@
+---
+permalink: windows/concept-maintaining-history-of-snapmanager-operations.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, maintain, history, operation, associate, single, multiple, profile, command-line, interface, cli, graphical, user, interface, gui, report, audit, compliance, purpose 
+summary: 'Mit SnapManager für SAP können Sie den Verlauf der SnapManager Vorgänge, die mit einem einzelnen Profil oder mehreren Profilen verknüpft sind, beibehalten. Sie können den Verlauf entweder über die SnapManager Befehlszeilenschnittstelle (CLI) oder über die grafische Benutzeroberfläche (GUI) aufrechterhalten. Sie können die Historie der Vorgänge als Bericht anzeigen und den Bericht zu Audit-Compliance-Zwecken verwenden.' 
+---
+= Historie von SnapManager-Vorgängen aufrechterhalten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager für SAP können Sie den Verlauf der SnapManager Vorgänge, die mit einem einzelnen Profil oder mehreren Profilen verknüpft sind, beibehalten. Sie können den Verlauf entweder über die SnapManager Befehlszeilenschnittstelle (CLI) oder über die grafische Benutzeroberfläche (GUI) aufrechterhalten. Sie können die Historie der Vorgänge als Bericht anzeigen und den Bericht zu Audit-Compliance-Zwecken verwenden.
+
+Sie können den Verlauf der folgenden SnapManager Vorgänge beibehalten:
+
+* Backup erstellen
+* Backup verifizieren
+* Backup Restore
+* Klon erstellen
+
+
+Die Verlaufsinformationen für die SnapManager Vorgänge werden basierend auf der Aufbewahrung beibehalten. Sie können für jeden der unterstützten SnapManager Vorgänge unterschiedliche Aufbewahrungsklassen konfigurieren.
+
+Im Folgenden sind einige Aufbewahrungsklassen aufgeführt, die Sie zuweisen können:
+
+* Anzahl Tage
+* Anzahl Wochen
+* Anzahl Monate
+* Anzahl an Operationen
+
+
+Basierend auf der Aufbewahrung bereinigt SnapManager die Historie automatisch. Außerdem können Sie die Historie der SnapManager-Vorgänge manuell löschen. Wenn Sie das Profil löschen oder zerstören, werden alle dem Profil zugeordneten Verlaufsdaten gelöscht.
+
+
+NOTE: Nach dem Rollback des Hosts können Sie die Verlaufsdaten nicht anzeigen oder mit dem Profil, das für die Verlaufswartung konfiguriert wurde, verbundene Vorgänge durchführen.

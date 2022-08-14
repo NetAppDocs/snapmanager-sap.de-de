@@ -1,0 +1,41 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: administrator, restore, protect, backup, secondary, storage, copy, data, back, primary, snapmanager 
+summary: Administratoren können geschützte Backups von sekundärem Storage wiederherstellen und wählen, wie die Daten zurück auf den primären Storage kopiert werden sollen. 
+---
+= Verwenden Sie SnapManager für SAP, um Backups aus dem sekundären Storage wiederherzustellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Administratoren können geschützte Backups von sekundärem Storage wiederherstellen und wählen, wie die Daten zurück auf den primären Storage kopiert werden sollen.
+
+*Was Sie brauchen*
+
+Bevor Sie versuchen, das Backup wiederherzustellen, prüfen Sie die Backup-Eigenschaften und stellen Sie sicher, dass das Backup im primären Speichersystem freigegeben und auf dem Sekundärspeicher gesichert wird.
+
+.Schritte
+. Klicken Sie in der Verzeichnisstruktur SnapManager für SAP mit der rechten Maustaste auf das Backup, das Sie wiederherstellen möchten, und wählen Sie *Wiederherstellen* aus.
+. Klicken Sie auf der Startseite des Assistenten für Wiederherstellung und Wiederherstellung auf *Weiter*.
+. Klicken Sie auf der Seite Konfigurationsinformationen wiederherstellen auf *Datei/Tablespace Restore with Control Files*.
+. Klicken Sie auf *Herunterfahren der Datenbank zulassen, falls erforderlich*, und klicken Sie dann auf *Weiter*.
++
+Falls erforderlich ändert SnapManager den Datenbankstatus. Wenn beispielsweise die Datenbank offline ist und sie online sein muss, erzwingt SnapManager sie online.
+
+. Klicken Sie auf der Seite Wiederherstellungskonfigurationsinformationen auf *Alle Protokolle*. Klicken Sie anschließend auf *Weiter*.
++
+SnapManager stellt die Datenbank für die letzte Transaktion wieder her und wendet alle erforderlichen Protokolle an.
+
+. Wählen Sie auf der Seite Konfiguration des Quellenstandorts wiederherstellen die ID der geschützten Sicherungsquelle aus, und klicken Sie auf *Weiter*.
+. Klicken Sie auf der Seite „Konfigurationsinformationen zur Volume-Wiederherstellung“ auf *Versuch, die Volume-Wiederherstellung* zu starten, um die Volume-Wiederherstellung zu versuchen.
+. Klicken Sie auf *Fallback to file-based restore*.
++
+Dadurch kann SnapManager die dateibasierte Wiederherstellungsmethode verwenden, wenn die Wiederherstellungsmethode des Volumes nicht abgeschlossen werden kann.
+
+. Klicken Sie auf *Vorschau*, um die Eignungsprüfungen für schnelle Wiederherstellung und Informationen zu obligatorischen und überridbaren Prüfungen anzuzeigen.
+. Überprüfen Sie auf der Seite „Vorgang durchführen“ die von Ihnen bereitgestellten Informationen und klicken Sie auf *Wiederherstellen*.
+. Um Details zum Prozess anzuzeigen, klicken Sie auf *Betriebsdetails*.
+

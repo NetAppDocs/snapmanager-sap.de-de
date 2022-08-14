@@ -1,0 +1,65 @@
+---
+permalink: unix-administration/reference-the-smosmsapclone-template-command.html 
+sidebar: sidebar 
+keywords: command, create, clone, specification, template, smsap 
+summary: Mit diesem Befehl können Sie eine Vorlage für die Klonspezifikation erstellen. 
+---
+= Der Befehl smsap Clone Template
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl können Sie eine Vorlage für die Klonspezifikation erstellen.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone template
+-profile _name_
+[-backup-id _guid_  | -backup-label _backup_name_\]
+[-quiet | -verbose]]
+----
+
+
+== Parameter
+
+* ``*-profile _name_*``
++
+Gibt die Datenbank an, für die Sie eine Klonspezifikation von erstellen möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* ``*-backup-id _guid_*``
++
+Erstellt eine Klonspezifikation aus der Sicherung mit der angegebenen GUID. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Verwenden Sie den Befehl smsap Backup list, um die GUID für jedes Backup anzuzeigen.
+
+* ``*-backup-label _backup_label_name_*``
++
+Erstellt eine Klonspezifikation aus der Sicherung mit dem angegebenen Backup-Label.
+
+* ``*-quiet*``
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* ``*-verbose*``
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+'''
+
+
+== Beispielbefehl
+
+Im folgenden Beispiel wird aus dem Backup eine Klon-Spezifikations-Vorlage mit dem Label full_Backup_Sales_May erstellt. Sobald der Befehl smsap Clone template abgeschlossen ist, ist die Vorlage für die Klonspezifikation abgeschlossen.
+
+[listing]
+----
+smsap clone template -profile SALES1 -backup-label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----
+'''

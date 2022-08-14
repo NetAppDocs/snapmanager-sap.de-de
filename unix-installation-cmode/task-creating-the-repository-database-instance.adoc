@@ -1,0 +1,36 @@
+---
+permalink: unix-installation-cmode/task-create-the-repository-database-instance.html 
+sidebar: sidebar 
+keywords: repository, database, instance, oracle, snapmanager, stand-alone, target, create 
+summary: Die Repository-Datenbankinstanz ist eine Oracle-Datenbank, in der Sie das SnapManager-Repository erstellen. Die Repository-Datenbankinstanz muss eine eigenständige Datenbank sein und kann nicht die Zieldatenbank sein. 
+---
+= Erstellen Sie die Repository-Datenbankinstanz
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Repository-Datenbankinstanz ist eine Oracle-Datenbank, in der Sie das SnapManager-Repository erstellen. Die Repository-Datenbankinstanz muss eine eigenständige Datenbank sein und kann nicht die Zieldatenbank sein.
+
+
+
+== Was Sie benötigen
+
+Sie benötigen eine Oracle-Datenbank und ein Benutzerkonto, um auf die Datenbank zugreifen zu können.
+
+.Schritte
+. Melden Sie sich bei SQL an *Plus: `sqlplus '/ as sysdba'`
+. Erstellen Sie einen neuen Tablespace für das SnapManager-Repository: `*create tablespacetablespace_name datafile ′/u01/app/oracle/oradata/datafile/tablespace_name.dbf′ size 100M autoextend on;*`
++
+`tablespace_name` Ist der Name des Tablespaces.
+
+. Überprüfen Sie die Blockgröße des Tablespaces: `*select tablespace_name, block_size from dba_tablespaces;*`
++
+SnapManager erfordert für den Tablespaces eine Blockgröße von mindestens 4 KB.
+
+
+
+*Verwandte Informationen*
+
+http://www.netapp.com/us/media/tr-3761.pdf["Technischer Bericht 3761: SnapManager für Oracle: Best Practices"^]

@@ -1,0 +1,93 @@
+---
+permalink: unix-administration/concept-restore-preview-plans.html 
+sidebar: sidebar 
+keywords: snapmanager, restore, plan, before, after, operation, preview, review, analyze 
+summary: SnapManager bietet Wiederherstellungspläne vor und nach Abschluss des Wiederherstellungsvorgangs. Mit den Wiederherstellungsplänen werden verschiedene Wiederherstellungsmethoden in der Vorschau, Prüfung und Analyse angezeigt. 
+---
+= Die Pläne für die Vorschau der Wiederherstellung sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager bietet Wiederherstellungspläne vor und nach Abschluss des Wiederherstellungsvorgangs. Mit den Wiederherstellungsplänen werden verschiedene Wiederherstellungsmethoden in der Vorschau, Prüfung und Analyse angezeigt.
+
+
+
+== Struktur des Wiederherstellungsplans
+
+Der Wiederherstellungsplan besteht aus den folgenden beiden Abschnitten:
+
+* Vorschau/Prüfung: Dieser Abschnitt beschreibt, wie SnapManager jede Datei wiederherstellen (oder wiederherstellen hat).
+* Analyse: Dieser Abschnitt beschreibt, warum einige Wiederherstellungsmechanismen während des Wiederherstellungsvorgangs nicht verwendet wurden.
+
+
+
+
+== Der Abschnitt Vorschau/Überprüfung
+
+In diesem Abschnitt wird gezeigt, wie jede Datei wiederhergestellt wird oder wiederhergestellt wurde. Wenn Sie den Wiederherstellungsplan vor einem Wiederherstellungsvorgang anzeigen, wird er als Vorschau bezeichnet. Wenn Sie sie nach Abschluss eines Wiederherstellungsvorgangs anzeigen, wird sie als Überprüfung bezeichnet.
+
+Das folgende Vorschaubeispiel zeigt, dass die Dateien mit einer schnellen Volume-basierten Wiederherstellung, einer speicherseitigen Filesystem-Wiederherstellung und einer Storage-seitigen Systemwiederherstellung wiederhergestellt werden. Um festzustellen, warum alle Dateien nicht mit derselben Wiederherstellungsmethode wiederhergestellt werden würden, lesen Sie den Abschnitt Analyse.
+
+[listing]
+----
+Preview:
+The following files will be restored completely via: fast restore
++DG1/rac6/users.dbf
+
+The following files will be restored completely via: storage side file system restore
++DG2/rac6/sysaux.dbf
++DG2/rac6/system.dbf
+The following files will be restored completely via: storage side system restore
++DG2/rac6/undotbs1.dbf
++DG2/rac6/undotbs2.dbf
+----
+Jede Wiederherstellungsmethode hat einen Unterabschnitt, der Informationen über die Dateien enthält, die mit dieser Wiederherstellungsmethode wiederhergestellt werden können. Die Unterabschnitte werden nach abnehmenden Niveaus der Lagermethodeneffizienz geordnet. Im Beispiel oben ist die schnelle Wiederherstellungsmethode effizienter als die Wiederherstellungsmethode des Speicherdateisystems und wird daher zuerst angezeigt.
+
+Es ist möglich, dass eine Datei durch mehrere Wiederherstellungsmethoden wiederhergestellt werden kann. Mehrere Wiederherstellungsmethoden werden verwendet, wenn die für ein Filesystem verwendeten LUNs (Logical Unit Numbers) auf verschiedene Storage-System-Volumes verteilt werden und einige Volumes für die Volume-Wiederherstellung infrage kommen, andere hingegen nicht. Wenn mehrere Wiederherstellungsmethoden verwendet werden, um dieselbe Datei wiederherzustellen, wird der Vorschaubereich wie folgt angezeigt:
+
+[listing]
+----
+The following files will be restored via a combination of:
+[fast restore, storage side file system restore. storage side system restore]
+----
+
+
+== Der Abschnitt Analyse
+
+Der Abschnitt Analyse enthält die Gründe, warum einige Wiederherstellungsmechanismen nicht oder wurden nicht verwendet. Anhand dieser Informationen können Sie ermitteln, welche Daten benötigt werden, um effizientere Restore-Mechanismen zu ermöglichen.
+
+Das folgende Beispiel zeigt einen Abschnitt „Analyse“:
+
+[listing]
+----
+Analysis:
+
+The following reasons prevent certain files from being
+restored completely via: fast restore
+   * LUNs present in snapshot of volume fas960:
+        /vol/rac_6_asm_disks may not be consistent when reverted:
+        [fas960:/vol/rac6_asm_disks/DG4D1.lun]
+     Mapped LUNs in volume fas960:/vol/rac_6_asm_disks
+        not part of the restore scope will be reverted: [DG4D1.lun]
+
+Files to restore:
+     +DG2/rac6/sysaux.dbf
+     +DG2/rac6/system.dbf
+     +DG2/rac6/undotbs1.dbf
+     +DG2/rac6/undotbs2.dbf
+
+* Reasons denoted with an asterisk (*) are overridable.
+----
+In diesem Beispiel ist der erste Fehler durch Verwendung überzuridbar `-fast -override` Über die Befehlszeilenschnittstelle (CLI) oder über die Option *Override* in der grafischen Benutzeroberfläche (GUI). Der zweite Fehler über zugeordnete LUNs im Volume ist obligatorisch und nicht zu überrätselfähig.
+
+Sie können die Prüfungen wie folgt beheben:
+
+* Um einen obligatorischen Prüffehler zu beheben, ändern Sie die Umgebung, damit die Prüfung erfolgreich ist.
+* Um einen übersteuerbaren Prüffehler zu beheben, können Sie die Umgebung ändern oder die Prüfung überschreiben.
++
+Sie müssen jedoch vorsichtig sein, da das Überschreiben der Prüfung zu unerwünschten Folgen führen kann.
+
+

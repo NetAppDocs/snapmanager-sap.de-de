@@ -1,0 +1,75 @@
+---
+permalink: unix-administration/reference-the-smosmsap-schedule-update-command.html 
+sidebar: sidebar 
+keywords: command, update, schedule, backup, smsap 
+summary: Mit diesem Befehl wird der Zeitplan für ein Backup aktualisiert. 
+---
+= Der Befehl smsap Schedule Update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl wird der Zeitplan für ein Backup aktualisiert.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap schedule update -profile _profile_name_
+-schedule-name _schedule_name_ [-schedule-comment _schedule_comment_\]
+-interval {_-hourly_ | _-daily_ | _-weekly_ | _-monthly_ | _-onetimeonly_}
+-cronstring _cron_string_  -start-time {_start_time < yyyy-MM-dd HH:mm>_}
+-runasuser _runasuser_ [-taskspec _taskspec_\] -force
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_name_*`
++
+Gibt den Namen des Profils an, das mit der Datenbank verknüpft ist, die die Sicherung planen soll. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* `*-schedule-name _schedule_name_*`
++
+Gibt den Namen an, den Sie für den Zeitplan angeben.
+
+* `*-schedule-comment _schedule_comment_*`
++
+Gibt einen optionalen Kommentar an, um die Planung des Backups zu beschreiben.
+
+* `*-interval { -hourly | -daily | -weekly | -monthly | -onetimeonly}*`
++
+Gibt das Zeitintervall an, mit dem die Backups erstellt werden. Sie können das Backup nur stündlich, täglich, wöchentlich, monatlich oder einmalig planen.
+
+* `*-cronstring _cron_string_*`
++
+Gibt an, das Backup mit cronstring zu planen. Cron-Ausdrücke werden verwendet, um Instanzen von CronTrigger zu konfigurieren. Cron-Ausdrücke sind Zeichenfolgen, die tatsächlich aus sieben Unterausdrücken bestehen:
+
++
+** 1 bezieht sich auf Sekunden
+** 2 bezieht sich auf Minuten
+** 3 bezieht sich auf Stunden
+** 4 bezieht sich auf einen Tag im Monat
+** 5 bezieht sich auf den Monat
+** 6 bezieht sich auf einen Tag in einer Woche
+** 7 bezieht sich auf das Jahr (optional)
+
+
+* `*-start-time yyyy-MM-dd HH:mm*`
++
+Gibt die Startzeit des Zeitplanvorgangs an. Die Startzeit des Zeitplans sollte im Format yyyy-MM-dd HH:mm enthalten sein.
+
+* `*-runasuser _runasuser_*`
++
+Gibt an, den Benutzer des geplanten Backup-Vorgangs während der Planung des Backups zu ändern.
+
+* `*-taskspec _taskspec_*`
++
+Gibt die XML-Datei für die Aufgabenspezifikation an, die für die Vorverarbeitung oder Nachverarbeitung des Backup-Vorgangs verwendet werden kann. Der vollständige Pfad der XML-Datei sollte zur Verfügung gestellt werden, die die Option -taskSpec geben.
+
+

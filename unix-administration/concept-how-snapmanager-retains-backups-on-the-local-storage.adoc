@@ -1,0 +1,176 @@
+---
+permalink: unix-administration/concept-how-snapmanager-retains-backups-on-the-local-storage.html 
+sidebar: sidebar 
+keywords: 'snapmanager, enable, create, backup, retention, policies, policy, successful, storage, retain, local, database summary: SnapManager enables you to create backups that meet retention policies, which specify how many successful backups on local storage should be retained. You can specify the number of successful backups that should be retained in the profile for a given database.' 
+---
+= Wie SnapManager Backups auf dem lokalen Storage aufbewahrt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie Backups erstellen, die Aufbewahrungsrichtlinien erfüllen, die angeben, wie viele erfolgreiche Backups auf lokalem Storage aufbewahrt werden sollen. Sie können die Anzahl erfolgreicher Backups angeben, die im Profil für eine bestimmte Datenbank aufbewahrt werden sollen.
+
+Sie können Backups für folgende erstellen:
+
+* 10 Tage tägliche Backups auf dem Primärspeicher
+* 2 Monate monatliche Backups auf dem Primärspeicher
+* 7 Tage tägliche Backups auf dem Sekundärspeicher
+* 4 Wochen wöchentliche Backups auf dem Sekundärspeicher
+* 6 Monate monatliche Backups auf dem Sekundärspeicher
+
+
+Sie können für jedes Profil in SnapManager die Werte für die folgenden nicht begrenzten Aufbewahrungsklassen ändern:
+
+* Stündlich
+* Täglich
+* Wöchentlich
+* Monatlich
+
+
+SnapManager legt fest, ob ein Backup aufbewahrt werden soll, indem sowohl die Anzahl der Aufbewahrung (z. B. 15 Backups) als auch die Aufbewahrungsdauer (z. B. 10 Tage tägliche Backups) berücksichtigt werden. Ein Backup läuft ab, wenn sein Alter die für seine Aufbewahrungsklasse festgelegte Aufbewahrungsdauer überschreitet oder die Anzahl der Backups die Aufbewahrungsdauer überschreitet. Beispiel: Wenn die Backup-Anzahl 15 beträgt (SnapManager hat 15 erfolgreiche Backups erstellt) und die Dauer für tägliche Backups von 10 Tagen festgelegt wird, laufen die fünf ältesten erfolgreichen geeigneten Backups ab.
+
+Nach Ablauf eines Backups wird das abgelaufene Backup entweder von SnapManager entfernt oder gelöscht. SnapManager behält immer das letzte Backup bei.
+
+SnapManager zählt nur die Anzahl erfolgreicher Backups für die Aufbewahrungszahl. Es werden folgende Punkte nicht berücksichtigt:
+
+[cols="1a,1a"]
+|===
+| Backups, die nicht in der Aufbewahrungsanzahl enthalten sind | Zusätzliche Angaben 
+
+
+ a| 
+Fehlgeschlagene Backups
+ a| 
+SnapManager behält die Informationen zu erfolgreichen und fehlgeschlagenen Backups bei. Obwohl fehlgeschlagene Backups nur einen minimalen Speicherplatz im Repository benötigen, können Sie diese auch löschen. Fehlgeschlagene Backups verbleiben im Repository, bis Sie sie löschen.
+
+
+
+ a| 
+Backups, die für die Aufbewahrung vorgesehen sind, unbegrenzt oder für eine andere Aufbewahrungsklasse Backups
+ a| 
+SnapManager löscht keine Backups, die für die Aufbewahrung vorgesehen sind. Darüber hinaus berücksichtigt SnapManager nur die Backups in derselben Aufbewahrungsklasse (beispielsweise berücksichtigt SnapManager nur die stündlichen Backups für die stündliche Aufbewahrungszahl).
+
+
+
+ a| 
+Backups werden über lokalen Storage gemountet
+ a| 
+Wenn Snapshot Kopien angehängt werden, sind sie auch geklont und gelten somit nicht als für die Aufbewahrung geeignet. SnapManager kann die Snapshot Kopien nicht löschen, wenn sie geklont sind.
+
+
+
+ a| 
+Backups, die zum Erstellen eines Klons im lokalen Storage verwendet werden
+ a| 
+SnapManager behält alle Backups, die zum Erstellen von Klonen verwendet werden, berücksichtigt diese jedoch nicht für die Anzahl der Backup-Aufbewahrung.
+
+
+
+ a| 
+Backups, die geklont oder auf sekundärem Storage eingebunden sind und die Sicherungsrichtlinie für Spiegelung nutzen
+ a| 
+Wenn SnapManager die Snapshot Kopien für das Backup der primären Storage-Ressource löscht und die Snapshot-Kopien gespiegelt werden, schlägt das nächste Backup auf dem sekundären Storage fehl.
+
+|===
+Wenn Sie ein Backup der primären Speicherressourcen freigeben, werden die vom Backup verwendeten primären Ressourcen (Snapshot-Kopien) zerstört, die Backup-Metadaten sind aber weiterhin verfügbar. SnapManager berücksichtigt keine freigegebenen Backups in der Anzahl der Backup-Aufbewahrung.
+
+SnapManager bietet für jede Aufbewahrungsklasse eine Standardanzahl und -Dauer. Beispielsweise behalten SnapManager für die Anzahl der stündlichen Aufbewahrungsklassen standardmäßig vier Backups pro Stunde bei. Sie können diese Standardwerte überschreiben und beim Erstellen oder Aktualisieren des Profils die Werte festlegen oder die Standardwerte für Aufbewahrungsanzahl und -Dauer in ändern `smsap.config` Datei:
+
+Backups auf dem Primärspeicher können durch das Backup auf dem Sekundärspeicher gesichert werden. Während SnapManager die Aufbewahrung und Planung von Backups auf dem primären Storage managt, managt der Protection Manager die Aufbewahrung und die Planung von Backups auf dem sekundären Storage.
+
+Wenn lokale Backups aufgrund ihrer Aufbewahrungsrichtlinien ablaufen, werden sie je nach Sicherungsdatum gelöscht oder freigegeben.
+
+* Sind sie geschützt, werden die lokalen Backups freigegeben. Ihre Storage-Ressourcen oder Snapshot-Kopien werden gelöscht, die Backups verbleiben jedoch im SnapManager-Repository und sind für die Wiederherstellung aus dem sekundären Storage verfügbar. Sie müssen keine Backups freigeben (z. B. mit dem Befehl Backup free). Backups werden freigegeben, bis der Backup nicht mehr im Sekundärspeicher vorhanden ist und dann das Backup gelöscht wird.
+* Sind sie nicht geschützt, werden die lokalen Backups gelöscht.
+
+
+Bei einem nur-archivlog Backup Vorgang archiviert SnapManager die Redo-Log-Dateien nicht, anders als beim Online-Datenbank-Backup-Prozess. Sie müssen ein Pre-Task-Skript hinzufügen, um die Redo-Log-Dateien zu archivieren, bevor Sie den nur-Archivprotokoll durchführen. Das Vortaskskript muss das ausführen `alter system switch logfile` Befehl.
+
+Das folgende Beispiel zeigt die Maßnahmen, die SnapManager für verschiedene Arten von Backups ergreift, basierend auf einer Aufbewahrungsrichtlinie für drei tägliche Backups (wobei die Anzahl auf Aufbewahrung 3 festgelegt ist):
+
+[cols="1a,1a,1a,1a"]
+|===
+| Backup-Datum | Status | Maßnahmen zur Aufbewahrungsrichtlinie ergriffen | Erklärung 
+
+
+ a| 
+5/10
+ a| 
+Erfolgreich
+ a| 
+Bitte Halten
+ a| 
+Es handelt sich um das aktuellste erfolgreiche Backup und wird daher beibehalten.
+
+
+
+ a| 
+5/9
+ a| 
+Erfolgreich, geklont
+ a| 
+Überspringen
+ a| 
+SnapManager berücksichtigt keine Backups, die zum Klonen in der Anzahl der Aufbewahrungsrichtlinien verwendet werden. Dieses Backup entfällt auf die Anzahl erfolgreicher Backups.
+
+
+
+ a| 
+5/8
+ a| 
+Erfolgreich, angehängt
+ a| 
+Überspringen
+ a| 
+SnapManager berücksichtigt keine gemounteten Backups in der Anzahl der Aufbewahrungsrichtlinien. Dieses Backup entfällt auf die Anzahl erfolgreicher Backups.
+
+
+
+ a| 
+5/7
+ a| 
+Fehlgeschlagen
+ a| 
+Überspringen
+ a| 
+Fehlgeschlagene Backups werden nicht gezählt.
+
+
+
+ a| 
+5/5
+ a| 
+Erfolgreich
+ a| 
+Bitte Halten
+ a| 
+SnapManager hält dieses zweite erfolgreiche tägliche Backup.
+
+
+
+ a| 
+5/3
+ a| 
+Erfolgreich
+ a| 
+Bitte Halten
+ a| 
+SnapManager hält dieses dritte erfolgreiche tägliche Backup.
+
+
+
+ a| 
+5/2
+ a| 
+Erfolgreich
+ a| 
+Löschen
+ a| 
+SnapManager zählt dieses erfolgreiche Backup, aber nachdem SnapManager drei erfolgreiche tägliche Backups erreicht hat, wird dieses Backup gelöscht.
+
+|===
+*Verwandte Informationen*
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site"^]

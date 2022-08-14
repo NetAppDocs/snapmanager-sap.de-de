@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/concept-advantages-and-disadvantages-of-using-fast-restore.html 
+sidebar: sidebar 
+keywords: dba, aware, advantage, disadvantage, volume-base, fast, restore, disadvantage 
+summary: DBAs sollten sich der vor- und Nachteile der Verwendung von Volume-basierten schnellen Restores bewusst sein. 
+---
+= Vor- und Nachteile bei schneller Wiederherstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+DBAs sollten sich der vor- und Nachteile der Verwendung von Volume-basierten schnellen Restores bewusst sein.
+
+Das Wiederherstellen von Datenbank-Backups mithilfe von schnellen Wiederherstellungen bietet die folgenden Vorteile:
+
+* Volume-basierte Restores reduzieren den Zeitaufwand für die Wiederherstellung von Backups.
+* SnapManager bietet schnelle Überprüfung der Teilnahmevoraussetzungen für eine Wiederherstellung. SnapManager analysiert das Datenbank-Backup und zeigt Informationen darüber an, ob es das Volume-basierte Restore durchführen kann.
+* Sie können eine Vorschau des Wiederherstellungsvorgangs anzeigen und entscheiden, ob Sie den empfohlenen Pfad verwenden oder die Empfehlung mit Ihrem ausgewählten Prozess überschreiben möchten.
+
+
+Die Wiederherstellung von Datenbank-Backups mit schnellen Restores hat die folgenden Nachteile:
+
+* Das gesamte Filesystem wurde zurückgesetzt, auch Dateien, die nicht als Teil des Backups betrachtet wurden. Andere Dateien, Filesysteme oder LUNs auf dem Volume werden ebenfalls zurückgesetzt.
+* SnapManager entfernt alle Snapshot Kopien, die nach dem Zurücksetzen des Snapshots erstellt wurden. In Tat verlieren Sie den Verlauf nach dem Datum der Snapshot Kopie. Beispielsweise können Sie das Backup am Dienstag nicht wiederherstellen, wenn Sie bereits das Backup am Montag wiederhergestellt haben.
+
+
+Sie können die Nachteile vermeiden, indem Sie folgende Empfehlungen befolgen:
+
+* Optimieren Sie das Datenbank-Layout anhand der Best Practices.
+* Sicherung von Backups auf Sekundärspeicher Wenn Sie jedoch Snapshot-Kopien aus dem Primärspeicher löschen, können Sie keine schnellen Wiederherstellungen verwenden, um sie aus dem Sekundärspeicher wiederherzustellen.
+

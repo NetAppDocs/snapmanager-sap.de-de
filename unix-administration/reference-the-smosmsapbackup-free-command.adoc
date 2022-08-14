@@ -1,0 +1,82 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-free-command.html 
+sidebar: sidebar 
+keywords: run, backup, free, command, snapshot, copies, copy, removing, remove, metadata, repository, smsap 
+summary: Sie können den kostenlosen Befehl für die Sicherung ausführen, um die Snapshot-Kopien der Backups freizumachen, ohne die Backup-Metadaten aus dem Repository zu entfernen. 
+---
+= Der Befehl smsap Backup free
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup free` Befehl zur Freigabe der Snapshot Kopien der Backups ohne Entfernen der Backup-Metadaten aus dem Repository.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup free
+-profile profile_name
+[-label _label_ [-data | -archivelogs\] | [-id _guid_ | -all\]
+-force
+[-dump\] [-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_name_*`
++
+Gibt das Profil an, das mit dem Backup verknüpft ist, das Sie freigeben möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* `*-id _guid_*`
++
+Gibt die Ressourcen des Backups mit der angegebenen GUID an. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können das verwenden `smsap backup list` Befehl zum Anzeigen der GUID für jedes Backup. Nehmen Sie die auf `-verbose` Option zum Anzeigen der Backup-IDs.
+
+* `*-label _label_*`
++
+Gibt das Backup mit der angegebenen Bezeichnung an.
+
+* `*-data*`
++
+Gibt die Datendateien an.
+
+* `*-archivelogs*`
++
+Gibt die Archivprotokolldateien an.
+
+* `*-all*`
++
+Gibt alle Backups an. Verwenden Sie zum Löschen der angegebenen Backups stattdessen den `-id` Oder `-label` Option.
+
+* `*-force*`
++
+Erzwingt das Entfernen der Snapshot Kopien.
+
+* `*-quiet*`
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*-verbose*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+'''
+
+
+== Beispiel
+
+Das folgende Beispiel entlastet das Backup:
+
+[listing]
+----
+smsap backup free -profile SALES1 -label full_backup_sales_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----
+'''

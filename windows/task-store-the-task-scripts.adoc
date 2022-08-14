@@ -1,0 +1,103 @@
+---
+permalink: windows/task-store-the-task-scripts.html 
+sidebar: sidebar 
+keywords: store, pretask, post-task, policy, task, script, directory, target, server, backup, clone, create, restore, operation 
+summary: Sie müssen die Skript für Aufgaben vor, nach und nach der Aufgabe sowie die Richtlinien in einem bestimmten Verzeichnis auf dem Zielserver speichern, auf dem die Backups oder Klone erstellt werden. Für den Wiederherstellungsvorgang müssen die Skripte in das angegebene Verzeichnis auf dem Zielserver platziert werden, auf dem Sie das Backup wiederherstellen möchten. 
+---
+= Speichern Sie die Taskskripte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Skript für Aufgaben vor, nach und nach der Aufgabe sowie die Richtlinien in einem bestimmten Verzeichnis auf dem Zielserver speichern, auf dem die Backups oder Klone erstellt werden. Für den Wiederherstellungsvorgang müssen die Skripte in das angegebene Verzeichnis auf dem Zielserver platziert werden, auf dem Sie das Backup wiederherstellen möchten.
+
+.Schritte
+. Erstellen Sie Ihr Skript.
+. Speichern Sie das Skript an einem der folgenden Speicherorte:
++
+*Für den Backup-Vorgang*
+
++
+|===
+| Verzeichnis | Beschreibung 
+
+
+ a| 
+`*<default_install_directory >\plugins\backup\create\policy*`
+ a| 
+Die Richtlinieskripte werden vor den Backup-Vorgängen ausgeführt.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\backup\create\pre*`
+ a| 
+Die Vorverarbeitungsskripte führen die vor dem Backup aus.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\backup\create\pre*`
+ a| 
+Die nachverarbeitenden Skripte werden nach den Backup-Vorgängen ausgeführt.
+
+|===
++
+*Für den Wiederherstellungsvorgang*
+
++
+|===
+| Verzeichnis | Beschreibung 
+
+
+ a| 
+`*<default_install_directory >\plugins\restore\create\policy*`
+ a| 
+Die Richtlinienskripte werden vor den Wiederherstellungsvorgängen ausgeführt.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\restore\create\pre*`
+ a| 
+Die Vorverarbeitungsskripte werden vor der Wiederherstellung ausgeführt.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\restore\create\post*`
+ a| 
+Die nachverarbeitenden Skripte werden nach den Wiederherstellungsvorgängen ausgeführt.
+
+|===
++
+*Für den Klonvorgang*
+
++
+|===
+| Verzeichnis | Beschreibung 
+
+
+ a| 
+`*<default_install_directory >\plugins\clone\create\policy*`
+ a| 
+Die Richtlinisskripte werden vor dem Klonbetrieb ausgeführt.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\clone\create\pre*`
+ a| 
+Die Vorverarbeitungsskripte werden vor den Klonvorgängen ausgeführt.
+
+
+
+ a| 
+`*<default_install_directory >\plugins\clone\create\post*`
+ a| 
+Die nachverarbeitenden Skripte werden nach den Klonvorgängen ausgeführt.
+
+|===
+

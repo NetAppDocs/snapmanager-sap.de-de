@@ -1,0 +1,201 @@
+---
+permalink: unix-administration/reference-error-message-classifications.html 
+sidebar: sidebar 
+keywords: determine, cause, error, message, classification 
+summary: Sie können die Ursache eines Fehlers bestimmen, wenn Sie die Klassifizierungen der Nachrichten kennen. 
+---
+= Klassifizierungen für Fehlermeldungen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Ursache eines Fehlers bestimmen, wenn Sie die Klassifizierungen der Nachrichten kennen.
+
+In der folgenden Tabelle finden Sie Informationen zu den numerischen Bereichen für die verschiedenen Meldungsarten, die Sie möglicherweise bei SnapManager sehen:
+
+[cols="2a,1a,3a"]
+|===
+| Gruppieren | Bereich | Zu Verwenden 
+
+
+ a| 
+UMGEBUNG
+ a| 
+1000-1999
+ a| 
+Wird verwendet, um den Zustand oder Probleme mit der Betriebsumgebung von SnapManager zu protokollieren. Diese Gruppe umfasst Meldungen über die Systeme, mit denen SnapManager interagiert, wie z. B. Host, Storage-System, Datenbank usw.
+
+
+
+ a| 
+BACKUP
+ a| 
+2000-2999
+ a| 
+Verbunden mit dem Datenbank-Backup-Prozess.
+
+
+
+ a| 
+WIEDERHERSTELLEN
+ a| 
+3000-3999
+ a| 
+Verknüpft mit dem Wiederherstellungsprozess der Datenbank.
+
+
+
+ a| 
+KLON
+ a| 
+4000-4999
+ a| 
+Diesem Datenbankklonprozess zugeordnet.
+
+
+
+ a| 
+PROFIL
+ a| 
+5000-5999
+ a| 
+Wird zum Verwalten von Profilen verwendet.
+
+
+
+ a| 
+MANAGEN
+ a| 
+6000-6999
+ a| 
+Wird für das Management von Backups verwendet.
+
+
+
+ a| 
+SCHNITTSTELLE FÜR VIRTUELLE DATENBANKEN
+ a| 
+7000-7999
+ a| 
+Der Schnittstelle der virtuellen Datenbank zugeordnet.
+
+
+
+ a| 
+VIRTUAL STORAGE INTERFACE
+ a| 
+8000-8999
+ a| 
+Einer virtuellen Storage-Schnittstelle zugeordnet.
+
+
+
+ a| 
+REPOSITORY
+ a| 
+9000-9999
+ a| 
+Der Repository-Schnittstelle zugeordnet.
+
+
+
+ a| 
+METRIKEN
+ a| 
+10000-10999
+ a| 
+Zugeordnet zur Größe des Datenbank-Backups, verstrichene Zeit zum Backup, Zeit zur Wiederherstellung der Datenbank, die Anzahl der Male, die eine Datenbank geklont wurde usw.
+
+
+
+ a| 
+VIRTUELLE HOST-SCHNITTSTELLE
+ a| 
+11000-11999
+ a| 
+Der virtuellen Host-Schnittstelle zugeordnet. Dies ist die Schnittstelle zum Host-Betriebssystem.
+
+
+
+ a| 
+AUSFÜHRUNG
+ a| 
+12000-12999
+ a| 
+Verbunden mit dem Ausführungspaket, einschließlich Laichen und Verarbeitung von Betriebssystemaufrufen.
+
+
+
+ a| 
+PROZESS
+ a| 
+13000-13999
+ a| 
+Verknüpft mit der Prozesskomponente von SnapManager.
+
+
+
+ a| 
+VERSORGUNGSUNTERNEHMEN
+ a| 
+14000-14999
+ a| 
+Verbunden mit SnapManager Utilities, globalem Kontext usw.
+
+
+
+ a| 
+DUMP/DIAGNOSE
+ a| 
+15000-15999
+ a| 
+Im Zusammenhang mit Dump- oder Diagnosevorgängen.
+
+
+
+ a| 
+HILFE
+ a| 
+16000-16999
+ a| 
+Mit Hilfe verknüpft.
+
+
+
+ a| 
+SERVER
+ a| 
+17000-17999
+ a| 
+Wird in der SnapManager-Serveradministration verwendet.
+
+
+
+ a| 
+API
+ a| 
+18000-18999
+ a| 
+Der API zugeordnet.
+
+
+
+ a| 
+HINTERGRUND
+ a| 
+19000-19999
+ a| 
+Mit BACKINT verknüpft.
+
+
+
+ a| 
+AUTH
+ a| 
+20000-20999
+ a| 
+Mit der Autorisierung von Anmeldeinformationen verknüpft.
+
+|===

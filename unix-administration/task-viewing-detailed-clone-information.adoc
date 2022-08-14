@@ -1,0 +1,39 @@
+---
+permalink: unix-administration/task-view-detailed-clone-information.html 
+sidebar: sidebar 
+keywords: view, detail, information, clone, show, command 
+summary: Mit dem Befehl Clone show können Sie ausführliche Informationen über einen bestimmten Klon anzeigen. 
+---
+= Anzeigen von detaillierten Kloninformationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können mit der detaillierte Informationen zu einem bestimmten Klon anzeigen `clone show` Befehl.
+
+*Über diese Aufgabe*
+
+Der `clone show` Mit dem Befehl werden die folgenden Informationen angezeigt:
+
+* Systemidentifikation und Klon-ID klonen
+* Status des Klonvorgangs
+* Start- und Enddatum bzw. -Uhrzeit des Klons
+* Klonbezeichnung
+* Klonkommentar
+* Backup-Label und -ID
+* Quelldatenbank
+* Start- und Endzeit des Backups
+* Datenbankname, Tabellen und Datendateien
+* Host-Name und Dateisysteme mit Datendateien
+* Storage-System-Volumes und Snapshot-Kopien, die den Klon sichern
+* Gibt an, ob der Klon mithilfe des Backups auf dem primären oder sekundären Storage erstellt wurde
+
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap clone show -profile _profile_name_ [-label _label_ | -id _guid_]*`
+
+

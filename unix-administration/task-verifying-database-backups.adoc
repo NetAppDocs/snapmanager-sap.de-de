@@ -1,0 +1,28 @@
+---
+permalink: unix-administration/task-verify-database-backups.html 
+sidebar: sidebar 
+keywords: backup, verify, command, block, database, backup, corrupt, operation, invoke, oracle, utility, data, file 
+summary: Sie können mit dem Befehl Backup Verify überprüfen, ob die Blöcke im Datenbank-Backup nicht beschädigt sind. Der Verify-Vorgang ruft das Dienstprogramm Oracle Database Verify für jede Datendatei im Backup auf. 
+---
+= Datenbank-Backups prüfen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `backup verify` Befehl zur Überprüfung, ob die Blöcke im Datenbank-Backup nicht beschädigt sind. Der Verify-Vorgang ruft das Dienstprogramm Oracle Database Verify für jede Datendatei im Backup auf.
+
+*Über diese Aufgabe*
+
+Mit SnapManager können Sie den Verifizierungsvorgang jederzeit für Sie und die Benutzer in Ihrem System durchführen. Sie können die Verifizierung sofort nach dem Erstellen des Backups durchführen. Sie müssen das Profil angeben, das das Backup enthält, und entweder die Bezeichnung oder die ID des erstellten Backups.
+
+
+NOTE: Sie können -dump angeben, um die Dump-Dateien nach der Backup-Überprüfung zu sammeln.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup verify -profile _profile_name_ [-label _label_ | -id _id_] [-force] [ -dump] [-quiet | -verbose]*`
+
+

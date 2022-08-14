@@ -1,0 +1,95 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-unmount-command.html 
+sidebar: sidebar 
+keywords: run, backup, unmount, command, smsap 
+summary: Sie können den Befehl Backup unmount ausführen, um die Bereitstellung eines Backups zu aufheben. 
+---
+= Der Befehl smsap Backup unmount
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup unmount` Befehl zum Aufheben der Bereitstellung eines Backups.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup unmount
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _id_\]
+[-force\]
+[-dump\][-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* ``*-profile _profile_name_*``
++
+Gibt das Profil an, für das die Bereitstellung eines Backups aufgehoben werden soll. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* ``*-id _id_*``
++
+Hängt das Backup mit der angegebenen GUID ab. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können den Befehl smsap Backup list verwenden, um die GUID für jedes Backup anzuzeigen.
+
+* ``*-label _label_*``
++
+Hängt das Backup mit dem angegebenen Etikett ab.
+
+* ``*-data*``
++
+Gibt die Datendateien an.
+
+* ``*-archivelogs*``
++
+Gibt die Archivprotokolldateien an.
+
+* ``*-dump*``
++
+Sammelt die Speicherauszugsdateien nach einem erfolgreichen oder fehlgeschlagenen Aushängevorgang.
+
+* ``*-force*``
++
+Hängt das Backup ab, selbst wenn beim Freigeben der mit dem Backup verbundenen Ressourcen Probleme auftreten. SnapManager versucht, die Bereitstellung des Backups rückgängig zu machen und die zugehörigen Ressourcen zu bereinigen. Das Protokoll zeigt den Vorgang zum Aufheben der Bereitstellung als erfolgreich an. Bei Fehlern im Protokoll müssen Sie jedoch möglicherweise Ressourcen manuell bereinigen.
+
+* ``*-quiet*``
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* ``*-verbose*``
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+'''
+
+
+== Beispiel
+
+Im Folgenden finden Sie ein Beispiel für einen unmontierten Vorgang:
+
+[listing]
+----
+# smsap backup unmount -label test -profile SALES1 -verbose
+----
+[listing]
+----
+SMSAP-13046 [INFO ]: Operation GUID 8abc013111b909eb0111b90a02f50001 starting on Profile SALES1
+SMSAP-08028 [INFO ]: Beginning to disconnect connected mount(s)
+[/u/user1/mnt/_mnt_ssys1_logs_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001,
+ /u/user1/mnt/_mnt_ssys1_data_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001].
+SMSAP-08030 [INFO ]: Done disconnecting connected mount(s)
+[/u/user1/mnt/_mnt_ssys1_logs_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001,
+ /u/user1//mnt/_mnt_ssys1_data_SMSAP_SALES1_hsdb1_F_C_1_8abc013111a450480111a45066210001].
+SMSAP-13037 [INFO ]: Successfully completed operation: Backup Unmount
+SMSAP-13048 [INFO ]: Operation Status: SUCCESS
+SMSAP-13049 [INFO ]: Elapsed Time: 0:00:33.715
+Operation Id [8abc013111b909eb0111b90a02f50001] succeeded.
+----
+'''

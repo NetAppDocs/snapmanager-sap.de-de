@@ -1,0 +1,22 @@
+---
+permalink: windows/task-creating-post-processing-task-specification-file.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, post-processing, task-specification, xml, file, operation, snapmirror, snapvault, post-script, backup, secondary, storage, creating 
+summary: Mit SnapManager können Sie XML-Dateien nach der Verarbeitung mit Aufgabenspezifikation für den Backup-Vorgang erstellen, einschließlich der Post-Skripte SnapMirror oder SnapVault. Die Skripte ermöglichen die Spiegelung oder Vault des Backups auf sekundären Speicher. 
+---
+= Erstellen von Dateien für die Nachverarbeitung und Aufgabenspezifikation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie XML-Dateien nach der Verarbeitung mit Aufgabenspezifikation für den Backup-Vorgang erstellen, einschließlich der Post-Skripte SnapMirror oder SnapVault. Die Skripte ermöglichen die Spiegelung oder Vault des Backups auf sekundären Speicher.
+
+. Öffnen Sie eine neue XML-Datei.
++
+Die XML-Beispieldatei für die Aufgabenspezifikation kann unter default_install_Directory\Plugins\examples angezeigt werden.
+
+. Fügen Sie den Skriptnamen als Eingabeparameter hinzu.
+. Speichern Sie die XML-Datei für die Aufgabenspezifikation.
+

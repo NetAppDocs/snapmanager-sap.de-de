@@ -1,0 +1,341 @@
+---
+permalink: unix-administration/concept-fast-restore-eligibility-checks.html 
+sidebar: sidebar 
+keywords: perform, restore, backup, snapmanager, eligibility, check, fast 
+summary: Wenn Sie eine schnelle Wiederherstellung eines Backups durchführen möchten, führt SnapManager zunächst eine Eignungsüberprüfung durch, um festzustellen, ob der schnelle Restore-Prozess verwendet werden kann. 
+---
+= Überprüfung der Teilnahmevoraussetzungen für eine schnelle Wiederherstellung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine schnelle Wiederherstellung eines Backups durchführen möchten, führt SnapManager zunächst eine Eignungsüberprüfung durch, um festzustellen, ob der schnelle Restore-Prozess verwendet werden kann.
+
+SnapManager bietet folgende Arten von Prüfungen:
+
+* Obligatorische Prüfungen: SnapManager kann den Schnellwiederherstellungsprozess nur dann durchführen, wenn alle Bedingungen unter diesem Prüfvorgang erfüllt sind.
+* Übersteuerbare Prüfungen: Wenn die Bedingungen unter dieser Prüfung fehlschlagen, können Administratoren die Prüfung überschreiben, um einen schnellen Wiederherstellungsprozess zu erzwingen. Sie müssen diese Prüfungen jedoch mit Vorsicht überschreiben.
+
+
+In der folgenden Tabelle sind die Probleme aufgeführt, die möglicherweise auftreten können, und es wird angegeben, ob die Überprüfung der Berechtigung zur schnellen Wiederherstellung überschrieben werden kann:
+
+|===
+| Problem | Pass erforderlich | Details 
+
+
+ a| 
+ACFS, Voting Disk oder OCR ist in der ASM-Laufwerksgruppe in 11gR2 vorhanden
+ a| 
+Ja.
+ a| 
+Eine schnelle Wiederherstellung ist nicht möglich. Auflösung: Keine
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Nur mit SnapManager 3.0 oder neuer erstellte Backups können schnell wiederhergestellt werden
+ a| 
+Ja.
+ a| 
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Nur mit SnapDrive für UNIX 4.0 oder höher erstellte Snapshot Kopien können schnell wiederhergestellt werden
+ a| 
+Ja.
+ a| 
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Volumen ist ein Wurzelvolumen
+ a| 
+Ja.
+ a| 
+Das wiederherzustellende Volume ist ein Root-Volume im Storage-System. Lösung: Verwenden Sie das Root-Volume nicht auf dem Speichersystem.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Die Volume-Wiederherstellung ist unter Windows nicht verfügbar
+ a| 
+Ja.
+ a| 
+Das wiederherzustellende Volume ist ein Root-Volume im Storage-System. Auflösung: Keine
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Die Volume-Wiederherstellung ist deaktiviert
+ a| 
+Ja.
+ a| 
+Die Volume-Wiederherstellung wurde deaktiviert. Auflösung: Aktivieren Sie die Volume-Wiederherstellung durch Auswahl verschiedener Optionen beim Starten der Wiederherstellung. Verwenden Sie nicht in der Befehlszeilenschnittstelle `-fast -off`.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Kontrollieren Sie Dateien und Datendateien auf demselben Volume
+ a| 
+Ja.
+ a| 
+Bei Online-Backups können Kontrolldateien und Datendateien nicht auf demselben Volume liegen, da SnapManager zwei Snapshot Kopien des Volumes erstellt (eine davon, bei denen die Datendateien im Hot-Backup-Modus konsistent sind). Und einer, bei dem die Backup-Kontrolldateien nach Abschluss des Hot-Backup-Modus konsistent sind). Die Wiederherstellung des Volume wird auf die erste Snapshot Kopie zurückgesetzt, die die zweite Snapshot Kopie mit den Backup-Kontrolldateien löscht. Wenn eine Daten-File-only Wiederherstellung stattfindet, werden die Kontrolldateien in einen inkonsistenten Zustand zurückgesetzt und SnapManager stellt die Backup-Kontrolldatei wieder her und öffnet dann die Datenbank mit der Option Resetlogs, was nicht das gewünschte Verhalten ist.
+
+Lösung: Migrieren von Kontrolldateien und Datendateien auf separate Dateisysteme, die nicht dasselbe zugrunde liegende Volume nutzen. Dies hilft nicht bei der Wiederherstellung, bei der die Prüfung fehlgeschlagen ist, sondern wird zukünftigen Backup-Wiederherstellungsvorgängen helfen.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Archivprotokolle und Datendateien dürfen nicht auf demselben Volume vorhanden sein
+ a| 
+Ja.
+ a| 
+Datenbank-Archivprotokolle und Datendateien befinden sich in Filesystemen, die von demselben Storage-System-Volume gesichert sind. Falls eine Wiederherstellung eines Volumes durchgeführt wurde, kann SnapManager die Datenbank nach der Wiederherstellung eines Online-Backups nicht öffnen, weil die archivierte Protokolldatei, die geschrieben wird, nachdem die Datenbank aus dem Hot-Backup-Modus entfernt wurde, nicht verfügbar ist. Darüber hinaus wären Sie nicht in der Lage, spätere Transaktionen durchzuführen, die möglicherweise in den Archiv-Log-Dateien waren.
+
+Lösung: Migration von Archivprotokollen und Datendateien auf separate Filesysteme, die nicht dasselbe zugrunde liegende Storage-System-Volume nutzen Dies hilft nicht bei der Wiederherstellung, bei der die Prüfung fehlgeschlagen ist, sondern wird zukünftigen Backup-Wiederherstellungsvorgängen helfen.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Online-Protokolle und Datendateien dürfen nicht auf demselben Volume vorhanden sein
+ a| 
+Ja.
+ a| 
+Datenbank Online-Wiederherstellungsprotokolle und Datendateien befinden sich in Filesystemen, die von demselben Storage-System-Volume gesichert sind. Wenn ein Volume wiederhergestellt wurde, kann die Recovery die Online-Wiederherstellungsprotokolle nicht verwenden, weil sie zurückgesetzt wurden.
+
+Lösung: Migrieren Sie Online-Redo-Protokolle und -Datendateien auf separate Filesysteme, die nicht dasselbe zugrunde liegende Storage-System-Volume nutzen. Dies hilft nicht bei der Wiederherstellung, bei der die Prüfung fehlgeschlagen ist, sondern wird zukünftigen Backup-Wiederherstellungsvorgängen helfen.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Dateien im Filesystem, nicht Teil des Wiederherstellungsumfangs werden zurückgesetzt
+ a| 
+Ja.
+ a| 
+Dateien, die auf dem Host sichtbar sind, außer den wiederherzustellenden Dateien, sind in einem Dateisystem auf dem Volume vorhanden. Wenn eine schnelle Wiederherstellung eines Filesystems oder eine Wiederherstellung eines Storage-Systems durchgeführt wurde, würden die auf dem Host sichtbaren Dateien beim Erstellen der Snapshot Kopie auf den ursprünglichen Inhalt zurückgesetzt. Wenn SnapManager 20 oder weniger Dateien erkennt, werden sie in der Eignungsüberprüfung aufgeführt. Andernfalls zeigt SnapManager eine Meldung an, dass Sie das Dateisystem untersuchen sollten.
+
+Auflösung: Migrieren Sie die Dateien, die nicht von der Datenbank verwendet werden, auf ein anderes Dateisystem, das ein anderes Volume verwendet. Alternativ können Sie die Dateien löschen.
+
+Wenn SnapManager den Dateizweck nicht bestimmen kann, können Sie den Prüffehler überschreiben. Wenn Sie die Prüfung überschreiben, werden die Dateien, die sich nicht im Wiederherstellungsbereich befinden, zurückgesetzt. Setzen Sie diese Prüfung nur außer Kraft, wenn Sie sicher sind, dass das Zurücksetzen der Dateien nichts beeinträchtigt.
+
+
+
+ a| 
+Dateisysteme in der angegebenen Volume-Gruppe sind nicht Teil des Wiederherstellungsumfangs
+ a| 
+Nein
+ a| 
+Mehrere Dateisysteme befinden sich in derselben Volume-Gruppe, aber nicht alle Dateisysteme müssen wiederhergestellt werden. Mit Storage-seitigem Filesystem Restore und schnellem Restore können keine einzelnen Dateisysteme innerhalb einer Volume-Gruppe wiederhergestellt werden, da die von der Volume-Gruppe verwendeten LUNs Daten aus allen Dateisystemen enthalten. Alle Dateisysteme innerhalb einer Volume-Gruppe müssen gleichzeitig wiederhergestellt werden, um eine schnelle Wiederherstellung oder eine speicherseitige Filesystem-Wiederherstellung zu verwenden. Wenn SnapManager 20 oder weniger Dateien erkennt, listet SnapManager diese in der Eignungsprüfung auf. Andernfalls bietet SnapManager eine Meldung, die Sie untersuchen sollten das Dateisystem.
+
+Auflösung: Migrieren Sie die Dateien, die nicht von der Datenbank verwendet werden, auf eine andere Volume-Gruppe. Alternativ können Sie die Dateisysteme in der Volume-Gruppe löschen.
+
+Kann überschrieben werden.
+
+
+
+ a| 
+Host-Volumes in einer bestimmten Volume-Gruppe werden nicht Teil des Wiederherstellungsumfangs zurückgesetzt
+ a| 
+Nein
+ a| 
+Mehrere Host Volumes (logische Volumes) befinden sich in derselben Volume-Gruppe, jedoch werden nicht alle Host Volumes benötigt, um wiederhergestellt zu werden. Diese Prüfung ähnelt den Dateisystemen in der Volume-Gruppe, die nicht Teil des Wiederherstellungsumfangs sind, kann zurückgesetzt werden, außer dass die anderen Host-Volumes in der Volume-Gruppe nicht als Dateisysteme auf dem Host gemountet werden. Lösung: Migrieren Sie Host-Volumes, die von der Datenbank verwendet werden, auf eine andere Volume-Gruppe. Oder löschen Sie die anderen Host Volumes in der Volume-Gruppe.
+
+Wenn Sie die Prüfung außer Kraft setzen, werden alle Host-Volumes in der Volume-Gruppe wiederhergestellt. Setzen Sie diese Prüfung nur außer Kraft, wenn Sie sicher sind, dass sich die Zurücksetzung der anderen Host-Volumes nachteilig auf nichts auswirkt.
+
+
+
+ a| 
+Die DateiExtents haben sich seit dem letzten Backup geändert
+ a| 
+Ja.
+ a| 
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Zugeordnete LUNs in Volume sind nicht im Rahmen der Wiederherstellung zurückgesetzt
+ a| 
+Ja.
+ a| 
+LUNs, die nicht über die im Volume wiederherzustellenden LUNs liegen, sind derzeit einem Host zugeordnet. Eine Volume-Wiederherstellung kann nicht durchgeführt werden, da andere Hosts oder Applikationen, die diese LUNs verwenden, instabil werden. Wenn die LUN-Namen mit einem Unterstrich und einem Integer-Index enden (z. B. _0 oder _1), sind diese LUNs normalerweise Klone anderer LUNs innerhalb desselben Volumes. Es ist möglich, dass ein weiteres Backup der Datenbank angehängt ist oder ein Klon eines anderen Backups existiert.
+
+Lösung: Migrieren von LUNs, die nicht von der Datenbank auf ein anderes Volume verwendet werden. Wenn es sich bei den zugeordneten LUNs um Klone handelt, suchen Sie nach gemounteten Backups derselben Datenbank oder Klone der Datenbank, und mounten Sie den Backup oder entfernen Sie den Klon.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Nicht zugeordnete LUNS im Volume sind nicht Teil des Wiederherstellungsumfangs
+ a| 
+Nein
+ a| 
+Andere LUNs als die LUNs, die im Volume wiederhergestellt werden sollen, sind vorhanden. Diese LUNs sind derzeit keinem Host zugeordnet, daher werden durch die Wiederherstellung der LUNs keine aktiven Prozesse unterbrochen. Die Zuordnung der LUNs kann jedoch vorübergehend aufgehoben werden. Lösung: Migrieren von LUNs, die nicht von der Datenbank genutzt werden, auf ein anderes Volume oder Löschen der LUNs
+
+Wenn Sie diese Prüfung überschreiben, setzt die Volume-Wiederherstellung diese LUNs in den Status zurück, ab dem die Snapshot Kopie erstellt wurde. Wenn die LUN beim Erstellen der Snapshot Kopie nicht vorhanden war, ist die LUN nach der Wiederherstellung des Volume nicht vorhanden. Setzen Sie diese Prüfung nur außer Kraft, wenn Sie sicher sind, dass die Zurücksetzung der LUNs nichts beeinträchtigt.
+
+
+
+ a| 
+LUNs, die in der Snapshot Kopie des Volume vorhanden sind, sind möglicherweise nicht konsistent, wenn zurückgesetzt wird
+ a| 
+Nein
+ a| 
+Während der Erstellung von Snapshot Kopien existierten andere LUNs als die, für die die Snapshot Kopie angefordert wurde, im Volume. Diese anderen LUNs haben möglicherweise keinen konsistenten Status. Lösung: Migrieren von LUNs, die nicht von der Datenbank genutzt werden, auf ein anderes Volume oder Löschen der LUNs Dies hilft nicht beim Wiederherstellungsvorgang, bei dem die Prüfung fehlgeschlagen ist, aber Wiederherstellungen zukünftiger Backups, die nach dem Verschieben oder Löschen der LUNs erstellt wurden, helfen können.
+
+Wenn Sie diese Prüfung außer Kraft setzen, werden die LUNs in den inkonsistenten Status zurückgesetzt, mit dem die Snapshot Kopie erstellt wurde. Setzen Sie diese Prüfung nur außer Kraft, wenn Sie sicher sind, dass die Zurücksetzung der LUNs nichts beeinträchtigt.
+
+
+
+ a| 
+Neue Snapshot Kopien enthalten Volume-Klon
+ a| 
+Ja.
+ a| 
+Klone wurden von Snapshot Kopien erstellt, die nach der Wiederherstellung der Snapshot Kopie erstellt wurden. Da zu einem Zeitpunkt eine Wiederherstellung eines Volume spätere Snapshot Kopien gelöscht wird und eine Snapshot Kopie nicht gelöscht werden kann, wenn er über einen Klon verfügt, kann eine Wiederherstellung des Volumes nicht durchgeführt werden. Auflösung: Klone späterer Snapshot Kopien löschen
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Neuere Backups werden angehängt
+ a| 
+Ja.
+ a| 
+Backups, die nach der Wiederherstellung des Backups erstellt wurden, werden gemountet. Da bei einer Volume-Wiederherstellung spätere Snapshot Kopien gelöscht werden, kann eine Snapshot Kopie nicht gelöscht werden, wenn dieser über einen Klon verfügt, bei einem Backup-Mount-Vorgang wird geklonter Storage erstellt und eine Volume-Wiederherstellung nicht möglich ist. Lösung: Heben Sie die Bereitstellung des späteren Backups auf, oder stellen Sie die Wiederherstellung aus einem Backup nach dem gemounteten Backup wieder her.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Klone neuerer Backups sind vorhanden
+ a| 
+Ja.
+ a| 
+Backups, die nach der Wiederherstellung des Backups erstellt wurden, wurden geklont. Da später Snapshot Kopien durch eine Volume-Wiederherstellung gelöscht werden und eine Snapshot Kopie nicht gelöscht werden kann, wenn er über einen Klon verfügt, kann keine Wiederherstellung des Volumes durchgeführt werden. Lösung: Löschen Sie den Klon des neueren Backups oder führen Sie Restores aus einem Backup durch, das nach den Klonen bei den Backups erstellt wurde.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Neue Snapshot Kopien des Volume gingen verloren
+ a| 
+Nein
+ a| 
+Durch die Wiederherstellung eines Volumes werden alle Snapshot Kopien gelöscht, die nach der Snapshot Kopie, die das Volume wiederhergestellt wird, erstellt wurden. Wenn SnapManager eine spätere Snapshot Kopie im selben Profil einem SnapManager Backup zuordnen kann, wird die Meldung „neuere Backups werden freigegeben oder gelöscht“ angezeigt. Wenn SnapManager eine spätere Snapshot Kopie nicht im selben Profil einem SnapManager Backup zuordnen kann, wird diese Meldung nicht angezeigt. Lösung: Wiederherstellung aus einem späteren Backup oder Löschen der späteren Snapshot Kopien
+
+Kann überschrieben werden.
+
+
+
+ a| 
+Neuere Backups werden freigegeben oder gelöscht
+ a| 
+Nein
+ a| 
+Durch die Wiederherstellung eines Volumes werden alle Snapshot Kopien gelöscht, die nach der Snapshot Kopie, auf die das Volume wiederhergestellt wird, erstellt wurden. Daher werden alle Backups, die nach dem wiederhergestellten Backup erstellt wurden, entweder gelöscht oder freigegeben. Spätere Backups werden in folgenden Szenarien gelöscht:
+
+* Der Sicherungsstatus ist nicht GESCHÜTZT
+* `retain.alwaysFreeExpiredBackups` Ist `*false*` In `smsap.config`
+
+
+Backups werden später in folgenden Szenarien freigegeben:
+
+* Der Backup-Status IST GESCHÜTZT
+* `retain.alwaysFreeExpiredBackups` Ist wahr `*false*` In `smsap.config`
+
+
+Lösung: Wiederherstellung aus einem späteren Backup oder kostenlose oder löschen Sie später Backups.
+
+Wenn Sie diese Prüfung außer Kraft setzen, werden Backups, die nach dem wiederherzustellenden Backup erstellt wurden, gelöscht oder freigegeben.
+
+
+
+ a| 
+SnapMirror Beziehung für Volume wurde verloren
+ a| 
+Ja (wenn RBAC deaktiviert ist oder Sie keine RBAC-Rechte haben)
+ a| 
+Durch das Wiederherstellen eines Volume auf eine Snapshot Kopie vor der Basis-Snapshot Kopie in einer SnapMirror Beziehung wird die Beziehung zerstört. Lösung: Wiederherstellung aus einem Backup, das nach der Basis-Snapshot Kopie der Beziehung erstellt wurde Alternativ können Sie die Storage-Beziehung manuell unterbrechen (und dann die Beziehung nach Abschluss der Wiederherstellung erneut erstellen und neu erstellen).
+
+Kann überschrieben werden, wenn RBAC aktiviert ist und Sie über RBAC verfügen.
+
+
+
+ a| 
+Die SnapVault-Beziehung für das Volume geht verloren, wenn der schnelle Wiederherstellungsprozess eingetreten ist
+ a| 
+Ja (wenn RBAC deaktiviert ist oder Sie keine RBAC-Rechte haben)
+ a| 
+Durch das Wiederherstellen eines Volumes auf eine Snapshot Kopie vor der Basis-Snapshot Kopie in einer SnapVault Beziehung wird die Beziehung zerstört. Lösung: Wiederherstellung aus einem Backup, das nach der Basis-Snapshot Kopie der Beziehung erstellt wurde Alternativ können Sie die Storage-Beziehung manuell unterbrechen (und dann die Beziehung nach Abschluss der Wiederherstellung erneut erstellen und neu erstellen).
+
+Kann nicht überschrieben werden. Wenn RBAC aktiviert ist und Sie über die Berechtigung zur rollenbasierten Zugriffssteuerung verfügen.
+
+
+
+ a| 
+NFS-Dateien in Volume werden nicht Teil des Wiederherstellungsumfangs zurückgesetzt
+ a| 
+Nein
+ a| 
+Dateien, die im Storage-System-Volume vorhanden sind und auf dem Host nicht sichtbar sind, werden bei der Wiederherstellung eines Volumes zurückgesetzt. Auflösung: Migrieren Sie Dateien, die nicht von der Datenbank verwendet werden, auf ein anderes Volume oder löschen Sie die Dateien.
+
+Kann überschrieben werden. Wenn Sie diese Prüfung nicht überschreiben, werden die LUNs gelöscht.
+
+
+
+ a| 
+CIFS-Freigaben für Volume sind vorhanden
+ a| 
+Nein
+ a| 
+Das wiederherzustellende Volume verfügt über CIFS-Freigaben. Während der Volume-Wiederherstellung greifen andere Hosts möglicherweise auf Dateien auf dem Volume zu. Lösung: Entfernen Sie nicht benötigte CIFS Shares.
+
+Kann überschrieben werden.
+
+
+
+ a| 
+Wiederherstellung von einem alternativen Speicherort
+ a| 
+Ja.
+ a| 
+Für den Wiederherstellungsvorgang wurde eine Wiederherstellungsspezifikation bereitgestellt, die angibt, dass die Dateien von einem anderen Speicherort wiederhergestellt werden. Nur Werkzeuge für die Erstellung von Kopien auf Host-Seite können verwendet werden, um sie von einem alternativen Speicherort wiederherzustellen.
+
+Auflösung: Keine.
+
+Kann nicht überschrieben werden.
+
+
+
+ a| 
+Die Wiederherstellung eines speicherseitigen Filesystems wird in einer RAC-Datenbank nicht unterstützt
+ a| 
+Ja.
+ a| 
+Kann nicht überschrieben werden.
+
+|===

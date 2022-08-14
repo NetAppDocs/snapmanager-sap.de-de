@@ -1,0 +1,43 @@
+---
+permalink: windows/concept-what-full-and-partial-backups-are.html 
+sidebar: sidebar 
+keywords: entire, database, portion, tablespace, data, file, backup, full, partial 
+summary: Sie können ein Backup der gesamten Datenbank oder nur eines Teils davon erstellen. Wenn Sie einen Teil der Datenbank sichern möchten, können Sie wahlweise eine Gruppe von Tabellen oder Datendateien sichern. Sie können dabei ein separates Backup sowohl von Tabellen als auch Datendateien durchführen. 
+---
+= Welche vollständigen und teilweisen Backups sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Backup der gesamten Datenbank oder nur eines Teils davon erstellen. Wenn Sie einen Teil der Datenbank sichern möchten, können Sie wahlweise eine Gruppe von Tabellen oder Datendateien sichern. Sie können dabei ein separates Backup sowohl von Tabellen als auch Datendateien durchführen.
+
+In der folgenden Tabelle sind die Vorteile und Folgen der einzelnen Backup-Typen aufgeführt:
+
+|===
+| Backup-Typ | Vorteile | Nachteile 
+
+
+ a| 
+Voll
+ a| 
+Minimiert die Anzahl der Snapshot Kopien. Bei Online-Backups befindet sich jede Tablespace für die gesamte Zeit des Backup-Vorgangs im Backup-Modus. SnapManager erstellt für jedes Volume, das die Datenbank verwendet, eine Snapshot-Kopie sowie eine Snapshot-Kopie jedes Volumes, die sich die Protokolldateien befinden.
+ a| 
+Bei Online-Backups befindet sich jede Tablespace für die gesamte Zeit des Backup-Vorgangs im Backup-Modus.
+
+
+
+ a| 
+Teilweise
+ a| 
+Minimiert die Zeitdauer, die jeder Tablespace im Backup-Modus verbringt. SnapManager gruppiert die von Tablespaces erstellten Snapshot Kopien. Jede Tablespace befindet sich im Backup-Modus nur lang genug, um die Snapshot-Kopien zu erstellen. Diese Methode zur Gruppierung der Snapshot Kopien minimiert die Schreibvorgänge in physischen Blöcken in Protokolldateien während eines Online-Backups.
+ a| 
+Das Backup kann das Erstellen von Snapshot Kopien mehrerer Tabellen im selben Volume erfordern. Diese Methode kann dazu führen, dass SnapManager während des Backups mehrere Snapshot Kopien eines einzelnen Volumes erstellt.
+
+|===
+[NOTE]
+====
+Sie können zwar eine partielle Sicherung durchführen, müssen jedoch immer ein vollständiges Backup der gesamten Datenbank durchführen.
+
+====

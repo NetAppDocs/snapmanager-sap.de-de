@@ -1,0 +1,95 @@
+---
+permalink: windows/task-customize-e-mail-subject-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: customize, email, subject, profile, create, cusomtizing 
+summary: Sie können den E-Mail-Betreff für das neue Profil anpassen, wenn Sie es erstellen. 
+---
+= Passen Sie den E-Mail-Betreff für ein neues Profil an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können den E-Mail-Betreff für das neue Profil anpassen, wenn Sie es erstellen.
+
+
+
+== Über diese Aufgabe
+
+Sie können den Betreff der E-Mail mithilfe des \{profile}_\{Operation-Name}_\{db-sid}_\{db-Host}_\{Startdatum}_\{Enddatum}_\{Status}-Musters anpassen oder Ihren eigenen Text eingeben.
+
+|===
+| Variablenname | Beschreibung | Beispielwert 
+
+
+ a| 
+`profile`
+ a| 
+Profilname, der für den Datenbankvorgang verwendet wird
+ a| 
+PROF1
+
+
+
+ a| 
+`operation-name`
+ a| 
+Name des Datenbankvorgangs
+ a| 
+Backup, Daten-Backup, Daten- und Archivprotokolle Backup
+
+
+
+ a| 
+`db-sid`
+ a| 
+SID der Datenbank
+ a| 
+DB1
+
+
+
+ a| 
+`db-host`
+ a| 
+Name des Hostservers
+ a| 
+Hosta
+
+
+
+ a| 
+`start-date`
+ a| 
+Startzeit der Datenbankoperation im Format mmdd:hh:ss yyyy
+ a| 
+April 27 21:00:45 PST 2012
+
+
+
+ a| 
+`end-date`
+ a| 
+Endzeit des Datenbankvorgangs im Format mmdd:hh:ss yyyy
+ a| 
+April 27 21:10:45 PST 2012
+
+
+
+ a| 
+`status`
+ a| 
+Status des Datenbankvorgangs
+ a| 
+Erfolg
+
+|===
+Wenn Sie keinen Wert für die Variablen angeben, zeigt SnapManager die folgende Fehlermeldung an: `Missing value(s) -subject`.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap profile create -profile _profile_ [-profile-password _profile_password_] -repository -dbname _repo_service_name_ -host _repo_host_ -port _repo_port_ -login -username _repo_username_ -database -dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login-username _db_username_ -password _db_password_ -port _db_port_] [-rman {-controlfile | {-login -username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_} } ] [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname -pattern _pattern_][ [ ]] [-notification [-success -email _email_address1_, _email_address2_ -subject _subject_pattern_] [-failure -email _email_address1_, _email_address2_ -subject _subject_pattern_]]*`
+
+

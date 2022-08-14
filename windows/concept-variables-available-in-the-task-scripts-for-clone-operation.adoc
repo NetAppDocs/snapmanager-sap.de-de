@@ -1,0 +1,119 @@
+---
+permalink: windows/concept-variables-available-in-the-task-scripts-for-clone-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, context, information, form, environment, variable, clone, operation, perform, example, script, original, host, database, backup 
+summary: SnapManager stellt Kontextinformationen in Form von Umgebungsvariablen für den ausgeführten Klonvorgang bereit. Ihr Skript kann beispielsweise den Namen des ursprünglichen Hosts, den Namen der Klondatenbank und den Namen des Backups abrufen. 
+---
+= In den Aufgabenskripten verfügbare Variablen für den Klonvorgang
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager stellt Kontextinformationen in Form von Umgebungsvariablen für den ausgeführten Klonvorgang bereit. Ihr Skript kann beispielsweise den Namen des ursprünglichen Hosts, den Namen der Klondatenbank und den Namen des Backups abrufen.
+
+In der folgenden Tabelle sind die Umgebungsvariablen aufgeführt, die Sie in Ihren Skripten verwenden können:
+
+|===
+| Variablen | Beschreibung | Formatieren 
+
+
+ a| 
+`_SM_ORIGINAL_SID_`
+ a| 
+SID der ursprünglichen Datenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_ORIGINAL_HOST_`
+ a| 
+Der ursprünglichen Datenbank zugeordnete Hostname
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_ORIGINAL_OS_USER_`
+ a| 
+OS-Eigentümer der ursprünglichen Datenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_ORIGINAL_OS_GROUP_`
+ a| 
+OS-Gruppe der ursprünglichen Datenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_SID_`
+ a| 
+SID der Klondatenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_HOST_`
+ a| 
+Der Klondatenbank zugeordnete Host-Name
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_OS_USER_`
+ a| 
+OS-Eigentümer der Klondatenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_OS_GROUP_`
+ a| 
+OS-Gruppe der Klondatenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_DB_PORT_`
+ a| 
+Port der Zieldatenbank
+ a| 
+Ganzzahl
+
+
+
+ a| 
+`_SM_TARGET_GLOBAL_DB_NAME_`
+ a| 
+Globaler Datenbankname der Zieldatenbank
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_LABEL_`
+ a| 
+Bezeichnung des für den Klon verwendeten Backups
+ a| 
+Zeichenfolge
+
+|===

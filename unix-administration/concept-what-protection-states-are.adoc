@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/concept-what-protection-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, state, backup, administrator, monitor, protection 
+summary: SnapManager zeigt den Status jedes Backups an. Administratoren müssen über die verschiedenen Zustände Bescheid wissen und den Status ihrer Backups überwachen. 
+---
+= Welche Schutzzustände sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager zeigt den Status jedes Backups an. Administratoren müssen über die verschiedenen Zustände Bescheid wissen und den Status ihrer Backups überwachen.
+
+Ein Datenbankbackup kann die folgenden Schutzzustände haben:
+
+[cols="1a,2a,3a"]
+|===
+| Status | Definition | Erklärung 
+
+
+ a| 
+Geschützt
+ a| 
+Der Schutz wurde angefordert und wurde aktiviert.
+ a| 
+Protection ist für das Backup in SnapManager aktiviert, und der Protection Manager hat das Backup erfolgreich auf andere physische Laufwerke kopiert (auch als sekundärer Storage bezeichnet). Wenn der Protection Manager ein Backup aus dem sekundären Storage aufgrund einer Aufbewahrungsrichtlinie entfernt, kann das Backup zu einem nicht geschützten Status zurückkehren.
+
+
+
+ a| 
+Nicht geschützt
+ a| 
+Schutz wurde angefordert, aber nicht abgeschlossen.
+ a| 
+Der Schutz ist für das Backup aktiviert, aber das Backup wird nicht auf andere physische Laufwerke kopiert. Das Backup ist noch nicht geschützt oder der Schutz ist ausgefallen oder es war früher geschützt, ist aber nicht mehr geschützt. Wenn Sie ein Backup erstellen, wird der anfängliche Sicherungsstatus des Backups entweder nicht angefordert oder nicht geschützt. Wenn das Backup nicht geschützt ist, wird es bei der Übertragung auf den sekundären Storage geschützt.
+
+
+
+ a| 
+Nicht angefordert
+ a| 
+Schutz wurde nicht angefordert.
+ a| 
+Der Schutz für das Backup ist nicht aktiviert. Auf denselben physischen Festplatten (auch als lokales Backup bezeichnet) befindet sich eine logische Kopie der Daten. Wenn bei der Erstellung des Backups kein Schutz angefordert wird, wird der Schutz auf dem Backup immer als nicht angefordert angezeigt.
+
+|===

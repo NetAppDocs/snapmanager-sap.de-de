@@ -1,0 +1,50 @@
+---
+permalink: windows/reference-the-smosmsapsystem-dump-command.html 
+sidebar: sidebar 
+keywords: run, system, dump, command, create, jar, file, diagnostic, information, server, environment, smsap 
+summary: Sie können den Systemdump-Befehl ausführen, um eine JAR-Datei zu erstellen, die Diagnoseinformationen zur Serverumgebung enthält. 
+---
+= Der Befehl smsap System dump
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `system dump` Befehl zum Erstellen einer JAR-Datei, die Diagnoseinformationen über die Serverumgebung enthält.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap system dump
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel des Befehls „System Dump“
+
+Im folgenden Beispiel wird das verwendet `smsap system dump` Befehl zum Erstellen einer JAR-Datei:
+
+[listing]
+----
+smsap system dump
+Path: C:\\userhomedirectory\\netapp\\smsap\\3.3.0\\smsap_dump_hostname.jar
+----

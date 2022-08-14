@@ -1,0 +1,166 @@
+---
+permalink: windows/concept-snapshot-copy-naming.html 
+sidebar: sidebar 
+keywords: specify, convention, pattern, snapshot, copies, copy, create, update, custom, text, snapshot, name 
+summary: Sie können eine Namenskonvention oder ein Muster angeben, um die Snapshot Kopien in Bezug auf das Profil zu beschreiben, das Sie erstellen oder aktualisieren. Sie können auch benutzerdefinierten Text in alle Namen von Snapshot Kopien einfügen. 
+---
+= Benennen von Snapshot-Kopien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Namenskonvention oder ein Muster angeben, um die Snapshot Kopien in Bezug auf das Profil zu beschreiben, das Sie erstellen oder aktualisieren. Sie können auch benutzerdefinierten Text in alle Namen von Snapshot Kopien einfügen.
+
+Sie können das Benennungsmuster der Snapshot Kopie ändern, wenn Sie ein Profil erstellen oder nachdem das Profil erstellt wurde. Das aktualisierte Muster wird nur für Snapshot Kopien angewendet, die noch nicht aufgetreten sind. Snapshot Kopien, die vorhanden sind und das frühere Snapshot-Namensmuster behalten.
+
+In den folgenden Beispielen werden die beiden Namen von Snapshot Kopien aufgeführt, die für ein Volume erstellt wurden. Die zweite aufgeführte Snapshot Kopie befindet sich mitten in seinem Namen _F_H_1_. Die „1“ gibt an, dass es die erste Snapshot-Kopie ist, die im Backup-Satz erstellt wurde. Die erste aufgeführte Snapshot Kopie ist der neueste und verfügt über eine „2“. Dies bedeutet, dass es sich um die zweite erstellte Snapshot Kopie handelt. Die „1“ Snapshot Kopie enthält die Datendateien; die Snapshot Kopie „2“ enthält die Kontrolldateien. Da nach der Snapshot Kopie der Datendatei Snapshot Kopien der Kontrolldatei Snapshot Kopien erstellt werden müssen, sind zwei Snapshot Kopien erforderlich.
+
+[listing]
+----
+smsap_profile_sid_f_h_2_8ae482831ad14311011ad14328b80001_0
+smsap_profile_sid_f_h_1_8ae482831ad14311011ad14328b80001_0
+----
+Das Standardmuster enthält das erforderliche smid, wie im Folgenden dargestellt:
+
+* Standardmuster: Smsap_{Profile}_{db-sid}_{Scope}_{Mode}_{smid}
+* Beispiel: Smsap_my_profile_rac51_f_h_2_8abc01e915a55ac50115a55acc8d0001_0
+
+
+Im Namen der Snapshot Kopie können Sie die folgenden Variablen verwenden:
+
+|===
+| Variablenname | Beschreibung | Beispielwert 
+
+
+ a| 
+smid (erforderlich)
+ a| 
+Die eindeutige SnapManager-ID ist das einzige erforderliche Element, wenn ein Name für die Snapshot Kopie erstellt wird. Mit dieser ID wird sichergestellt, dass Sie einen eindeutigen Snapshot-Namen erstellen.
+ a| 
+8abc01e915a55ac50115a55acc8d0001_0
+
+
+
+ a| 
+Klasse (optional)
+ a| 
+Aufbewahrungsklasse im Zusammenhang mit dem Backup für das Profil und angezeigt durch Stunden (h), täglich (d), wöchentlich (w), monatlich (m) oder unbegrenzt (U).
+ a| 
+d
+
+
+
+ a| 
+Kommentar (optional)
+ a| 
+Kommentar zum Backup für das Profil. Leerzeichen in diesem Feld werden in Unterstriche konvertiert, wenn der Name der Snapshot Kopie abgeschlossen ist.
+ a| 
+Sample_comment_Spaces_ersetzte
+
+
+
+ a| 
+Datum (optional)
+ a| 
+Datum, an dem das Backup für das Profil durchgeführt wird. Datumswerte werden bei Bedarf mit Nullen aufgefüllt. (jjjjmmtt)
+ a| 
+20070218
+
+
+
+ a| 
+db-Host (optional)
+ a| 
+Datenbank-Host-Name, der dem Profil zugeordnet ist, das erstellt oder aktualisiert wird.
+ a| 
+Mein_Host
+
+
+
+ a| 
+db-Name (optional)
+ a| 
+Dem von Ihnen erstellten Snapshot-Kopie zugeordneten Datenbanknamen.
+ a| 
+rac5
+
+
+
+ a| 
+db-sid (optional)
+ a| 
+Der von Ihnen erstellten Snapshot Kopie zugeordnete Datenbank-sid.
+ a| 
+Renn51
+
+
+
+ a| 
+Beschriftung (optional)
+ a| 
+Mit der Sicherung für das Profil verknüpfte Bezeichnung.
+ a| 
+Sample_Label
+
+
+
+ a| 
+Modus (optional)
+ a| 
+Gibt an, ob die Sicherung online (h) oder offline (c) abgeschlossen ist.
+ a| 
+H
+
+
+
+ a| 
+Profil (optional)
+ a| 
+Profilname, der dem von Ihnen erstellten Backup zugeordnet ist.
+ a| 
+My_Profile
+
+
+
+ a| 
+Umfang (optional)
+ a| 
+Gibt an, ob das Backup entweder voll (f) oder partiell (p) ist.
+ a| 
+f
+
+
+
+ a| 
+Zeit (optional)
+ a| 
+Die Dauer des Backups für das Profil. Zeitwerte für diese Variable Verwenden Sie die 24-Stunden-Uhr und werden bei Bedarf mit Nullen gepolstert. Beispielsweise werden 5:32 und 8 Sekunden als 053208 (hhhmmss) angezeigt.
+ a| 
+170530
+
+
+
+ a| 
+Zeitzone (optional)
+ a| 
+Für den Ziel-Datenbank-Host angegebene Zeitzone.
+ a| 
+GESCHÄTZT
+
+
+
+ a| 
+Benutzertext (optional)
+ a| 
+Benutzerdefinierter Text, den Sie eingeben können.
+ a| 
+Prod
+
+|===
+[NOTE]
+====
+SnapManager für SAP unterstützt das Doppelpunkt-Symbol (:) in langen Formen der Namen für Snapshot-Kopien nicht.
+
+====

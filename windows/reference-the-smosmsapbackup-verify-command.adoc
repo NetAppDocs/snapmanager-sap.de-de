@@ -1,0 +1,77 @@
+---
+permalink: windows/reference-the-smosmsapbackup-verify-command.html 
+sidebar: sidebar 
+keywords: run, backup, verify, command, valid, format, oracle, smsap 
+summary: Sie können den Befehl Backup Verify ausführen, um festzustellen, ob sich das Backup in einem gültigen Format für Oracle befindet. 
+---
+= Der Befehl smsap Backup verify
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup verify` Befehl zur feststellen, ob der Backup in einem gültigen Format für Oracle vorliegt.
+
+
+
+== Syntax
+
+[listing]
+----
+smsap backup verify
+-profile profile_name
+[-label backup_name | [-id guid]
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited}]
+[-force]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt das Profil an, für das Sie ein Backup überprüfen möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-id _guid_`*
++
+Überprüft die Sicherung mit der angegebenen GUID. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können das verwenden `smsap backup list` Befehl zum Anzeigen der GUID für jedes Backup.
+
+* *`-label _label_name_`*
++
+Überprüfung der Sicherung mit der angegebenen Bezeichnung.
+
+* *`-dump`*
++
+Sammelt die Speicherauszugsdateien nach dem erfolgreichen oder fehlgeschlagenen Backup-Überprüfungvorgang.
+
+* *`-force`*
++
+Erzwingt die Datenbank in den erforderlichen Zustand, um den Verifizierungsvorgang durchzuführen.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+Das folgende Beispiel zeigt die Überprüfung des Backups:
+
+[listing]
+----
+smsap backup verify -profile SALES1 -label full_backup_sales_May -quiet
+----
+[listing]
+----
+DBVERIFY - Verification starting : FILE = C:\SnapManager_auto_mounts\H-2012071400592312_0\smsap\datafile\data
+----

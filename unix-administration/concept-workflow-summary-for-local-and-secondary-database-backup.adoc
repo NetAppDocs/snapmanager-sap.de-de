@@ -1,0 +1,57 @@
+---
+permalink: unix-administration/concept-workflow-summary-for-local-and-secondary-database-backup.html 
+sidebar: sidebar 
+keywords: dba, snapmanager, storage, administrator, netapp, management, console, data, protection, capability, local, backup, protect, database, target, workflow, summary, local, secondary, backup 
+summary: 'In diesem Beispiel koordinieren der DBA (mittels SnapManager) und der Storage-Administrator (mithilfe der Datensicherheitsfunktion der NetApp Management Console) Aktionen zur Konfiguration von lokalem Backup und sekundärem Backup (auch als geschütztes Backup bezeichnet) der Zieldatenbank.' 
+---
+= Workflow-Zusammenfassung für lokale und sekundäre Datenbank-Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In diesem Beispiel koordinieren der DBA (mittels SnapManager) und der Storage-Administrator (mithilfe der Datensicherheitsfunktion der NetApp Management Console) Aktionen zur Konfiguration von lokalem Backup und sekundärem Backup (auch als geschütztes Backup bezeichnet) der Zieldatenbank.
+
+Die Reihenfolge der durchgeführten Maßnahmen ist wie folgt zusammengefasst:
+
+* *Konfiguration des sekundären Ressourcen-Pools*
++
+Der Storage-Administrator konfiguriert mithilfe der Datensicherheitsfunktion der NetApp Management Console einen Ressourcen-Pool aus Storage-Systemen am sekundären Standort, der zum Speichern des Gehaltsabrechnungs-Backups verwendet werden kann.
+
+* *Sekundärsicherungsplan*
++
+Der Storage-Administrator konfiguriert mithilfe der Datensicherheitsfunktion der NetApp Management Console sekundäre Backup-Zeitpläne.
+
+* *Konfiguration der Schutzrichtlinien*
++
+Der Storage-Administrator konfiguriert mithilfe der Datensicherungsfunktionen der NetApp Management Console eine sekundäre Backup-Sicherungsrichtlinie für die Zieldatenbank. Die Sicherungsrichtlinie umfasst die Zeitpläne und legt den Basistyp für die Implementierung von Backup-Sicherung (Backup, Spiegelung oder Kombination aus beidem) fest sowie Richtlinien zur Aufbewahrung von Primärdaten, sekundären und manchmal tertiären Storage Nodes.
+
+* *Zuweisung von Datenbankprofilen und Schutzrichtlinien*
++
+Der DBA erstellt und bearbeitet mit SnapManager ein Profil der Zieldatenbank, die das sekundäre Backup unterstützt. Beim Konfigurieren des Profils verfügt der DBA über:
+
++
+** Ermöglicht Backup-Sicherung auf sekundärem Storage.
+** Weist diesem Profil die neue Sicherungsrichtlinie zu, die in erstellt wurde und von der Datensicherungsfunktion der NetApp Management Console abgerufen wurde.
++
+Das Zuweisen der Sicherungsrichtlinie schließt die Zieldatenbank automatisch in einem teilweise bereitgestellten, nicht jedoch den Datensatz mit der Datensicherungsfunktion der NetApp Management Console ein. Wenn die Datensatzkonfiguration vollständig bereitgestellt ist, kann das Backup der Zieldatenbank auf dem sekundären Storage aktiviert werden.
+
++
+Der Datensatzname verwendet diese Syntax: `_smsap_hostname_databasename_`, Die übersetzt "smsap_prod01.sample.com_p01".
+
+
+
+* *Sekundäre und tertiäre Speicherbereitstellung*
++
+Der Storage-Administrator nutzt die NetApp Management Console Datensicherungsfunktionen, um Ressourcen-Pools zuzuweisen, um sekundäre und manchmal tertiäre Storage Nodes bereitzustellen (wenn in der zugewiesenen Sicherungsrichtlinie tertiäre Storage Nodes angegeben sind).
+
+* *Backup auf lokalem Speicher*
++
+Der DBA öffnet das Profil mit aktiviertem Schutz in SnapManager und erstellt eine vollständige Sicherung zum lokalen Speicher. Das neue Backup wird in SnapManager als geplant für die Sicherung angezeigt, aber noch nicht geschützt.
+
+* *Sekundäre Backup-Bestätigung*
++
+Da das Backup auf einem schutzfähigen Profil basiert, wird das Backup gemäß dem Zeitplan der Sicherungsrichtlinie auf einen zweiten übertragen. Der DBA bestätigt die Übertragung des Backups auf den sekundären Storage mithilfe von SnapManager. Nachdem das Backup in den sekundären Storage kopiert wurde, ändert SnapManager den Sicherungsstatus von „nicht geschützt“ in „geschützt“.
+
+

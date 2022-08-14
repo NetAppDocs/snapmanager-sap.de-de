@@ -1,0 +1,61 @@
+---
+permalink: unix-administration/task-restore-backups-using-fast-restore.html 
+sidebar: sidebar 
+keywords: force, snapmanager, sap, volume-based, snaprestore, condition, restore, eligibility, restoring 
+summary: Sie können SnapManager für SAP dazu zwingen, den Volume-basierten SnapRestore-Prozess anstelle anderer Restore-Prozesse zu verwenden, wenn alle obligatorischen Bedingungen für die schnelle Wiederherstellung erfüllt werden. 
+---
+= Stellen Sie Backups mit schneller Wiederherstellung wieder her
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können SnapManager für SAP dazu zwingen, den Volume-basierten SnapRestore-Prozess anstelle anderer Restore-Prozesse zu verwenden, wenn alle obligatorischen Bedingungen für die schnelle Wiederherstellung erfüllt werden.
+
+*Über diese Aufgabe*
+
+Sie können den Befehl Backup Restore mit verwenden `-fast`:
+
+`*backup restore -fast [require | override | fallback | off]*`
+
+Sie können das verwenden `-fast` Option nur, wenn Sie eine vollständige Wiederherstellung eines vollständigen Backups durchführen möchten. Der `-fast` Die Option umfasst die folgenden Parameter:
+
+* `require`: Ermöglicht Ihnen eine Volume-Wiederherstellung, wenn alle obligatorischen Bedingungen für die Wiederherstellung erfüllt sind und keine überrückbaren Prüfungen gefunden werden.
++
+Wenn Sie den angeben `-fast` Option, geben Sie für keinen Parameter an `-fast`, SnapManager verwendet das `-require` Standardparameter.
+
+* `override`: Ermöglicht es Ihnen, nicht obligatorische Eignungsprüfungen zu überschreiben und die volumenbasierte schnelle Wiederherstellung durchzuführen.
+* `fallback`: Ermöglicht es Ihnen, die Datenbank mit jeder Methode, die SnapManager bestimmt wieder herzustellen.
++
+Wenn Sie nicht angeben `-fast`, SnapManager verwendet das `-fallback` Als Standardparameter.
+
+* `off`: Ermöglicht es Ihnen, die Zeit zu vermeiden, die für die Durchführung aller Eignungsprüfungen erforderlich ist, um einen dateibasierten Wiederherstellungsprozess statt den schnellen Wiederherstellungsprozess durchzuführen.
+
+
+Wenn das Backup die obligatorischen Eignungsprüfungen nicht bestanden hat, kann die schnelle Wiederherstellung nicht erfolgreich abgeschlossen werden.
+
+SnapManager führt ausschließlich Volume-basierte schnelle Restores in UNIX-basierten Umgebungen durch. SnapManager führt in der Windows-Umgebung keine schnellen Restores durch.
+
+Während VBSR auf der Datensicherung der Datendatei ausgeführt wird, wenn die Datendateien und die Archivprotokolldateien im selben Volume vorhanden sind und wenn die Archivprotokolldateien nicht im aktiven Dateisystem vorhanden sind, ist die Wiederherstellung und Wiederherstellung der Datenbank erfolgreich. Die zukünftigen Archiv-Log-Snapshots werden jedoch als Teil der VBSR gelöscht, was zu einem veralteten Eintrag des Archiv-Log-Backups im Repository führt.
+
+.Schritte
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete-fast require-verbose*`
+
++
+*Beispiel*
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -fast require -verbose
+----
+. Prüfen Sie die Prüfungen der Berechtigung zur schnellen Wiederherstellung.
+. Wenn durch die Eignungsprüfung festgestellt wird, dass keine obligatorischen Prüfungen fehlgeschlagen sind, wenn bestimmte Bedingungen überschrieben werden können und wenn Sie mit dem Wiederherstellungsprozess fortfahren möchten, geben Sie den folgenden Befehl ein:
++
+`*backup restore -fast override*`
+
+

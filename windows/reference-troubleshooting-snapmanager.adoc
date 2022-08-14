@@ -1,0 +1,314 @@
+---
+permalink: windows/reference-troubleshooting-snapmanager.html 
+sidebar: sidebar 
+keywords: information, common, issue, resolve, troubleshoot, snapmanager 
+summary: Hier finden Sie Informationen über einige der häufigsten Probleme, die auftreten können, und über deren Behebung. 
+---
+= SnapManager zur Fehlerbehebung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Hier finden Sie Informationen über einige der häufigsten Probleme, die auftreten können, und über deren Behebung.
+
+In der folgenden Tabelle werden häufige Probleme und mögliche Lösungen beschrieben:
+
+[cols="2*"]
+|===
+| Frage, die nur mit Problemen zu tun hat | Mögliche Lösung 
+
+
+ a| 
+Werden die Zieldatenbank und der Listener ausgeführt?
+ a| 
+Führen Sie die aus `lsnrctl status` Befehl. Stellen Sie sicher, dass die Datenbankinstanz beim Listener registriert ist.
+
+
+
+ a| 
+Ist der Storage sichtbar?
+ a| 
+Führen Sie folgende Schritte aus:
+
+. Klicken Sie mit der rechten Maustaste auf Arbeitsplatz, und wählen Sie dann *Verwalten*.
+. Klicken Sie auf *Storage* > *SnapDrive* > *Hostname* > *Festplatten*.
+
+
+
+
+ a| 
+Wird der SnapManager Server ausgeführt?
+ a| 
+Überprüfen Sie den Status, und starten Sie den Server mithilfe der Servicekonfiguration.
+
+Bevor Sie SnapManager-Befehle für Profile mit der grafischen Benutzeroberfläche (GUI) oder der Befehlszeilenschnittstelle (CLI) initiieren können, muss der Server ausgeführt werden. Sie können Repositorys erstellen oder aktualisieren, ohne den Server zu starten. Um jedoch alle anderen SnapManager-Vorgänge auszuführen, muss der Server ausgeführt werden.
+
+Geben Sie zum Starten des SnapManager-Servers den folgenden Befehl ein:
+
+`smsap_server start`
+
+
+
+ a| 
+Sind alle Komponenten erforderlich, um SnapManager korrekt auszuführen?
+ a| 
+Führen Sie die aus `smsap system verify` Befehl zur Überprüfung, ob SnapDrive ordnungsgemäß eingerichtet ist.
+
+
+
+ a| 
+Verfügen Sie über die richtige Version von SnapManager?
+ a| 
+Verwenden Sie die `smsap version` Befehl zum Überprüfen der SnapManager-Version.
+
+
+
+ a| 
+Haben Sie sich die Protokolldateien von SnapManager angesehen, um zu ermitteln, ob die Fehlermeldungen helfen können, das Problem zu isolieren?
+ a| 
+SnapManager zeichnet alle Log-Einträge in einem Satz rotierender Log-Dateien auf. Die Protokolldateien finden Sie unter `C:\program_files\NetApp\SnapManager for SAP\logs`.
+
+Wenn Sie Windows 2008 verwenden, befinden sich die Protokolle an folgenden Orten:
+
+* Betriebsprotokolle:
++
+** `C:\Program Files\NetApp\SnapManager for SAP\var\log\smsap`
+
+
+* Client-Protokolle:
++
+** `C:\Users\Administrator\AppData\Roaming\NetApp\smsap\3.3.0\`
+
+
+
+
+Es könnte auch hilfreich sein, sich die Protokolle an folgender Stelle anzusehen:
+`C:\Documents and Settings\hostname\Application Data\NetApp\smsap\3.3.0\log`
+
+Jedes Betriebsprotokoll wird in seine eigene Protokolldatei des Formulars geschrieben `smsap_of_date_time.log`.
+
+
+
+ a| 
+Wenn auf einem Storage-System, auf dem Data ONTAP nicht ausgeführt wird, Archivprotokolle gespeichert sind, haben Sie diese von Überlegungen für Backups mit SnapManager ausgeschlossen?
+ a| 
+Der `smsap.config` Datei ermöglicht es Ihnen, bestimmte Archivprotokolldateien auszuschließen. Für Windows befindet sich die Datei an folgendem Speicherort:
+`C:\program_files\NetApp\smsap\properties\smsap.config`
+
+Verwenden Sie das in der Datei erwähnte Format, um die lokalen Archivprotokolle auszuschließen. Weitere Informationen finden Sie im Thema „`SBenetzungskonfigurationseigenschaften`“.
+
+Sie können die Ziele für das Archivprotokoll auch ausschließen, wenn Sie ein Backup von der SnapManager-CLI erstellen. Weitere Informationen finden Sie im Thema „`Datenbanksicherungen erstellen`“.
+
+Sie können die Ziele für das Archivprotokoll auch ausschließen, wenn Sie ein Backup von der SnapManager-GUI erstellen.
+
+
+
+ a| 
+Haben Sie ein MS-DOS-Fenster in dem Verzeichnis, in dem Sie versuchen, SnapManager unter Windows zu installieren oder zu aktualisieren?
+ a| 
+Es wird eine Fehlermeldung wie die folgende angezeigt:
+
+[listing]
+----
+Directory
+C:\Program Files\NetApp\SnapManager for SAP\bin
+is currently in use by another program.
+Any window, opened by you or
+another user, that is currently
+referencing this directory must be
+closed before installation can proceed.
+----
+Schließen Sie das Fenster, und versuchen Sie die Installation oder führen Sie ein Upgrade erneut durch.
+
+
+
+ a| 
+Konnte keine Verbindung zum Repository hergestellt werden?
+ a| 
+Wenn die Verbindung zu einem Repository fehlschlägt, führen Sie das aus `lsnrctl status` Befehl in der Repository-Datenbank und prüfen Sie die aktiven Servicenamen. Wenn SnapManager eine Verbindung zur Repository-Datenbank herstellt, wird der Servicename der Datenbank verwendet. Je nach Einrichtung des Listeners kann dies der kurze Servicename oder der vollqualifizierte Servicename sein. Wenn SnapManager eine Verbindung zu einer Datenbank für einen Backup-, Restore- oder anderen Vorgang herstellt, verwendet er den Host-Namen und den SID. Wenn das Repository nicht korrekt initialisiert wird, weil es derzeit nicht erreichbar ist, erhalten Sie eine Fehlermeldung, in der Sie gefragt werden, ob Sie das Repository entfernen möchten. Sie können das Repository aus Ihrer aktuellen Ansicht entfernen, sodass Sie Vorgänge für andere Repositories ausführen können.
+
+Prüfen Sie außerdem, ob der entsprechende Service ausgeführt wird.
+
+
+
+ a| 
+Kann das System den Hostnamen auflösen?
+ a| 
+Überprüfen Sie, ob sich der angegebene Hostname in einem anderen Subnetz befindet. Wenn Sie eine Fehlermeldung erhalten, dass SnapManager den Hostnamen nicht auflösen kann, fügen Sie den Hostnamen in die Hostdatei hinzu.Fügen Sie den Hostnamen zur Datei hinzu, die sich unter befindet `C:\WINDOWS\system32\drivers\etc\hosts`: `xxx.xxx.xxx.xxx hostname IP address`
+
+
+
+ a| 
+Führt SnapDrive aus?
+ a| 
+Um den Status von SnapDrive anzuzeigen, gehen Sie zu Dienste, und wählen Sie dann den SnapDrive-Dienst aus.
+
+
+
+ a| 
+Welche Storage-Systeme sind für den Zugriff mit SnapDrive konfiguriert?
+ a| 
+So suchen Sie die für SnapDrive konfigurierten Storage-Systeme:
+
+. Klicken Sie mit der rechten Maustaste auf *Arbeitsplatz* und wählen Sie dann *Verwalten*.
+. Klicken Sie auf *Storage* > *SnapDrive*.
+. Klicken Sie mit der rechten Maustaste auf den Hostnamen und wählen Sie dann *Transportprotokoll-Einstellungen* aus.
+
+
+
+
+ a| 
+Wie kann die SnapManager GUI Performance verbessert werden?
+ a| 
+* Stellen Sie sicher, dass Sie über gültige Benutzeranmeldeinformationen für das Repository, den Profilhost und das Profil verfügen.
++
+Wenn Ihre Anmeldedaten ungültig sind, löschen Sie die Benutzeranmeldeinformationen für das Repository, den Profilhost und das Profil. Setzen Sie dieselben Benutzeranmeldeinformationen zurück, die Sie zuvor für das Repository, den Profilhost und das Profil festgelegt haben. Weitere Informationen zum erneuten Einstellen der Benutzeranmeldeinformationen finden Sie unter „`SFestlegen von Anmeldeinformationen nach Löschen des Anmeldeinformationscache`“.
+
+* Schließen Sie die nicht verwendeten Profile.
++
+Wenn mehr Profile geöffnet werden, wird die Performance der SnapManager GUI beeinträchtigt.
+
+* Überprüfen Sie, ob Sie *beim Start öffnen* im Fenster Benutzereinstellungen im Menü *Admin* in der SnapManager-Benutzeroberfläche aktiviert haben.
++
+Wenn diese Option aktiviert ist, dann die Benutzerkonfiguration (`user.config`) Datei verfügbar unter `C:\Documents and Settings\Administrator\Application Data\NetApp\smsap\3.3.0\gui\state` Wird angezeigt als `openOnStartup=PROFILE`.
+
++
+Da *beim Start öffnen* aktiviert ist, müssen Sie über die SnapManager-Benutzeroberfläche nach kürzlich geöffneten Profilen suchen `lastOpenProfiles` In der Benutzerkonfiguration (`user.config`) Datei: `lastOpenProfiles=PROFILE1,PROFILE2,PROFILE3,...`
+
++
+Sie können die aufgeführten Profilnamen löschen und immer eine minimale Anzahl von Profilen als offen halten.
+
+* Löschen Sie vor der Installation der neuen Version von SnapManager in der Windows-basierten Umgebung die clientseitigen Einträge von SnapManager, die an folgender Stelle verfügbar sind:
++
+C:\Dokumente und Einstellungen\Administrator\Applikationsdaten\NetApp
+
+
+
+
+
+ a| 
+Wenn mehrere SnapManager Vorgänge gestartet und gleichzeitig im Hintergrund ausgeführt werden, benötigt die SnapManager GUI mehr Zeit für die Aktualisierung. Wenn Sie mit der rechten Maustaste auf das Backup klicken (das bereits gelöscht ist, aber immer noch in der SnapManager GUI angezeigt wird), sind die Backup-Optionen für dieses Backup nicht im Fenster Backup oder Clone aktiviert.
+ a| 
+Sie müssen warten, bis die SnapManager GUI aktualisiert wird, und dann den Backup-Status überprüfen.
+
+
+
+ a| 
+Was würden Sie tun, wenn die Oracle-Datenbank nicht auf Englisch eingestellt ist?
+ a| 
+SnapManager-Vorgänge können fehlschlagen, wenn die Sprache für eine Oracle-Datenbank nicht auf Englisch gesetzt ist.die Sprache der Oracle-Datenbank auf Englisch setzen:
+
+. Stellen Sie sicher, dass die Umgebungsvariable NLS_LANG nicht eingestellt ist: Echo%NLS_LANG%
+. Fügen Sie die folgende Zeile zum hinzu `wrapper.conf` Datei befindet sich unter `C:\SnapManager_install_directory\service`:
++
+`set.NLS_LANG=AMERICAN_AMERICA.WE8MSWIN1252`
+
+. Starten Sie den SnapManager-Server neu:
++
+`smsap_server restart`
+
+
+
+
+NOTE: Wenn die Umgebungsvariable des Systems auf NLS_LANG gesetzt ist, müssen Sie das Skript bearbeiten, um NLS_LANG nicht zu überschreiben.
+
+
+
+ a| 
+Was würden Sie tun, wenn die Backup-Planung fehlschlägt, wenn die Repository-Datenbank auf mehr als eine IP verweist und jede IP einen anderen Hostnamen hat?
+ a| 
+. Beenden Sie den SnapManager-Server.
+. Löschen Sie die Zeitplandateien im Repository-Verzeichnis von den Hosts, auf denen Sie den Backup-Zeitplan auslösen möchten.
++
+Die Namen der Zeitplandateien können in den folgenden Formaten vorliegen:
+
++
+** Repository#repo_username#Repository_Database_Name#Repository_Host#repo_Port
+** Repository-repo_usernamerpository_Database_Name-Repository_Host-repo_Port
+
+
+
+
+
+NOTE: Sie müssen sicherstellen, dass Sie die Zeitplandatei im Format löschen, das den Repository-Details entspricht.
+
+. Starten Sie den SnapManager-Server neu.
+. Öffnen Sie andere Profile unter dem gleichen Repository von der SnapManager GUI, um sicherzustellen, dass keine Terminplaninformationen dieser Profile fehlen.
+
+
+
+
+ a| 
+Was würden Sie tun, wenn der SnapManager-Vorgang mit dem Fehler der Dateisperre für Zugangsdaten fehlschlägt?
+ a| 
+SnapManager sperrt die Anmeldeinformationsdatei vor dem Aktualisieren und entsperrt sie nach dem Aktualisieren.Wenn mehrere Operationen gleichzeitig ausgeführt werden, kann einer der Operationen die Anmeldeinformationsdatei sperren, um sie zu aktualisieren. Wenn ein anderer Vorgang versucht, gleichzeitig auf die Datei mit gesperrten Anmeldeinformationen zuzugreifen, schlägt der Vorgang mit dem Dateisperrfehler fehl.
+
+Konfigurieren Sie in der Datei smsap.config die folgenden Parameter, je nach Häufigkeit der gleichzeitigen Operationen:
+
+* FileLock.retryIntervall = 100 Millisekunden
+* FileLock.Timeout = 5000 Millisekunden
+
+
+
+NOTE: Die den Parametern zugewiesenen Werte müssen in Millisekunden liegen.
+
+
+
+ a| 
+Was würden Sie tun, wenn der Zwischenstatus des Backup Verify-Vorgangs auf der Registerkarte Monitor fehlgeschlagen angezeigt wird, obwohl der Backup Verify-Vorgang noch ausgeführt wird?
+ a| 
+Die Fehlermeldung wird in der Datei sm_gui.log protokolliert. Sie müssen in der Protokolldatei nachsehen, um die neuen Werte für den zu bestimmen `operation.heartbeatInterval` Und `operation.heartbeatThreshold` Parameter, die dieses Problem lösen.
+
+. Fügen Sie die folgenden Parameter in das hinzu `smsap.config` Datei:
++
+** `operation.heartbeatInterval` = 5000
+** `operation.heartbeatThreshold` = 5000 der von SnapManager zugewiesene Standardwert ist 5000.
+
+
+. Diesen Parametern die neuen Werte zuweisen.
++
+
+NOTE: Die den Parametern zugewiesenen Werte müssen in Millisekunden liegen.
+
+. Starten Sie den SnapManager-Server neu, und führen Sie den Vorgang erneut aus.
+
+
+
+
+ a| 
+Was ist zu tun, wenn ein Heap-Space-Problem auftritt?
+ a| 
+Wenn während des SnapManager für SAP-Betriebs ein Heap-Space-Problem auftritt, müssen Sie die folgenden Schritte durchführen:
+
+. Navigieren Sie zum Installationsverzeichnis für SnapManager für SAP.
+. Öffnen Sie das `launchjava` Datei von `installationdirectory\bin\launchjava` Pfad:
+. Erhöhen Sie den Wert des Java -Xmx160m Java Heap-space Parameters.
++
+So können Sie beispielsweise den Standardwert von 160 m auf 200 m erhöhen.
+
++
+
+NOTE: Wenn Sie in den früheren Versionen von SnapManager für SAP den Wert des Java Heap-space-Parameters erhöht haben, sollten Sie diesen Wert beibehalten.
+
+
+
+
+
+ a| 
+Was würden Sie tun, wenn die SnapManager-Dienste nicht in einer Windows-Umgebung starten und die folgende Fehlermeldung angezeigt wird: Windows konnte den Snap-Manager auf dem lokalen Computer nicht starten. Weitere Informationen finden Sie im Systemereignisprotokoll. Wenn es sich um einen nicht-Microsoft-Dienst handelt, wenden Sie sich an den Serviceanbieter, und wenden Sie sich an den dienstspezifischen Fehlercode 1?
+ a| 
+Konfigurieren Sie die folgenden Parameter in der Datei Wrapper.conf, die sich auf befindet `Installation_directory\service`.
+
+* Der Parameter Wrapper Startup Timeout definiert die maximal zulässige Zeit zwischen dem Wrapper, der die Java Virtual Machine (JVM) startet, und der Antwort von der JVM, die die Anwendung gestartet hat.
++
+Der Standardwert ist 90 Sekunden. Sie können jedoch einen Wert größer als 0 ändern. Wenn Sie einen ungültigen Wert angeben, wird stattdessen die Standardeinstellung verwendet.
+
+* Der `wrapper.ping.timeout` Parameter definiert die maximal zulässige Zeit zwischen dem Wrapper, der das JVM anpingen soll, und der Antwort vom JVM. Der Standardwert ist 90 Sekunden.
++
+Sie können jedoch in einen Wert größer 0 ändern. Wenn Sie einen ungültigen Wert angeben, wird stattdessen die Standardeinstellung verwendet.
+
+
+
+|===

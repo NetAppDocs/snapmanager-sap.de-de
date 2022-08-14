@@ -1,0 +1,118 @@
+---
+permalink: unix-administration/concept-what-database-backup-scheduling-is.html 
+sidebar: sidebar 
+keywords: schedule, update, monitor, backup, database, graphical, user, interface, scheduling 
+summary: Sie können Backups für Datenbanken mithilfe der Registerkarte Zeitplan der grafischen Benutzeroberfläche planen, aktualisieren und überwachen. 
+---
+= Was ist für ein Datenbank-Backup geplant
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Backups für Datenbanken mithilfe der Registerkarte Zeitplan der grafischen Benutzeroberfläche planen, aktualisieren und überwachen.
+
+Die folgende Tabelle behandelt einige häufig gestellte Fragen zur Zeitplanung:
+
+|===
+| Frage | Antwort 
+
+
+ a| 
+Was geschieht mit den geplanten Backups, wenn der SnapManager Server neu gestartet wird?
+ a| 
+Beim Neustart des SnapManager-Servers werden alle Zeitpläne automatisch neu gestartet. SnapManager wird jedoch nicht zu verpassten Vorkommnissen nachgehen.
+
+
+
+ a| 
+Was geschieht, wenn zwei Backups gleichzeitig auf zwei Datenbanken geplant werden?
+ a| 
+SnapManager startet die Backup-Vorgänge nacheinander und ermöglicht es dann, die Backups parallel auszuführen. Wenn ein Datenbankadministrator beispielsweise sechs tägliche Backup-Pläne für sechs verschiedene Datenbankprofile erstellt, die um 1:00 Uhr stattfinden, werden alle sechs Backups parallel ausgeführt.
+
+Wenn für einen kurzen Zeitraum mehrere Backups auf einem einzelnen Datenbankprofil geplant werden, führt der SnapManager-Server nur den Backup-Vorgang mit der längsten Aufbewahrungsdauer aus.
+
+Vor dem Starten eines Backup-Vorgangs legt SnapManager zunächst Folgendes fest:
+
+* Hat ein anderer Zeitplan in den letzten 30 Minuten erfolgreich ein Backup mit größerer Aufbewahrung für dasselbe Profil erstellt?
+* Wird ein anderer Zeitplan innerhalb der nächsten 30 Minuten versuchen, ein Backup mit größerer Aufbewahrung für dasselbe Profil zu erstellen?
+
+
+Wenn die Antwort auf eine der Fragen „Ja“ lautet, wird das Backup von SnapManager übersprungen.
+
+Beispielsweise kann ein Datenbankadministrator einen täglichen, wöchentlichen und monatlichen Zeitplan für ein Datenbankprofil erstellen, der alle Backups um 1:00 Uhr vorbestimmt sind An diesem Tag des Monats, an dem drei Backups gleichzeitig um 1:00 Uhr stattfinden sollen, führt SnapManager nur den Backup-Vorgang aus, der auf dem monatlichen Zeitplan basiert.
+
+Das Zeitfenster von 30 Minuten kann in einer SnapManager-Eigenschaftendatei geändert werden.
+
+
+
+ a| 
+Unter welchem Benutzer wird die Sicherung ausgeführt?
+ a| 
+Der Vorgang wird unter dem Benutzer ausgeführt, der den Zeitplan erstellt hat. Sie können dies jedoch in Ihre eigene Benutzer-ID ändern, wenn Sie sowohl für das Datenbankprofil als auch für den Host gültige Anmeldeinformationen haben. Durch das Starten von geplanten Backup-Eigenschaften für den von Avida Davis erstellten Backup-Zeitplan kann Stella Morrow beispielsweise seine Benutzer-ID für diesen Vorgang als Benutzer auswählen, um das geplante Backup auszuführen.
+
+
+
+ a| 
+Wie funktioniert der SnapManager Scheduler mit dem systemeigenen Scheduler?
+ a| 
+Auf dem SnapManager-Server können Sie die geplanten Backups nicht über den systemeigenen Scheduler des Betriebssystems anzeigen. Zum Beispiel, nach dem Erstellen eines geplanten Backups, sehen Sie keine zusätzlichen Einträge in cron.
+
+
+
+ a| 
+Was passiert, wenn die Uhren in der grafischen Benutzeroberfläche und der Server nicht synchronisiert sind?
+ a| 
+Die Uhren auf Client und Server werden nicht synchronisiert. So können Sie ein Backup planen, bei dem sich die Startzeit künftig auf dem Client, aber in der Vergangenheit auf dem Server befindet.
+
+Bei wiederkehrenden Backups erfüllt der Server die Anforderung immer noch. Wenn der Server beispielsweise eine Anfrage erhält, stündliche Backups ab dem 01/30/08 um 3:00 Uhr durchzuführen Aber die aktuelle Zeit ist 3:30 Uhr An diesem Tag führt der Server sein erstes Backup um 4:00 Uhr durch Und führt weiterhin Backups jede Stunde durch.
+
+Für einmalige Backups übernimmt der Server jedoch die Anfrage wie folgt:
+
+* Wenn sich die Startzeit innerhalb der letzten fünf Minuten nach der aktuellen Serverzeit befindet, beginnt SnapManager sofort mit dem Backup.
+* Wenn die Startzeit größer als fünf Minuten ist, startet SnapManager das Backup nicht.
+
+
+Betrachten wir zum Beispiel das folgende Szenario:
+
+* Die Uhr im Host der grafischen Schnittstelle liegt drei Minuten hinter der eigentlichen Zeit.
+* Die aktuelle Zeit auf dem Client ist 8:58 Uhr
+* Sie planen, ein einmalig auszusichertes Backup um 9:00 Uhr zu erstellen
+* Sie planen ein weiteres, einmalig zu besichertes Backup um 8:30 Uhr
+
+
+Wenn der Server die erste Anforderung erhält, ist die Uhrzeit auf dem Server 9:01 Uhr Obwohl sich die Startzeit für das Backup in der Vergangenheit befindet, führt SnapManager sofort das Backup durch.
+
+Wenn der Server die zweite Anforderung erhält, beträgt der Startzeit des Backups mehr als fünf Minuten in der Vergangenheit. Sie erhalten eine Meldung, dass die Terminanfrage fehlgeschlagen ist, da die Startzeit in der Vergangenheit liegt.
+
+Sie können die Zeit von fünf Minuten in einer SnapManager-Eigenschaftendatei ändern.
+
+
+
+ a| 
+Was geschieht mit den geplanten Backups für ein Profil, wenn das Profil gelöscht wird?
+ a| 
+Wenn ein Datenbankprofil gelöscht wird, löscht der SnapManager-Server geplante Backups, die für dieses Profil definiert wurden.
+
+
+
+ a| 
+Wie verhalten sich geplante Backups während der Sommerzeit oder bei einer Änderung der SnapManager Serverzeit?
+ a| 
+SnapManager Backup-Zeitpläne sind aufgrund der Sommerzeit oder beim Ändern der SnapManager Server-Zeit betroffen.
+
+Berücksichtigen Sie bei einer Änderung der Uhrzeit des SnapManager-Servers folgende Auswirkungen:
+
+* Nachdem der Backup-Zeitplan ausgelöst wurde, falls der SnapManager Server wieder zurückfällt, wird der Backup-Zeitplan nicht wieder ausgelöst.
+* Wenn die Sommerzeit vor der geplanten Startzeit beginnt, werden die Backup-Pläne automatisch ausgelöst.
+* Wenn Sie sich zum Beispiel in den USA befinden, planen Sie stündliche Backups um 4:00 Uhr Dies sollte alle 4 Stunden stattfinden. Backups werden um 4 Uhr, 8 Uhr, 12 Uhr, 4 Uhr, 8 Uhr und Mitternacht an den Tagen vor und nach der Sommerzeit im März und November durchgeführt.
+* Beachten Sie Folgendes, wenn die Backups für 2:30 Uhr geplant sind Jede Nacht:
++
+** Wenn die Uhren eine Stunde zurückfallen, da das Backup bereits ausgelöst wurde, wird das Backup nicht erneut ausgelöst.
+** Wenn die Uhren eine Stunde vorwärts springen, löst das Backup sofort aus. Wenn Sie sich in den USA befinden und dieses Problem vermeiden möchten, müssen Sie Ihre Backups so planen, dass sie außerhalb von 2:00 Uhr beginnen Bis 3:00 Uhr Intervall:
+
+
+
+
+|===

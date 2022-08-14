@@ -1,0 +1,31 @@
+---
+permalink: unix-administration/task-clone-a-database-to-an-alternate-host.html 
+sidebar: sidebar 
+keywords: clone, create, command, database, alternate, host, cloning 
+summary: Sie können mit dem Befehl Clone create ein Datenbank-Backup auf einem alternativen Host klonen. 
+---
+= Klonen einer Datenbank auf einem alternativen Host
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `clone create` Befehl zum Klonen einer Datenbank-Sicherung auf einem alternativen Host.
+
+*Was Sie brauchen*
+
+* Erstellen Sie ein Profil oder haben Sie ein vorhandenes Profil.
+* Erstellen Sie ein vollständiges Backup oder ein bereits vorhandenes Datenbank-Backup.
+* Erstellen Sie eine Klonspezifikation oder weisen Sie eine vorhandene Klonspezifikation auf.
+
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um eine Datenbank auf einem alternativen Host zu klonen:
++
+`*smsap clone create -backup-label _backup_label_name_ -newsid _new_sid_ -host _target_host_ -label _clone_label_ -comment _comment_text_ -profile _profile_name_ -clonespec _full_path_to_clonespecfile_*`
+
++
+Oracle lässt Sie nicht zwei Datenbanken mit derselben SID gleichzeitig auf dem gleichen Host laufen. Aus diesem Grund müssen Sie für jeden Klon eine neue SID angeben. Sie können jedoch eine Datenbank auf einem anderen Host mit derselben SID haben.
+
+

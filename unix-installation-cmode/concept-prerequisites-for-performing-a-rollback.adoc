@@ -1,0 +1,45 @@
+---
+permalink: unix-installation-cmode/concept-prerequisites-for-performing-a-rollback.html 
+sidebar: sidebar 
+keywords: perform, rollback, ensure, environment, certain, requirement, prerequisite 
+summary: Bevor Sie ein Rollback durchführen, müssen Sie sicherstellen, dass Ihre Umgebung bestimmte Anforderungen erfüllt. 
+---
+= Voraussetzungen für die Durchführung eines Rollbacks
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie ein Rollback durchführen, müssen Sie sicherstellen, dass Ihre Umgebung bestimmte Anforderungen erfüllt.
+
+* Wenn Sie SnapManager 3.3 oder höher verwenden und zu einer älteren Version als SnapManager 3.1 zurückkehren möchten, müssen Sie ein Rollback auf 3.2 und dann auf die gewünschte Version durchführen.
+* Externe Skripte, die zur Durchführung externer Datensicherung oder Datenaufbewahrung verwendet werden, müssen gesichert werden.
+* Die SnapManager-Version, auf die Sie einen Rollback ausführen möchten, muss installiert sein.
++
+
+NOTE: Wenn Sie ein Rollback von SnapManager 3.3 oder neuer auf eine Version vor SnapManager 3.1 durchführen möchten, müssen Sie zuerst SnapManager 3.2 installieren und ein Rollback durchführen. Nach einem Rollback auf 3.2 können Sie SnapManager 3.1 oder eine frühere Version installieren und ein weiteres Rollback auf diese Version durchführen.
+
+* Die SnapDrive für UNIX-Version, die mit der SnapManager-Version unterstützt wird, zu der Sie einen Rollback ausführen möchten, muss installiert sein.
++
+Informationen zum Installieren von SnapDrive finden Sie unter SnapDrive-Dokumentationssatz.
+
+* Die Repository-Datenbank muss gesichert werden.
+* Wenn der zurückzugerollte Host ein Repository verwendet, dürfen SnapManager-Vorgänge nicht auf den anderen Hosts ausgeführt werden, die dasselbe Repository verwenden.
++
+Der geplante oder auf den anderen Hosts ausgeführte Betrieb wartet auf den Abschluss des Rollbacks.
+
+* Profile, die auf dieselbe Repository-Datenbank verweisen, müssen mit unterschiedlichen Namen in den SnapManager-Server-Hosts erstellt werden.
++
+Wenn Sie Profile mit demselben Namen verwenden, schlägt der Rollback-Vorgang mit dieser Repository-Datenbank ohne Warnung fehl.
+
+* SnapManager-Vorgänge dürfen nicht auf dem Host ausgeführt werden, den Sie zurücksetzen möchten.
++
+Wenn ein Vorgang ausgeführt wird, müssen Sie warten, bis dieser Vorgang abgeschlossen ist, und bevor Sie mit dem Rollback fortfahren.
+
+
+
+
+NOTE: Der Rollback-Vorgang wird längere Zeit ausgeführt, da sich die kumulative Anzahl von Backups der Hosts, die gemeinsam wieder erstellt werden, erhöht. Die Dauer des Rollbacks kann je nach Anzahl der Profile und Backups, die mit einem bestimmten Host verbunden sind, variieren.
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site: mysupport.netapp.com"^]

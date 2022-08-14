@@ -1,0 +1,29 @@
+---
+permalink: windows/task-create-system-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, system, dump, command, log, information, snapmanager, environment, log, operation, profile, host, system-level, create 
+summary: Sie können den smsap System dump Befehl verwenden, um Protokollinformationen über den SnapManager Host und die Umgebung zu erhalten. Sie können unterschiedliche Protokollebenen angeben, um Informationen zu einem bestimmten Vorgang, Profil oder Host und Umgebung zu erfassen. 
+---
+= Erstellen von Dump-Dateien auf Systemebene
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `smsap system dump` Befehl zum Abrufen von Protokollinformationen über den SnapManager Host und die Umgebung. Sie können unterschiedliche Protokollebenen angeben, um Informationen zu einem bestimmten Vorgang, Profil oder Host und Umgebung zu erfassen.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`smsap system dump`
+
++
+Daraus resultierender Dump
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_server_host.jar
+----
+

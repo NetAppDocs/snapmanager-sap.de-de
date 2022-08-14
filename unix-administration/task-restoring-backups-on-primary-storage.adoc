@@ -1,0 +1,198 @@
+---
+permalink: unix-administration/task-restore-backups-on-primary-storage.html 
+sidebar: sidebar 
+keywords: backup, restore, command, database, primary, storage, restoring 
+summary: Sie können mit dem Befehl Backup Restore ein Datenbank-Backup im Primärspeicher wiederherstellen. 
+---
+= Wiederherstellung von Backups auf dem Primärspeicher
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `backup restore` Befehl zum Wiederherstellen eines Datenbank-Backups auf dem Primärspeicher.
+
+*Über diese Aufgabe*
+
+SnapManager versucht standardmäßig eine Volume-basierte, schnelle Wiederherstellung durchzuführen und bietet Informationen zur Überprüfung der Berechtigung. Sie können bei Bedarf einige Eignungsüberprüfungen überschreiben. Wenn Sie sicher sind, dass ein Backup nicht mithilfe einer schnellen Wiederherstellung durchgeführt werden kann, können Sie die Prüfung der Berechtigung zur schnellen Wiederherstellung deaktivieren und eine dateibasierte Wiederherstellung durchführen.
+
+Sie können das verwenden `backup restore` Befehlsoptionen, um anzugeben, ob SnapManager den gesamten Backup oder einen Teil des Backups wiederherstellen soll. Mit SnapManager können Sie außerdem Kontrolldateien zusammen mit den Datendateien oder Tablespaces aus den Backups in einem einzelnen Benutzervorgang wiederherstellen. Sie können Folgendes einschließen `-controlfiles` Mit `-complete` Wiederherstellung von Kontrolldateien zusammen mit Tabellen und Datendateien.
+
+Sie können eine der folgenden Optionen zur Wiederherstellung des Backups auswählen:
+
+[cols="1a,1a"]
+|===
+| Sie möchten wiederherstellen... | Verwenden... 
+
+
+ a| 
+Das gesamte Backup mit allen Tabellen und Datendateien
+ a| 
+`-complete`
+
+
+
+ a| 
+Die Liste bestimmter Tabellen
+ a| 
+`-tablespaces`
+
+
+
+ a| 
+Bestimmte Datendateien
+ a| 
+`-files`
+
+
+
+ a| 
+Nur die Kontrolldateien
+ a| 
+`-controlfiles`
+
+
+
+ a| 
+Tablespaces, Datendateien und Kontrolldateien
+ a| 
+`-complete -controlfiles`
+
+|===
+Sie können das Backup auch von einem alternativen Speicherort wiederherstellen, indem Sie angeben `-restorespec`.
+
+Wenn Sie einschließen `-recover`, Sie können die Datenbank wiederherstellen bis:
+
+* Zur letzten Transaktion, die in der Datenbank durchgeführt wurde (alle Logs)
+* Zu einem bestimmten Datum und einer bestimmten Uhrzeit
+* Eine bestimmte Oracle Systemänderungsnummer (SCN)
+* Zum Zeitpunkt des Backups (keine Protokolle)
+* Nur Restore
+
+
+
+NOTE: Sowohl die Datums- als auch die Zeitwiederherstellung sowie die SCN-Wiederherstellung sind Point-in-Time Recovery.
+
+SnapManager (3.2 oder höher) bietet die Möglichkeit, die wiederhergestellten Datenbank-Backups automatisch mithilfe der Archivprotokolldateien wiederherzustellen. Auch wenn die Archivprotokolldateien am externen Speicherort verfügbar sind, wenn Sie den angeben `-recover-from-location option`, SnapManager verwendet die Archiv-Log-Dateien vom externen Speicherort, um die wiederhergestellten Datenbank-Backups wiederherzustellen.
+
+SnapManager stellt Oracle den externen Standort zur Verfügung. Aber Oracle erkennt die Dateien vom externen Ziel nicht. Dieses Verhalten wird beim Ziel des Flash-Recovery-Bereichs bemerkt. Dies sind Probleme mit Oracle und die Problemumgehung besteht darin, immer eine Sicherung von Archiv-Log-Dateien in solchen Datenbank-Layouts zu haben.
+
+Wenn ein unkonsistentes SCN oder Datum angegeben wird, wird die Wiederherstellung am letzten konsistenten Punkt, der mit der Fehlermeldung wiederhergestellt wurde, angehalten `Recovery succeeded, but insufficient`. Die Wiederherstellung muss manuell in einen konsistenten Zustand erfolgen.
+
+Für eine Wiederherstellung, wenn keine Protokolle angewendet werden, stellt SnapManager bis zum letzten SCN der letzten während des Backups erstellten Archivprotokolldatei wieder her. Wenn die Datenbank konsistent ist bis zu diesem SCN, dann wird die Datenbank erfolgreich geöffnet. Wenn die Datenbank zu diesem Zeitpunkt nicht konsistent ist, versucht SnapManager immer noch, die Datenbank zu öffnen, die erfolgreich geöffnet wird, wenn die Datenbank bereits konsistent ist.
+
+
+NOTE: SnapManager unterstützt nicht die Wiederherstellung der ausschließlich Archiv-Log-Backups.
+
+Wenn das Archivprotokoll auf einem NFS-Mount-Punkt nicht Snapshot-fähiger Storage ist, können Sie mit SnapManager die wiederhergestellten Datenbank-Backups mithilfe des Profils wiederherstellen. Bevor Sie SnapManager-Vorgänge auf einem nicht-Snapshot-fähigen Storage durchführen, sollten Sie die Ziele für hinzufügen `archivedLogs.exclude` In `smsap.config`.
+
+Sie müssen sicherstellen, dass Sie den Parameter Ausschließen festlegen, bevor Sie ein Profil erstellen. Erst nachdem der Parameter exclude in der SnapManager-Konfigurationsdatei festgelegt wurde, ist die Profilerstellung erfolgreich.
+
+Wenn das Backup bereits angehängt ist, mounted SnapManager den Backup nicht erneut und verwendet das bereits bereitgestellte Backup. Wenn das Backup von einem anderen Benutzer gemountet wird und der aktuelle Benutzer keinen Zugriff auf das zuvor bereitgestellte Backup hat, müssen andere Benutzer die Berechtigungen bereitstellen. Alle Archivprotokolldateien haben Leseberechtigungen für die Gruppen-Eigentümer; der aktuelle Benutzer hat möglicherweise nicht die Berechtigungen, wenn das Backup von einer anderen Benutzergruppe gemountet wird. Die Benutzer können Berechtigungen für die gemounteten Archivprotokolldateien manuell erteilen und die Wiederherstellung oder Wiederherstellung wiederholen.
+
+Wiederherstellung von Datenbank-Backups in einer RAC-Umgebung (Real Application Clusters
+
+Während der Wiederherstellung der Datenbank-Backups in einer RAC-Umgebung, wenn die erforderliche Archivprotokolldatei nicht gefunden wird, Oracle Anfragen für Archiv-Log-Dateien und Schalter zwischen verschiedenen Threads und Änderungsnummer in der RAC-Datenbank. SnapManager für SAP versucht, die Datenbank so gut wie möglich wiederherzustellen. Das erfolgreiche Recovery der Datenbank-Backups in der RAC-Umgebung hängt von der Verfügbarkeit der Archiv-Log-Dateien in den Backups ab.
+
+Der empfohlene Wiederherstellungsmechanismus für die RAC-Datenbank ist wie folgt:
+
+* Stellen Sie sicher, dass alle Archivprotokolldateien in den Backups oder alle Archivprotokolldateien im einen externen Archivprotokollziel verfügbar sind.
+* Wenn mehrere externe Archiv-Protokollziele bereitgestellt werden, können Sie Überschneidungen der Archiv-Log-Dateien bereitstellen, während Sie die externen Archiv-Protokollziele für alle Threads angeben.
++
+Zum Beispiel, die externe Archiv-Log-Speicherort - Ich kann 1 bis 100 Archiv-Log-Dateien, die externe Archiv-Log-Speicherort - II haben können 98 bis 200 Archiv-Log-Dateien, und die externe Archiv-Log-Speicherort - III kann 198 bis 300 Archiv-Log-Dateien haben.
+
+* Beim Beschneiden der Archivprotokolldateien können Sie die Archiv-Log-Dateien bis zu SCN oder Datum löschen, sodass die Backups dieselben Archivprotokolldateien haben können.
+
+
+Sie können die Option -dump als optionalen Parameter angeben, um die Dump-Dateien nach dem erfolgreichen oder fehlgeschlagenen Wiederherstellungsvorgang zu sammeln.
+
+.Schritte
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete-recover -alllogs [-recover-from-location _path_ [_,path2_]]-dump-verbose*`
+
++
+*Beispiel*
+
++
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 - complete -recover -alllogs -verbose*`
+
+. Um Daten für verschiedene Szenarien wiederherzustellen, führen Sie einen der folgenden Schritte aus:
++
+[cols="2a,4a"]
+|===
+| Sie möchten wiederherstellen... | Befehlsbeispiel 
+
+
+ a| 
+*Vollständige Datenbank ohne Kontrolldateien und Wiederherstellung auf eine bestimmte SCN-Nummer (3794392). In diesem Fall sind die aktuellen Steuerdateien vorhanden, aber alle Datendateien sind beschädigt oder verloren. Stellen Sie die Datenbank von einem bestehenden vollständigen Online-Backup auf einen Punkt unmittelbar vor diesem SCN.* wieder her
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until 3794392 -verbose*`
+
+
+
+ a| 
+*Komplette Datenbank ohne Kontrolldateien und Wiederherstellung bis zu einem Datum und einer Uhrzeit.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until 2008-09-15:15:29:23 -verbose*`
+
+
+
+ a| 
+*Komplette Datenbank ohne Kontrolldateien und Wiederherstellung bis zu einer Daten und Zeit. In diesem Fall sind die aktuellen Steuerdateien vorhanden, aber alle Datendateien sind beschädigt oder verloren oder ein logischer Fehler trat nach einer bestimmten Zeit auf. Stellen Sie die Datenbank von einem bestehenden kompletten Online-Backup auf ein Datum und eine Uhrzeit unmittelbar vor dem Fehlerpunkt wieder her.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -until "2008-09-15:15:29:23" -verbose*`
+
+
+
+ a| 
+*Partielle Datenbank (eine oder mehrere Datendateien) ohne Kontrolldateien und wiederherstellen mit allen verfügbaren Protokollen. In diesem Fall sind die aktuellen Steuerdateien vorhanden, aber eine oder mehrere Datendateien sind beschädigt oder verloren. Stellen Sie diese Dateien wieder her und stellen Sie die Datenbank von einem bestehenden vollständigen Online-Backup mit allen verfügbaren Protokollen wieder her.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -files /oracle/FLA/sapdata1/sr3_1/sr3.data1 /oracle/FLA/sapdata1/sr3_2/sr3.data2 /oracle/FLA/sapdata1/sr3_3/sr3.data3 -recover -alllogs -verbose (where "FLA" is the <SID>*`
+
+
+
+ a| 
+*Partielle Datenbank (ein oder mehrere Tabellen) ohne Kontrolldateien und Recovery mit allen verfügbaren Protokollen. In diesem Fall sind die aktuellen Steuerdateien vorhanden, aber ein oder mehrere Tabellen werden verworfen oder eine von mehreren Datendateien, die zu dem Tablespace gehören, ist beschädigt oder verloren. Stellen Sie diese Tabellen wieder her und stellen Sie die Datenbank aus einem vorhandenen kompletten Online-Backup mit allen verfügbaren Protokollen wieder her.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -tablespaces users -recover -alllogs -verbose*`
+
+
+
+ a| 
+*Nur Steuern Dateien und erholen mit allen verfügbaren Protokollen. In diesem Fall existieren die Datendateien, aber alle Kontrolldateien sind beschädigt oder verloren. Stellen Sie nur die Steuerdateien wieder her und stellen Sie die Datenbank aus einem bestehenden vollständigen Online-Backup mit allen verfügbaren Protokollen wieder her.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -controlfiles -recover -alllogs -verbose*`
+
+
+
+ a| 
+*Vollständige Datenbank ohne Kontrolldateien und Wiederherstellung mit den Backup-Kontrolldateien und allen verfügbaren Protokollen. In diesem Fall sind alle Datendateien beschädigt oder verloren gegangen. Stellen Sie nur die Steuerdateien wieder her und stellen Sie die Datenbank aus einem bestehenden vollständigen Online-Backup mit allen verfügbaren Protokollen wieder her.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -using-backup-controlfile -recover -alllogs -verbose*`
+
+
+
+ a| 
+*Wiederherstellen der wiederhergestellten Datenbank mit den Archiv-Log-Dateien aus dem externen Archiv-Log-Speicherort.*
+ a| 
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -using-backup-controlfile -recover -alllogs -recover-from-location /user1/archive -verbose*`
+
+|===
+. Prüfen Sie die Prüfungen der Berechtigung zur schnellen Wiederherstellung.
++
+*Beispiel*
+
++
+Geben Sie den folgenden Befehl ein:
+
++
+`*smsap backup restore -profile targetdb1_prof1 -label full_bkup_sales_nov_08 -complete -recover -alllogs -recover-from-location /user1/archive -verbose*`
+
+. Wenn in der Eignungsprüfung angezeigt wird, dass keine obligatorischen Prüfungen fehlgeschlagen sind und bestimmte Bedingungen außer Kraft gesetzt werden können, und wenn Sie mit dem Wiederherstellungsprozess fortfahren möchten, geben Sie Folgendes ein:
++
+`*backup restore -fast override*`
+
+. Geben Sie mithilfe des die externen Archivprotokolle an `-recover-from-location` Option.
+

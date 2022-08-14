@@ -1,0 +1,83 @@
+---
+permalink: unix-administration/reference-the-smosmsapbackup-update-command.html 
+sidebar: sidebar 
+keywords: run, backup, update, command, retention, policy, smsap 
+summary: Sie können den Befehl Backup Update ausführen, um die Backup-Aufbewahrungsrichtlinie zu aktualisieren. 
+---
+= Der Befehl smsap Backup Update
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup update` Befehl zum Aktualisieren der Backup-Aufbewahrungsrichtlinie.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap backup update
+-profile _profile_name_
+[-label _label_ [-data | -archivelogs\] | [-id _guid_\]
+[-retain {-hourly | -daily | -weekly | -monthly | -unlimited}\]
+[-comment _comment_text_\]
+[-quiet | -verbose]]
+----
+
+
+== Parameter
+
+* ``*-profile _profile_name_*``
++
+Gibt das Profil an, für das Backups aktualisiert werden sollen. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* ``*-id _guid_*``
++
+Überprüft die Sicherung mit der angegebenen GUID. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können den Befehl smsap Backup list verwenden, um die GUID für jedes Backup anzuzeigen.
+
+* ``*-label _label_*``
++
+Gibt das Backup-Label und den Umfang des Backups als Datendatei oder Archivprotokoll an.
+
+* ``*-data*``
++
+Gibt die Datendateien an.
+
+* ``*-archivelogs*``
++
+Gibt die Archivprotokolldateien an.
+
+* ``*-comment _comment_text_*``
++
+Geben Sie Text (bis zu 200 Zeichen) zum Backup-Update ein. Sie können Leerzeichen einschließen.
+
+* ``*-quiet*``
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* ``*-verbose*``
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+* ``*-retain {-hourly | -daily | -weekly | -monthly | -unlimited}*``
++
+Gibt an, ob das Backup stündlich, täglich, wöchentlich, monatlich oder unbegrenzt aufbewahrt werden soll. Wenn `-retain` Ist nicht angegeben, wird die Aufbewahrungsklasse standardmäßig festgelegt `-hourly`. Um Backups für immer aufzubewahren, verwenden Sie den `-unlimited` Option. Der `-unlimited` Option macht das Backup zum Löschen nicht mehr verfügbar.
+
+
+
+'''
+
+
+== Beispiel
+
+Im folgenden Beispiel wird das Backup aktualisiert, damit die Aufbewahrungsrichtlinie auf unbegrenzt gesetzt wird:
+
+[listing]
+----
+smsap backup update -profile SALES1 -label full_backup_sales_May
+-retain -unlimited -comment save_forever_monthly_backup
+----
+'''

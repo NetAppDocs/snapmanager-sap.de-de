@@ -1,0 +1,79 @@
+---
+permalink: unix-administration/concept-considerations-for-cloning-a-database-to-an-alternate-host.html 
+sidebar: sidebar 
+keywords: clone, host, database, reside, requirement, cloning, alternate, consideration 
+summary: Bevor Sie auf einem anderen Host als dem Klon der Datenbank klonen können, müssen einige Anforderungen erfüllt werden. 
+---
+= Überlegungen beim Klonen einer Datenbank auf einem alternativen Host
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie auf einem anderen Host als dem Klon der Datenbank klonen können, müssen einige Anforderungen erfüllt werden.
+
+Folgende Tabelle zeigt die Setup-Anforderungen für Quell- und Zielhost:
+
+[cols="1a,2a"]
+|===
+| Vorbedingung eingerichtet | Anforderungen 
+
+
+ a| 
+Der Netapp Architektur Sind
+ a| 
+Muss auf den Quell- und Ziel-Hosts identisch sein
+
+
+
+ a| 
+Betriebssystem und Version
+ a| 
+Muss auf den Quell- und Ziel-Hosts identisch sein
+
+
+
+ a| 
+SnapManager für SAP
+ a| 
+Muss auf den Quell- und Ziel-Hosts installiert und ausgeführt werden
+
+
+
+ a| 
+Anmeldedaten
+ a| 
+Muss festgelegt werden, damit der Benutzer auf den Zielhost zugreifen kann
+
+
+
+ a| 
+Oracle
+ a| 
+Die Software-Version muss auf den Quell- und Ziel-Hosts installiert sein.
+
+Der Oracle-Listener muss auf dem Ziel-Host ausgeführt werden.
+
+
+
+ a| 
+Kompatibler Storage Stack
+ a| 
+Muss auf den Quell- und Ziel-Hosts identisch sein
+
+
+
+ a| 
+Protokoll für den Zugriff auf Datendateien
+ a| 
+Muss auf den Quell- und Ziel-Hosts identisch sein
+
+
+
+ a| 
+Volumenmanager
+ a| 
+Die Konfiguration muss sowohl auf den Quell- als auch auf den Ziel-Hosts erfolgen und von kompatiblen Versionen sein
+
+|===

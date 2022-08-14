@@ -1,0 +1,67 @@
+---
+permalink: unix-administration/concept-snapmanager-security.html 
+sidebar: sidebar 
+keywords: snapmanager, operation, credential, security, authentication, role-based, access, control, rbac, lun, data, file, database 
+summary: 'Sie können SnapManager Vorgänge nur ausführen, wenn Sie die entsprechenden Anmeldedaten besitzen. Die Sicherheit in SnapManager unterliegt der Benutzerauthentifizierung und der rollenbasierten Zugriffssteuerung (Role Based Access Control, RBAC). RBAC ermöglicht Datenbankadministratoren die Einschränkung von Vorgängen, die SnapManager auf den Volumes und LUNs ausführen kann, die die Datendateien in einer Datenbank enthalten.' 
+---
+= Wie SnapManager die Sicherheit gewährleistet
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können SnapManager Vorgänge nur ausführen, wenn Sie die entsprechenden Anmeldedaten besitzen. Die Sicherheit in SnapManager unterliegt der Benutzerauthentifizierung und der rollenbasierten Zugriffssteuerung (Role Based Access Control, RBAC). RBAC ermöglicht Datenbankadministratoren die Einschränkung von Vorgängen, die SnapManager auf den Volumes und LUNs ausführen kann, die die Datendateien in einer Datenbank enthalten.
+
+Datenbankadministratoren ermöglichen die rollenbasierte Zugriffssteuerung für SnapManager mithilfe von SnapDrive. Datenbankadministratoren weisen anschließend SnapManager-Rollen Berechtigungen zu und weisen diese Rollen den Benutzern in der grafischen Benutzeroberfläche (GUI) oder der Befehlszeilenschnittstelle (CLI) von Operations Manager zu. RBAC-Berechtigungsprüfungen erfolgen im DataFabric Manager Server.
+
+Zusätzlich zum rollenbasierten Zugriff behält SnapManager die Sicherheit bei, indem er die Benutzerauthentifizierung über Passwortaufforderungen oder die Festlegung von Benutzeranmeldeinformationen anfordert. Ein effektiver Benutzer wird beim SnapManager-Server authentifiziert und autorisiert.
+
+Die SnapManager Anmeldedaten und die Benutzerauthentifizierung unterscheiden sich erheblich von SnapManager 3.0:
+
+* In SnapManager-Versionen vor 3.0 würden Sie bei der Installation von SnapManager ein willkürliches Serverkennwort festlegen. Wer den SnapManager-Server nutzen möchte, braucht das SnapManager-Server-Passwort. Das SnapManager-Server-Passwort muss den Benutzeranmeldeinformationen über hinzugefügt werden `smsap credential set -host` Befehl.
+* In SnapManager (3.0 und höher) wurde das SnapManager-Serverpasswort durch die Authentifizierung des individuellen Betriebssystems (OS) ersetzt. Wenn Sie den Client nicht vom selben Server wie den Host ausführen, führt der SnapManager-Server die Authentifizierung durch, indem Sie die Benutzernamen und Passwörter des Betriebssystems verwenden. Wenn Sie nicht zur Eingabe Ihrer OS-Passwörter aufgefordert werden möchten, können Sie die Daten unter Verwendung des im SnapManager-Benutzeranmeldeinformationen speichern `smsap credential set -host` Befehl.
++
+
+NOTE: Der `smsap credential set -host` Der Befehl speichert Ihre Anmeldeinformationen, wenn der verwendet wird `host.credentials.persist` Die Eigenschaft in der Datei smsap.config ist auf festgelegt `*true*`.
+
+
+
+*Beispiel*
+
+Benutzer1 und User2 teilen sich ein Profil namens Prof2. User2 kann eine Sicherung von „database1“ in Host1 nicht ohne die Berechtigung zum Zugriff auf Host1 durchführen. User1 kann eine Datenbank nicht ohne Berechtigung zum Zugriff auf host3 klonen.
+
+In der folgenden Tabelle werden die verschiedenen Berechtigungen beschrieben, die den Benutzern zugewiesen sind:
+
+[cols="2a,1a,1a"]
+|===
+| Berechtigungstyp | Benutzer1 | Benutzer2 
+
+
+ a| 
+Host-Passwort
+ a| 
+Host1, Host2
+ a| 
+Host2, Host3
+
+
+
+ a| 
+Repository-Kennwort
+ a| 
+Repos. 1
+ a| 
+Repos. 1
+
+
+
+ a| 
+Profilkennwort
+ a| 
+Prof1, Prof2
+ a| 
+Prof2
+
+|===
+Wenn User1 und User2 keine freigegebenen Profile haben, nimmt an, dass User1 Berechtigungen für die Hosts mit Namen Host1 und Host2 hat, und User2 hat Berechtigungen für den Host namens Host2. User2 kann nicht einmal die nonprofilbefehlen wie dump und ausführen `system verify` Auf Host1.

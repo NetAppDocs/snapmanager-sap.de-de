@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-detach-command.html 
+sidebar: sidebar 
+keywords: split, clone, volume, parent, data, ontap, detach, snapmanager, smsap, command 
+summary: 'Nach dem Aufteilen eines geklonten Volumes aus seinem übergeordneten Volume in Data ONTAP können Sie den Befehl „Clone Trennen“ (Abtrennen) von SnapManager ausführen und SnapManager darauf informieren, dass es sich bei dem Volume nicht mehr um einen Klon handelt.' 
+---
+= Der Befehl smsap Clone Trennen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Aufteilen eines geklonten Volumes aus seinem übergeordneten Volume in Data ONTAP können Sie den Befehl „Clone Trennen“ (Abtrennen) von SnapManager ausführen und SnapManager darauf informieren, dass es sich bei dem Volume nicht mehr um einen Klon handelt.
+
+
+
+== Syntax
+
+`smsap clone detach -profile _profile_name_ -label _clone_label_`
+
+
+
+== Parameter
+
+* `*-profile _profile_name_*`
++
+Gibt den Profilnamen an, aus dem der Klon erstellt wird.
+
+* `*-label _clone_label_*`
++
+Gibt den Namen an, der vom Klonvorgang generiert wurde.
+
+
+
+'''
+
+
+== Beispiel
+
+Mit dem folgenden Befehl wird der Klon enttrennt:
+
+[listing]
+----
+smsap clone detach -profile SALES1 -label sales1_clone
+----
+'''

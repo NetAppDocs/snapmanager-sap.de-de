@@ -1,0 +1,101 @@
+---
+permalink: windows/reference-the-smosmsap-notification-set-command.html 
+sidebar: sidebar 
+keywords: notification, set, command, configure, mail, server, smsap 
+summary: Sie können den E-Mail-Server mit dem Befehl Notification Set konfigurieren. 
+---
+= Der Befehl smsap notification set
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `notification set` Befehl zum Konfigurieren des Mail-Servers.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap notification set
+-sender-email email_address
+-mailhost mailhost
+-mailport mailport
+[-authentication
+-username username
+-password password]
+-repository
+-dbname repo_service_name
+-port repo_port]
+-host repo_host
+-login -username repo_username
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-sender-email _email_address_`*
++
+Gibt die E-Mail-Adresse des Absenders an, von der die E-Mail-Benachrichtigungen gesendet werden. Unter SnapManager 3.2 für SAP können Sie einen Bindestrich (-) einfügen, während Sie den Domain-Namen der E-Mail-Adresse angeben. Sie können beispielsweise die Absender-E-Mail-Adresse als angeben `+-sender-email07lbfmdatacenter@continental-corporation.com+`.
+
+* *`-mailhost _mailhost_`*
++
+Gibt den Namen oder die IP-Adresse des Hostservers an, der E-Mail-Benachrichtigungen verarbeitet.
+
+* *`-mailport _mailport_`*
++
+Gibt die Portnummer des Mail-Servers an.
+
+* *`-authentication -username _username -password password_`*
++
+Gibt Authentifizierungsdetails für die E-Mail-Adresse an. Sie müssen Benutzernamen und Passwort angeben.
+
+* *`-repository`*
++
+Gibt die Details der Repository-Datenbank an.
+
+* *`-port _repo_port_`*
++
+Gibt die Portnummer des Transmission Control Protocol (TCP) an, die für den Zugriff auf die Repository-Datenbank verwendet wird.
+
+* *`-dbname _repo_service_name_`*
++
+Gibt den Namen der Repository-Datenbank an. Sie können entweder den globalen Namen oder die Systemkennung verwenden.
+
+* *`-host _repo_host_`*
++
+Gibt den Namen oder die IP-Adresse des Hosts an, auf dem sich die Repository-Datenbank befindet.
+
+* *`-login`*
++
+Gibt die Anmeldedaten für das Repository an. Dies ist optional. Wenn nicht angegeben, verwendet SnapManager standardmäßig den Verbindungsmodus für OS-Authentifizierung.
+
+* *`-username _repo_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Repository-Datenbank erforderlich ist.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel wird der Mail-Server konfiguriert:
+
+[listing]
+----
+smsap notification set -sender-email admin@org.com -mailhost hostname.org.com -mailport 25 authentication -username davis -password davis -repository -port 1521 -dbname SMSAPREPO -host hotspur
+-login -username grabal21 -verbose
+----

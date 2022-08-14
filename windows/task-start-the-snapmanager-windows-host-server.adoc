@@ -1,0 +1,26 @@
+---
+permalink: windows/task-start-the-snapmanager-windows-host-server.html 
+sidebar: sidebar 
+keywords: start, snapmanager, server, windows, service, host 
+summary: Sie können den SnapManager-Server mithilfe der Windows-Dienste starten. 
+---
+= Starten Sie den SnapManager-Hostserver
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können den SnapManager-Server mithilfe der Windows-Dienste starten.
+
+.Schritte
+. Klicken Sie Auf *Start* > *Systemsteuerung* > *Verwaltung* > *Services*.
+. Wählen Sie im Fenster *Services* NetAppSnapManager 3.3 fürSAP aus.
+. Sie können den Server auf drei Arten starten:
++
+** Klicken Sie im linken Bereich auf *Start*.
+** Klicken Sie mit der rechten Maustaste auf NetAppSnapManager 3.3 für SAP und wählen Sie im Dropdown-Menü die Option *Start* aus.
+** Doppelklicken Sie auf NetAppSnapManager 3.3 forSAP und dann im Fenster Eigenschaften auf *Start*.
+
+
+

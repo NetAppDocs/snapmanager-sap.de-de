@@ -1,0 +1,73 @@
+---
+permalink: windows/reference-how-to-locate-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, locate, client, system, access, troubleshoot, problem, profile, operation 
+summary: Die Dump-Datei befindet sich im Client-System für einfachen Zugriff. Diese Dateien sind hilfreich, wenn Sie Probleme im Zusammenhang mit Profil, System oder einer beliebigen Operation beheben müssen. 
+---
+= So finden Sie Speicherauszugsdateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Dump-Datei befindet sich im Client-System für einfachen Zugriff. Diese Dateien sind hilfreich, wenn Sie Probleme im Zusammenhang mit Profil, System oder einer beliebigen Operation beheben müssen.
+
+Die Dump-Datei befindet sich im Home-Verzeichnis des Benutzers auf dem Client-System.
+
+* Wenn Sie die grafische Benutzeroberfläche (GUI) verwenden, befindet sich die Dump-Datei unter:
++
+[listing]
+----
+user_home\Application Data\NetApp\smsap\3.3.0\smsap_dump dump_file_type_name
+server_host.jar
+----
+* Wenn Sie die Befehlszeilenschnittstelle (CLI) verwenden, befindet sich die Dump-Datei unter:
++
+[listing]
+----
+user_home\.netapp\smsap\3.3.0\smsap_dump_dump_file_type_name server_host.jar
+----
+
+
+Die Dump-Datei enthält die Ausgabe des Dump-Befehls. Der Name der Datei hängt von den angegebenen Informationen ab. In der folgenden Tabelle werden die Typen von Dump-Operationen und die daraus resultierenden Dateinamen angezeigt:
+
+|===
+| Typ des Speicherauszugsvorgangs | Dateiname wird angezeigt 
+
+
+ a| 
+Befehl für den Operation Dump mit Vorgangs-ID
+ a| 
+`smsap_dump_operation-id.jar`
+
+
+
+ a| 
+Der Befehl für den Operation Dump enthält keine Vorgangs-ID
+ a| 
+`smsap operation dump -profile VH1 -verbose` Die folgende Ausgabe wird angezeigt:
+
+[listing]
+----
+smsap operation dump -profile VH1 -verbose
+[ INFO] SMSAP-13048: Dump Operation Status: SUCCESS
+[ INFO] SMSAP-13049: Elapsed Time: 0:00:01.404
+Dump file created.
+Path: user_home\Application Data\ontap\smsap\3.3.0\smsap_dump_VH1_kaw.rtp.foo.com.jar
+----
+
+
+ a| 
+Befehl für System Dump
+ a| 
+`smsap_dump_host-name.jar`
+
+
+
+ a| 
+Profildump-Befehl
+ a| 
+`smsap_dump_profile-name_host-name.jar`
+
+|===

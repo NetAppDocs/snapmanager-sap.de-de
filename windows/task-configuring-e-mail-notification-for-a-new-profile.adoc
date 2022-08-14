@@ -1,0 +1,58 @@
+---
+permalink: windows/task-configuring-e-mail-notification-for-a-new-profile.html 
+sidebar: sidebar 
+keywords: creating, create, profile, configure, receive, email, notification, completion, database, operation, configuring, profile 
+summary: Wenn Sie ein neues Profil erstellen, können Sie so konfigurieren, dass Sie eine E-Mail-Benachrichtigung nach Abschluss des Datenbankvorgangs erhalten. 
+---
+= Konfigurieren der E-Mail-Benachrichtigung für ein neues Profil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein neues Profil erstellen, können Sie so konfigurieren, dass Sie eine E-Mail-Benachrichtigung nach Abschluss des Datenbankvorgangs erhalten.
+
+* Sie müssen die E-Mail-Adresse konfigurieren, von der die Meldungen gesendet werden.
+* Sie müssen eine kommagetrennte Liste für mehrere E-Mail-Adressen verwenden.
++
+Sie müssen sicherstellen, dass zwischen Komma und der nächsten E-Mail-Adresse kein Leerzeichen vorhanden ist.
+
++
+
+NOTE: Sie müssen sicherstellen, dass Sie den Satz von E-Mail-Adressen in doppelte Anführungszeichen eingeben.
+
+
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`smsap profile create -profileprofile [-profile-passwordprofile_password] -repository-dbnamerepo_service_name-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | \{-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][-protect [ ]][-notification [-success-emailemail_address1,email_address2-subjectsubject_pattern] [-failure-emailemail_address1,email_address2-subjectsubject_pattern]]`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+[-Force]
+
++
+
+NOTE: SnapManager unterstützt bis zu 1000 Zeichen für E-Mail-Adressen.
+
++
+Wenn Sie mithilfe des Profils (zur Erstellung separater Archiv-Log-Backups) eine Sicherung von Datendateien und Archivprotokolldateien erstellen und die Erstellung der Datendatei-Sicherung fehlschlägt, wird die E-Mail-Benachrichtigung mit der Datensicherung als Operationname anstatt Datensicherung und Archivprotokolle als Backup gesendet. Wenn die Datensicherung der Datendatei und der Archivprotokolldatei erfolgreich ist, wird die Ausgabe wie folgt angezeigt:
+
++
+[listing]
+----
+
+Profile Name    : PROF_31
+Operation Name 	: Data Backup and Archive Logs Backup
+Database SID   	: TENDB1
+Database Host 	 : repo1.rtp.org.com
+Start Date 	    : Fri Sep 23 13:37:21 EDT 2011
+End Date 	      : Fri Sep 23 13:45:24 EDT 2011
+Status 	        : SUCCESS
+Error messages 	:
+----
+

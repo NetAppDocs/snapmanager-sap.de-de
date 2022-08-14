@@ -1,0 +1,72 @@
+---
+permalink: windows/task-scheduling-archive-log-file-pruning.html 
+sidebar: sidebar 
+keywords: create, backup, schedule, pruning, prune, archive, log, file, scheduling 
+summary: Wenn Sie ein Backup erstellen, können Sie die Beschneidung von Archivprotokolldateien für eine bestimmte Zeit planen. 
+---
+= Planung der Beschneidung der Archivprotokolldatei
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein Backup erstellen, können Sie die Beschneidung von Archivprotokolldateien für eine bestimmte Zeit planen.
+
+Mit SnapManager können Sie die Archivprotokolldateien regelmäßig aus dem aktiven Dateisystem beschneiden.
+
+. Geben Sie den folgenden Befehl ein:
++
+`smsap schedule create -profile profile_name {[-full {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-data [-filesfiles [files]] | [-tablespaces-tablespaces [-tablespaces]] {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-archivelogs]} [-commentcomment] [-backup-destpath1 [,[path2]] [-exclude-destpath1 [,path2]] [-prunelogs{-all | -untilSCNuntilSCN | -before {-dateyyyy-MM-dd HH:mm:ss | -monthsmonths | -weeksweeks | -daysdays | -hourshours}} -prune-destprune_dest1,prune_dest2] -schedule-nameschedule_name [-schedule-commentschedule_comment] -interval {-hourly | -daily | -weekly | -monthly | -onetimeonly} -cronstringcronstring-start-time {start-timestart_time <yyyy-MM-dd HH:mm>} -runasuser-runasuser [-force] [-quiet | -verbose]`
+
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Planen eines Beschneidung von Archivprotokolldateien*
+ a| 
+Legen Sie die folgenden Optionen fest:
+
+** -Prunelogs zu planen Beschneidung der Archiv-Log-Dateien
+** -Prune-dest Archivprotokolldateien aus den Archivprotokollzielen zu prune
+
+
+
+
+ a| 
+* Einen Namen für den Terminplan angeben*
+ a| 
+Geben Sie die Option -terminplan-Name an.
+
+
+
+ a| 
+*Planen Sie das Beschneiden von Archivprotokolldateien in einem bestimmten Zeitintervall*
+ a| 
+Geben Sie die Intervalloption an und geben Sie an, ob die Archivprotokolldateien auf der Grundlage der folgenden Intervallklassen beschnitten werden sollen:
+
+** -Stündlich
+** -Täglich
+** -Wöchentlich
+** -Monatlich
+** Nur -ontimeonly
+
+
+
+
+ a| 
+*Fügen Sie einen Kommentar über die Terminplanoperation*
+ a| 
+Geben Sie die Option -terminieren-comment an, gefolgt von der Beschreibungszeichenfolge.
+
+
+
+ a| 
+*Geben Sie die Startzeit der Zeitplanoperation an*
+ a| 
+Geben Sie die Option -Start-time im Format yyyy-mm-dd hh:mm an.
+
+|===
+

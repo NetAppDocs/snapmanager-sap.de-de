@@ -1,0 +1,21 @@
+---
+permalink: windows/task-viewing-a-list-of-snapmanager-history-operation-as-a-report.html 
+sidebar: sidebar 
+keywords: view, history, snapmanager, operation, report, base, retention, setting, list 
+summary: Sie können den Verlauf eines bestimmten oder aller SnapManager Vorgänge basierend auf den Aufbewahrungseinstellungen als Bericht anzeigen. 
+---
+= Anzeigen einer Liste des SnapManager-Betriebsverlaufs
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können den Verlauf eines bestimmten oder aller SnapManager Vorgänge basierend auf den Aufbewahrungseinstellungen als Bericht anzeigen.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um eine Liste der SnapManager-Verlaufs-Vorgänge anzuzeigen:
++
+`smsap history list -profile {-name, profile_name [profile_name1,profile_name2] | -all-repository-login [-passwordrepo_password] -usernamerepo_username-dbnamerepo_dbname-hostrepo_host-portrepo_port} -operation {-operationsoperation_name [operation_name1, operation_name2] | -all} [-delimiterdelimiter] [-quiet | -verbose]`
+
+

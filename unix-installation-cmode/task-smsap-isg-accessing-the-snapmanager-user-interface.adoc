@@ -1,0 +1,44 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-access-the-snapmanager-user-interface.html 
+sidebar: sidebar 
+keywords: access, snapmanager, user, interface, ui, remote, web, browser, system, operate, support, target, database, smsapgui, command 
+summary: 'Sie können die SnapManager-Benutzeroberfläche (UI) Remote über einen Webbrowser von jedem System aus aufrufen, das auf einem von SnapManager unterstützten Betriebssystem ausgeführt wird. Sie können auch vom Ziel-Datenbank-Host auf die SnapManager UI zugreifen, indem Sie den ssapgui-Befehl ausführen.' 
+---
+= Greifen Sie auf die Benutzeroberfläche von SnapManager zu
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die SnapManager-Benutzeroberfläche (UI) Remote über einen Webbrowser von jedem System aus aufrufen, das auf einem von SnapManager unterstützten Betriebssystem ausgeführt wird. Sie können auch auf die SnapManager-Benutzeroberfläche vom Ziel-Datenbank-Host zugreifen, indem Sie das ausführen `smsapgui` Befehl.
+
+
+
+== Was Sie benötigen
+
+* Sie müssen sicherstellen, dass SnapManager ausgeführt wird.
+* Sie müssen sicherstellen, dass das unterstützte Betriebssystem und Java auf dem System installiert sind, auf dem Sie auf die SnapManager-Benutzeroberfläche zugreifen möchten.
++
+Informationen zum unterstützten Betriebssystem und Java finden Sie im Interoperabilitäts-Matrix-Tool.
+
+
+
+.Schritte
+. Geben Sie im Webbrowser-Fenster Folgendes ein:``*+https://server_name.domain.com:port_number+*``
++
+** `_server_name_` Ist der Name des Ziel-Datenbank-Hosts, auf dem SnapManager installiert ist.
++
+Sie können auch die IP-Adresse des Ziel-Datenbank-Hosts eingeben.
+
+** `_port_number_` Ist der Port, auf dem SnapManager ausgeführt wird.
++
+Der Standardwert ist 27214.
+
+
+
+. Klicken Sie auf den Link *SnapManager für SAP* starten.
++
+Die Benutzeroberfläche von SnapManager für SAP wird angezeigt.
+
+

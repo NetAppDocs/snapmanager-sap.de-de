@@ -1,0 +1,47 @@
+---
+permalink: unix-administration/task-use-protection-manager-to-configure-a-secondary-resource-pool.html 
+sidebar: sidebar 
+keywords: support, backup, database, secondary, storage, administrator, protection, manager, organize, snapvault, license, resource, pool 
+summary: Um das Backup der Datenbank auf dem sekundären Storage zu unterstützen, verwendet der Storage-Administrator Protection Manager, um die sekundären Storage-Systeme, die mit der sekundären SnapVault-Lizenz aktiviert sind, in einem Ressourcen-Pool für die Backups zu organisieren. 
+---
+= Konfigurieren Sie mit Protection Manager einen sekundären Ressourcenpool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um das Backup der Datenbank auf dem sekundären Storage zu unterstützen, verwendet der Storage-Administrator Protection Manager, um die sekundären Storage-Systeme, die mit der sekundären SnapVault-Lizenz aktiviert sind, in einem Ressourcen-Pool für die Backups zu organisieren.
+
+*Was Sie brauchen*
+
+Idealerweise können Storage-Systeme in einem Ressourcen-Pool mit Blick auf ihre Akzeptanz als Ziele für Backups ausgetauscht werden. Wenn Sie zum Beispiel die Sicherungsstrategie für die Gehaltsabrechndatenbank entwickeln, identifizierten Sie als Storage-Administrator sekundäre Storage-Systeme mit einer ähnlichen Performance und Servicequalität, die als Mitglieder desselben Ressourcen-Pools geeignet wären.
+
+Sie haben bereits Aggregate mit ungenutztem Speicherplatz auf Storage-Systemen erstellt, die Sie Ressourcen-Pools zuweisen möchten. Dadurch wird sichergestellt, dass ausreichend Platz zum Einhalten der Backups vorhanden ist.
+
+.Schritte
+. Gehen Sie zur NetApp Management Console des Protection Manager.
+. Klicken Sie in der Menüleiste auf *Daten* > *Ressourcen-Pools*.
++
+Das Fenster Ressourcen-Pools wird angezeigt.
+
+. Klicken Sie Auf *Hinzufügen*.
++
+Der Assistent zum Hinzufügen von Ressourcen-Pools wird gestartet.
+
+. Führen Sie die Schritte im Assistenten aus, um den Ressourcen-Pool *paydb_Backup_Resource* zu erstellen.
++
+Verwenden Sie folgende Einstellungen:
+
++
+** Name: Verwenden Sie *paydb-Backup_Resource*
+** Speicherplatzschwellenwerte (verwenden Sie die Standardeinstellungen):
++
+*** Schwellenwerte für die Speicherplatzauslastung: Aktiviert
+*** Schwellenwert fast erreicht (für Ressourcenpool): 80 %
+*** Schwellenwert (für Ressourcenpool): 90 %
+
+
+
+
+

@@ -1,0 +1,83 @@
+---
+permalink: windows/task-create-repositories.html 
+sidebar: sidebar 
+keywords: snapmanager, require, repository, host, data, operation, perform, create 
+summary: SnapManager benötigt ein Repository auf einem Host, um Daten über die von Ihnen ausgeführten Vorgänge abzuhalten. 
+---
+= Erstellen von Repositorys
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager benötigt ein Repository auf einem Host, um Daten über die von Ihnen ausgeführten Vorgänge abzuhalten.
+
+
+
+== Was Sie benötigen
+
+Stellen Sie sicher, dass die folgenden Aufgaben abgeschlossen sind:
+
+.Schritte
+. Erstellen Sie einen Oracle-Benutzer und ein Kennwort in der Repository-Datenbank.
+. Benutzerzugriff auf das Repository autorisieren.
+
+
+Für ein Repository benötigt SnapManager für SAP mindestens 4-KB-Blockgrößen für die Tablespaces, in denen er installiert ist. Sie können die Blockgröße mithilfe des folgenden SQL-Befehls überprüfen:
+
+[listing]
+----
+select a.username, a.default_tablespace, b.block_size
+from dba_users a, dba_tablespaces b
+a.username = repo_user
+----
+Wo
+
+* `a.default_tablespace = b.tablespace_name`
+* `a.username` = der Benutzername im Repository
+
+
+
+
+== Über diese Aufgabe
+
+Wenn Sie Repositorys aktualisieren, müssen Sie den SnapManager-Server neu starten, um die zugehörigen Zeitpläne neu zu starten.
+
+.Schritt
+. Um das Repository zu erstellen, geben Sie den Befehl Repository create unter Verwendung des folgenden allgemeinen Formats ein:
++
+`*smsap repository create -repository -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ -port _repo_port_ [-force] [-noprompt] [-quiet | -verbose]*`
+
++
+Wo?
+
++
+** `-repository -dbname` Ist der Name der Repository-Datenbank.
+** `-host` Ist der Name des Hosts für das Repository.
+** `-username` Ist der Name des Datenbankbenutzers, der Zugriff auf das Repository hat.
+** `-port` Ist der Port für den Host. Weitere Optionen für diesen Befehl:
++
+[`-force`] [`-noprompt`]
+
++
+[`quiet` . `-verbose`]
+
+
+
+
+
+
+NOTE: Wenn Sie ein Repository mit demselben Namen haben und das verwenden `-force` Option: Alle Daten in einem vorhandenen Repository-Schema werden überschrieben.
+
+
+
+== Erstellen eines Repository
+
+Mit der folgenden Befehlszeile wird ein Repository erstellt.
+
+[listing]
+----
+smsap repository create -repository -dbname HR1
+-host server1 -login -username admin -port 1521
+----

@@ -1,0 +1,92 @@
+---
+permalink: windows/task-create-a-task-specification-file.html 
+sidebar: sidebar 
+keywords: create, task, specification, file, graphical, user, interface, gui, command-line, interface, cli, text, editor, preprocess, post-process, backup, restore, operation 
+summary: 'Sie können die Aufgabenspezifikationsdateien über eine grafische Benutzeroberfläche (GUI), eine Befehlszeilenschnittstelle (CLI) oder einen Texteditor erstellen. Diese Dateien werden für die vor- oder Nachverarbeitung während der Backup-, Restore- und Klonvorgänge verwendet.' 
+---
+= Erstellen Sie eine Aufgabenspezifikationsdatei
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Aufgabenspezifikationsdateien über eine grafische Benutzeroberfläche (GUI), eine Befehlszeilenschnittstelle (CLI) oder einen Texteditor erstellen. Diese Dateien werden für die vor- oder Nachverarbeitung während der Backup-, Restore- und Klonvorgänge verwendet.
+
+.Schritte
+. Erstellen Sie eine Aufgabenspezifikationsdatei über GUI, CLI oder einen Texteditor.
++
+*Beispiel*
+
++
+Sie können die Spezifikationsdatei basierend auf der Struktur der folgenden Beispielaufgabe Spezifikationsdatei erstellen:
+
++
+[listing]
+----
+
+<task-specification>
+  <pre-tasks>
+				<task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </pre-tasks>
+  <post-tasks>
+    <task>
+      <name>name</name>
+      <parameter>
+          <name>name</name>
+          <value>value</value>
+       </parameter>
+    </task>
+  </post-tasks>
+</task-specification>
+----
+. Geben Sie den Skriptnamen ein.
+. Geben Sie den Parameternamen und den dem Parameter zugewiesenen Wert ein.
+. Speichern Sie die XML-Datei im richtigen Installationsverzeichnis.
+
+
+
+
+== Beispiel für Aufgabenspezifikation
+
+[listing]
+----
+
+  <task-specification>
+    <pre-tasks>
+      <task>
+        <name>clone cleanup</name>
+        <description>pre tasks for cleaning up the target system</description>
+        </task>
+    </pre-tasks>
+    <post-tasks>
+      <task>
+        <name>SystemCopy follow-up activities</name>
+        <description>SystemCopy follow-up activities</description>
+        <parameter>
+          <name>SCHEMAOWNER</name>
+          <value>SAMSR3</value>
+        </parameter>
+      </task>
+      <task>
+        <name>Oracle Users for OS based DB authentication</name>
+        <description>Oracle Users for OS based DB authentication</description>
+        <parameter>
+          <name>SCHEMAOWNER</name>
+          <value>SAMSR3</value>
+        </parameter>
+        <parameter>
+          <name>ORADBUSR_FILE</name>
+
+										<value\>E:\\mnt\\sam\\oradbusr.sql</value\>
+        </parameter>
+      </task>
+      </post-tasks>
+  </task-specification>
+----

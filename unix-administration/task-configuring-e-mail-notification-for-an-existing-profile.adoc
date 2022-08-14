@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/task-configure-e-mail-notification-for-an-existing-profile.html 
+sidebar: sidebar 
+keywords: updating, update, profile, configure, receive, email, notification, completion, database, operation, configuring, exist 
+summary: Wenn Sie ein Profil aktualisieren, können Sie so konfigurieren, dass Sie eine E-Mail-Benachrichtigung über den Abschluss des Datenbankvorgangs erhalten. 
+---
+= Konfigurieren Sie die E-Mail-Benachrichtigung für ein vorhandenes Profil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie ein Profil aktualisieren, können Sie so konfigurieren, dass Sie eine E-Mail-Benachrichtigung über den Abschluss des Datenbankvorgangs erhalten.
+
+*Was Sie brauchen*
+
+* Sie müssen die E-Mail-Adresse konfigurieren, von der die Meldungen gesendet werden.
+* Sie müssen eine einzelne E-Mail-Adresse oder mehrere E-Mail-Adressen eingeben, an die Benachrichtigungen gesendet werden.
++
+Sie können eine kommagetrennte Liste für mehrere Adressen verwenden. Sie müssen sicherstellen, dass zwischen Komma und der nächsten E-Mail-Adresse kein Leerzeichen vorhanden ist. Optional können Sie auch einen Betreff zu der E-Mail hinzufügen.
+
+
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap profile update -profile _profile_ [-profile-password _profile_password_][-database-dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login -username _db_username_ -password _db_password_ -port _db_port_]] [{-rman{-controlfile | {-login  -username _rman_username_ -password  _rman_password_ -tnsname _rman_tnsname_}}} | -remove-rman]-osaccount _osaccount_-osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][[-protect [-protection-policy _policy_name_]]| [[-noprotect]] [-notification [-success-email _email_address1,email_address2_ -subject _subject_pattern_] [-failure-email _email_address1,email_address2_ -subject _subject_pattern_]]*`
+
++
+Mit der Option Erfolg erhalten Sie nur eine Benachrichtigung für erfolgreiche Datenbankvorgänge und die Ausfalloption, eine Benachrichtigung nur für fehlerhafte Datenbankvorgänge zu erhalten.
+
+

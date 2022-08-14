@@ -1,0 +1,83 @@
+---
+permalink: unix-administration/concept-dump-files.html 
+sidebar: sidebar 
+keywords: dump, file, compress, log, contain, snapmanager, environment, file, system, dump 
+summary: Die Dump-Dateien sind komprimierte Log-Dateien, die Informationen über SnapManager und seine Umgebung enthalten. Die verschiedenen Typen von erstellten Log-Dateien sind Operation, Profil und System-Dump-Datei. 
+---
+= Speicherauszug-Dateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Dump-Dateien sind komprimierte Log-Dateien, die Informationen über SnapManager und seine Umgebung enthalten. Die verschiedenen Typen von erstellten Log-Dateien sind Operation, Profil und System-Dump-Datei.
+
+Sie können den Dump-Befehl oder die Registerkarte *Create Diagnostics* in der grafischen Benutzeroberfläche (GUI) verwenden, um Informationen über einen Vorgang, ein Profil oder die Umgebung zu sammeln. Ein System-Dump erfordert kein Profil. Das Profil und die Operation Dumps erfordern jedoch Profile.
+
+SnapManager enthält die folgenden Diagnoseinformationen in der Dump-Datei:
+
+* Die durchgeführten Schritte
+* Die Zeitdauer für jeden Schritt
+* Das Ergebnis jedes Schritts
+* Fehler, falls vorhanden, der während des Vorgangs aufgetreten ist
+
+
+
+NOTE: SnapManager-Protokolldateien oder Dump-Dateien ermöglichen Lese- und Schreibberechtigungen nur für die Root-Benutzer und die anderen Benutzer, die zur Root-Benutzergruppe gehören.
+
+SnapManager enthält auch die folgenden Informationen in der Datei:
+
+* Version und Architektur des Betriebssystems
+* Umgebungsvariablen
+* Java-Version
+* SnapManager Version und Architektur
+* SnapManager-Einstellungen
+* SnapManager Nachrichten
+* Eigenschaften log4j
+* SnapDrive Version und Architektur
+* SnapDrive-Protokolldateien
+* Oracle Version
+* Oracle Owatch – Details zum lokalen Bestand
+* Die automatische Speicherverwaltung (ASM)-Instanz ermöglicht die automatische Verriegelung lokaler Bestandsdaten
+* Version des Storage-Systems
+* Oracle oratab-Datei
+* Oracle-Listener-Status
+* Oracle Netzwerkkonfigurationsdateien (`listener.ora` Und `tnsnames.ora`)
+* Oracle Version der Repository-Datenbank
+* Typ der Zieldatenbank (Stand-Aloneor Real Application Clusters (RAC))
+* Zieldatenbankrolle (primärer, physischer Standby oder logischer Standby)
+* Einrichtung der Zieldatenbank Oracle Recovery Manager (RMAN) (keine RMAN Integration, RMAN mit Kontrolldateien oder RMAN mit Katalogdatei)
+* ASM-Instanzversion der Zieldatenbank
+* Oracle Version der Zieldatenbank
+* System Identifier (SID) der Zieldatenbank
+* Name des Repository-Datenbankdienstes
+* Auf dem Host installierte Datenbankinstanzen
+* Profildeskriptor
+* Maximaler gemeinsam genutzter Speicher
+* Swap-Informationen zum Speicherplatz
+* Speicherinformationen
+* Kernel-Version
+* FSTAB
+* Von SnapDrive verwendetes Protokoll
+* Multipath-Umgebung
+* RAC
+* Unterstützter Volume Manager
+* Version von Operations Manager
+* Unterstütztes Dateisystem
+* Host Utilities-Version
+* VERSIONEN DER BACKINT-Schnittstelle
+* BR-Werkzeugversion
+* Patch-Stufe
+* Ausgabe der `system verify` Befehl
+* Ausgabe der `sdconfcheck` Befehl
+
+
+SnapManager Dump-Dateien enthalten auch die SnapDrive Datensammler-Datei und die Oracle Alert Log-Datei. Sie können die Oracle Alert Log-Datei mithilfe des erfassen `smsap operation` Dump und `smsap profile dump` Befehle.
+
+
+NOTE: System Dump enthält keine Oracle-Alarmprotokolle. Das Profil und die Operation Dumps enthalten jedoch die Alarmprotokolle.
+
+Selbst wenn der SnapManager Host Server nicht ausgeführt wird, können Sie über die Befehlszeilenschnittstelle (CLI) oder die GUI auf die Dump-Informationen zugreifen.
+
+Wenn ein Problem auftritt, das nicht gelöst werden kann, können Sie diese Dateien an NetApp Global Services senden.

@@ -1,0 +1,39 @@
+---
+permalink: windows/concept-how-to-collect-dump-files.html 
+sidebar: sidebar 
+keywords: dump, snapmanager, command, collect, file, successful, fail, operation 
+summary: Sie können -dump in den SnapManager-Befehl einschließen, um die Dump-Dateien nach einem erfolgreichen oder fehlgeschlagenen SnapManager-Vorgang zu sammeln. 
+---
+= So sammeln Sie Speicherauszugsdateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Folgendes einschließen `-dump` Im SnapManager-Befehl zum Sammeln der Dump-Dateien nach einem erfolgreichen oder fehlgeschlagenen SnapManager-Vorgang.
+
+Sie können Dump-Dateien für die folgenden SnapManager-Vorgänge sammeln:
+
+* Profile werden erstellt
+* Profile werden aktualisiert
+* Backups werden erstellt
+* Backups werden überprüft
+* Backups werden gelöscht
+* So werden Backups entlastet
+* Montage von Backups
+* UnMounten von Backups
+* Backups werden wiederhergestellt
+* Klone werden erstellt
+* Klone werden gelöscht
+
+
+
+NOTE: Wenn Sie ein Profil erstellen, können Sie Dump-Dateien nur sammeln, wenn der Vorgang erfolgreich ist. Wenn beim Erstellen eines Profils ein Fehler auftritt, müssen Sie den verwenden `smsap system dump` Befehl. Für erfolgreiche Profile können Sie den verwenden `smsap operation dump` Und `smsap profile dump` Befehle zum Sammeln der Dump-Dateien.
+
+*Beispiel*
+
+[listing]
+----
+ smsap backup create -profile targetdb1_prof1 -auto -full -online -dump
+----

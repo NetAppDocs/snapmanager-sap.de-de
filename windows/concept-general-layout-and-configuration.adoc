@@ -1,0 +1,41 @@
+---
+permalink: windows/concept-general-layout-and-configuration.html 
+sidebar: sidebar 
+keywords: information, recommend, general, database, layout, storage, configuration, issue, disk, group, file, type, tablespace 
+summary: Informationen zu den empfohlenen allgemeinen Datenbank-Layouts und Storage-Konfigurationen finden Sie, um Festplattengruppen, Dateitypen und Tablespaces zu vermeiden. 
+---
+= Allgemeines Layout und Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Informationen zu den empfohlenen allgemeinen Datenbank-Layouts und Storage-Konfigurationen finden Sie, um Festplattengruppen, Dateitypen und Tablespaces zu vermeiden.
+
+* Enthalten Sie keine Dateien aus mehr als einem SAN-Dateisystem in Ihrer Datenbank.
++
+Alle Dateien, die eine Datenbank erstellen, müssen sich auf demselben Dateisystem befinden.
+
+* SnapManager erfordert mehrere 4 KB Blockgröße.
+
+
+Nachfolgend sind einige Richtlinien für die Volume-Trennung aufgeführt:
+
+* Die Datendateien für nur eine Datenbank müssen sich im Volume befinden.
+* Sie müssen separate Volumes für jede der folgenden Dateiklassifizierungen verwenden: Datenbankbinärdateien, Datendateien, Online-Wiederherstellungsprotokolle, archivierte Wiederherstellungsprotokolle und Kontrolldateien.
+* Sie müssen kein separates Volume für temporäre Datenbankdateien erstellen, da SnapManager keine temporären Datenbankdateien erstellt.
+
+
+SAP verwendet ein Standard-Layout für die Installation von Oracle Datenbanken. In diesem Layout speichert SAP Kopien der Oracle-Kontrolldatei in `E:\oracle\SID\origlogA, E:\oracle\SID\origlogB, and E:\oracle\SID\sapdata1 file systems`.
+
+
+NOTE: Da BR*Tools-Backups die Oracle- und SAP-Profile umfassen, die sich im Datenbank-Unterverzeichnis der Oracle-Installation befinden, muss sich die Oracle-Installation auf dem Storage befinden.
+
+Im Falle einer neuen Installation können Sie den Speicherort der Steuerdateien mit SAPINST ändern und die Steuerdatei, die normalerweise im sapdata1-Dateisystem abgelegt wird, in ein Dateisystem verschieben, das sich nicht im selben Volume befindet wie die Datendateien. (SAPINST ist das Tool, das SAP zur Installation von SAP-Systemen bereitstellt.)
+
+Weitere Informationen finden Sie im _SnapManager for SAP Best Practices_.
+
+*Verwandte Informationen*
+
+http://media.netapp.com/documents/tr-3823.pdf["SnapManager for SAP Best Practices: media.netapp.com/documents/tr-3823.pdf"^]

@@ -1,0 +1,253 @@
+---
+permalink: windows/concept-variables-available-in-the-task-scripts-for-backup-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, context, information, environment, variable, relate, backup, operation, perform, example, original, host, retention, policy, label, script 
+summary: SnapManager stellt Kontextinformationen in Form von Umgebungsvariablen für den durchzuführenden Backup-Vorgang zur Verfügung. Ihr Skript kann beispielsweise den Namen des ursprünglichen Hosts, den Namen der Aufbewahrungsrichtlinie und das Etikett des Backups abrufen. 
+---
+= Variablen, die in den Taskskripten für den Backup-Vorgang verfügbar sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager stellt Kontextinformationen in Form von Umgebungsvariablen für den durchzuführenden Backup-Vorgang zur Verfügung. Ihr Skript kann beispielsweise den Namen des ursprünglichen Hosts, den Namen der Aufbewahrungsrichtlinie und das Etikett des Backups abrufen.
+
+In der folgenden Tabelle sind die Umgebungsvariablen aufgeführt, die Sie in Ihren Skripten verwenden können:
+
+|===
+| Variablen | Beschreibung | Formatieren 
+
+
+ a| 
+`_SM_OPERATION_ID_`
+ a| 
+Gibt die ID des aktuellen Vorgangs an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_PROFILE_NAME_`
+ a| 
+Gibt den Namen des verwendeten Profils an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_SID_`
+ a| 
+Gibt die Systemkennung der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_HOST_`
+ a| 
+Gibt den Hostnamen der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_OS_USER_`
+ a| 
+Gibt den Betriebssystemeigentümer der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_OS_GROUP_`
+ a| 
+Gibt die Betriebssystemgruppe der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_TYPE_`
+ a| 
+Gibt den Typ des Backups an (online, offline oder Auto)
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_LABEL_`
+ a| 
+Gibt die Bezeichnung des Backups an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_ID_`
+ a| 
+Gibt die ID des Backups an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_RETENTION_`
+ a| 
+Gibt den Aufbewahrungszeitraum an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_PROFILE_`
+ a| 
+Gibt das Profil an, das für dieses Backup verwendet wird
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_ALLOW_DATABASE_SHUTDOWN_`
+ a| 
+Gibt an, ob Sie die Datenbank starten oder herunterfahren möchten Wenn erforderlich, können Sie die Option -Force über die Befehlszeilenschnittstelle verwenden.
+ a| 
+boolesch
+
+
+
+ a| 
+`_SM_BACKUP_SCOPE_`
+ a| 
+Gibt den Umfang des Backups an (vollständig oder teilweise)
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_FILER_NAME_`
+ a| 
+Gibt den Namen des Ziel-Storage-Systems an
+
+[NOTE]
+====
+Wenn mehrere Speichersysteme verwendet werden, müssen die Namen des Speichersystems durch Kommas getrennt werden.
+
+==== a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_VOLUME_NAME_`
+ a| 
+Gibt den Namen des Zielvolumes an
+
+[NOTE]
+====
+Der Name des Ziel-Volumes muss mit dem Namen des Storage-Geräts vorangestellt sein, beispielsweise SM_TARGET_FILER_NAME/SM_TARGET_VOLUME_NAME.
+
+==== a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_HOST_FILE_SYSTEM_`
+ a| 
+Gibt das Host-Dateisystem an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_SNAPSHOT_NAMES_`
+ a| 
+Gibt die Snapshot-Liste an
+
+[NOTE]
+====
+Der Name der Snapshot Kopien muss mit dem Namen des Storage-Systems und dem Volume-Namen vorangestellt sein. Die Namen der Snapshot Kopien werden durch Kommata getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_ARCHIVE_LOGS_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Archivprotokolle an
+
+[NOTE]
+====
+Wenn die Archivprotokolle in mehr als einem Verzeichnis liegen, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_REDO_LOGS_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Wiederherstellungsprotokolle an
+
+[NOTE]
+====
+Wenn sich die Redo-Logs in mehreren Verzeichnissen befinden, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_CONTROL_FILES_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Kontrolldateien an
+
+[NOTE]
+====
+Wenn die Steuerdateien in mehreren Verzeichnissen liegen, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_DATA_FILES_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Datendateien an
+
+[NOTE]
+====
+Wenn sich die Datendateien in mehreren Verzeichnissen befinden, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_user_defined_`
+ a| 
+Gibt zusätzliche Parameter an, die vom Benutzer definiert werden. Benutzerdefinierte Parameter sind für Plug-ins, die als Richtlinien verwendet werden, nicht verfügbar.
+ a| 
+Benutzerdefiniert
+
+|===

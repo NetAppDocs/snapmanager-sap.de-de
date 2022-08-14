@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/concept-details-of-the-target-database.html 
+sidebar: sidebar 
+keywords: example, integrate, database, protection, payroll, example, detail, target 
+summary: Dieses Beispiel eines integrierten Datenbankschutzes beschreibt den Schutz einer Gehaltsabrechnungsdatenbank. Im Beispiel werden die folgenden Daten verwendet. 
+---
+= Details der Zieldatenbank
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieses Beispiel eines integrierten Datenbankschutzes beschreibt den Schutz einer Gehaltsabrechnungsdatenbank. Im Beispiel werden die folgenden Daten verwendet.
+
+Der Datenbankadministrator (DBA) von TechCo, einem Unternehmen mit 3000 Personen mit Hauptsitz in Atlanta, muss ein konsistentes Backup der Gehaltsabrechnungsdatenbank für die Produktion, PAYDB, erstellen. Zur Sicherungsstrategie für das Backup im primären und sekundären Storage müssen DBA und der Storage-Administrator gemeinsam die Oracle Datenbank sowohl lokal auf dem Primärspeicher als auch Remote auf dem Sekundärspeicher an einem Remote-Standort sichern.
+
+* *Profilinformationen*
++
+Wenn Sie ein Profil in SnapManager erstellen, benötigen Sie die folgenden Daten:
+
++
+** Datenbankname: P01
+** Host-Name: prod01.sample.com
+** Datenbank-ID: P01
+** Profilname: P01_BACKUP
+** Verbindungsmodus: Datenbankauthentifizierung
+** Snapshot-Benennungsschema: `_smsap_hostname_dbsid_smsapprofile_scope_mode_smid_` (Entspricht „smsap_prod01.sample.com_p01_p01_backup_f_h_x"“)
+** Repository-Benutzer: <sid>rep, was in p01rep übersetzt wird.
+
+
+

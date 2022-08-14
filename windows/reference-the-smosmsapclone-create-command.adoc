@@ -1,0 +1,166 @@
+---
+permalink: windows/reference-the-smosmsapclone-create-command.html 
+sidebar: sidebar 
+keywords: run, clone, create, command, backed-up, back, up, database, backup, primary, secondary, storage, smsap 
+summary: Sie können den Befehl Clone create ausführen, um einen Klon einer gesicherten Datenbank zu erstellen. Sie können ein Backup aus primärem oder sekundärem Storage klonen. 
+---
+= Der Befehl smsap Clone create
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `clone create` Befehl zum Erstellen eines Klons einer gesicherten Datenbank. Sie können ein Backup aus primärem oder sekundärem Storage klonen.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap clone create
+-profile profile_name
+[-backup-id backup_guid | -backup-label backup_label_name | -current]
+-newsid new_sid
+[-host target_host]
+[-label clone_label]
+[-comment string]
+-clonespec full_path_to_clonespec_file
+]
+[-syspassword syspassword]
+[-reserve {yes | no | inherit}]
+
+[-no-resetlogs | -recover-from-location path1 [, path2]][-taskspec taskspec]
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _name_`*
++
+Gibt die Datenbank an, die geklont werden soll. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-backup-id _guid_`*
++
+Klont die Sicherung mit der angegebenen GUID. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können das verwenden `smsap backup list-verbose` Befehl zum Anzeigen der GUID für jedes Backup.
+
+* *`-backup-label _backup_label_name_`*
++
+Gibt an, dass das Backup mit dem angegebenen Namen geklont wird.
+
+* *`-current`*
++
+Gibt an, dass Backup und Klon im aktuellen Status der Datenbank erstellt werden.
+
++
+
+NOTE: Wenn sich die Datenbank im befindet `noarchivelog` Im Modus erstellt SnapManager ein Offline-Backup.
+
+* *`-newsid _new_sid_`*
++
+Gibt eine neue, eindeutige Oracle-Systemkennung für die geklonte Datenbank an. Der Wert für die Systemkennung darf maximal acht Zeichen lang sein. Oracle erlaubt nicht, zwei Datenbanken mit derselben Systemkennung auf demselben Host gleichzeitig auszuführen.
+
+* *`-host _target_host_`*
++
+Gibt den Host an, auf dem der Klon erstellt werden soll.
+
+* *`-label _clone_label_`*
++
+Gibt eine Bezeichnung für den Klon an.
+
+* *`-comment _string_`*
++
+Gibt einen optionalen Kommentar an, um diesen Klon zu beschreiben. Sie müssen den String in einzelne Anführungszeichen einschließen.
+
++
+
+NOTE: Einige Shells löschen die Anführungszeichen. Wenn das für Ihre Shell gilt, müssen Sie dem Angebot mit einem umgekehrten Schrägstrich (\) entkommen. Hier können Sie beispielsweise Folgendes eingeben: *\' Dies ist ein Kommentar\'*
+
+* *`-clonespec _full_path_to_clonespec_file_`*
++
+Gibt den Pfad zur XML-Datei für die Klonspezifikation an. Dies kann ein relativer oder ein absoluter Pfadname sein.
+
+* *`-syspassword _syspassword_`*
++
+Gibt das Kennwort für den Benutzer mit Systemprivilegierten an.
+
++
+
+NOTE: Sie müssen das Passwort für den Benutzer mit Systemberechtigungen angeben, wenn die angegebenen Datenbankanmeldeinformationen nicht für den Benutzer mit Systemprivilegierten identisch sind.
+
+* *`-reserve`*
++
+Einstellen des `-reserve` Option, mit der Ja sichergestellt wird, dass die Volume Garantiespeicherreserve für die neuen Klon-Volumes aktiviert ist. Einstellen des `-reserve` Option, die nicht sicherstellt, dass die Volume Garantiespeicherreserve für die neuen Klon-Volumes deaktiviert wird. Einstellen des `-reserve` Option, die sicherstellt, dass der neue Klon die Reservierungsreservierungsmerkmale der übergeordneten Snapshot Kopie übernimmt. Die Standardeinstellung ist Nein
+
++
+In der folgenden Tabelle werden die Klonmethoden und ihre Auswirkung auf den Klonvorgang beschrieben `-reserve` Option. Eine LUN kann mit beiden Methoden geklont werden.
+
++
+|===
+
+
+| Klonmethode | Beschreibung | Ergebnis 
+
+
+ a| 
+Klonen von LUNs
+ a| 
+Es wird eine neue Klon-LUN innerhalb desselben Volumes erstellt.
+ a| 
+Wenn die Option -Reserve für eine LUN auf „yes“ eingestellt ist, ist Speicherplatz für die volle LUN-Größe innerhalb des Volumes reserviert.
+
+
+
+ a| 
+Klonen von Volumes
+ a| 
+Es wird ein neuer FlexClone erstellt und die Klon-LUN innerhalb des neuen Klon-Volume vorhanden ist. Nutzung der FlexClone Technologie
+ a| 
+Wenn die Option -Reserve für ein Volume auf „ja“ eingestellt ist, ist der Speicherplatz für die volle Volume-Größe innerhalb des Aggregats reserviert.
+
+|===
+* *`-no-resetlogs`*
++
+Gibt an, die Wiederherstellung der Datenbank zu überspringen, das DBNEWID Dienstprogramm auszuführen und nicht die Datenbank mit den Resetlogs während der Erstellung des Klons zu öffnen.
+
+* *`-recover-from-location`*
++
+Gibt den externen Speicherort für das Archivprotokoll an, an dem SnapManager die Archivprotokolldateien vom externen Speicherort übernimmt und zum Klonen verwendet.
+
+* *`-taskspec`*
++
+Gibt die XML-Datei für die Aufgabenspezifikation für die Vorverarbeitung oder Nachverarbeitung des Klonvorgangs an. Sie müssen den vollständigen Pfad der XML-Datei für die Aufgabenspezifikation angeben.
+
+* *`-dump`*
++
+Gibt an, die Dump-Dateien nach dem Erstellungsvorgang des Klons zu sammeln.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel wird das Backup mit einer Klonspezifikation geklont, die für diesen Klon erstellt wird:
+
+[listing]
+----
+smsap clone create -profile SALES1 -backup-label full_backup_sales_May -newsid
+CLONE -label sales1_clone -clonespec E:\\spec\\clonespec.xml
+----
+[listing]
+----
+Operation Id [8abc01ec0e794e3f010e794e6e9b0001] succeeded.
+----

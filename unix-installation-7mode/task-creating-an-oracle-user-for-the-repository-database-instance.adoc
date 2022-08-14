@@ -1,0 +1,34 @@
+---
+permalink: unix-installation-7mode/task-create-an-oracle-user-for-the-repository-database-instance.html 
+sidebar: sidebar 
+keywords: oracle, user, require, log, access, repository, database, instance, create, connect, resource, privileges, creating 
+summary: Ein Oracle-Benutzer ist erforderlich, um sich bei der Repository-Datenbankinstanz anzumelden und auf diese zuzugreifen. Sie müssen diesen Benutzer mit Verbindungsberechtigungen und Ressourcenberechtigungen erstellen. 
+---
+= Erstellen Sie einen Oracle-Benutzer für die Repository-Datenbankinstanz
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ein Oracle-Benutzer ist erforderlich, um sich bei der Repository-Datenbankinstanz anzumelden und auf diese zuzugreifen. Sie müssen diesen Benutzer mit den Berechtigungen _connect_ und_Resource_ erstellen.
+
+. Melden Sie sich bei SQL an *Plus:
++
+`*sqlplus '/ as sysdba'*`
+
+. Erstellen Sie einen neuen Benutzer, und weisen Sie diesem Benutzer ein Administratorkennwort zu:
++
+`*create user _user_name_ identified by _admin_password_ default tablespace _tablespace_name_ quota unlimited on _tablespace_name;_*`
+
++
+** `_user_name_` Ist der Name des Benutzers, den Sie für die Repository-Datenbank erstellen.
+** `_admin_password_` Ist das Passwort, das Sie dem Benutzer zuweisen möchten.
+** `_tablespace_name_` Ist der Name des Tablespaces, der für die Repository-Datenbank erstellt wurde.
+
+
+. Dem neuen Oracle-Benutzer _connect_ und_Resource_ Berechtigungen zuweisen:
++
+`*grant connect, resource to _user_name;_*`
+
+

@@ -1,0 +1,133 @@
+---
+permalink: unix-administration/reference-examples-of-backup-restore-and-recover-operations.html 
+sidebar: sidebar 
+keywords: information, backup, restore, recover, scenario, accomplish, data, protection, goal, example, operation 
+summary: Hier finden Sie Informationen zu Backup-, Restore- und Recovery-Szenarien, mit denen Sie Ihre Datensicherungsziele erreichen. 
+---
+= Beispiele für Backup-, Restore- und Recovery-Vorgänge
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Hier finden Sie Informationen zu Backup-, Restore- und Recovery-Szenarien, mit denen Sie Ihre Datensicherungsziele erreichen.
+
+In der folgenden Abbildung wird der Inhalt des Tablespaces angezeigt:
+
+image::../media/prnt_en_drw_smo_smsap_db_tables.gif[prnt en drw smo smsap db Tische]
+
+In der Abbildung hat Tablespace1 eine Tabelle und zwei Datenbankdateien mit ihr verknüpft. Tablespace2 hat zwei Tabellen und eine Datenbankdatei zugeordnet.
+
+In der folgenden Tabelle werden einige vollständige und teilweise Backup-, Restore- und Recovery-Szenarien beschrieben:
+
+
+
+== Beispiele für vollständige Backup-, Restore- und Recovery-Vorgänge
+
+[cols="1a,1a,1a"]
+|===
+| Vollständiges Backup | Wiederherstellen | Recovery 
+
+
+ a| 
+SnapManager erstellt eine Datensicherung aller Komponenten in Datenbank DB1, einschließlich der Datendateien, Archivprotokolle und Kontrolldateien.
+ a| 
+Vollständiges Restore mit Kontrolldateien SnapManager stellt alle Datendateien, Tablespaces und Kontrolldateien im Backup wieder her.
+ a| 
+Sie können eine der folgenden Optionen angeben:
+
+* SCN - Geben Sie ein SCN ein, z. B. 384641.
+* Datum/Uhrzeit – Geben Sie ein Datum und eine Uhrzeit des Backups ein, z. B. 2005-11-25:19:06:22.
+* Der letzten Transaktion, die zur Datenbank durchgeführt wurde.
+
+
+
+
+ a| 
+Vollständiges Restore ohne Kontrolldateien SnapManager stellt alle Tabellen und Datendateien ohne die Kontrolldateien wieder her.
+
+
+
+ a| 
+Bei der Wiederherstellung von Datendateien oder Tablespaces mit Kontrolldateien geben Sie eine der folgenden Optionen an:
+
+* Tablespaces
+* Datendateien
+
+ a| 
+SnapManager stellt die Daten zur letzten Transaktion wieder her, die zur Datenbank durchgeführt wurde.
+
+
+
+ a| 
+Wiederherstellung von Datendateien oder Tabellen ohne KontrolldateienSnapManager stellt eine der folgenden wiederhergestellt werden:
+
+* Tablespaces
+* Datendateien
+
+
+
+
+ a| 
+Stellen Sie nur Kontrolldateien wieder her
+
+|===
+
+
+== Beispiele für partielle Backup-, Restore- und Recovery-Vorgänge
+
+[cols="1a,1a,1a"]
+|===
+| Teilweise Sicherung | Wiederherstellen | Recovery 
+
+
+ a| 
+Sie können eine der folgenden Optionen auswählen:
+
+* Tablespaces
++
+Sie können Tablespace1 und Tablespace2 oder nur einen von ihnen festlegen.
+
+* Datendateien
++
+Sie können alle drei Datenbankdateien (TS1_1.dbf, TS1_2.dbf und TS2_1.dbf), zwei Dateien oder eine Datei angeben.
+
+
+
+Unabhängig von der gewählten Option umfasst das Backup alle Kontrolldateien. Archivprotokolldateien sind in der Teilsicherung enthalten, wenn das Profil nicht aktiviert ist, um die Archiv-Log-Backups separat zu erstellen.
+ a| 
+Beim Complete Restore SnapManager werden alle Datendateien, Tablespaces und Kontrolldateien, die im partiellen Backup angegeben sind, wiederhergestellt.
+ a| 
+SnapManager stellt die Daten für die letzte Transaktion wieder her, die zur Datenbankinstanz durchgeführt wurde.
+
+
+
+ a| 
+Stellen Sie entweder Datendateien oder Tablespaces mit Kontrolldateien wieder her SnapManager führt eine der folgenden Restores durch:
+
+* Alle angegebenen Datendateien
+* Alle angegebenen Tablespaces
+
+
+
+
+ a| 
+Stellen Sie entweder Datendateien oder Tablespaces ohne Kontrolldateien wieder her SnapManager führt eine der folgenden Restores durch:
+
+* Tablespaces
++
+Geben Sie einen beliebigen Tablespaces an. SnapManager stellt nur die angegebenen Tablespaces wieder her. Wenn das Backup Tablespace1 enthält, stellt SnapManager nur diese Tablespaces wieder her.
+
+* Datendateien
++
+Geben Sie eine der Datenbankdateien an. SnapManager stellt nur die angegebenen Datendateien wieder her. Wenn das Backup Datenbankdateien enthält (TS1_1.dbf und TS1_2.dbf), stellt SnapManager nur diese Dateien wieder her.
+
+
+
+
+
+ a| 
+Stellen Sie nur Kontrolldateien wieder her
+
+|===

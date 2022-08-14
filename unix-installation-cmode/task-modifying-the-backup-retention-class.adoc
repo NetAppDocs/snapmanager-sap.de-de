@@ -1,0 +1,66 @@
+---
+permalink: unix-installation-cmode/task-modify-the-backup-retention-class.html 
+sidebar: sidebar 
+keywords: upgrade, snapmanager, assign, default, backup, retention, exist, default, class, value, requirement, modify, class 
+summary: Nach dem Upgrade weist SnapManager den vorhandenen Backups die standardmäßige Backup-Aufbewahrungsklasse zu. Sie können die Standardwerte für die Aufbewahrungsklassen entsprechend Ihren Backup-Anforderungen ändern. 
+---
+= Ändern Sie die Backup-Aufbewahrungsklasse
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Upgrade weist SnapManager den vorhandenen Backups die standardmäßige Backup-Aufbewahrungsklasse zu. Sie können die Standardwerte für die Aufbewahrungsklassen entsprechend Ihren Backup-Anforderungen ändern.
+
+
+
+== Über diese Aufgabe
+
+Die standardmäßige Backup-Aufbewahrungsklasse, die den vorhandenen Backups zugewiesen ist, lautet wie folgt:
+
+|===
+| Backup-Typ | Zuweisung von Aufbewahrungsklassen nach Upgrade 
+
+
+ a| 
+Backups werden für immer aufbewahrt
+ a| 
+Unbegrenzt
+
+
+
+ a| 
+Andere Backups
+ a| 
+Täglich
+
+|===
+[NOTE]
+====
+Sie können die Backups löschen, die für immer aufbewahrt werden, ohne die Aufbewahrungsklasse zu ändern.
+
+====
+Wenn Sie ein Upgrade auf SnapManager 3.0 oder höher durchführen, werden den vorhandenen Profilen der größere der folgenden beiden Werte zugewiesen:
+
+* Vorherige Aufbewahrungsanzahl für das Profil
+* Standardwerte für die Aufbewahrungsanzahl und die Dauer der täglichen Backups, wie im festgelegt `smsap.config` Datei
+
+
+.Schritt
+. Ändern Sie die zugewiesenen Werte `retain.hourly.count` Und `retain.hourly.duration` Im `smsap.config` Datei:
++
+Der `smsap.config` Datei befindet sich unter `default installation location/properties/smsap.config`.
+
++
+*Beispiel*
+
++
+Sie können die folgenden Werte eingeben:
+
++
+** `retain.hourly.count` = *12*
+** `retain.hourly.duration` = *2*
+
+
+

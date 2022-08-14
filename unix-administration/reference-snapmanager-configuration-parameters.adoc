@@ -1,0 +1,322 @@
+---
+permalink: unix-administration/reference-snapmanager-configuration-parameters.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, list, configuration, parameter, edit, depend, requirement, smsap, config, file, requirement 
+summary: SnapManager bietet eine Liste der Konfigurationsparameter, die Sie je nach Anforderung bearbeiten können. Die Konfigurationsparameter werden in der Datei smsap.config gespeichert. Die Datei smsap.config enthält jedoch möglicherweise nicht alle unterstützten Konfigurationsparameter. Je nach Anforderung können Sie die Konfigurationsparameter hinzufügen. 
+---
+= SnapManager-Konfigurationsparameter
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager bietet eine Liste der Konfigurationsparameter, die Sie je nach Anforderung bearbeiten können. Die Konfigurationsparameter werden in der Datei smsap.config gespeichert. Die Datei smsap.config enthält jedoch möglicherweise nicht alle unterstützten Konfigurationsparameter. Je nach Anforderung können Sie die Konfigurationsparameter hinzufügen.
+
+In der folgenden Tabelle sind alle unterstützten SnapManager-Konfigurationsparameter aufgeführt und wird erläutert, wann diese Parameter verwendet werden können:
+
+[cols="1a,3a"]
+|===
+| Parameter | Beschreibung 
+
+
+ a| 
+* `retain.hourly.count`
+* `retain.hourly.duration`
+* `retain.monthly.count`
+* `retain.monthly.duration`
+
+ a| 
+Diese Parameter legen die Aufbewahrungsrichtlinie fest, wenn Sie ein Profil erstellen. Beispielsweise können Sie folgende Werte zuweisen:
+
+`retain.hourly.count = *12*`
+
+`retain.hourly.duration = *2*`
+
+`retain.monthly.count = *2*`
+
+`retain.monthly.duration = *6*`
+
+
+
+ a| 
+`restore.secondaryAccessPolicy`
+ a| 
+Dieser Parameter definiert, wie SnapManager auf Daten im sekundären Storage zugreifen kann, wenn sie nicht direkt mithilfe von Protection Manager wiederhergestellt werden können. Folgende Möglichkeiten für den Zugriff auf Daten im sekundären Storage:
+
+* Direkt (Standard)
++
+Wenn `restore.secondaryAccessPolicy` Ist auf festgelegt `*direct*`, SnapManager klont die Daten auf sekundärem Storage, mountet die geklonten Daten vom sekundären Storage auf den Host und kopiert anschließend Daten aus dem Klon in die aktive Umgebung.
+
+* Indirekt
++
+Wenn Sie zuweisen `*indirect*` Bis `restore.secondaryAccessPolicy`, SnapManager kopiert Daten auf ein temporäres Volume auf dem Primär-Storage, bindet Daten vom temporären Volume an den Host ein und kopiert dann Daten aus dem temporären Volume in die aktive Umgebung.
+
++
+Die indirekte Methode muss nur verwendet werden, wenn der Host keinen direkten Zugriff auf das sekundäre Speichersystem hat. Diese Methode dauert doppelt so lange wie die direkte Methode, da zwei Kopien der Daten erstellt werden.
+
+
+
+
+NOTE: In einem Storage Area Network (SAN) mit Network File System (NFS) als Protokoll muss SnapManager keine direkte Verbindung zum sekundären Storage herstellen, um eine Wiederherstellung durchzuführen.
+
+
+
+ a| 
+`restore.temporaryVolumeName`
+ a| 
+Dieser Parameter weist dem temporären Volume einen Namen zu. Wenn SnapManager die indirekte Methode zur Wiederherstellung von Daten aus dem sekundären Storage verwendet, wird ein Scratch Volume auf dem primären Storage benötigt, um eine temporäre Kopie von Daten zu speichern, bis sie in die Datenbankdateien kopiert und die Datenbank wiederhergestellt wird. Es gibt keinen Standardwert. Wenn Sie keinen Wert angeben, müssen Sie einen Namen in den Wiederherstellungsbefehl eingeben, der die indirekte Methode verwendet. Beispielsweise können Sie folgende Werte zuweisen:
+
+`restore.temporaryVolumeName = *smsap_temp_volume*`
+
+
+
+ a| 
+`retain.alwaysFreeExpiredBackups`
+ a| 
+Mit diesem Parameter kann SnapManager Backups zum Zeitpunkt des Ablaufs und zum Zeitpunkt einer schnellen Wiederherstellung freigeben, selbst wenn die Datensicherung nicht konfiguriert ist. Dieser Parameter gibt die geschützten Backups frei, die ablaufen, und löscht die ungeschützten Backups, die ablaufen. Sie können folgende Werte zuweisen:
+
+* Richtig
++
+Wenn Sie zuweisen `*true*` Bis `retain.alwaysFreeExpiredBackups`, SnapManager befreit die abgelaufenen Backups, unabhängig davon, ob die Backups geschützt sind.
+
++
+Die Backups werden entweder gelöscht, wenn sie nicht geschützt sind oder wenn die geschützten Kopien auf dem sekundären Speicher ebenfalls abgelaufen sind.
+
+* Falsch
++
+Wenn Sie zuweisen `*false*` Bis `retain.alwaysFreeExpiredBackups`, SnapManager befreit die abgelaufenen Backups, die geschützt sind.
+
+
+
+
+
+ a| 
+`host.credentials.persist`
+ a| 
+Mit diesem Parameter kann SnapManager die Hostanmeldeinformationen speichern. Standardmäßig werden die Hostanmeldeinformationen nicht gespeichert. Die Hostanmeldeinformationen müssen jedoch gespeichert werden, wenn Sie über ein benutzerdefiniertes Skript verfügen, das auf einem Remote-Klon ausgeführt wird und Zugriff auf einen Remote-Server erfordert.Sie können das Speichern von Hostanmeldeinformationen aktivieren, indem Sie True zuweisen `host.credentials.persist.` SnapManager verschlüsselt und speichert die Host-Anmeldedaten.
+
+
+
+ a| 
+`restorePlanMaxFilesDisplayed`
+ a| 
+Mit diesem Parameter können Sie die maximale Anzahl von Dateien festlegen, die in der Vorschau der Wiederherstellung angezeigt werden sollen.standardmäßig zeigt SnapManager maximal 20 Dateien in der Vorschau der Wiederherstellung an. Sie können jedoch in einen Wert größer 0 ändern. Sie können beispielsweise den folgenden Wert zuweisen:
+
+* `restorePlanMaxFilesDisplayed = *30*`
+
+
+
+NOTE: Wenn Sie einen ungültigen Wert angeben, wird die Standardanzahl der Dateien angezeigt.
+
+
+
+ a| 
+`snapshot.list.timeout.min`
+ a| 
+Mit diesem Parameter können Sie die Zeit in Minuten festlegen, für die SnapManager auf die warten muss `snap list` Befehl zur Ausführung bei SnapManager-Vorgängen. SnapManager wartet standardmäßig auf 30 Minuten. Sie können jedoch in einen Wert größer 0 ändern. Sie können beispielsweise den folgenden Wert zuweisen:
+
+* `snapshot.list.timeout.min = *40*`
+
+
+
+NOTE: Wenn Sie einen ungültigen Wert angeben, wird der Standardwert verwendet.
+
+Wenn die Ausführungszeit des Snap list-Befehls bei jedem SnapManager-Vorgang den zugewiesenen Wert überschreitet `snapshot.list.timeout.min`, Der Vorgang schlägt mit einer Timeout-Fehlermeldung fehl.
+
+
+
+ a| 
+`pruneIfFileExistsInOtherDestination`
+ a| 
+Mit diesem Beschneidungsparameter können Sie das Ziel der Archiv-Log-Dateien definieren. Die Archivprotokolldateien werden in mehreren Zielorten gespeichert. Beim Beschneiden von Archiv-Log-Dateien muss SnapManager das Ziel der Archiv-Log-Dateien kennen. Sie können folgende Werte zuweisen:
+
+* Wenn Sie die Archivprotokolldateien von einem bestimmten Ziel aus beschneiden möchten, müssen Sie zuweisen `*false*` Bis `pruneIfFileExistsInOtherDestination`.
+* Wenn Sie die Archivprotokolldateien von einem externen Ziel aus beschneiden möchten, müssen Sie diese zuweisen `*true*` Bis `pruneIfFileExistsInOtherDestination`.
+
+
+
+
+ a| 
+`prune.archivelogs.backedup.from.otherdestination`
+ a| 
+Mit diesem Beschneider-Parameter können Sie die Archivprotokolldateien, die von den angegebenen Archivprotokollzielen gesichert oder von externen Archivprotokollzielen gesichert wurden, beschneiden. Sie können folgende Werte zuweisen:
+
+* Wenn Sie die Archivprotokolldateien von den angegebenen Zielen beschneiden und die Archivprotokolldateien von den angegebenen Zielen mithilfe von sichern möchten `-prune-dest`, Sie müssen zuweisen `*false*` Bis
++
+`prune.archivelogs.backedup.from.otherdestination`.
+
+* Wenn Sie die Archivprotokolldateien von angegebenen Zielen beschneiden und die Archivprotokolldateien mindestens einmal von einem der anderen Ziele gesichert werden sollen, müssen Sie diese zuweisen `*true*` Bis
++
+`prune.archivelogs.backedup.from.otherdestination`.
+
+
+
+
+
+ a| 
+`maximum.archivelog.files.toprune.atATime`
+ a| 
+Mit diesem Beschneider-Parameter können Sie die maximale Anzahl von Archivprotokolldateien definieren, die Sie zu einem bestimmten Zeitpunkt beschneiden können. Sie können beispielsweise den folgenden Wert zuweisen:
+
+`maximum.archivelog.files.toprune.atATime = *998*`
+
+
+NOTE: Der Wert, der zugewiesen werden kann `maximum.archivelog.files.toprune.atATime` Muss weniger als 1000 sein.
+
+
+
+ a| 
+`archivelogs.consolidate`
+ a| 
+Mit diesem Parameter kann SnapManager die doppelten Archiv-Log-Backups freigeben, wenn Sie sie zuweisen `*true*` Bis `archivelogs.consolidate`.
+
+
+
+ a| 
+`suffix.backup.label.with.logs`
+ a| 
+Mit diesem Parameter können Sie das Suffix angeben, das Sie hinzufügen möchten, um die Label-Namen der Datensicherung und des Archiv-Log-Backups zu unterscheiden.
+
+Beispiel: Wenn Sie zuweisen `*logs*` Bis `suffix.backup.label.with.logs`, _Logs wird als Suffix zum Archiv-Log-Backup-Label hinzugefügt. Dann wäre das Backup-Label für das Archivprotokoll `arch_logs`.
+
+
+
+ a| 
+`backup.archivelogs.beyond.missingfiles`
+ a| 
+Mit diesem Parameter kann SnapManager die fehlenden Archivprotokolldateien in die Sicherung aufnehmen.
+
+Die Archivprotokolldateien, die nicht im aktiven Dateisystem vorhanden sind, sind nicht im Backup enthalten. Wenn Sie alle Archivprotokolldateien einschließen möchten, auch jene, die nicht im aktiven Dateisystem vorhanden sind, müssen Sie zuweisen `*true*` Bis `backup.archivelogs.beyond.missingfiles`.
+
+Sie können zuweisen `*false*` So ignorieren Sie die fehlenden Archivprotokolldateien.
+
+
+
+ a| 
+`srvctl.timeout`
+ a| 
+Mit diesem Parameter können Sie den Timeout-Wert für das definieren `srvctl` Befehl.
+
+
+NOTE: Die Serversteuerung (SRVCTL) ist ein Dienstprogramm zur Verwaltung von RAC-Instanzen.
+
+Wenn SnapManager mehr Zeit in Anspruch nimmt, um das auszuführen `srvctl` Befehl als der Wert für die Zeitüberschreitung, der SnapManager-Vorgang schlägt mit dieser Fehlermeldung fehl: `Error: Timeout occurred while executing command: srvctl status`.
+
+
+
+ a| 
+`snapshot.restore.storageNameCheck`
+ a| 
+Mit diesem Parameter kann SnapManager den Wiederherstellungsvorgang mit Snapshot Kopien durchführen, die vor der Migration von Data ONTAP im 7-Mode zu Clustered Data ONTAP erstellt wurden. Der dem Parameter standardmäßig zugewiesene Standardwert ist `*false*`. Wenn Sie von Data ONTAP 7-Mode zu Clustered Data ONTAP migriert haben, die vor der Migration erstellten Snapshot Kopien jedoch verwenden möchten, legen Sie fest `snapshot.restore.storageNameCheck=*true*`.
+
+
+
+ a| 
+`services.common.disableAbort`
+ a| 
+Dieser Parameter deaktiviert die Bereinigung bei einem Ausfall lang laufender Vorgänge. Sie können festlegen `services.common.disableAbort=*true*`Wenn Sie beispielsweise einen Klonvorgang ausführen, der lange ausgeführt wird und dann aufgrund eines Oracle-Fehlers fehlschlägt, möchten Sie den Klon möglicherweise nicht bereinigen. Wenn Sie die Einstellung festgelegt haben `services.common.disableAbort=*true*`, Der Klon wird nicht gelöscht. Sie können das Oracle Problem beheben und den Klonvorgang ab dem Fehlerpunkt neu starten.
+
+
+
+ a| 
+* `backup.sleep.dnfs.layout`
+* `backup.sleep.dnfs.secs`
+
+ a| 
+Diese Parameter aktivieren den Schlafmechanismus im Direct NFS Layout (dNFS). Nachdem Sie die Sicherung von Steuerdateien mit dNFS oder einem Netzwerkdateisystem (NFS) erstellt haben, versucht SnapManager, die Steuerdateien zu lesen, die Dateien wurden jedoch möglicherweise nicht gefunden.
+
+Um den Schlafmechanismus zu aktivieren, stellen Sie sicher, dass `backup.sleep.dnfs.layout=*true*`. Der Standardwert ist `*true*`.
+
+Wenn Sie den Schlafmechanismus aktivieren, müssen Sie die Schlafdauer zuweisen `backup.sleep.dnfs.secs`. Die zugewiesene Schlafzeit ist in Sekunden und der Wert hängt von Ihrer Umgebung ab. Der Standardwert ist 5 Sekunden.
+
+Beispiel:
+
+* `backup.sleep.dnfs.layout=*true*`
+* `backup.sleep.dnfs.secs=2`
+
+
+
+
+ a| 
+* `override.default.backup.pattern`
+* `new.default.backup.pattern`
+
+ a| 
+Wenn Sie das Backup-Label nicht angeben, erstellt SnapManager ein Standard-Backup-Label. Mit diesen SnapManager-Parametern können Sie die Standard-Backup-Bezeichnung anpassen.
+
+Um die Anpassung des Backup-Labels zu ermöglichen, stellen Sie sicher, dass der Wert von `override.default.backup.pattern` Ist auf festgelegt `*true*`. Der Standardwert ist `*false*`.
+
+Um das neue Muster des Backup-Labels zuzuweisen, können Sie Schlüsselwörter wie Datenbankname, Profilname, Umfang, Modus und Hostname zuweisen `new.default.backup.pattern`. Die Stichwörter sollten mit einem Unterstrich getrennt werden. Beispiel: `new.default.backup.pattern=*dbname_profile_hostname_scope_mode*`.
+
+
+NOTE: Der Zeitstempel wird automatisch am Ende des generierten Etiketts eingefügt.
+
+
+
+ a| 
+`allow.underscore.in.clone.sid`
+ a| 
+Oracle unterstützt die Verwendung des Unterstreichung in Clone SID von Oracle 11gR2. Mit diesem SnapManager-Parameter können Sie einen Unterstrich in den Namen der Klon-SID einfügen.
+
+Um einen Unterstrich in den Namen des Klon-SID einzuschließen, stellen Sie sicher, dass der Wert von lautet `allow.underscore.in.clone.sid` Ist auf festgelegt `*true*`. Der Standardwert ist true.
+
+Wenn Sie eine Oracle-Version vor Oracle 11gR2 verwenden oder keinen Unterstrich in den Namen Clone SID aufnehmen möchten, setzen Sie den Wert auf `*false*`.
+
+
+
+ a| 
+`oracle.parameters.with.comma`
+ a| 
+Mit diesem Parameter können Sie alle Oracle-Parameter angeben, die durch Komma (,) als Wert verfügen.während der SnapManager-Operation wird ein Komma (,) verwendet `oracle.parameters.with.comma` Um alle Oracle-Parameter zu überprüfen und die Aufteilung der Werte zu überspringen.
+
+Beispiel, wenn der Wert von `_nls_numeric_characters=,_`, Und geben Sie dann an `oracle.parameters.with.comma=_nls_numeric_characters_`. Wenn mehrere Oracle-Parameter mit Komma als Wert vorhanden sind, müssen Sie alle Parameter in angeben `oracle.parameters.with.comma`.
+
+
+
+ a| 
+* `archivedLogs.exclude`
+* `archivedLogs.exclude.fileslike`
+* `<db-unique-name>.archivedLogs.exclude.fileslike`
+
+ a| 
+Diese Parameter erlauben es SnapManager, die Archivprotokolldateien von den Profilen und Backups auszuschließen, wenn sich die Datenbank nicht auf einem Storage-System mit Snapshot Kopien befindet und Sie SnapManager-Vorgänge auf diesem Speichersystem durchführen möchten.
+
+
+NOTE: Vor der Erstellung eines Profils müssen Sie die Ausschlussparameter in die Konfigurationsdatei einfügen.
+
+Die diesen Parametern zugewiesenen Werte können entweder ein Verzeichnis der obersten Ebene oder ein Mount-Punkt sein, an dem die Archivprotokolldateien vorhanden sind, oder ein Unterverzeichnis. Wenn ein Verzeichnis auf der obersten Ebene oder ein Bereitstellungspunkt angegeben wird und wenn der Datenschutz für ein Profil auf dem Host aktiviert ist, ist dieser Bereitstellungspunkt oder Verzeichnis nicht in dem Datensatz enthalten, der in Protection Manager erstellt wird. Wenn mehrere Archivprotokolldateien vom Host ausgeschlossen werden sollen, müssen Sie die Pfade der Archivprotokolldatei durch Kommas trennen.
+
+Um die Archivprotokolldateien von der Integration im Profil und der Sicherung auszuschließen, müssen Sie einen der folgenden Parameter angeben:
+
+* `archivedLogs.exclude` So geben Sie einen regulären Ausdruck für das Ausschließen von Archivprotokolldateien aus allen Profilen oder Backups an.
++
+Die Archivprotokolldateien, die dem regulären Ausdruck entsprechen, werden von allen Profilen und Backups ausgeschlossen.
+
++
+Sie können zum Beispiel archivedLogs.exclude = festlegen `/arch/logs/on/local/disk1/.****,/arch/logs/on/local/disk2/.****`. Für ASM-Datenbanken können Sie festlegen `archivedLogs.exclude = \\+KHDB_ARCH_DEST/khdb/archivelog/.******,\\+KHDB_NONNAARCHTWO/khdb/archivelog/.*****`.
+
+* `archivedLogs.exclude.fileslike` So geben Sie einen SQL-Ausdruck für das Ausschließen von Archivprotokolldateien aus allen Profilen oder Backups an.
++
+Die Archivprotokolldateien, die dem SQL-Ausdruck entsprechen, werden von allen Profilen und Backups ausgeschlossen.
+
++
+Beispielsweise können Sie festlegen `archivedLogs.exclude.fileslike = /arch/logs/on/local/disk1/%,/arch/logs/on/local/disk2/%`.
+
+* `<db-unique-name>.archivedLogs.exclude.fileslike` So legen Sie einen SQL-Ausdruck für das Ausschließen von Archivprotokolldateien nur aus dem Profil oder dem Backup fest, das für die Datenbank mit dem angegebenen erstellt wurde `_db-unique-name_`.
++
+Die Archivprotokolldateien, die dem SQL-Ausdruck entsprechen, werden vom Profil und den Backups ausgeschlossen.
+
++
+Beispielsweise können Sie festlegen `mydb.archivedLogs.exclude.fileslike = /arch/logs/on/local/disk1/%,/arch/logs/on/local/disk2/%`.
+
+
+
+
+NOTE: Die BR*Tools unterstützen die folgenden Parameter auch dann nicht, wenn diese Parameter so konfiguriert sind, dass Archivprotokolldateien ausgeschlossen werden:
+
+* `archivedLogs.exclude.fileslike`
+* `<db-unique-name>.archivedLogs.exclude.fileslike`
+
+
+|===

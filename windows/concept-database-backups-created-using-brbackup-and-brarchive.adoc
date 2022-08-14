@@ -1,0 +1,49 @@
+---
+permalink: windows/concept-database-backups-created-using-brbackup-and-brarchive.html 
+sidebar: sidebar 
+keywords: brbackup, command, create, backup, database, snapshot, copy, storage, system, host, command-line, interface, cli, graphical, user, interface, gui, offline, redo, log, file, brarchive 
+summary: 'Der Befehl BRBACKUP erstellt mithilfe der Snapshot Kopie im Storage-System eine Sicherung der SAP-Datenbank. Sie können den BRBACKUP-Befehl über die Befehlszeilenschnittstelle (CLI) des SAP-Hosts oder über die BR*Tools-CLI oder die grafische Benutzeroberfläche (GUI) ausführen. Um die Offline-Redo-Protokolldateien zu sichern, können Sie den BRARCHIVE-Befehl verwenden.' 
+---
+= Datenbank-Backups mit BRBACKUP und BRARCHIVE erstellt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der `BRBACKUP` Befehl erstellt mithilfe von Snapshot Kopien auf dem Storage-System eine Sicherung der SAP Datenbank. Sie können die ausführen `BRBACKUP` Befehl über die Befehlszeilenschnittstelle (CLI) des SAP-Hosts, über die BR*Tools-CLI oder über die grafische Benutzeroberfläche (GUI). Um ein Backup der Offline-Redo-Protokolldateien zu erstellen, können Sie den verwenden `BRARCHIVE` Befehl.
+
+ `BRBACKUP` Sichert die Datendateien, Kontrolldateien und Online-Wiederherstellungsprotokolle der SAP-Datenbank. Sie sollten die anderen SAP-Konfigurationsdateien sichern, z. B. SAP-Protokolldateien, Kerneldateien und Transportanforderungen mit `BRBACKUP` Mit dem `SAP_DIR` Option und Wiederherstellung mit `BRRESTORE`.
+
+Wenn der Wert des `_SQLNET.AUTHENTICATION_SERVICES_` Parameter in `sqlnet.ora` Ist auf *NONE* gesetzt, stellen Sie sicher, dass der Oracle-Datenbankbenutzer (System) über sysoper-Berechtigungen verfügt. Das System ist der Standardbenutzer, der bei der Erstellung der Oracle-Datenbank erstellt wurde. Um SYSOPER-Berechtigungen zu aktivieren, führen Sie den folgenden Befehl aus: `grant sysoper to system;`
+
+Zur Verwaltung der Archivprotokolldateien sollten Sie entweder die Befehle BR*Tools oder SnapManager verwenden.
+
+Sie sollten die Kombination von SnapManager-Profilen und den BR*Tools-Befehlen zur Verwaltung der Archiv-Log-Backups nicht in folgenden Vorgängen verwenden:
+
+* Erstellen separater Backups von Datendateien und Archiv-Log-Dateien mit `BRBACKUP` Und `BRARCHIVE` Befehle mit dem SnapManager-Profil (erstellt mit der Option zum Trennen von Archiv-Log-Backups)
+* Beschneiden Sie die Archivprotokolldateien, während Sie die Sicherung mit dem SnapManager-Profil erstellen
+
+
+
+NOTE: SnapManager zeigt keine Warn- oder Fehlermeldungen an, wenn Sie eine Kombination von SnapManager für SAP-Profile und den BR*Tools-Befehlen zur Verwaltung der Archivprotokolldateien verwenden.
+
+Sie sollten ein Profil erstellen, ohne die Möglichkeit zu nutzen, Archiv-Log-Backups zu trennen und dieses Profil für regelmäßige BR*Tools-Operationen zu verwenden.
+
+Sie können das Backup mit wiederherstellen `BRRESTORE`. Für Datenbank-Backups (die Backups umfassen Datendateien, Steuerdateien oder Online-Redo-Log-Dateien), die mithilfe von BRBACKUP mit dem erstellt wurden `-m all` Oder `-m full` Sie können das Backup auch über die Befehlszeilenschnittstelle oder GUI von SnapManager wiederherstellen.
+
+Weitere Informationen dazu, wie SnapManager das Sichern von Datenbanken verarbeitet, finden Sie unter _Sichern von Datenbanken_.
+
+In der SAP-Dokumentation finden Sie die spezifischen Anweisungen und Syntax für das `BRBACKUP` Und `BRARCHIVE` Befehle. Stellen Sie vor der Verwendung des Befehls BRBACKUP und BRARCHIVE mit einem Speichersystem sicher, dass die folgenden Bedingungen erfüllt sind:
+
+* Wenn sich der Name des SnapManager-Profils von der Systemkennung der SAP-Datenbank unterscheidet, geben Sie den Namen der Parameterdatei an, die den SnapManager-Profilnamen enthält.
++
+Dies können Sie auf eine der folgenden Arten tun:
+
++
+** Geben Sie die Parameterdatei für das Backup-Dienstprogramm an (`initSID.utl`) Mit dem `-r` Option mit dem `BRBACKUP` Befehl.
+** Geben Sie die Parameterdatei in der Initialisierungsdatei an (`initSID.sap`). Weitere Informationen finden Sie unter _Festlegen des Profils für BR*Tools-Backups_.
+
+
+* Wenn es sich für Ihre Umgebung eignet, erstellen Sie zusätzliche Backups Ihrer SAP-Daten unter Verwendung eines anderen Mediums, wie z. B. Tape. Snapshot Kopien sind für schnelles Backup und Restore vorgesehen. Sie werden auf demselben physischen Medium wie die zu sichernden Daten gespeichert. Sie dienen nicht zur Disaster Recovery, wenn sie auf andere Storage-Geräte kopiert werden.
+

@@ -1,0 +1,23 @@
+---
+permalink: windows/concept-backup-recovery.html 
+sidebar: sidebar 
+keywords: snapmanager, perform, restore, recover, operation, backup 
+summary: In SnapManager müssen gleichzeitig die Wiederherstellungs- und Recovery-Vorgänge ausgeführt werden. Sie können keinen Wiederherstellungsvorgang ausführen und anschließend einen SnapManager-Wiederherstellungsvorgang später durchführen. 
+---
+= Backup Recovery
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In SnapManager müssen gleichzeitig die Wiederherstellungs- und Recovery-Vorgänge ausgeführt werden. Sie können keinen Wiederherstellungsvorgang ausführen und anschließend einen SnapManager-Wiederherstellungsvorgang später durchführen.
+
+In SnapManager 3.2 oder einer älteren Version können Sie entweder mit SnapManager das Backup wiederherstellen und wiederherstellen, oder mit SnapManager das Backup wiederherstellen und ein anderes Tool wie Oracle Recovery Manager (RMAN) zur Wiederherstellung der Daten verwenden. Da SnapManager die Backups mit RMAN registrieren kann, können Sie die Datenbank mit feineren Besonderheiten wie Blöcken wiederherstellen. Diese Integration vereint die Geschwindigkeit und die Speichereffizienz von Snapshot-Kopien mit der feinen Steuerung für die Wiederherstellung mit RMAN.
+
+
+NOTE: Sie müssen eine Datenbank wiederherstellen, bevor Sie sie verwenden können. Sie können jedes beliebige Werkzeug oder Skript verwenden, um eine Datenbank wiederherzustellen.
+
+Ab SnapManager 3.2 für SAP ermöglicht SnapManager die automatische Wiederherstellung von Datenbank-Backups mithilfe der Archiv-Log-Backups. Selbst wenn die Archiv-Log-Backups am externen Standort zur Verfügung stehen, verwendet SnapManager die Archiv-Log-Backups vom externen Standort zum Wiederherstellen der Datenbank-Backups.
+
+Wenn der Datenbank neue Datendateien hinzugefügt werden, empfiehlt Oracle, sofort ein neues Backup zu erstellen. Wenn Sie außerdem ein Backup wiederherstellen, das vor dem Hinzufügen der neuen Datendateien erstellt wurde, und versuchen Sie, es nach dem Hinzufügen der neuen Datendateien zu einem Punkt wiederherzustellen, kann der automatische Oracle-Wiederherstellungsprozess fehlschlagen, da es keine Datendateien erstellen kann. In der Oracle-Dokumentation finden Sie Informationen zum Prozess zur Wiederherstellung von Datendateien, die nach einem Backup hinzugefügt wurden.

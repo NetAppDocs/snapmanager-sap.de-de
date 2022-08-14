@@ -1,0 +1,67 @@
+---
+permalink: windows/task-create-task-scripts.html 
+sidebar: sidebar 
+keywords: pretask, post-task, policy, task, script, backup, restore, clone, operation, environment, variable, parameter, snapmanager, sample, create 
+summary: Sie können die Task-Skripte für vor- und Nachaufgaben sowie Richtlinien für Backup-, Restore- und Klonvorgänge erstellen, das Skript schreiben und die vordefinierten Umgebungsvariablen in Ihren Parametern einbeziehen. Sie können entweder ein neues Skript erstellen oder eines der SnapManager Beispielskripte ändern. 
+---
+= Aufgabenskripte erstellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Task-Skripte für vor- und Nachaufgaben sowie Richtlinien für Backup-, Restore- und Klonvorgänge erstellen, das Skript schreiben und die vordefinierten Umgebungsvariablen in Ihren Parametern einbeziehen. Sie können entweder ein neues Skript erstellen oder eines der SnapManager Beispielskripte ändern.
+
+
+
+== Was Sie benötigen
+
+Bevor Sie mit dem Erstellen des Skripts beginnen, stellen Sie sicher, dass:
+
+* Sie müssen das Skript auf eine bestimmte Weise strukturieren, damit es im Kontext einer SnapManager-Operation ausgeführt werden kann.
+* Sie müssen das Skript auf der Grundlage der erwarteten Vorgänge, der verfügbaren Eingabeparameter und der Rückgabekonventionen erstellen.
+* Sie müssen Protokollmeldungen einschließen und die Meldungen zu benutzerdefinierten Protokolldateien umleiten.
+
+
+.Schritte
+. Erstellen Sie das Aufgabenskript, indem Sie das Beispielskript anpassen.
++
+Führen Sie Folgendes aus:
+
++
+.. Suchen Sie ein Beispielskript im folgenden Installationsverzeichnis:
++
+`<default_install_directory>\plugins\examples\backup\create`
+
++
+`<default_install_directory>\plugins\examples\clone\create`
+
+.. Öffnen Sie das Skript in Ihrem Skript-Editor.
+.. Speichern Sie das Skript mit einem anderen Namen.
+
+
+. Ändern Sie die Funktionen, Variablen und Parameter nach Bedarf.
+. Das Skript in einem der folgenden Verzeichnisse speichern:
++
+*Skripts für Backup-Vorgänge*
+
++
+** <default_install_Directory>\Plugins\Backup\create\pre: Führt das Skript aus, bevor der Backup-Vorgang durchgeführt wird. Verwenden Sie sie optional, wenn Sie die Backup-Erstellung angeben.
+** <default_install_Directory>\Plugins\Backup\create\post: Führt das Skript nach dem Backup-Vorgang aus. Verwenden Sie sie optional, wenn Sie die Backup-Erstellung angeben.
+** <default_install_Directory>\Plugins\Backup\create\Policy: Führt das Skript immer aus, bevor der Backup-Vorgang erfolgt. SnapManager verwendet dieses Skript immer für alle Backups im Repository.
++
+*Betriebsskripte wiederherstellen*
+
+** <default_install_Directory>\Plugins\restore\create\pre: Führt das Skript aus, bevor der Backup-Vorgang durchgeführt wird. Verwenden Sie sie optional, wenn Sie die Backup-Erstellung angeben.
+** <default_install_Directory>\Plugins\restore\create\post: Führt das Skript nach dem Backup-Vorgang aus. Verwenden Sie sie optional, wenn Sie die Backup-Erstellung angeben.
+** <default_install_Directory>\Plugins\restore\create\Policy: Führt das Skript immer aus, bevor der Backup-Vorgang erfolgt. SnapManager verwendet dieses Skript immer für alle Backups im Repository.
++
+*Clone Operation Scripts*
+
+** <default_install_Directory>\Plugins\Clone\create\pre: Führt das Skript aus, bevor der Backup-Vorgang durchgeführt wird. Verwenden Sie sie optional, wenn Sie die Backup-Erstellung angeben.
+** <default_install_Directory>\Plugins\Clone\create\post: Führt das Skript nach dem Backup-Vorgang aus. Verwenden Sie sie optional, wenn Sie die Backup-Erstellung angeben.
+** <default_install_Directory>\Plugins\Clone\create\Policy: Führt das Skript immer aus, bevor der Backup-Vorgang erfolgt. SnapManager verwendet dieses Skript immer für alle Backups im Repository.
+
+
+

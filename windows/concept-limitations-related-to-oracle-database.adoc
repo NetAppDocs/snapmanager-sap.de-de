@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-limitations-related-to-oracle-database.html 
+sidebar: sidebar 
+keywords: start, work, snapmanager, limitation, relate, oracle, database 
+summary: Bevor Sie mit der Arbeit mit SnapManager beginnen, müssen Sie die Einschränkungen in Bezug auf Oracle Database kennen. 
+---
+= Einschränkungen in Bezug auf Oracle Database
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie mit der Arbeit mit SnapManager beginnen, müssen Sie die Einschränkungen in Bezug auf Oracle Database kennen.
+
+Die Einschränkungen sind wie folgt:
+
+* SnapManager unterstützt Oracle Version 10gR2 und unterstützt Oracle 10gR1 nicht als Repository oder Zieldatenbank.
+* Oracle Cluster File System (OCFS) wird von SnapManager nicht unterstützt.
+* Unterstützung für Oracle Database 9i ist veraltet aus SnapManager 3.2.
+* Der Support für Oracle Database 10gR2 (früher als 10.2.0.5) ist veraltet aus SnapManager 3.3.1.
+
+
+
+NOTE: Ermitteln Sie die verschiedenen Versionen von Oracle Datenbanken, die durch die Interoperabilitäts-Matrix unterstützt werden.
+
+*Verwandte Informationen*
+
+http://support.netapp.com/NOW/products/interoperability/["Interoperabilitätsmatrix"^]

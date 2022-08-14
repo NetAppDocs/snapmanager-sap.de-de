@@ -1,0 +1,38 @@
+---
+permalink: unix-installation-7mode/task-post-rollback-tasks.html 
+sidebar: sidebar 
+keywords: perform, additional, step, rollback, repository, database, downgrade, snapmanager, host, schedule, version, post, task 
+summary: Sie müssen einige weitere Schritte durchführen, nachdem Sie eine Repository-Datenbank zurückgesetzt und den SnapManager-Host von SnapManager 3.2 auf SnapManager 3.0 heruntergestuft haben, um die Zeitpläne anzuzeigen, die in der früheren Version der Repository-Datenbank erstellt wurden. 
+---
+= Aufgaben nach dem Rollback ausführen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen einige weitere Schritte durchführen, nachdem Sie eine Repository-Datenbank zurückgesetzt und den SnapManager-Host von SnapManager 3.2 auf SnapManager 3.0 heruntergestuft haben, um die Zeitpläne anzuzeigen, die in der früheren Version der Repository-Datenbank erstellt wurden.
+
+. Navigieren Sie zu `cd /opt/NetApp/smsap/repositories`.
++
+Der `repositories` Das Verzeichnis kann zwei Dateien für jedes Repository enthalten. Der Dateiname mit dem Zahlenzeichen (#) wird mit SnapManager 3.1 oder höher erstellt und der Dateiname mit dem Bindestrich (-) wird mit dem SnapManager 3.0 erstellt.
+
++
+*Beispiel*
+
++
+Die Dateinamen können wie folgt lauten:
+
++
+** `repository#SMSAP300a#SMSAPREPO1#10.72.197.141#1521`
+** `repository-smsap300a-smsaprepo1-10.72.197.141-1521`
+
+
+. Ersetzen Sie das Zahlenzeichen (#) im Dateinamen durch den Bindestrich (-).
++
+*Beispiel*
+
++
+Der Dateiname, der das Zahlenzeichen (#) hatte, enthält jetzt Bindestrich (-): `repository-SMSAP300a-SMSAPREPO1-10.72.197.141-1521.`
+
+

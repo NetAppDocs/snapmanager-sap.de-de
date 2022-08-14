@@ -1,0 +1,62 @@
+---
+permalink: windows/task-create-restore-specifications.html 
+sidebar: sidebar 
+keywords: restore, specification, file, sml, contain, original, alternate, location, snapmanager, location, create 
+summary: Die Spezifikationsdatei für die Wiederherstellung ist eine XML-Datei, die die ursprünglichen und alternativen Speicherorte enthält, aus denen die Datei wiederhergestellt werden kann. SnapManager verwendet diese Spezifikationsdatei, um Dateien vom angegebenen Speicherort wiederherzustellen. 
+---
+= Erstellen von Wiederherstellungsspezifikationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Spezifikationsdatei für die Wiederherstellung ist eine XML-Datei, die die ursprünglichen und alternativen Speicherorte enthält, aus denen die Datei wiederhergestellt werden kann. SnapManager verwendet diese Spezifikationsdatei, um Dateien vom angegebenen Speicherort wiederherzustellen.
+
+
+
+== Über diese Aufgabe
+
+Sie können die Wiederherstellungsspezifikationsdatei mit einem beliebigen Texteditor erstellen. Sie müssen eine .XML-Erweiterung für die Datei verwenden.
+
+.Schritte
+. Öffnen Sie eine Textdatei.
+. Geben Sie Folgendes ein:
++
+`+<restore-specification xmlns="http://www.netapp.com">+`
+
+. Geben Sie alle Informationen zur Dateizuordnung unter Verwendung des im folgenden Beispiel gezeigten Formats ein:
++
+[listing]
+----
+<file-mapping>
+    <original-location>E:\disks\sysaux.dbf</original-location>
+    <alternate-location>E:\disks\sysaux.dbf</alternate-location>
+</file-mapping>
+----
++
+Die Dateizuordnung gibt an, aus welcher Datei wiederhergestellt wird. Der ursprüngliche Speicherort ist der Speicherort der Datei auf dem aktiven Dateisystem zum Zeitpunkt der Sicherung. Der alternative Speicherort ist der Speicherort, von dem die Datei wiederhergestellt wird.
+
+. Geben Sie alle Informationen zur Dateisystemzuordnung unter Verwendung des im Beispiel gezeigten Formats ein:
++
+[listing]
+----
+<mountpoint-mapping>
+     <original-location>E:\disks\sysaux.dbf</original-location>
+     <snapname>snapname</snapname>
+     <alternate-location>E:\disks\sysaux.dbf</alternate-location>
+</mountpoint-mapping>
+----
++
+Der Mountpunkt bezieht sich auf den Verzeichnispfad `C:\myfs`. Die Mountpunkt-Mapping-Zuordnung gibt den Bereitstellungspunkt an, aus dem die Dateien wiederhergestellt werden. Der ursprüngliche Speicherort ist der Speicherort des Mountpoint im aktiven File-System zum Zeitpunkt des Backups. Der alternative Speicherort ist der Bereitstellungspunkt, aus dem die Dateien im ursprünglichen Speicherort wiederhergestellt werden. Der `snapname` Ist der Name der Snapshot Kopie, in der die Originaldateien gesichert wurden.
+
++
+
+NOTE: Der Name einer Snapshot Kopie ist eine notwendige Komponente, da dasselbe Filesystem in einem einzelnen Backup-Vorgang mehrfach eingesetzt werden kann (z. B. einmal für die Datendateien und einmal für die Protokolle).
+
+. Geben Sie Folgendes ein:
++
+`*</restore-specification>*`
+
+. Speichern Sie die Datei als .XML-Datei und schließen Sie die Spezifikation.
+

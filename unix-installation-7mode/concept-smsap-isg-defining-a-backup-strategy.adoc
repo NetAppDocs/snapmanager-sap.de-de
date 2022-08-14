@@ -1,0 +1,154 @@
+---
+permalink: unix-installation-7mode/concept-smsap-isg-defining-a-backup-strategy.html 
+sidebar: sidebar 
+keywords: define, defining, backup, strategy, creating, create, ensure, service, level, agreement, sla 
+summary: 'Wenn Sie eine Backup-Strategie vor der Erstellung Ihrer Backups definieren, stellen Sie sicher, dass Ihnen Backups zur erfolgreichen Wiederherstellung Ihrer Datenbanken zur Verfügung stehen. SnapManager bietet einen flexiblen, granularen Backup-Zeitplan, der Ihr Service Level Agreement (SLA) erfüllt.' 
+---
+= Backup-Strategie definieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie eine Backup-Strategie vor der Erstellung Ihrer Backups definieren, stellen Sie sicher, dass Ihnen Backups zur erfolgreichen Wiederherstellung Ihrer Datenbanken zur Verfügung stehen. SnapManager bietet einen flexiblen, granularen Backup-Zeitplan, der Ihr Service Level Agreement (SLA) erfüllt.
+
+
+NOTE: Informationen zu den Best Practices für SnapManager finden Sie unter _TR 3761_.
+
+
+
+== Welcher Modus für SnapManager Backups benötigen Sie?
+
+SnapManager unterstützt zwei Backup-Modi:
+
+[cols="1a,3a"]
+|===
+| Backup-Modus | Beschreibung 
+
+
+ a| 
+Online-Backup
+ a| 
+Erstellt ein Backup der Datenbank, wenn sich die Datenbank im Online-Status befindet. Dieser Backup-Modus wird auch als Hot Backup bezeichnet.
+
+
+
+ a| 
+Offline-Backup
+ a| 
+Erstellt eine Sicherung der Datenbank, wenn sich die Datenbank entweder im angehängten oder abschaltenden Zustand befindet. Dieser Backup-Modus wird auch als Cold Backup bezeichnet.
+
+|===
+
+
+== Welche Art von SnapManager-Backup benötigen Sie?
+
+SnapManager unterstützt drei Arten von Backups:
+
+[cols="1a,3a"]
+|===
+| Backup-Typ | Beschreibung 
+
+
+ a| 
+Vollständiges Backup
+ a| 
+Erstellt ein Backup der gesamten Datenbank, die alle Datendateien, Kontrolldateien und Archivprotokolldateien umfasst.
+
+
+
+ a| 
+Teilweise Sicherung
+ a| 
+Erstellt ein Backup ausgewählter Datendateien, Kontrolldateien, Tablespaces und Archivprotokolldateien
+
+
+
+ a| 
+Backup nur für Archivierung
+ a| 
+Erstellt eine Sicherung nur der Archivprotokolldateien.Sie müssen beim Erstellen des Profils *Archivprotokolle separat* auswählen.
+
+|===
+
+
+== Was für ein Datenbankprofil benötigen Sie?
+
+SnapManager erstellt Backups basierend darauf, ob das Datenbankprofil die Archiv-Log-Backups von den Datendatei-Backups trennt.
+
+[cols="2a,3a"]
+|===
+| Profiltyp | Beschreibung 
+
+
+ a| 
+Ein einzelnes Datenbankprofil für eine kombinierte Sicherung von Datendateien und Archivprotokollen
+ a| 
+Ermöglicht Ihnen das Erstellen von:
+
+* Vollständige Sicherung mit allen Datendateien, Archivprotokolldateien und Kontrolldateien
+* Partielles Backup mit ausgewählten Datendateien, Tablespaces, Archivprotokolldateien und Kontrolldateien
+
+
+
+
+ a| 
+Separate Datenbankprofile für Backups von Archivierungsprotokolldaten und Datendatei-Backups
+ a| 
+Ermöglicht Ihnen das Erstellen von:
+
+* Kombiniertes Backup mit unterschiedlichen Kennungen für Backup von Datendateien und Backup von Archivierungsprotokolldaten
+* Datendatei-only-Backup aller Datendateien zusammen mit den Kontrolldateien
+* Partielles, datenonly Backup von ausgewählten Datendateien oder Tablespaces zusammen mit den Control Files
+* Backup nur bei Archivierung und Protokollen
+
+
+|===
+
+
+== Welche Namenskonventionen sollten für Snapshot Kopien verwendet werden?
+
+Von Backups erstellte Snapshot Kopien können einer benutzerdefinierten Namenskonvention folgen. Benutzerdefinierte Text oder integrierte Variablen wie der Profilname, der Datenbankname und die von SnapManager bereitgestellte Datenbank-SID können zur Erstellung der Namenskonvention verwendet werden. Sie können die Namenskonvention erstellen, während Sie die Richtlinie erstellen.
+
+
+NOTE: Sie müssen die smid-Variable in das Benennungsformat aufnehmen. Die smid-Variable erstellt eine eindeutige Snapshot-Kennung.
+
+Die Namenskonventionen für Snapshot Kopien können während oder nach der Erstellung eines Profils geändert werden. Das aktualisierte Muster gilt nur für Snapshot Kopien, die noch nicht erstellt wurden. Vorhandene Snapshot Kopien behalten das vorherige Muster bei.
+
+
+
+== Wie lange möchten Sie Backup-Kopien auf dem primären Storage-System und dem sekundären Storage-System aufbewahren?
+
+In einer Backup-Aufbewahrungsrichtlinie wird die Anzahl der erfolgreichen Sicherungskopien festgelegt, die aufbewahrt werden sollen. Sie können die Aufbewahrungsrichtlinie angeben, während Sie die Richtlinie erstellen.
+
+Sie können stündlich, täglich, wöchentlich, monatlich oder unbegrenzt als Aufbewahrungsklasse auswählen. Sie können für jede Aufbewahrungsklasse den Aufbewahrungszähler und die Aufbewahrungsdauer entweder gemeinsam oder einzeln festlegen.
+
+* Die Anzahl der Aufbewahrung bestimmt die Mindestanzahl der Backups einer bestimmten Aufbewahrungsklasse, die beibehalten werden soll.
++
+Wenn beispielsweise der Backup-Zeitplan _Daily_ lautet und die Anzahl der Aufbewahrung _10_ ist, werden 10 tägliche Backups aufbewahrt.
+
++
+
+NOTE: Die maximale Anzahl von Snapshot Kopien, die Sie mit Data ONTAP aufbewahren können, ist 255. Nach Erreichen des maximalen Limits schlägt die Erstellung neuer Snapshot Kopien standardmäßig fehl. Sie können jedoch die Rotationsrichtlinie in Data ONTAP konfigurieren, um ältere Snapshot-Kopien zu löschen.
+
+* Die Aufbewahrungsdauer legt die Mindestanzahl an Tagen fest, für die das Backup aufbewahrt werden soll.
++
+Wenn beispielsweise der Backup-Zeitplan _täglich_ lautet und die Aufbewahrungsdauer _10_ beträgt, werden täglich 10 Tage Backups aufbewahrt.
+
+
+
+Wenn Sie die SnapMirror Replizierung einrichten, wird die Aufbewahrungsrichtlinie auf dem Ziel-Volume gespiegelt.
+
+
+NOTE: Zur langfristigen Aufbewahrung von Backup-Kopien sollten Sie SnapVault verwenden.
+
+
+
+== Möchten Sie Backup-Kopien mithilfe des Quell-Volume oder eines Ziel-Volume überprüfen?
+
+Wenn Sie SnapMirror oder SnapVault einsetzen, können Sie Backup-Kopien mithilfe der Snapshot-Kopie auf dem SnapMirror oder SnapVault Ziel-Volume überprüfen anstelle der Snapshot-Kopie auf dem primären Storage-System. Die Verwendung eines Ziel-Volumes zur Verifizierung reduziert die Last auf dem primären Storage-System.
+
+*Verwandte Informationen*
+
+http://www.netapp.com/us/media/tr-3761.pdf["Technischer Bericht 3761: SnapManager für Oracle: Best Practices"^]

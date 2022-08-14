@@ -1,0 +1,40 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, backup, schedule, smsap 
+summary: Durch diesen Befehl wird ein Backup-Zeitplan gelöscht, wenn er nicht mehr benötigt wird. 
+---
+= Der Befehl smsap schedule delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Durch diesen Befehl wird ein Backup-Zeitplan gelöscht, wenn er nicht mehr benötigt wird.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap schedule delete
+-profile profile_name
+-schedule-name schedule_name
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt den Namen des Profils an, das mit der Datenbank verknüpft ist, die Sie einen Backup-Zeitplan löschen möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-schedule-name _schedule_name_`*
++
+Gibt den Planungsnamen an, den Sie beim Erstellen eines Backup-Zeitplans angegeben haben.
+
+

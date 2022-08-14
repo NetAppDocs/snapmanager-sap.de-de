@@ -1,0 +1,88 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-configure-the-snapmanager-repository.html 
+sidebar: sidebar 
+keywords: configure, snapmanager, repository, database, instance, metadata 
+summary: Sie müssen das SnapManager-Repository in der Repository-Datenbankinstanz konfigurieren. Die Repository-Datenbank speichert Metadaten für Datenbanken, die von SnapManager gemanagt werden. 
+---
+= Konfigurieren Sie das SnapManager-Repository
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen das SnapManager-Repository in der Repository-Datenbankinstanz konfigurieren. Die Repository-Datenbank speichert Metadaten für Datenbanken, die von SnapManager gemanagt werden.
+
+
+
+== Was Sie benötigen
+
+* Sie müssen die Repository-Datenbankinstanz erstellt haben.
+* Sie müssen den Oracle-Benutzer für die Repository-Datenbankinstanz mit den erforderlichen Berechtigungen erstellt haben.
+* Sie müssen die Details der Repository-Datenbankinstanz in das enthalten haben `tnsnames.ora` Datei:
+
+
+
+
+== Über diese Aufgabe
+
+Sie können das SnapManager-Repository entweder über die SnapManager-Benutzeroberfläche (UI) oder über die Befehlszeilenschnittstelle (CLI) konfigurieren. Mit diesen Schritten wird das Erstellen eines Repositorys mithilfe der SnapManager-Benutzeroberfläche erläutert. Sie können auch die CLI verwenden, wenn Sie es bevorzugen.
+
+Informationen zum Erstellen des Repositorys mithilfe von CLI finden Sie im Handbuch _SnapManager for SAP Administration for UNIX_.
+
+.Schritte
+. Klicken Sie im linken Bereich der SnapManager-Benutzeroberfläche mit der rechten Maustaste auf *Repositories*.
+. Wählen Sie *Neues Repository erstellen* und klicken Sie auf *Weiter*.
+. Geben Sie im Fenster *Repository Database Configuration Information* die folgenden Informationen ein:
++
+|===
+| In diesem Feld... | Tun Sie das... 
+
+
+ a| 
+*Benutzername*
+ a| 
+Geben Sie den Namen des Benutzers ein, den Sie für die Repository-Datenbankinstanz erstellt haben.
+
+
+
+ a| 
+*Passwort*
+ a| 
+Geben Sie das Passwort ein.
+
+
+
+ a| 
+*Gastgeber*
+ a| 
+Geben Sie die IP-Adresse des Hosts ein, auf dem die Repository-Datenbankinstanz erstellt wird.
+
+
+
+ a| 
+*Port*
+ a| 
+Geben Sie den Port ein, der für die Verbindung zur Repository-Datenbankinstanz verwendet wird. Der Standardport ist 1521.
+
+
+
+ a| 
+*Dienstname*
+ a| 
+Geben Sie den Namen ein, den SnapManager für die Verbindung zur Repository-Datenbankinstanz verwendet. Abhängig von den im enthaltenen Details `tnsnames.ora` Datei: Es kann sich um den kurzen Servicenamen oder den vollqualifizierten Servicenamen handelt.
+
+|===
+. Überprüfen Sie im Fenster * Repository hinzufügen Operation Window die Konfigurationszusammenfassung und klicken Sie auf *Add*.
++
+Wenn der Vorgang fehlschlägt, klicken Sie auf die Registerkarte *Operationsinformationen*, um anzuzeigen, was den Vorgang zum Scheitern verurteilt hat. Die Fehlerdetails werden auch im Betriebsprotokoll unter erfasst `/var/log/smsap.`
+
+. Klicken Sie Auf *Fertig Stellen*.
++
+Das Repository wird im linken Fensterbereich unter dem Baum *Repositories* aufgelistet. Wenn das Repository nicht angezeigt wird, klicken Sie mit der rechten Maustaste auf *Repositories* und klicken Sie auf *Aktualisieren*.
+
+
+
+*Verwandte Informationen*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["SnapManager 3.4.1 für SAP – Administratorhandbuch für UNIX"^]

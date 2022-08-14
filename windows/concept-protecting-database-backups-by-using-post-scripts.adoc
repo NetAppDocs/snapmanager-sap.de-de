@@ -1,0 +1,29 @@
+---
+permalink: windows/concept-protecting-database-backups-by-using-post-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, protect, database, backup, postscript, snapmirror, snapvault, establish, primary, secondary, storage, system, default, post-process, activity, cli, gui 
+summary: SnapManager ermöglicht Ihnen, Datenbank-Backups mithilfe von Postskripten zu schützen, wenn eine SnapMirror oder SnapVault Beziehung zwischen den primären und sekundären Storage-Systemen hergestellt wird. Es können Standard-Postskripte für die Nachbearbeitung des Backup-Vorgangs über die SnapManager CLI und GUI verwendet werden. 
+---
+= Sicherung von Datenbank-Backups mithilfe von Postskripten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht Ihnen, Datenbank-Backups mithilfe von Postskripten zu schützen, wenn eine SnapMirror oder SnapVault Beziehung zwischen den primären und sekundären Storage-Systemen hergestellt wird. Es können Standard-Postskripte für die Nachbearbeitung des Backup-Vorgangs über die SnapManager CLI und GUI verwendet werden.
+
+Sie können die folgenden Standard-Postscripts verwenden, die unter verfügbar sind `default_install_directory\plugins\backup\create\post`:
+
+* Das Postskript zu SnapMirror, `Mirror_the_backup.cmd` Wenn Sie Data ONTAP in 7-Mode verwenden
+* Das Postscript von SnapVault, `Vault_the_backup.cmd` Wenn Sie Data ONTAP in 7-Mode verwenden
+* Das Postskript zu SnapMirror, `Mirror_the_backup_cDOT.cmd` Wenn Sie Clustered Data ONTAP verwenden
+* Das Postscript von SnapVault, `Vault_the_backup_cDOT.cmd` Wenn Sie Clustered Data ONTAP verwenden
+
+
+Weitere Informationen finden Sie im `readme.txt` Verfügbar unter `default_install_directory\plugins`.
+
+SnapManager 3.1 oder eine frühere Version bietet Vorverarbeitung- oder Nachbearbeitungsskripten nur für Klonvorgänge. SnapManager 3.2 oder höher bietet Vorverarbeitungs- und Nachbearbeitungsskripte für Backup- und Restore-Vorgänge. Diese Skripte können vor oder nach den Backup- oder Wiederherstellungsvorgängen ausgeführt werden.
+
+
+NOTE: Die Skripte werden nur als Referenz bereitgestellt. Sie wurden mit SnapDrive 7.0 für Windows oder höher oder höher getestet, funktionieren aber möglicherweise nicht in allen Umgebungen. Sie sollten die Skripte auf der Grundlage Ihrer Anforderungen für den sekundären Schutz anpassen. Die Skripte funktionieren nicht mit SnapDrive Versionen vor 6.2.

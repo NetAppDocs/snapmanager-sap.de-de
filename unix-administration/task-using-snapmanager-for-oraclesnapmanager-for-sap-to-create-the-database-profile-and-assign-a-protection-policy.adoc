@@ -1,0 +1,100 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sap-to-create-the-database-profile-and-assign-a-protection-policy.html 
+sidebar: sidebar 
+keywords: create, profile, snapmanager, sap, enable, protection, assign, policy, protection, backup 
+summary: Sie müssen in SnapManager für SAP ein Profil erstellen, den Schutz im Profil aktivieren und eine Schutzrichtlinie zuweisen, um ein geschütztes Backup zu erstellen. 
+---
+= Verwenden Sie SnapManager für SAP, um das Datenbankprofil zu erstellen und eine Sicherungsrichtlinie zuzuweisen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen in SnapManager für SAP ein Profil erstellen, den Schutz im Profil aktivieren und eine Schutzrichtlinie zuweisen, um ein geschütztes Backup zu erstellen.
+
+*Über diese Aufgabe*
+
+Ein Profil enthält Informationen über die zu verwaltende Datenbank, einschließlich der Anmeldeinformationen, Backup-Einstellungen und Sicherungseinstellungen für Backups. Nachdem Sie ein Profil erstellt haben, müssen Sie bei jedem Vorgang keine Datenbankdetails angeben. Ein Profil kann nur auf eine Datenbank verweisen, auf die dieselbe Datenbank kann jedoch mehrere Profile verweisen.
+
+.Schritte
+. Wechseln Sie zum SnapManager für SAP-Client.
+. Klicken Sie in der Verzeichnisstruktur Repositories mit der rechten Maustaste auf den Host, und wählen Sie *Profil erstellen*.
+. Geben Sie auf der Seite *Profile Configuration Information* die Profildetails ein und klicken Sie auf *Next*.
++
+*Beispiel*
+
++
+Sie können die folgenden Informationen eingeben:
+
++
+** Profilname: P01_BACKUP
+** Profilpasswort: Payrol123
+** Kommentar: Production Payroll Datenbank
+
+
+. Geben Sie auf den Seiten *Datenbankkonfigurationsinformationen* die Datenbankdaten ein und klicken Sie auf *Weiter*.
++
+*Beispiel*
+
++
+Sie können die folgenden Informationen eingeben:
+
++
+** Datenbankname: P01
+** Datenbank-SID: P01
+** Datenbank-Host: Standard akzeptieren. Da Sie ein Profil von einem Host in der Repository-Struktur erstellen, zeigt SnapManager den Hostnamen an.
+** Hostkonto, Vertretung des Oracle-Benutzerkontos (für ora<sid>): Orapayrolldb
+** Host-Gruppe, die die Oracle-Gruppe repräsentiert: dba
+
+
+. Klicken Sie auf der Seite *Datenbankverbindungsinformationen* auf *Datenbankauthentifizierung verwenden*, um Benutzern die Authentifizierung über Datenbankinformationen zu ermöglichen.
+. Geben Sie die Daten zur Datenbankverbindung ein und klicken Sie auf *Weiter*.
++
+*Beispiel*
+
++
+Sie können die folgenden Informationen eingeben:
+
++
+** SYSDBA Privileged User Name, der den Systemadministrator der Systemdatenbank repräsentiert, der über Administratorrechte verfügt: Sys
+** Kennwort (SYSDBA-Kennwort): oracle
+** Port zur Verbindung mit Datenbank-Host: 1527
+
+
+. Geben Sie auf der Seite Snapshot Naming Information eine Namenskonvention für die mit diesem Profil verknüpften Snapshots an, indem Sie Variablen auswählen.
++
+Der `_smid_` Variable erstellt eine eindeutige Snapshot-ID.
+
++
+Führen Sie Folgendes aus:
+
++
+.. Wählen Sie in der Liste *Variable Token* die Option aus `_usertext_` Und klicken Sie auf *Hinzufügen*.
+.. Eingabe `_prod01.sample.com__` Als Host-Name und klicken Sie auf *OK*.
+.. Klicken Sie auf *links*, bis der Hostname kurz nach dem Smappen im Feld Format angezeigt wird.
+.. Klicken Sie Auf *Weiter*.
+
+
++
+Die Namenskonvention von Snapshot `_smsap_hostname_smsapprofile_dbsid_scope_mode_smid_` Wird „smsap_prpd01.sample.com_P01_BACKUP_P01_f_a_x"“ (wobei „f“ auf ein vollständiges Backup hinweist, „A“ den automatischen Modus angibt und „x“ den eindeutigen SMID darstellt).
+
+. Wählen Sie *Protection Manager Protection Policy* Aus.
++
+Mit der *Protection Manager Protection Policy* können Sie eine Schutzrichtlinie auswählen, die mithilfe der NetApp Management Console konfiguriert wurde.
+
+. Wählen Sie aus den Schutzrichtlinien der NetApp Management Console *TechCo Payroll Data: Backup* aus und klicken Sie auf *Weiter*.
+. Überprüfen Sie auf der Seite * Operation* die Informationen und klicken Sie auf *Erstellen*.
+. Klicken Sie auf *Operation Details*, um Informationen über den Vorgang zum Erstellen von Profilen und zur Volume-basierten Wiederherstellung anzuzeigen.
+
+
+*Ergebnis*
+
+* Die Zuweisung einer NetApp Management Console Sicherungsrichtlinie für das Datenbankprofil erstellt automatisch einen nicht konformen Datensatz, der für den NetApp Management Console Operator sichtbar ist. Dabei wird der Name convention smsap_<hostname>_<profilname> oder in diesem Beispiel: smsap_prod01.sample.com_P01_BACKUP angegeben.
+* Falls das Profil nicht für die Wiederherstellung von Volumes geeignet ist (auch als „schnelle Wiederherstellung“ bezeichnet), geschieht Folgendes:
++
+** Die Registerkarte *Ergebnisse* zeigt an, dass die Profilerstellung erfolgreich war und dass während des Vorgangs Warnungen aufgetreten sind.
+** Die Registerkarte *Operation Details* enthält ein WARNPROTOKOLL, in dem angegeben wird, dass das Profil nicht für eine schnelle Wiederherstellung geeignet ist und warum.
+
+
+

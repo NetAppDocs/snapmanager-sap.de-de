@@ -1,0 +1,32 @@
+---
+permalink: windows/task-freeing-or-deleting-retention-policy-exempt-backups.html 
+sidebar: sidebar 
+keywords: backup, retention, class, unlimited, delete, free, hourly, daily, weekly, monthly, policy, exempt 
+summary: Backups mit einer „unbegrenzten“ Aufbewahrungsklasse können nicht direkt gelöscht oder freigegeben werden. Um diese Backups zu löschen oder zu löschen, müssen Sie zunächst eine andere Aufbewahrungsklasse wie stündlich, täglich, wöchentlich oder monatlich zuweisen. Um ein Backup zu löschen oder zu befreien, das von der Aufbewahrungsrichtlinie ausgenommen ist, müssen Sie zuerst das Backup aktualisieren, um es für die Löschung berechtigt zu machen oder es freizumachen. 
+---
+= Freistellen oder Löschen von Backups ohne Rücknahmerichtlinien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Backups mit einer „unbegrenzten“ Aufbewahrungsklasse können nicht direkt gelöscht oder freigegeben werden. Um diese Backups zu löschen oder zu löschen, müssen Sie zunächst eine andere Aufbewahrungsklasse wie stündlich, täglich, wöchentlich oder monatlich zuweisen. Um ein Backup zu löschen oder zu befreien, das von der Aufbewahrungsrichtlinie ausgenommen ist, müssen Sie zuerst das Backup aktualisieren, um es für die Löschung berechtigt zu machen oder es freizumachen.
+
+. Um das Backup zu aktualisieren, damit es durch die Aufbewahrungsrichtlinie zum Löschen berechtigt ist, geben Sie den folgenden Befehl ein:
++
+`smsap backup update -profile profile_name {-label label [data | -archivelogs] | -id id} -retain [-hourly | -daily | -weekly | -monthly]`
+
+. Nachdem Sie die Sicherung aktualisiert haben, damit sie gelöscht werden kann, können Sie entweder das Backup löschen oder kostenlose Backup-Ressourcen.
++
+** Um das Backup zu löschen, geben Sie den folgenden Befehl ein: +
+`smsap backup delete -profile profile_name {-label label [data | -archivelogs] | -id id | -all}`
+** Geben Sie den folgenden Befehl ein, um die Backup-Ressourcen freizumachen, anstatt das Backup zu löschen: +
+`smsap backup free -profile profile_name {-label label [data | -archivelogs] | -id id | -all} [-force] [ -dump] [-quiet | -verbose]`
+
+
+
+
+*Verwandte Informationen*
+
+xref:reference-the-smosmsapbackup-update-command.adoc[Der Befehl smsap Backup Update]

@@ -1,0 +1,60 @@
+---
+permalink: windows/concept-snapmanager-for-oraclefor-sap-deployment-considerations.html 
+sidebar: sidebar 
+keywords: deploy, snapmanager, environment, application, technology, technologies, operation, sap, deployment, consideration 
+summary: Bevor Sie SnapManager in Ihrer Umgebung implementieren, sollten Sie sich mit den anderen Applikationen und Technologien vertraut machen, die für verschiedene Vorgänge erforderlich sind. 
+---
+= Überlegungen zur Implementierung von SnapManager für SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie SnapManager in Ihrer Umgebung implementieren, sollten Sie sich mit den anderen Applikationen und Technologien vertraut machen, die für verschiedene Vorgänge erforderlich sind.
+
+In der folgenden Tabelle sind die verschiedenen Applikationen und Technologien aufgeführt:
+
+|===
+| Anwendungen und Technologien | Details 
+
+
+ a| 
+Data ONTAP
+ a| 
+SnapManager nutzt NetApp Tools und Technologien einschließlich Snapshot Kopien.
+
+
+
+ a| 
+SnapDrive für Windows
+ a| 
+SnapManager verwendet die Funktionen von SnapDrive. Sie müssen SnapDrive installieren, bevor Sie die SnapManager-Dienste ausführen. SnapManager übernimmt alle Interaktionen mit SnapDrive. SnapDrive für Windows muss korrekt für Ihr Storage-System und Ihre Auswahl an Protokollen konfiguriert sein.
+
+
+
+ a| 
+SnapRestore
+ a| 
+SnapManager reduziert mit SnapRestore die durchschnittliche Zeit zum Recovery einer Datenbank. Jedes Storage-System sollte über eine SnapRestore-Lizenz verfügen.
+
+
+
+ a| 
+FlexClone
+ a| 
+FlexClone ist eine lizenzierte Funktion in Data ONTAP.
+
+
+
+ a| 
+FC- und iSCSI-Protokolle
+ a| 
+Sie benötigen die lizenzierten Versionen der entsprechenden Protokolle.
+
+|===
+Um BR*Tools-Befehle verwenden zu können, muss die entsprechende Version von SAP BR*Tools für Ihre Oracle-Version installiert sein.
+
+*Verwandte Informationen*
+
+http://media.netapp.com/documents/tr-3823.pdf["SnapManager for SAP Best Practices: media.netapp.com/documents/tr-3823.pdf"^]

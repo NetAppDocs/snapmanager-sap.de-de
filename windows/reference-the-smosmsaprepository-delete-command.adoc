@@ -1,0 +1,88 @@
+---
+permalink: windows/reference-the-smosmsaprepository-delete-command.html 
+sidebar: sidebar 
+keywords: command, delete, repository, store, database, profile, associate, credential, smsap 
+summary: Mit diesem Befehl wird ein Repository gelöscht, das zum Speichern von Datenbankprofilen und zugehörigen Anmeldedaten verwendet wird. Sie können ein Repository nur löschen, wenn kein Profil im Repository vorhanden ist. 
+---
+= Der Befehl smsap Repository löschen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl wird ein Repository gelöscht, das zum Speichern von Datenbankprofilen und zugehörigen Anmeldedaten verwendet wird. Sie können ein Repository nur löschen, wenn kein Profil im Repository vorhanden ist.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap repository delete
+-repository
+-port repo_port
+-dbname repo_service_name
+-host repo_host
+-login -username repo_username
+[-force] [-noprompt]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-repository`*
++
+Die folgenden Optionen `-repository` Geben Sie die Details der Datenbank für das Repository an.
+
+* *`-port _repo_port_`*
++
+Gibt die TCP-Portnummer an, die für den Zugriff auf die Datenbank verwendet wird, in der das Repository gespeichert ist.
+
+* *`-dbname _repo_service_name_`*
++
+Gibt den Namen der Datenbank an, in der das Repository gespeichert wird. Verwenden Sie entweder den globalen Namen oder den SID.
+
+* *`-host _repo_host_`*
++
+Gibt den Namen oder die IP-Adresse des Hostcomputers an, auf dem die Repository-Datenbank ausgeführt wird.
+
+* *`-login`*
++
+Startet die Repository-Anmeldedaten.
+
+* *`-username _repo_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Datenbank erforderlich ist, in der das Repository gespeichert ist.
+
+* *`-force`*
++
+Versucht, das Löschen des Repositorys zu erzwingen, auch wenn unvollständige Vorgänge vorliegen. SnapManager gibt eine Eingabeaufforderung aus, wenn unvollständige Vorgänge vorliegen. Sie werden gefragt, ob Sie das Repository wirklich löschen möchten.
+
+* *`-noprompt`*
++
+Fordert Sie nicht auf, bevor Sie das Repository löschen. Verwenden der `-noprompt` Mit dieser Option wird sichergestellt, dass die Eingabeaufforderung nicht angezeigt wird. Dies erleichtert das Löschen von Repositorys mithilfe eines Skripts.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+
+
+== Befehlsbeispiel
+
+Im folgenden Beispiel wird das Repository in der SALESDB-Datenbank gelöscht.
+
+[listing]
+----
+smsap repository delete -repository -dbname SALESDB
+-host server1 -login -username admin -port 1527 -force -verbose
+----

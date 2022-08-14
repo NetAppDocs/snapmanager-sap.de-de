@@ -1,0 +1,100 @@
+---
+permalink: windows/task-integrating-with-sap-br-tools.html 
+sidebar: sidebar 
+keywords: sap, br, tools, oracle, database, administration, brarchive, brbackup, brconnect, brrecover, rerestore, brspace, brtools, backint, interface, integrate, integrating 
+summary: Die SAP BR\* Tools, die SAP-Tools für die Oracle-Datenbankadministration enthalten, z. B. BRARCHIVE, BRBACKUP, BRCONNECT, BRRECOVER, BRRESTORE, BRSCACE und BRTOOLS verwenden die BACKINT-Schnittstelle von SnapManager für SAP. Zur Integration von SAP BR\*-Tools muss ein Link aus dem BR\* Tools-Verzeichnis in <SnapManager für SAP-Installationsverzeichnis\>\\NetApp\\SnapManager für SAP\\bin erstellt werden, in dem die BACKINT-Datei installiert ist. 
+---
+= Integration in SAP BR* Tools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die SAP BR* Tools, die SAP-Tools für die Oracle-Datenbankadministration enthalten, z. B. BRARCHIVE, BRBACKUP, BRCONNECT, BRRECOVER, BRRESTORE, BRSCACE und BRTOOLS verwenden die BACKINT-Schnittstelle von SnapManager für SAP. Zur Integration von SAP BR* Tools muss ein Link aus dem BR* Tools-Verzeichnis in das <SnapManager für SAP-Installationsverzeichnis>\NetApp\SnapManager für SAP\bin erstellt werden, in dem die BACKINT-Datei installiert ist.
+
+* Sie müssen sicherstellen, dass Sie SAP BR* Tools installiert haben.
++
+.. Erstellen Sie für jede SAP-Instanz einen Link aus dem BR*Tools-Verzeichnis in die Datei C:\Program Files\NetApp\SnapManager für SAP\bin\backint.
++
+
+NOTE: Sie müssen den Link verwenden, anstatt die Datei so zu kopieren, dass bei der Installation einer neuen Version von SnapManager der Link auf die neue BACKINT-Schnittstellenversion verweisen wird.
+
+.. Legen Sie die Anmeldeinformationen für den Benutzer fest, der die Befehle BR*Tools ausführt.
++
+Der Betriebssystembenutzer benötigt zur Unterstützung der Sicherung und Wiederherstellung der SAP Instanz die Zugangsdaten von SnapManager für SAP-Repository, -Profil und -Server.
+
+.. Geben Sie einen anderen Profilnamen an.
++
+Standardmäßig verwendet SnapManager bei der Verarbeitung von Befehlen aus BR*Tools das Profil mit dem gleichen Namen wie die SAP-Systemkennung. Wenn diese Systemkennung in Ihrer Umgebung nicht eindeutig ist, ändern Sie die Initialisierungsdatei initSID.utl SAP und erstellen Sie einen Parameter, um das korrekte Profil anzugeben. Die Datei initSID.utl befindet sich in der Datenbank %ORACLE_HOME%\.
+
++
+Eine Beispiel-Datei initSID.utl lautet wie folgt:
+
++
+[listing]
+----
+# Backup Retention policy.
+# Specifies the retention / lifecycle of backups on the filer.
+#
+----------------------------------------------------------------------
+----------
+# Default Value: daily
+# Valid Values: unlimited/hourly/daily/weekly/monthly
+# retain = daily
+# Enabling Fast Restore.
+#
+----------------------------------------------------------------------
+----------
+# Default Value: fallback
+# Valid Values: fallback/off
+#
+# fast = fallback
+# profile_name = SID_BRTOOLS
+----
++
+
+NOTE: Der Parametername ist immer in Kleinbuchstaben und die Kommentare müssen ein Zahlenzeichen (#) haben.
+
+.. Bearbeiten Sie die Konfigurationsdatei initSID.sap BR*Tools, indem Sie die folgenden Schritte durchführen:
++
+... Öffnen Sie die Datei initSID.sap.
+... Suchen Sie den Abschnitt mit den Dateiinformationen des Backup Utility-Parameters.
++
+[listing]
+----
+# backup utility parameter file
+# default: no parameter file
+# util_par_file =
+----
+... Bearbeiten Sie die letzte Zeile, um die Datei initSID.utl einzuschließen.
++
+[listing]
+----
+# backup utility parameter file
+# default: no parameter file
+# util_par_file = initSID.utl
+----
+
+
+.. Führen Sie die folgenden Schritte aus, um die Verknüpfung abzuschließen:
++
+Die Schritte können je nach Betriebssystemversion variieren.
+
++
+... Melden Sie sich als Administrator beim Hostsystem an.
+... Klicken Sie Auf *Start* > *Systemsteuerung* > *System* > *Erweitert* > *Umgebung*.
+... Bearbeiten Sie die Variable *PATH*, um den folgenden Pfad hinzuzufügen: Installationsverzeichnis\NetApp\SnapManager für SAP\bin
+
+
+
+
+
+
+Registrieren Sie die BACKINT-Schnittstelle im Systemlandschaftsverzeichnis (SLD), indem Sie den Befehl backint Register-sld ausführen.
+
+*Verwandte Informationen*
+
+xref:reference-the-backint-register-sld-command.adoc[Der Befehl backint Register-sld]
+
+xref:concept-using-br-tools-with-snapmanager-for-sap.adoc[Verwendung von BR*Tools mit SnapManager für SAP]

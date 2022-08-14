@@ -1,0 +1,320 @@
+---
+permalink: unix-administration/task-create-database-backups.html 
+sidebar: sidebar 
+keywords: create, backup, entire, database, portion, tablespace, data, file, control, creating 
+summary: Backups von ganzen Datenbanken oder Teilen von Datenbanken, einschließlich Tabellen, Datendateien oder Kontrolldateien, können erstellt werden. 
+---
+= Erstellen von Datenbank-Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Backups von ganzen Datenbanken oder Teilen von Datenbanken, einschließlich Tabellen, Datendateien oder Kontrolldateien, können erstellt werden.
+
+*Über diese Aufgabe*
+
+SnapManager bietet Snapshot-Kopien für Datenbanken in vielen Host-seitigen Storage Stacks, einschließlich NFS, Veritas und anderen.
+
+
+NOTE: Bei RAC-Konfigurationen (Real Application Clusters) führt SnapManager die Sicherung auf Hostseite im Profil durch.
+
+Administratoren können optional Backups mit Oracle RMAN registrieren, um die Datenbank mit granulareren Besonderheiten wie Blöcken wiederherzustellen.
+
+Sie können die Namen der Snapshot Kopien, die durch Backups dieses Profils erstellt werden, während Sie dieses Profil definieren. Beispielsweise können Sie eine Präfixzeichenfolge von einfügen
+
+`*HOPS*`
+
+So weisen Sie Backups für hohe Vorgänge auf.
+
+Sie können nicht nur eindeutige Namen für Snapshot Kopien definieren, die durch Backups erstellt werden, sondern auch eindeutige Bezeichnungen für die Backups selbst erstellen. Wenn Sie ein Backup erstellen, empfiehlt es sich, einen Namen für das Backup anzugeben, sodass Sie eine einfache Möglichkeit haben, es mit dem zu identifizieren `-label` Parameter. Dieser Name muss für alle Backups, die innerhalb eines bestimmten Profils erstellt wurden, eindeutig sein. Der Name kann Buchstaben, Zahlen, Unterstrich (_) und Bindestrich (-) enthalten. Es kann nicht mit einem Bindestrich beginnen. Bei Etiketten wird die Groß-/Kleinschreibung beachtet. Möglicherweise möchten Sie Informationen wie Umgebungsvariablen des Betriebssystems, Systemdatum und Backup-Typ anhängen.
+
+Wenn Sie kein Etikett angeben, erstellt SnapManager im Formular einen Standardnamen `_scope_mode_datestring_`, Wobei der Umfang voll oder teilweise ist und der Modus offline, online oder automatisch ist (der Buchstabe c für kalt, h für heiß oder ein für automatisch).
+
+Ab SnapManager 3.4 können Sie Ihr eigenes Backup-Label bereitstellen, indem Sie das von SnapManager erstellte Standard-Backup-Label überschreiben. Sie müssen den Wert des festlegen `override.default.backup.pattern` Parameter zu true und geben Sie die neue Backup-Bezeichnung im an `new.default.backup.pattern` Parameter. Das Backup-Label-Muster kann Schlüsselwörter wie Datenbankname, Profilname, Umfang, Modus und Hostname enthalten, die durch Unterstrich getrennt werden müssen. Beispiel: `new.default.backup.pattern=_dbname_profile_hostname_scope_mode_.`
+
+
+NOTE: Der Zeitstempel wird automatisch am Ende des generierten Etiketts eingefügt.
+
+Wenn Sie einen Kommentar eingeben, können Sie Leerzeichen und Sonderzeichen enthalten. Wenn Sie hingegen ein Etikett eingeben, enthalten Sie keine Leerzeichen oder Sonderzeichen.
+
+Für jedes Backup generiert SnapManager automatisch eine GUID, eine 32-stellige HEX-Zeichenfolge. Zur Bestimmung der GUID müssen Sie den ausführen `backup list` Befehl mit dem `-verbose` Option.
+
+Sie können eine vollständige Sicherung einer Datenbank erstellen, während diese online oder offline ist. Damit SnapManager die Sicherung einer Datenbank handhaben kann, unabhängig davon, ob sie online oder offline ist, sollten Sie das verwenden `-auto` Option.
+
+Wenn Sie beim Erstellen eines Backups die Beschneidung aktiviert haben und die zusammenfassende Benachrichtigung im Profil aktiviert wurde, werden zwei separate E-Mails ausgelöst. Eine E-Mail ist für den Backup-Vorgang und die andere für die Beschneidung. Sie können diese E-Mails korrelieren, indem Sie den Backup-Namen und die Backup-ID in diesen E-Mails vergleichen.
+
+Sie können ein Cold Backup erstellen, wenn sich die Datenbank im Shutdown-Status befindet. Wenn sich die Datenbank in einem gemounteten Zustand befindet, ändern Sie sie in einen Shutdown-Status, und führen Sie das Offline-Backup (Cold Backup) durch.
+
+Mit SnapManager (3.2 oder höher) können Sie die Archivprotokolldateien getrennt von den Datendateien sichern und so die Archivprotokolldateien effizient verwalten.
+
+Um die Archiv-Log-Backups separat zu erstellen, müssen Sie ein neues Profil erstellen oder das vorhandene Profil aktualisieren, um die Archiv-Log-Backups mit dem zu trennen `-separate-archivelog-backups` Option. Mithilfe des Profils können Sie die folgenden SnapManager-Vorgänge durchführen:
+
+* Erstellen Sie eine Backup-Datei für Archivprotokolle.
+* Löschen Sie eine Sicherung des Archivprotokolls.
+* Mounten Sie ein Backup für das Archivprotokoll.
+* Kostenlose Backup eines Archivprotokolls.
+
+
+Die Backup-Optionen variieren je nach Profileinstellungen:
+
+* Mit einem Profil, das nicht getrennt ist, um Archiv-Log-Backups separat durchzuführen, können Sie Folgendes tun:
++
+** Erstellen Sie ein vollständiges Backup.
+** Erstellen Sie ein partielles Backup.
+** Geben Sie für Archivprotokolldateien zu sichernde Ziele an.
+** Geben Sie Archivprotokollziele an, die vom Backup ausgeschlossen werden sollen.
+** Legen Sie die Beschneiungsoptionen für das Löschen der Archivprotokolldateien aus den Archivprotokollzielen fest.
+
+
+* Mithilfe eines Profils, das zur Erstellung von Archiv-Log-Backups getrennt ist, können Sie Folgendes tun:
++
+** Erstellen Sie ein Backup nur für Datendateien.
+** Erstellen Sie ein Backup nur archivels.
+** Während Sie ein Backup nur für Datendateien erstellen, schließen Sie das Backup des Archivprotokolls zusammen mit den online gespeicherten Datendateien nur zum Klonen ein.
++
+Wenn Sie Archiv-Log-Backups zusammen mit Datendateien auf der Seite *Profileinstellungen* des Assistenten *Profile Create* der SnapManager-Benutzeroberfläche enthalten haben, Und wenn Sie die Option *Archivierungsprognogs* im Assistenten * Backup Create* nicht ausgewählt haben, erstellt SnapManager immer das Archiv-Log Backup zusammen mit Datendateien für alle Online-Backups.
+
++
+In einer solchen Situation können Sie über die SnapManager-CLI alle Ziele für das Archiv-Protokoll für die Sicherung außer den in der SnapManager-Konfigurationsdatei angegebenen Ausschlusszielen betrachten. Aber Sie können diese Archiv-Log-Dateien nicht beschneiden. Sie können jedoch weiterhin das verwenden `-archivelogs` Option, um das Ziel der Archivprotokolldatei anzugeben und die Archivprotokolldateien aus der SnapManager-CLI zu beschneiden.
+
++
+Wenn Sie das Backup mit erstellen `-auto` Und geben Sie die an `--archivelogs` Option, SnapManager erstellt entweder ein Online- oder Offline-Backup auf Basis des aktuellen Status des Backups.
+
++
+*** SnapManager erstellt ein Offline Backup, wenn die Datenbank offline ist und keine Archivprotokolldateien in das Backup berücksichtigt.
+*** SnapManager erstellt ein Online Backup einschließlich Archiv-Log-Dateien, wenn die Datenbank online ist.
+
+
+** Während das nur Archivprotokolle erstellt wird:
++
+*** Geben Sie das Archivprotokoll-Ziel an, das gesichert werden soll, zusammen mit dem nur-Archivprotokoll-Backup
+*** Geben Sie die Ziele für das Archivprotokoll an, die vom Backup nur für Archivprotokolle ausgeschlossen werden sollen
+*** Legen Sie die Beschneiungsoptionen für das Löschen der Archivprotokolldateien aus den Archivprotokollzielen fest
+
+
+
+
+* *Szenarien nicht unterstützt*
++
+** Sie können das nur-Archivprotokoll-Backup nicht zusammen mit einem Offline-Datendatei-Backup erstellen.
+** Sie können die Archivprotokolldateien nicht beschneiden, wenn die Archivprotokolldateien nicht gesichert sind.
+** Sie können die Archivprotokolldateien nicht beschneiden, wenn der Flash Recovery Area (FRA) für Archivprotokolldateien aktiviert ist.
++
+Wenn Sie den Speicherort für das Archivprotokoll im Bereich Flash Recovery angeben, müssen Sie sicherstellen, dass Sie auch den Speicherort für das Archivprotokoll im angeben `archive_log_dest` Parameter.
+
+
+
+
+
+Wenn Sie das Etikett für die Sicherung von Online-Datendateien mit dem enthaltenen Archiv-Log-Backup angeben, wird das Etikett für die Datensicherung von Datendateien angewendet, und das Archiv-Log-Backup wird mit ausreichend `(_logs)`. Dieses Suffix kann durch Ändern des Parameters konfiguriert werden `suffix.backup.label.with.logs` Parameter in der SnapManager-Konfigurationsdatei
+
+Sie können beispielsweise den Wert als angeben `suffix.backup.label.with.logs=arc` So dass der Standardwert _logs geändert wird in `_arc`.
+
+Wenn Sie keine Ziele für das Archivprotokoll angegeben haben, die in das Backup aufgenommen werden sollen, enthält SnapManager alle in der Datenbank konfigurierten Archivprotokollziele.
+
+Wenn in einem der Ziele keine Archivprotokolldateien fehlen, überspringt SnapManager alle diese Archivprotokolldateien, die vor den fehlenden Archivprotokolldateien erstellt wurden, selbst wenn diese Dateien in anderen Archivprotokollzielen verfügbar sind.
+
+Während der Erstellung von Archiv-Log-Backups müssen Sie die Ziele für die Archivprotokolldatei angeben, die in die Sicherung aufgenommen werden sollen, und können den Konfigurationsparameter so einstellen, dass die Archivprotokolldateien immer über die fehlenden Dateien in der Sicherung hinausgehen.
+
+
+NOTE: Dieser Konfigurationsparameter ist standardmäßig auf festgelegt `*true*` Um alle Archivprotokolldateien über fehlende Dateien hinaus einzuschließen. Wenn Sie Ihre eigenen Archiv-Log-Beschneidungsskripte verwenden oder Archivprotokolldateien manuell aus den Archiv-Protokollzielen löschen, können Sie diesen Parameter deaktivieren, damit SnapManager die Archivprotokolldateien überspringen und weiter mit der Sicherung fortfahren kann.
+
+SnapManager unterstützt die folgenden SnapManager Vorgänge für Backups des Archivprotokolls nicht:
+
+* Klonen der Backup des Archivprotokolls
+* Backup des Archivprotokolls wiederherstellen
+* Backup des Archivprotokolls überprüfen
+
+
+SnapManager unterstützt auch die Sicherung der Archivprotokolldateien aus den Zielen des Flash-Recovery-Bereichs.
+
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup create -profile _profile_name_ {[-full {-online | -offline | -auto} [-retain {-hourly | -daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] [-datalabel _label_] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-label _label_] [-comment _comment_] [-snapvaultlabel _SnapVault_label_][-protect | -noprotect | -protectnow] [-backup-destpath1 [,[_path2_]]] [-exclude-dest _path1_ [_,path2_]]] [-prunelogs {-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd:HH:mm:ss_ | -before {-months | -days | -weeks | -hours}} -prune-dest _prune_dest1_,[_prune_dest2_]] [-taskspec _taskspec_]} [-dump] [-force] [-quiet | -verbose]*`
+
++
+[cols="1a,3a"]
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Erstellen Sie mithilfe der _SnapManager_cDOT_Vault_ Schutzrichtlinie* ein Backup auf sekundärem Storage
+ a| 
+Angeben `-snapvaultlabel`.
+
+Sie müssen das SnapMirror-Label bereitstellen, das Sie in den Regeln der SnapMirror-Richtlinie angegeben haben, und gleichzeitig die SnapVault-Beziehung als Wert einrichten.
+
+
+
+ a| 
+*Geben Sie an, ob Sie eine Sicherung einer Online- oder Offline-Datenbank durchführen möchten, anstatt SnapManager zu erlauben, ob es online oder offline ist*
+ a| 
+Angeben `-offline` Um ein Backup der Offline-Datenbank zu erstellen.
+
+Angeben `-online` Um ein Backup der Online-Datenbank zu erstellen.
+
+Wenn Sie diese Optionen verwenden, können Sie das nicht verwenden `-auto` Option.
+
+
+
+ a| 
+*Geben Sie an, ob SnapManager die Sicherung einer Datenbank handhaben soll, unabhängig davon, ob sie online oder offline ist*
+ a| 
+Geben Sie die an `-auto` Option. Wenn Sie diese Option verwenden, können Sie das nicht verwenden `--offline` Oder `-online` Option.
+
+
+
+ a| 
+*Geben Sie an, ob Sie eine partielle Sicherung bestimmter Dateien* durchführen möchten
+ a| 
+Geben Sie die an `-data-files` Option und listet dann die auf `_files_`, Durch Kommas getrennt. Listen Sie beispielsweise die Dateinamen f1, f2 und f3 nach der Option auf.
+
+Beispiel für die Erstellung einer partiellen Datendatei-Sicherung auf UNIX
+
+[listing]
+----
+smsap backup create -profile nosep -data -files /user/user.dbf -online
+-label partial_datafile_backup -verbose
+----
+
+
+ a| 
+*Geben Sie an, ob Sie eine partielle Sicherung bestimmter Tabellen durchführen möchten*
+ a| 
+Geben Sie die an `-data-tablespaces` Option und listet dann die auf `_tablespaces_`, Durch Kommas getrennt. Verwenden Sie beispielsweise ts1, ts2 und ts3 nach der Option.
+
+SnapManager unterstützt das Backup von schreibgeschützten Tabellen. Beim Erstellen des Backups ändert SnapManager die schreibgeschützten Tabellenbereiche zu lesen/schreiben. Nach dem Erstellen des Backups werden die Tabellen auf schreibgeschützt geändert.
+
+Beispiel für das Erstellen einer Datensicherung für Teiltablespaces
+
+[listing]
+----
+smsap backup create -profile nosep -data -tablespaces tb2 -online -label partial_tablespace_bkup -verbose
+----
+
+
+ a| 
+*Geben Sie an, ob Sie für jedes Backup ein eindeutiges Label im folgenden Format erstellen möchten: Full_Hot_mybackup_Label*
+ a| 
+Für Linux können Sie dieses Beispiel eingeben:
+
+[listing]
+----
+smsap backup create -profile targetdb1_prof1
+-label full_hot_my_backup_label -online -full  -verbose
+----
+
+
+ a| 
+*Geben Sie an, ob Sie eine Sicherungskopie der Archivprotokolldateien getrennt von den Datendateien erstellen möchten*
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** `-archivelogs` Erstellt eine Sicherung der Archivprotokolldateien.
+** `-backup-dest` Gibt die Ziele für die zu sichernde Archivprotokolldatei an.
+** `-exclude-dest` Gibt die zu ausgeschlossenen Archivprotokollziele an.
+** `-label` Gibt die Bezeichnung für die Sicherung der Archivprotokolldatei an.
+** `-protect` Bietet Schutz für die Backups des Archivprotokolls.
+
+
+
+NOTE: Sie müssen eines der beiden angeben `-backup-dest` Oder die Option `-exclude-dest` Option.
+
+Wenn Sie beide Optionen zusammen mit dem Backup bereitstellen, wird eine Fehlermeldung angezeigt `You have specified an invalid backup option. Specify any one of the options: -backup-dest, or exclude-dest.`
+
+Beispiel für die Erstellung von Backups von Archivprotokolldateien getrennt auf UNIX
+
+[listing]
+----
+smsap backup create -profile nosep -archivelogs -backup-dest /mnt/archive_dest_2/ -label archivelog_bkup -verbose
+----
+
+
+ a| 
+*Geben Sie an, ob Sie eine Datensicherung der Datendateien erstellen und Protokolldateien archivieren möchten*
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** `-data` Option zum Festlegen der Datendateien.
+** `-archivelogs` Option zum Festlegen der Archivprotokolldateien. Beispiel für das Sichern von Datendateien und Archivprotokolldateien zusammen auf UNIX
++
+[listing]
+----
+
+smsap backup create -profile nosep -data -online -archivelogs -backup-dest  mnt/archive_dest_2 -label data_arch_backup
+-verbose
+----
+
+
+
+
+ a| 
+*Geben Sie an, ob Sie die Archiv-Log-Dateien beim Erstellen eines Backups beschneiden möchten*
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** `-prunelogs` Gibt an, die Archivprotokolldateien aus den Speicherprotokollzielen zu löschen.
++
+*** `-all` Gibt an, alle Archivprotokolldateien aus den Speicherprotokollzielen zu löschen.
+*** `-until-scn _until-scn_` Gibt an, die Archivprotokolldateien bis zu einem angegebenen SCN zu löschen.
+*** `-until-date _yyyy-MM-dd:HH:mm:ss_` Gibt an, die Archivprotokolldateien bis zum angegebenen Zeitraum zu löschen.
+*** `-before` Mit dieser Option können Sie die Archivprotokolldateien vor dem angegebenen Zeitraum löschen (Tage, Monate, Wochen, Stunden).
+*** `-prune-destprune_ _dest1,[prune_dest2_` Gibt an, die Archivprotokolldateien aus den Speicherprotokollzielen zu löschen, während die Sicherung erstellt wird.
+
+
+
+
+
+NOTE: Sie können die Archivprotokolldateien nicht beschneiden, wenn der Flash Recovery Area (FRA) für Archivprotokolldateien aktiviert ist.
+
+Beispiel für das Beschneiden aller Archiv-Log-Dateien während der Erstellung einer Sicherung auf UNIX
+
+[listing]
+----
+smsap backup create -profile nosep
+ -archivelogs -label archive_prunebackup1 -backup-dest /mnt/arc_1,/mnt/arc_2  -prunelogs -all -prune-dest /mnt/arc_1,/mnt/arc_2 -verbose
+----
+
+
+ a| 
+*Geben Sie an, ob Sie einen Kommentar zum Backup hinzufügen möchten*
+ a| 
+Angeben `-comment` Gefolgt von der Beschreibungszeichenfolge.
+
+
+
+ a| 
+*Geben Sie an, ob Sie die Datenbank in den Zustand zwingen möchten, den Sie angegeben haben, um sie zu sichern, unabhängig davon, in welchem Zustand sie sich derzeit in* befindet
+ a| 
+Geben Sie die an `-force` Option.
+
+
+
+ a| 
+*Geben Sie an, ob Sie das Backup gleichzeitig überprüfen möchten, wenn Sie es erstellen*
+ a| 
+Geben Sie die an `-verify` Option.
+
+
+
+ a| 
+*Geben Sie an, ob Sie die Dump-Dateien nach dem Datenbank-Backup-Vorgang sammeln möchten*
+ a| 
+Angeben `-dump` Option am Ende des Befehls Backup create.
+
+|===
+
+
+'''
+
+
+== Beispiel
+
+[listing]
+----
+smsap backup create -profile targetdb1_prof1 -full -online -force  -verify
+----
+'''

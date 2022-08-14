@@ -1,0 +1,27 @@
+---
+permalink: windows/task-disabling-email-notification-for-multiple-profiles.html 
+sidebar: sidebar 
+keywords: enable, summary, email, notification, multiple, profile, disable, alert, disabling 
+summary: Nachdem Sie die E-Mail-Benachrichtigung für mehrere Profile aktiviert haben, können Sie sie deaktivieren, dass sie keine E-Mail-Benachrichtigungen mehr erhalten. 
+---
+= Deaktivieren der E-Mail-Benachrichtigung für mehrere Profile
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie die E-Mail-Benachrichtigung für mehrere Profile aktiviert haben, können Sie sie deaktivieren, dass sie keine E-Mail-Benachrichtigungen mehr erhalten.
+
+Mit SnapManager können Sie die E-Mail-Benachrichtigung mit der Zusammenfassung für diese profilausgeführten Datenbankvorgänge deaktivieren. Geben Sie über die SnapManager-CLI den Befehl Benachrichtigung remove-summary-notification ein, um die Zusammenfassung der E-Mail-Benachrichtigung für mehrere Profile und den Namen der Repository-Datenbank zu deaktivieren, für die Sie keine E-Mail-Benachrichtigung benötigen.
+
+. Geben Sie den folgenden Befehl ein, um die zusammenfassende Benachrichtigung für mehrere Profile in einer Repository-Datenbank zu deaktivieren: `smsap notification remove-summary-notification -repository-portrepo_port-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username`
+
+
+Das folgende Beispiel zeigt, dass die zusammenfassende Benachrichtigung für mehrere Profile in einer Repository-Datenbank deaktiviert wird:
+
+[listing]
+----
+
+smsap notification remove-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5
+----

@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/concept-restoring-database-backup.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, restore, database, state, snapshot, copy, addition, file-base, restoring, backup, mean-time-to-recoverr, mttr 
+summary: 'Mit SnapManager für SAP können Sie eine Datenbank in den Zustand wiederherstellen, an dem sie zum Zeitpunkt der Erstellung einer Snapshot Kopie stattgefunden hat. Zusätzlich zum dateibasierten Restore-Prozess unterstützt SnapManager Volume-basierte Technologien zur schnellen Wiederherstellung, was die Restore-Zeit im Vergleich zu anderen Recovery-Methoden deutlich verkürzt. Da Backups häufiger erstellt werden, verringert sich die Anzahl der anzuwendenden Protokolle, sodass die mittlere Zeit bis zur Recovery (MTTR) für eine Datenbank reduziert wird.' 
+---
+= Datenbank-Backups werden wiederhergestellt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager für SAP können Sie eine Datenbank in den Zustand wiederherstellen, an dem sie zum Zeitpunkt der Erstellung einer Snapshot Kopie stattgefunden hat. Zusätzlich zum dateibasierten Restore-Prozess unterstützt SnapManager Volume-basierte Technologien zur schnellen Wiederherstellung, was die Restore-Zeit im Vergleich zu anderen Recovery-Methoden deutlich verkürzt. Da Backups häufiger erstellt werden, verringert sich die Anzahl der anzuwendenden Protokolle, sodass die mittlere Zeit bis zur Recovery (MTTR) für eine Datenbank reduziert wird.
+
+Im Folgenden werden einige Aufgaben aufgeführt, die Sie im Zusammenhang mit dem Wiederherstellen und Wiederherstellen von Daten in Datenbanken ausführen können:
+
+* Durchführung einer dateibasierten Wiederherstellung oder einer Volume-basierten Wiederherstellung – die schnellste Methode zur Wiederherstellung von Datenbank-Backups und die von SnapManager verwendete Standardeinstellung
+* Stellen Sie das gesamte Backup oder einen Teil des Backups wieder her.
++
+Wenn Sie einen Teil davon wiederherstellen, geben Sie eine Gruppe von Tabellen oder eine Gruppe von Datendateien an. Sie können auch die Kontrolldateien zusammen mit den Daten oder nur die Kontrolldateien selbst wiederherstellen.
+
+* Stellen Sie die Daten entweder nach einem bestimmten Zeitpunkt oder auf allen verfügbaren Protokollen wieder her, in denen die letzte an die Datenbank verplante Transaktion gespeichert wird.
++
+Der Zeitpunkt kann eine Oracle System Change Number (SCN) oder ein Datum und eine Uhrzeit (yyyy-mm-dd:hh:mm:ss) sein. Bei SnapManager wird die 24-Stunden-Zeit verwendet.
+
+* Restore aus Backups im Primärspeicher (lokale Backups).
+* Stellen Sie das Backup mit SnapManager wieder her, oder verwenden Sie SnapManager für die Wiederherstellung des Backups und verwenden Sie ein anderes Tool wie Recovery Manager (RMAN) zur Wiederherstellung der Daten.
+* Wiederherstellung von Backups von alternativen Orten aus
+* Stellen Sie geschützte Backups aus dem sekundären Storage (Remote Backups) und von einem alternativen Speicherort mithilfe der Spezifikationsdatei für die Wiederherstellung wieder her.
+
+
+Sie können ein Backup, das von einer früheren Version von SnapManager erstellt wurde, mit SnapManager 3.0 und höher wiederherstellen.
+
+Administratoren können Restore- oder Recovery-Vorgänge über die grafische Benutzeroberfläche von SnapManager oder über die Befehlszeilenschnittstelle (CLI) durchführen.

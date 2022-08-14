@@ -1,0 +1,33 @@
+---
+permalink: unix-administration/reference-mounting-a-flexclone-fails-in-nfs-environment.html 
+sidebar: sidebar 
+keywords: snapmanager, create, flexclone, volume, nfs, environment, export, file, clone, backup, fail, mount, error, message 
+summary: Wenn SnapManager einen FlexClone eines Volumes in einer NFS-Umgebung erstellt, wird in der Datei /etc/exports ein Eintrag hinzugefügt. Der Klon oder das Backup kann nicht auf einem SnapManager Host mit einer Fehlermeldung gemountet werden. 
+---
+= Montage eines FlexClone Volume schlägt in der NFS-Umgebung fehl
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn SnapManager einen FlexClone eines Volumes in einer NFS-Umgebung erstellt, wird ein Eintrag in hinzugefügt `/etc/exports` Datei: Der Klon oder das Backup kann nicht auf einem SnapManager Host mit einer Fehlermeldung gemountet werden.
+
+Die Fehlermeldung lautet: `0001-034 Command error: mount failed: mount: filer1:/vol/SnapManager_20090914112850837_vol14 on /opt/NTAPsmsap/mnt/-ora_data02-20090914112850735_1 - WARNING unknown option "zone=vol14" nfs mount: filer1:/vol/SnapManager_20090914112850837_vol14: Permission denied`.
+
+Gleichzeitig wird an der Storage-System-Konsole die folgende Meldung generiert: `Mon Sep 14 23:58:37 PDT [filer1: export.auto.update.disabled: warning]: /etc/exports was not updated for vol14 when the vol clone create command was run. Please either manually update /etc/exports or copy /etc/exports.new to it`.
+
+Diese Meldung wird möglicherweise nicht in den AutoSupport-Meldungen erfasst.
+
+
+NOTE: Sie können ähnliche Probleme beim Klonen von FlexVol Volumes auf NFS auftreten. Sie können die gleichen Schritte befolgen, um die zu aktivieren `nfs.export.auto-update` Option.
+
+*Was zu tun*
+
+. Stellen Sie die ein `nfs.export.auto-update` Option `_on_` So auch auf den `/etc/exports` Datei wird automatisch aktualisiert.
+
+
+`*options nfs.export.auto-update _on_*`
+
+
+NOTE: Stellen Sie in der Konfiguration des HA-Paars sicher, dass Sie die NFS-Exportoption für beide Storage-Systeme auf ON setzen.

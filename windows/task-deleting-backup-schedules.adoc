@@ -1,0 +1,17 @@
+---
+permalink: windows/task-deleting-backup-schedules.html 
+sidebar: sidebar 
+keywords: delete, backup, schedule, deleting 
+summary: Sie können Backup-Pläne löschen, wenn diese nicht mehr benötigt werden. 
+---
+= Löschen von Backup-Zeitplänen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Backup-Pläne löschen, wenn diese nicht mehr benötigt werden.
+
+. Geben Sie zum Löschen des Backup-Zeitplans den folgenden Befehl ein: `smsap schedule delete -profile profile_name-schedule-nameschedulename [-quiet | -verbose]`
+

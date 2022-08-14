@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-view-a-list-of-scheduled-operations.html 
+sidebar: sidebar 
+keywords: view, list, schedule, operation, profile 
+summary: Sie können eine Liste der geplanten Vorgänge für ein Profil anzeigen. 
+---
+= Zeigen Sie eine Liste der geplanten Vorgänge an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Liste der geplanten Vorgänge für ein Profil anzeigen.
+
+.Schritt
+. Um Informationen über den geplanten Vorgang anzuzeigen, geben Sie den folgenden Befehl ein:
++
+`*smsap schedule list -profile _profile_name_ [-quiet | -verbose]*`
+
+

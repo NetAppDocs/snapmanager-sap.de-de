@@ -1,0 +1,135 @@
+---
+permalink: windows/concept-what-snapmanager-for-oraclesnapmanager-for-sap-does.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, simplify, simplifies, automate, database, backup, recovery, clone, leverage, snapshot, copies, copy, snaprestore, flexclone, technology, technologies 
+summary: SnapManager für SAP vereinfacht und automatisiert Backups, Recoverys und das Klonen von Datenbanken mithilfe der Snapshot Kopien, SnapRestore und FlexClone Technologien. 
+---
+= Was macht SnapManager für SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager für SAP vereinfacht und automatisiert Backups, Recoverys und das Klonen von Datenbanken mithilfe der Snapshot Kopien, SnapRestore und FlexClone Technologien.
+
+SnapManager bietet Datenbankadministratoren (DBAs) folgende Vorteile:
+
+* Arbeiten mit Datenbankprofilen
++
+** Sie können Host- und Datenbankinformationen in Profilen organisieren und aufbewahren.
++
+Wenn Sie ein Backup auf der Grundlage eines Profils initiieren, können Sie die Informationen wiederverwenden, anstatt sie für jedes Backup erneut eingeben zu müssen. SnapManager ermöglicht Ihnen darüber hinaus die schnelle Überwachung von Abläufen mithilfe von Profilen.
+
+** Im Profil können Sie die Benennungsmuster für Snapshot Kopien definieren und einen benutzerdefinierten Text (Präfix oder Suffix) eingeben, sodass alle Snapshot Kopien dieselbe Namenskonvention verwenden können, die den Unternehmensrichtlinien entspricht.
+** Sie müssen den Namen des Speichersystems nicht kennen, da Datenbankdateien automatisch dem zugehörigen Speicher zugeordnet werden.
+** Wenn Sie ein neues Profil erstellen, können Sie die Option zum Trennen des Backup des Archivprotokolls von der Datensicherung der Datendatei angeben.
++
+Sie können das vorhandene Profil auch aktualisieren, um die Sicherung des Archivprotokolls von der Datensicherung der Datendatei zu trennen.
+
+
+
+* Durchführen des Datenbank-Backup-Vorgangs
++
+** Backup von kompletten und teilweisen Datenbanken
++
+*** Sie können schnell und platzsparend ein vollständiges oder partielles Backup erstellen, sodass Sie Backups häufiger durchführen können.
++
+Das vollständige Datenbank-Backup enthält alle Datendateien, Steuerdateien und Archivprotokolldateien in einem einzigen Backup.
+
++
+Das partielle Datenbank-Backup enthält bestimmte Datendateien oder Tablespaces, alle Kontrolldateien und alle Archivprotokolldateien.
+
+*** Backups können durch Nachverarbeitungsskripte auf den Sekundärspeicher gesichert werden.
+*** Die Backups können auf Stundenbasis, wöchentlich, täglich, monatlich oder unbegrenzt geplant werden.
+
+
+** Separate Backup von Datendateien und Archivprotokolldateien
++
+*** Mit SnapManager (3.2 oder höher) können Sie die Datendateien und die Log-Dateien zur Archivierung separat sichern. Um diesen Vorgang durchzuführen, müssen Sie die Option zum Trennen der Archivprotokolldateien beim Erstellen oder Aktualisieren des Profils angeben.
+*** Sie können in der Aufbewahrungsrichtlinie die Anzahl und die Dauer angeben, für die die Backups der Datendateien aufbewahrt werden sollen.
+*** Sie können die Dauer für die Backups der Archivprotokolldatei angeben, die während der Aufbewahrungsdauer des Archivprotokolls aufbewahrt werden soll.
+*** SnapManager (3.2 oder höher) konsolidiert außerdem die Archiv-Log-Backups auf eine Mindestanzahl von Backups, indem die Archiv-Log-Backups mit doppelten Archivprotokolldateien freigegeben werden und nur die Archiv-Log-Backups mit einzigartigen Archiv-Log-Dateien vorgehalten werden. Diese Konsolidierung kann jedoch optional deaktiviert werden.
+
+
+
+
+* Verwalten der Archivprotokolldateien
++
+** Mit SnapManager (3.2 oder höher) können Sie die Archivprotokolldateien aus den Archivprotokollzielen beschneiden.
++
+Der von den beschnitten Archivprotokolldateien belegte Speicherplatz wird freigegeben, wenn die Archiv-Log-Backups, die diese Archivprotokolldateien enthalten, gelöscht werden.
+
+** SnapManager stellt sicher, dass die Archiv-Log-Dateien gesichert werden, bevor sie von den Archiv-Protokollzielen beschnitten werden.
++
+Die nicht gesicherten Archivprotokolldateien werden nicht beschnitten.
+
+** SnapManager stellt sicher, dass die Archivprotokolldateien an die Data Guard-Standby-Datenbank gesendet werden, während Archivprotokolldateien aus einer primären Data Guard-Datenbank beschnitten werden.
+** SnapManager stellt sicher, dass die Archivprotokolldateien vom Oracle Stream Capture-Prozess erfasst werden, falls vorhanden.
+** Empfehlung
++
+*** Um den Zielplatz für Archivprotokolle effektiv zu managen, müssen Sie die Archiv-Log-Backups erstellen und die Archiv-Log-Dateien damit beschneiden.
+
+
+** SnapManager konsolidiert die Archiv-Log-Backups und enthält so eine Mindestanzahl von Backups, indem die Archiv-Log-Backups mit duplizierten Archiv-Log-Dateien erstellt und nur die Archiv-Log-Backups genutzt werden.
++
+Diese Konsolidierung kann jedoch optional deaktiviert werden. Die Archiv-Log-Backups, die doppelte Archiv-Log-Dateien enthalten, werden freigegeben und ein einzelnes Backup mit einzigartigen Archiv-Logs bleibt erhalten.
+
+
+
+* Durchführen des Datenbankwiederherstellungsvorgangs
++
+** Sie können dateibasierte Restore-Vorgänge durchführen.
++
+Sie können außerdem eine Vorschau der Wiederherstellungsvorgänge anzeigen und eine Datei-für-Datei-Analyse von Wiederherstellungsvorgängen erhalten, bevor der Vorgang ausgeführt wird.
+
+** Mit SnapRestore lässt sich der mittlere Zeitaufwand für die Wiederherstellung einer Datenbank verringern.
+** Mit SnapManager (3.2 oder höher) können Sie die Datenbank automatisch wiederherstellen, indem Sie die Archivprotokolldateien aus dem Backup verwenden, selbst wenn die Archivprotokolldateien nicht im Archivprotokollziel verfügbar sind.
++
+SnapManager (3.2 oder höher) bietet auch eine Möglichkeit, die Datenbank durch die Verwendung der Archiv-Log-Dateien aus dem externen Standort in einem bestimmten Ausmaß wiederherzustellen.
+
+
+
+* Klonen von Datenbanken für Tests und Entwicklung
++
+** Sie können einen Klon einer Datenbank erstellen, sodass die Datenbank außerhalb der Produktionsumgebung eingerichtet werden kann.
++
+Sie können beispielsweise in der Entwicklungs- und Testumgebung zum Testen von Upgrades auf wichtige Systeme klonen.
+
+** Sie können eine Datenbank auf einem Primärspeichersystem klonen.
+** Mit SnapManager (3.2 oder höher) können Sie die Backups der Datendatei mit den im Backup verfügbaren Archivprotokolldateien klonen.
++
+*** Sie können die Backups der Datendatei nur klonen, wenn das Archivprotokoll-Backup miterstellt wird.
+*** Sie können die Backups der Datendatei auch klonen, wenn die Archivprotokolldateien in einem bestimmten Umfang separat erstellten Archiv-Log-Backups zur Verfügung stehen.
+*** Sie können die Backups einer eigenständigen Datenbank in einem bestimmten Umfang auch mit Archivprotokolldateien von jedem externen Standort aus klonen, auf den Oracle zugreifen kann.
+*** Wenn die Backups von einem externen Standort aus verfügbar sind, können Sie den externen Standort beim Klonen angeben, um die geklonte Datenbank in einen konsistenten Status wiederherzustellen.
+
+
+** Das Klonen der rein archivprotokollbasierten Backups wird nicht unterstützt.
+
+
+* Allgemein
++
+** Integration in BR*Tools von SAP
++
+Das BR*Tools-Paket umfasst SAP-Tools wie BRARCHIVE, BRBACKUP, BRCONNECT, BRRECOVER, BRRESTORE, BRSCACE und BRTOOLS.
+
+
+
+
+
+SnapManager bietet Storage-Administratoren folgende Vorteile:
+
+* Unterstützt unterschiedliche SAN-Protokolle
+* Ermöglicht Ihnen die Optimierung von Backups auf der Grundlage der für Ihre Umgebung am besten geeigneten Backup-Art (vollständig oder teilweise).
+* Erstellt platzsparende Datenbank-Backups.
+* Erstellung platzsparender Klone:
+
+
+SnapManager arbeitet darüber hinaus mit folgenden Oracle Funktionen zusammen:
+
+* SnapManager kann die Backups mit RMAN von Oracle katalogisieren.
++
+Bei Verwendung von RMAN kann ein DBA die SnapManager Backups nutzen und den Nutzen aller RMAN Funktionen, wie etwa das Restore auf Blockebene, erhalten. Dank SnapManager kann RMAN die Snapshot Kopien bei Recovery- oder Restore-Vorgängen verwenden. So können Sie beispielsweise RMAN zum Wiederherstellen einer Tabelle in einem Tablespace und zum Durchführen vollständiger Restores und Recoverys von Datenbanken und Tablespaces aus Snapshot-Kopien von SnapManager verwenden. Der RMAN-Wiederherstellungskatalog sollte sich nicht in der Datenbank befinden, die gesichert wird.
+
+

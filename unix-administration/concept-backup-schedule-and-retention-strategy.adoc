@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/concept-backup-schedule-and-retention-strategy.html 
+sidebar: sidebar 
+keywords: dba, ensure, backup, loss, data, disaster, regulatory, reason, retention, policy, database, schedule 
+summary: Der DBA möchte sicherstellen, dass Backups im Falle eines Datenverlusts, im Fall eines Notfalls und aus gesetzlichen Gründen verfügbar sind. Dies erfordert eine sorgfältig durchdachte Aufbewahrungsrichtlinie für die verschiedenen Datenbanken. 
+---
+= Backup-Zeitplan und Aufbewahrungsstrategie
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der DBA möchte sicherstellen, dass Backups im Falle eines Datenverlusts, im Fall eines Notfalls und aus gesetzlichen Gründen verfügbar sind. Dies erfordert eine sorgfältig durchdachte Aufbewahrungsrichtlinie für die verschiedenen Datenbanken.
+
+Bei der Gehaltsabrechnungsdatenbank für die Produktion hält sich der DBA an die folgende TechCo-Aufbewahrungsstrategie:
+
+[cols="1a,1a,1a,1a"]
+|===
+| Sicherungshäufigkeit | Aufbewahrungsdauer | Backup-Zeit | Art des Storage 
+
+
+ a| 
+Einmal täglich
+ a| 
+10 Tage
+ a| 
+7 Uhr
+ a| 
+Primär (lokal)
+
+
+
+ a| 
+Einmal täglich
+ a| 
+10 Tage
+ a| 
+7 Uhr
+ a| 
+Sekundär (Archiv)
+
+
+
+ a| 
+Einmal pro Woche
+ a| 
+52 Wochen
+ a| 
+Samstags 1 Uhr
+ a| 
+Sekundär (Archiv)
+
+|===
+* *Vorteile der lokalen Sicherung*
++
+Die täglichen lokalen Backups bieten sofortige Datenbanksicherung, belegt keine Netzwerkbandbreite, benötigt minimalen zusätzlichen Speicherplatz, ermöglicht die sofortige Wiederherstellung und bietet fein abgestimmte Backup- und Restore-Funktionen.
+
++
+Da die letzten wöchentlichen Backups der Gehaltsabrechnungsdatenbank für mindestens 52 Wochen an einem sekundären Standort aufbewahrt werden, müssen die täglichen Backups nicht mehr als 10 Tage aufbewahrt werden.
+
+* *Geschützte Backup-Vorteile*
++
+Tägliche und wöchentliche Backups auf dem Sekundärspeicher an einem Remote-Standort gewährleisten, dass die Zieldatenbank weiterhin gesichert ist und aus dem Sekundärspeicher wiederhergestellt werden kann, wenn die Daten am primären Storage-Standort beschädigt sind.
+
++
+Die täglichen Backups auf dem Sekundärspeicher werden durchgeführt, um das System vor Schäden am primären Speichersystem zu schützen. Da die letzten wöchentlichen Backups der Gehaltsabrechnungsdatenbank für mindestens 52 Wochen aufbewahrt werden, muss die tägliche Sicherung nicht mehr als 10 Tage aufbewahrt werden.
+
+

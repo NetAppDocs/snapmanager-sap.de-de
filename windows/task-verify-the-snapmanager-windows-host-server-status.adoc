@@ -1,0 +1,19 @@
+---
+permalink: windows/task-verify-the-snapmanager-windows-host-server-status.html 
+sidebar: sidebar 
+keywords: server, run, execute, command, initiate, snapmanager, operation, verify, status, host 
+summary: Der Server muss ausgeführt werden, damit Sie Befehle ausführen oder SnapManager Vorgänge initiieren können. Sie müssen den Status des Servers überprüfen, bevor Sie Vorgänge ausführen. 
+---
+= Überprüfen Sie den Status des SnapManager-Hostservers
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Server muss ausgeführt werden, damit Sie Befehle ausführen oder SnapManager Vorgänge initiieren können. Sie müssen den Status des Servers überprüfen, bevor Sie Vorgänge ausführen.
+
+.Schritte
+. Wählen Sie im Fenster Dienste SnapManager 3.3 forSAP aus.
+. Zeigen Sie den Status in der Spalte Status an.
+

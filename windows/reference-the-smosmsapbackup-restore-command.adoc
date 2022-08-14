@@ -1,0 +1,154 @@
+---
+permalink: windows/reference-the-smosmsapbackup-restore-command.html 
+sidebar: sidebar 
+keywords: run, backup, restore, command, database, portion, information, smsap 
+summary: Sie können den Befehl Backup Restore ausführen, um Backups einer Datenbank oder eines Teils einer Datenbank wiederherzustellen, und optional die Datenbankinformationen wiederherstellen. 
+---
+= Der Befehl smsap Backup Restore
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup restore` Befehl zum Wiederherstellen von Backups einer Datenbank oder eines Teils einer Datenbank und dann optional Wiederherstellen der Datenbankinformationen.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap backup restore
+-profile profile_name
+[-label label | -id id]
+[-files files [files...] |
+-tablespaces tablespaces [tablespaces...]] |
+-complete | -controlfiles]
+[-recover {-alllogs | -nologs | -until until} [-using-backup-controlfile]]
+[-restorespec restorespec | ]]
+[-preview]
+
+[-recover-from-location path1 [, path2]]
+[-taskspec taskspec]
+[-dump]
+[-force]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt die Datenbank an, die wiederhergestellt werden soll. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-label _name_`*
++
+Stellt das Backup mit dem angegebenen Etikett wieder her.
+
+* *`-id _guid_`*
++
+Stellt die Sicherung mit der angegebenen GUID wieder her. Die GUID wird von SnapManager beim Erstellen eines Backups generiert. Sie können das verwenden `smsap backup list` Befehl zum Anzeigen der GUID für jedes Backup.
+
+* *`Choose all or specified files`*
++
+Optional können Sie eine der folgenden Optionen verwenden:
+
++
+** `-complete`: Stellt alle Dateien im Backup wieder her.
+** `-tablespaceslist`: Stellt nur die angegebenen Tabellen aus dem Backup wieder her.
++
+Sie müssen Leerzeichen verwenden, um die Namen in der Liste zu trennen.
+
+** `-fileslist`: Stellt nur die angegebenen Dateien aus der Sicherung wieder her.
++
+Sie müssen Leerzeichen verwenden, um die Namen in der Liste zu trennen. Wenn die Datenbank ausgeführt wird, stellt SnapManager sicher, dass der Tablespace, der die Dateien enthält, offline ist.
+
+
+
+* *`-controlfiles`*
++
+Stellt die Kontrolldateien wieder her. SnapManager ermöglicht Ihnen, in einem einzigen Vorgang Kontrolldateien zusammen mit den Datendateien aus den Backups wiederherzustellen. Der `-controlfiles` Die Option ist unabhängig von anderen Parametern für den Wiederherstellungsumfang, wie z. B. `-complete`, `-tablespaces`, und `-files`.
+
+* *`-recover`*
++
+Stellt die Datenbank nach der Wiederherstellung wieder her. Sie müssen auch den Punkt angeben, an dem SnapManager die Datenbank wiederherstellen soll, indem Sie eine der folgenden Optionen verwenden:
+
++
+** `-nologs`: Stellt die Datenbank zum Zeitpunkt der Sicherung wieder her und wendet keine Logs an.
++
+Sie können diesen Parameter für Online- oder Offline-Backups verwenden.
+
+** `-alllogs`: Stellt die Datenbank auf die letzte Transaktion oder Commit wieder her und wendet alle erforderlichen Protokolle an.
+** `-until date`: Stellt die Datenbank bis zum angegebenen Datum und der angegebenen Zeit wieder her.
++
+Sie müssen das Jahr-Monat-Datum verwenden: Stunde: Minute: Sekunde (_yyyy-mm-dd:hh:mm:ss_) Format. Verwenden Sie für Stunden je nach Datenbankeinstellung entweder das 12-Stunden- oder das 24-Stunden-Format.
+
+** `-until scn`: Rolls leiten die Datendateien weiter, bis sie die angegebene Systemändernummer (SCN) erreicht.
+** `-using-backup-controlfile`: Stellt die Datenbank mit der Backup-Kontrolldatei wieder her.
+
+
+* *`-restorespec`*
++
+Ermöglicht Ihnen, die Daten in einem aktiven File-System wiederherzustellen und aus den angegebenen Daten wiederherzustellen, indem Sie jede Original-Snapshot-Kopie einem aktiven File-System zuweisen. Falls Sie keine Option angeben, werden die Daten aus den Snapshot Kopien im primären Storage von SnapManager wiederhergestellt. Sie können eine der folgenden Optionen angeben:
+
++
+** `-restorespec`: Gibt die wiederherzustellenden Daten und das Wiederherstellungsformat an.
+
+
+* *`-preview`*
++
+Zeigt die folgenden Informationen an:
+
++
+** Zur Wiederherstellung jeder Datei wird der Wiederherstellungsmechanismus (Wiederherstellung von Storage-seitigen Dateisystemen, Dateiwiederherstellung auf Storage-Seite oder Dateikopien auf Host-Seite) verwendet
+** Warum effizientere Mechanismen nicht verwendet wurden, um jede Datei wiederherzustellen, wenn Sie die angeben `-verbose` Option Wenn Sie die verwenden `-preview` Diese Option muss Folgendes wissen:
+** Der `-force` Die Option hat keine Auswirkung auf den Befehl.
+** Der `-recover` Die Option hat keine Auswirkung auf den Befehl. Um eine Vorschau des Wiederherstellungsvorgangs anzuzeigen, muss die Datenbank gemountet werden. Wenn Sie eine Vorschau eines Wiederherstellungsplans anzeigen möchten und die Datenbank derzeit nicht angehängt ist, mountet SnapManager die Datenbank. Wenn die Datenbank nicht angehängt werden kann, schlägt der Befehl fehl, und SnapManager gibt die Datenbank in ihren ursprünglichen Status zurück.
+
+
++
+Der `-preview` Mit der Option werden bis zu 20 Dateien angezeigt. Sie können die maximale Anzahl von Dateien konfigurieren, die im angezeigt werden sollen `smsap.config file`.
+
+* *`-recover-from-location`*
++
+Gibt den externen Speicherort der Archivprotokolldateien an. SnapManager nimmt die Archivprotokolldateien vom externen Standort auf und verwendet diese für den Recovery-Prozess.
+
+* *`-taskspec`*
++
+Gibt die XML-Datei für die Aufgabenspezifikation für die Vorverarbeitung oder Nachbearbeitung des Wiederherstellungsvorgangs an. Sie müssen den vollständigen Pfad der XML-Datei für die Aufgabenspezifikation angeben.
+
+* *`-dump`*
++
+Gibt an, die Speicherauszugsdateien nach dem Wiederherstellungsvorgang zu sammeln.
+
+* *`-force`*
++
+Ändert ggf. den Datenbankstatus in einen niedrigeren Status als der aktuelle Status.
+
++
+Standardmäßig kann SnapManager den Datenbankstatus während eines Vorgangs in einen höheren Status ändern. Diese Option ist nicht erforderlich, damit SnapManager die Datenbank in einen höheren Status ändert.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an. Sie können diese Option verwenden, um zu sehen, warum effizientere Wiederherstellungsprozesse nicht verwendet werden konnten, um die Datei wiederherzustellen.
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel wird eine Datenbank zusammen mit den Kontrolldateien wiederhergestellt:
+
+[listing]
+----
+smsap backup restore -profile SALES1 -label full_backup_sales_May
+-complete -controlfiles -force
+----

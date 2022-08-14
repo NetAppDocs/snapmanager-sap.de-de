@@ -1,0 +1,32 @@
+---
+permalink: unix-administration/task-configure-snapdrive-in-an-active-active-unix-environment.html 
+sidebar: sidebar 
+keywords: host-cluster-sw-restore-warn, parameter, snapdrive, conf, assign, value, support, restore, operation, active, veritas, storage, foundation, oracle, rac, sfrac, environment 
+summary: 'Wenn Sie den Parameter Host-Cluster-sw-Restore-warn in snapdrive.conf hinzugefügt haben und den Wert an zugewiesen haben, müssen Sie den Wert ändern, um die Wiederherstellung in der aktiv/aktiv Veritas Storage Foundation for Oracle RAC (SFRAC) Umgebung zu unterstützen.' 
+---
+= Konfiguration von SnapDrive für UNIX für eine aktiv/aktiv Veritas SFRAC-Umgebung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie das bereits enthalten sind `host-cluster-sw-restore-warn` Parameter in `snapdrive.conf` Und haben den Wert für zugewiesen, müssen Sie den Wert ändern, um den Wiederherstellungsvorgang in der aktiven/aktiven Veritas Storage Foundation for Oracle RAC (SFRAC) Umgebung zu unterstützen.
+
+Wenn Sie die aktive/aktive Veritas Storage Foundation für Oracle RAC (SFRAC) Umgebung verwenden, wenn die `host-cluster-sw-restore-warn` Parameter ist auf festgelegt `*on*`, Eine Warnmeldung wird angezeigt und der Wiederherstellungsvorgang wird angehalten. Wenn Sie die Wiederherstellung in einer aktiven/aktiven Veritas SFRAC Umgebung durchführen möchten, müssen Sie festlegen `host-cluster-sw-restore-warn` Bis `*off*`.
+
+Weitere Informationen zu `snapdrive.conf`, Siehe SnapDrive-Dokumentation.
+
+.Schritte
+. Melden Sie sich als Root-Benutzer an.
+. Öffnen Sie das `snapdrive.conf` Datei mit einem Texteditor.
+. Ändern Sie den Wert von `host-cluster-sw-restore-warn` Bis `*off*`.
+
+
+*Nach Ihrer Beendigung*
+
+Starten Sie nach der Konfiguration den SnapDrive für UNIX-Server neu.
+
+*Verwandte Informationen*
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site"^]

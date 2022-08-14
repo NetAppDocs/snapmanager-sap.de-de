@@ -1,0 +1,32 @@
+---
+permalink: windows/task-view-snapmanger-history-operation-details.html 
+sidebar: sidebar 
+keywords: view, history, set, single, profile, snapmanager, configuration, detail 
+summary: Sie können die Verlaufseinstellungen für ein einzelnes Profil anzeigen. 
+---
+= Zeigen Sie Details zur Konfiguration des SnapManager-Verlaufs an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Verlaufseinstellungen für ein einzelnes Profil anzeigen.
+
+
+
+== Über diese Aufgabe
+
+Im SnapManager-Verlauf werden für jedes Profil die folgenden Informationen angezeigt:
+
+* Name des Vorgangs
+* Aufbewahrungsklasse
+* Anzahl der Aufbewahrung
+
+
+.Schritt
+. Um Informationen über den Vorgang der SnapManager-Historie für ein bestimmtes Profil anzuzeigen, geben Sie den folgenden Befehl ein:
++
+`*smsap history show -profile _profile_name_*`
+
+

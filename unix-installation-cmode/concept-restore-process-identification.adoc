@@ -1,0 +1,18 @@
+---
+permalink: unix-installation-cmode/concept-restore-process-identification.html 
+sidebar: sidebar 
+keywords: restore, process, support, snapmanager, sap, version, upgrade, types 
+summary: Alle Wiederherstellungsprozesse werden in allen SnapManager für SAP-Versionen nicht unterstützt. Nach dem Upgrade von SnapManager müssen Sie auf den Wiederherstellungsprozess achten, den Sie zum Wiederherstellen eines Backups verwenden können. 
+---
+= Prozessarten wiederherstellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Alle Wiederherstellungsprozesse werden in allen SnapManager für SAP-Versionen nicht unterstützt. Nach dem Upgrade von SnapManager müssen Sie auf den Wiederherstellungsprozess achten, den Sie zum Wiederherstellen eines Backups verwenden können.
+
+Die mit SnapManager 3.0 oder höher erstellten Backups können sowohl mit schnellen Restore- als auch mit dateibasierten Restore-Prozessen wiederhergestellt werden. Die Backups, die mit einer älteren Version als SnapManager 3.0 erstellt wurden, können jedoch nur mit dem dateibasierten Wiederherstellungsprozess wiederhergestellt werden.
+
+Sie können die SnapManager-Version bestimmen, die zum Erstellen des Backups verwendet wird, indem Sie das ausführen `-backup show` Befehl.

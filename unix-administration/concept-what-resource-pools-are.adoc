@@ -1,0 +1,18 @@
+---
+permalink: unix-administration/concept-what-resource-pools-are.html 
+sidebar: sidebar 
+keywords: resource, pool, collection, physical, storage, system, volume, lun, provision, assign, aggregate 
+summary: 'Ein Ressourcen-Pool ist eine Sammlung von ungenutztem physischen Storage (z. B. Storage-Systeme oder Aggregate), aus dem neue Volumes oder LUNs bereitgestellt werden können, um Daten zu enthalten. Wenn Sie einem Ressourcen-Pool ein Storage-System zuweisen, sind alle Aggregate dieses Storage-Systems für die Bereitstellung verfügbar.' 
+---
+= Was sind Ressourcen-Pools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ein Ressourcen-Pool ist eine Sammlung von ungenutztem physischen Storage (z. B. Storage-Systeme oder Aggregate), aus dem neue Volumes oder LUNs bereitgestellt werden können, um Daten zu enthalten. Wenn Sie einem Ressourcen-Pool ein Storage-System zuweisen, sind alle Aggregate dieses Storage-Systems für die Bereitstellung verfügbar.
+
+Storage-Administratoren weisen den Backup- und Spiegelungskopien über die Konsole des Protection Manager einen Ressourcen-Pool zu. Die Provisionierungsapplikation kann dann automatisch Volumes aus den physischen Ressourcen im Ressourcen-Pool bereitstellen, um Backups und Spiegelungskopien zu enthalten.
+
+Für geschützte Profile zeigt SnapManager Informationen zu einem Profil an und gibt an, ob diesem Profil ein Speicherpool zugewiesen wurde. Ist dies nicht der Fall, wird das Profil als „nicht-konform“ bezeichnet. Nachdem dem Datensatz des entsprechenden Profils ein Speicherpool zugewiesen wurde, gilt das Profil als „konform“.

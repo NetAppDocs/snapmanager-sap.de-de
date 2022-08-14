@@ -1,0 +1,48 @@
+---
+permalink: windows/reference-the-smosmsapcmdfile-command.html 
+sidebar: sidebar 
+keywords: cmdfile, command, shell, host, character, number, line, smsap 
+summary: Sie können den Befehl cmdfile verwenden, um jeden beliebigen Befehl auszuführen, wenn die Shell auf Ihrem Host die Anzahl der Zeichen begrenzt, die in einer Befehlszeile angezeigt werden können. 
+---
+= Befehl smsap cmdfile
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `cmdfile` Befehl zum Ausführen eines beliebigen Befehls, wenn die Shell auf Ihrem Host die Anzahl der Zeichen begrenzt, die in einer Befehlszeile angezeigt werden können.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap cmdfile
+-file file_name
+[-quiet | -verbose]
+----
+Sie können den Befehl in eine Textdatei einfügen und den verwenden `smsap cmdfile` Befehl zum Ausführen des Befehls. Sie können nur einen Befehl in einer Textdatei hinzufügen. Sie dürfen smsap nicht in die Befehlssyntax einbeziehen.
+
+
+NOTE: Der `smsap cmdfile` Mit dem Befehl wird der ersetzt `smsap pfile` Befehl. Der `smsap cmdfile` Ist nicht mit dem kompatibel `smsap pfile` Befehl.
+
+
+
+== Parameter
+
+* *`-file _file_name_`*
++
+Gibt den Pfad zur Textdatei an, die den Befehl enthält, den Sie ausführen möchten.
+
+* *`-quiet`*
++
+Gibt an, dass nur Fehlermeldungen in der Konsole angezeigt werden. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Gibt an, dass Fehler-, Warn- und Informationsmeldungen in der Konsole angezeigt werden.
+
+

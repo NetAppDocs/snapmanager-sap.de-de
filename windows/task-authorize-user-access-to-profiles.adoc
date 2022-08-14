@@ -1,0 +1,21 @@
+---
+permalink: windows/task-authorize-user-access-to-profiles.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, set, password, unauthorized, access, authorize, profile 
+summary: Mit SnapManager können Sie ein Kennwort für ein Profil festlegen, um unbefugten Zugriff zu verhindern. 
+---
+= Zugriff auf Profile autorisieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie ein Kennwort für ein Profil festlegen, um unbefugten Zugriff zu verhindern.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap credential set -profile -name _profile_name_ [-password _password_]*`
+
+

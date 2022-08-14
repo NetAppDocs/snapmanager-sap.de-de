@@ -1,0 +1,26 @@
+---
+permalink: unix-administration/task-clone-databases-and-using-custom-plugin-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, method, custom, script, clone, operation, occur, database, sid, policy, plug-in, cloning 
+summary: SnapManager bietet eine Methode zum Verwenden der benutzerdefinierten Skripte vor und nach einem Klonvorgang. Beispielsweise haben Sie vielleicht ein benutzerdefiniertes Skript erstellt, das eine Klon-Datenbank-SID validiert und sicherstellt, dass die SID von Ihrer Benennungsrichtlinie zulässig ist. Mit dem SnapManager Klon-Plug-in können Sie Ihre benutzerdefinierten Skripts einschließen und sie automatisch vor oder nach einem SnapManager Klonvorgang ausführen lassen. 
+---
+= Klonen von Datenbanken und mit benutzerdefinierten Plug-in-Skripten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager bietet eine Methode zum Verwenden der benutzerdefinierten Skripte vor und nach einem Klonvorgang. Beispielsweise haben Sie vielleicht ein benutzerdefiniertes Skript erstellt, das eine Klon-Datenbank-SID validiert und sicherstellt, dass die SID von Ihrer Benennungsrichtlinie zulässig ist. Mit dem SnapManager Klon-Plug-in können Sie Ihre benutzerdefinierten Skripts einschließen und sie automatisch vor oder nach einem SnapManager Klonvorgang ausführen lassen.
+
+.Schritte
+. Zeigen Sie Beispielskripts für das Plug-in an.
+. Erstellen Sie ein Skript von Grund auf, oder ändern Sie eines der Beispielskripts für das Plug-in.
++
+Erstellen Sie Ihr benutzerdefiniertes Skript gemäß den Richtlinien des SnapManager Plug-in-Skripts.
+
+. Legen Sie Ihr benutzerdefiniertes Skript an einen bestimmten Speicherort für das Verzeichnis.
+. Aktualisieren Sie die XML-Datei für die Klonspezifikation und fügen Sie Informationen zu Ihrem benutzerdefinierten Skript ein, das während des Klonens verwendet werden soll.
+. Überprüfen Sie mit einem SnapManager-Befehl, ob die benutzerdefinierten Skripts betriebsbereit sind.
+. Geben Sie beim Starten des Klonvorgangs den Namen des Skripts und optionale Parameter an.
+

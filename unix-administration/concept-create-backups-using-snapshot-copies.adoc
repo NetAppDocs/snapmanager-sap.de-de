@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/concept-create-backups-using-snapshot-copies.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, primary, local, storage, secondary, remote, protection, policies, policy, postprocessing, script, create, backup, snapshot, copies, copy 
+summary: 'Mit SnapManager können Sie Backups auf dem primären (lokalen) Storage und auch auf dem sekundären (Remote-) Storage mithilfe von Sicherungsrichtlinien oder Nachbearbeitungsskripten erstellen.' 
+---
+= Backups mit Snapshot Kopien erstellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie Backups auf dem primären (lokalen) Storage und auch auf dem sekundären (Remote-) Storage mithilfe von Sicherungsrichtlinien oder Nachbearbeitungsskripten erstellen.
+
+Als Snapshot-Kopien erstellte Backups sind virtuelle Kopien der Datenbank und werden auf demselben physischen Medium wie die Datenbank gespeichert. Der Backup-Vorgang dauert daher weniger Zeit und erfordert deutlich weniger Speicherplatz als vollständige Disk-to-Disk Backups. Mit SnapManager können Sie Folgendes sichern:
+
+* Alle Datendateien, archivierte Log-Dateien und Kontrolldateien
+* Ausgewählte Datendateien oder Tablespaces, alle Archivprotokolldateien und Kontrolldateien
+
+
+Mit SnapManager 3.2 oder höher können Sie optional folgende Daten sichern:
+
+* Alle Datendateien und die Kontrolldateien
+* Ausgewählte Datendateien oder Tablespaces zusammen mit den Kontrolldateien
+* Archivierung von Protokolldateien
+
+
+
+NOTE: Die Datendateien, Archiv-Log-Dateien und Kontrolldateien können auf verschiedenen Storage-Systemen, Storage-System-Volumes oder LUNs (Logical Unit Numbers) abgelegt werden. Sie können SnapManager auch zum Backup einer Datenbank verwenden, wenn sich mehrere Datenbanken auf demselben Volume oder LUN befinden.

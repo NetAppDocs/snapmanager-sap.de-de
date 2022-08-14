@@ -1,0 +1,32 @@
+---
+permalink: windows/task-change-the-retention-policy-default-behavior.html 
+sidebar: sidebar 
+keywords: backup, expire, retention, policy, snapmanager, delete, set 
+summary: Wenn ein Backup basierend auf der Aufbewahrungsrichtlinie abläuft, bestimmt SnapManager basierend auf den Aufbewahrungseinstellungen, ob das Backup gelöscht werden soll. Das Löschen von Backups ist das Standardverhalten. Sie können dieses Standardverhalten ändern und stattdessen die ungeschützten Backups freigeben. 
+---
+= Ändern Sie das Standardverhalten der Aufbewahrungsrichtlinie
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn ein Backup basierend auf der Aufbewahrungsrichtlinie abläuft, bestimmt SnapManager basierend auf den Aufbewahrungseinstellungen, ob das Backup gelöscht werden soll. Das Löschen von Backups ist das Standardverhalten. Sie können dieses Standardverhalten ändern und stattdessen die ungeschützten Backups freigeben.
+
+
+
+== Über diese Aufgabe
+
+Standardmäßig löscht Snap Manager das Backup nach Ablauf des Backup.
+
+.Schritte
+. Zugriff auf den folgenden Standardspeicherort:
++
+`default smsap installation location\properties\smsap.config`
+
+. Bearbeiten Sie das `smsap.config` Datei:
+. Stellen Sie die ein `retain.alwaysFreeExpiredBackups` Das Hotel befindet sich im `smsap.config` Datei in *true*.
++
+Beispiel: `*retain.alwaysFreeExpiredBackups = true*`
+
+

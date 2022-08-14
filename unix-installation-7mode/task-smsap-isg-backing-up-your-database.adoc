@@ -1,0 +1,67 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-back-up-your-database.html 
+sidebar: sidebar 
+keywords: create, creating, profile, back, up, database, schedule, recur, backup, initial, verification 
+summary: Nachdem Sie ein Profil erstellt haben, müssen Sie Ihre Datenbank sichern. Sie können wiederkehrende Backups nach der erstmaligen Sicherung und Überprüfung planen. 
+---
+= Sichern Sie Ihre Datenbank
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie ein Profil erstellt haben, müssen Sie Ihre Datenbank sichern. Sie können wiederkehrende Backups nach der erstmaligen Sicherung und Überprüfung planen.
+
+*Über diese Aufgabe*
+
+In diesen Schritten wird gezeigt, wie Sie mithilfe der SnapManager-Benutzeroberfläche ein Backup Ihrer Datenbank erstellen. Falls Sie möchten, können Sie auch die Befehlszeilenschnittstelle (CLI) verwenden.
+
+Informationen zum Erstellen von Backups mithilfe der CLI- oder SAP BR*-Tools finden Sie im _SnapManager for SAP Administration Guide for UNIX_.
+
+.Schritte
+. Klicken Sie in der Verzeichnisstruktur Repositories mit der rechten Maustaste auf das Profil, das die zu sicherende Datenbank enthält, und wählen Sie *Backup* aus.
+. Geben Sie unter *Label* einen benutzerdefinierten Namen für das Backup ein.
++
+Sie dürfen keine Leerzeichen oder Sonderzeichen in den Namen einfügen. Wenn Sie keinen Namen angeben, erstellt SnapManager automatisch eine Sicherungsbezeichnung.
+
++
+Ab SnapManager 3.4 können Sie das von SnapManager erstellte Backup-Label ändern. Sie können die bearbeiten `override.default.backup.pattern` Und `new.default.backup.pattern` Konfigurationsvariablen zum Erstellen Ihres eigenen Standard-Backup-Label-Musters.
+
+. Wählen Sie *Starten oder Herunterfahren der Datenbank zulassen, falls erforderlich*, um den Status der Datenbank zu ändern, falls erforderlich.
++
+Diese Option stellt sicher, dass, wenn sich die Datenbank nicht im erforderlichen Zustand befindet, um ein Backup zu erstellen, SnapManager die Datenbank automatisch in den gewünschten Zustand bringt, um den Vorgang abzuschließen.
+
+. Führen Sie auf der Seite *Database, Tablespaces oder Datafiles to Backup* folgende Schritte durch:
++
+.. Wählen Sie *Datendateien sichern* aus, um entweder die komplette Datenbank, ausgewählte Datendateien oder ausgewählte Tabellen zu sichern.
+.. Wählen Sie *Backup Archivelogs* aus, um die Archiv-Log-Dateien separat zu sichern.
+.. Wählen Sie *Prune Archivelogs* aus, wenn Sie die Archiv-Log-Dateien aus dem aktiven Dateisystem löschen möchten, das bereits gesichert ist.
++
+
+NOTE: Wenn Flash Recovery Area (FRA) für Archiv-Log-Dateien aktiviert ist, dann kann SnapManager die Archiv-Log-Dateien nicht beschneiden.
+
+.. Wählen Sie *Sichern Sie das Backup*, wenn Sie den Backup-Schutz aktivieren möchten.
++
+Diese Option ist nur aktiviert, wenn die Schutzrichtlinie beim Erstellen des Profils ausgewählt wurde.
+
+.. Wählen Sie *Jetzt schützen* aus, wenn Sie die Sicherung sofort auf dem sekundären Speicher schützen möchten, der den Schutzzeitplan des Protection Manager überschreibt.
+.. Wählen Sie aus der Dropdown-Liste *Typ* den Backup-Typ (offline oder online) aus, den Sie erstellen möchten.
++
+Wenn Sie _Auto_ auswählen, erstellt SnapManager basierend auf dem aktuellen Status der Datenbank ein Backup.
+
+.. Wählen Sie aus der Dropdown-Liste *Retention Class* die Aufbewahrungsklasse aus.
+.. Aktivieren Sie das Kontrollkästchen *Backup überprüfen mit dem Oracle DBVERIFY Utility*, wenn Sie sicherstellen möchten, dass die gesicherten Dateien nicht beschädigt sind.
+
+
+. Geben Sie auf der Seite *Task Enabling* an, ob Sie Aufgaben vor und nach Abschluss der Backup-Vorgänge ausführen möchten.
+. Überprüfen Sie auf der Seite * Backup-Vorgang durchführen* die Informationen und klicken Sie auf *Backup*.
+. Klicken Sie auf *Fertig stellen*, um den Assistenten zu schließen.
++
+Wenn der Vorgang fehlschlägt, klicken Sie auf *Betriebsdetails*, um anzuzeigen, was den Vorgang zum Scheitern verurteilt hat.
+
+
+
+*Verwandte Informationen*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["SnapManager 3.4.1 für SAP – Administratorhandbuch für UNIX"^]

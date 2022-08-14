@@ -1,0 +1,27 @@
+---
+permalink: windows/task-issue-commands-from-an-alternate-host.html 
+sidebar: sidebar 
+keywords: issue, cli, command, host, database, snapmanager, route, alternate 
+summary: Sie können CLI-Befehle von einem anderen Host als dem Datenbank-Host ausführen, und SnapManager führt die Befehle durch, die Sie an den entsprechenden Host eingeben. 
+---
+= Geben Sie Befehle von einem alternativen Host aus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können CLI-Befehle von einem anderen Host als dem Datenbank-Host ausführen, und SnapManager führt die Befehle durch, die Sie an den entsprechenden Host eingeben.
+
+
+
+== Über diese Aufgabe
+
+Damit das System einen Vorgang an den richtigen Host sendet, muss es zunächst wissen, wo das Profil für den Vorgang gefunden werden soll. In diesem Verfahren speichert das System das Profil in Repository-Zuordnungsinformationen für eine Datei im Home-Verzeichnis des Benutzers auf dem lokalen Host.
+
+.Schritt
+. Um das Home-Verzeichnis des lokalen Benutzers auf die Profile-zu-Repository-Zuordnungen aufmerksam zu machen, damit die Anforderung der Operation weiterleiten kann, geben Sie den folgenden Befehl ein:
++
+`*smsap profile sync -repository -dbname _repo_dbname_ -host _repo_host_ -port _repo_port_ -login -username _repo_username_ [-quiet | -verbose]*`
+
+

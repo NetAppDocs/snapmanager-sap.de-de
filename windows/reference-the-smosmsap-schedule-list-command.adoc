@@ -1,0 +1,35 @@
+---
+permalink: windows/reference-the-smosmsap-schedule-list-command.html 
+sidebar: sidebar 
+keywords: command, list, schedule, operation, associate, profile, smsap 
+summary: Mit diesem Befehl werden die geplanten Vorgänge aufgelistet, die einem Profil zugeordnet sind. 
+---
+= Der Befehl smsap schedule list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl werden die geplanten Vorgänge aufgelistet, die einem Profil zugeordnet sind.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap schedule list
+-profile profile_name
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt den Namen des Profils für die Datenbank an, mit dem Sie eine Liste geplanter Vorgänge anzeigen können. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+

@@ -1,0 +1,36 @@
+---
+permalink: unix-administration/task-view-clone-split-estimate.html 
+sidebar: sidebar 
+keywords: clone, split, estimate, help, total, free, space, available, aggregate, database, view 
+summary: Mit der Schätzung für die Aufteilung der Klone können Sie den insgesamt verfügbaren freien Speicherplatz auf dem Aggregat, die Menge an freigegebenem Speicherplatz zwischen dem Klon und der ursprünglichen Datenbank und den ausschließlich vom Klon verwendeten Speicherplatz ermitteln. Darüber hinaus können Sie Datum und Uhrzeit der Erstellung des zugrunde liegenden Klons sowie das Alter des Klons anzeigen. Anhand dieser Schätzung entscheiden Sie, ob ein Klon geteilt wird oder nicht. 
+---
+= Zeigen Sie eine Schätzung für die Aufteilung von Klonen an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit der Schätzung für die Aufteilung der Klone können Sie den insgesamt verfügbaren freien Speicherplatz auf dem Aggregat, die Menge an freigegebenem Speicherplatz zwischen dem Klon und der ursprünglichen Datenbank und den ausschließlich vom Klon verwendeten Speicherplatz ermitteln. Darüber hinaus können Sie Datum und Uhrzeit der Erstellung des zugrunde liegenden Klons sowie das Alter des Klons anzeigen. Anhand dieser Schätzung entscheiden Sie, ob ein Klon geteilt wird oder nicht.
+
+*Über diese Aufgabe*
+
+Um die Schätzung für die Teilung von Klonen anzuzeigen, müssen Sie den Profilnamen des ursprünglichen Klons sowie die Beschriftung oder die GUID des Klonvorgangs eingeben. Wenn sich der Klon in einem anderen Host befindet, können Sie den Host-Namen angeben.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein, um die Schätzung für die Teilung von Klonen anzuzeigen:
++
+`*smsap clone split-estimate -profile _profile_ [-host _hostname_] [-label _clone-label_ | -id _clone-id_][-quiet | -verbose]*`
+
+
+
+'''
+Im folgenden Beispiel wird der Befehl für Schätzung für geteilten Storage für Klone angezeigt:
+
+[listing]
+----
+
+					smsap clone split-estimate
+-profile p1 -label clone_test_label
+----
+'''

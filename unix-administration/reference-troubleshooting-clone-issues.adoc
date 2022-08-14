@@ -1,0 +1,117 @@
+---
+permalink: unix-administration/reference-troubleshooting-clone-issues.html 
+sidebar: sidebar 
+keywords: information, clone, operation, resolve, troubleshooting, issue 
+summary: Hier finden Sie Informationen darüber, die während eines Klonens auftreten können und wie Sie sie lösen können. 
+---
+= Fehlerbehebung bei Klonproblemen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Hier finden Sie Informationen darüber, die während eines Klonens auftreten können und wie Sie sie lösen können.
+
+|===
+| Symptom | Erklärung | Behelfslösung 
+
+
+ a| 
+Der Klonvorgang schlägt fehl, wenn das Archivziel auf festgelegt ist `_USE_DB_RECOVERY_FILE_DEST_.`
+ a| 
+Wenn sich das Archivziel auf USE_DB_RECOVERY_FILE_DEST bezieht, verwaltet der Flash Recovery Area (FRA) aktiv das Archivprotokoll. SnapManager nutzt den FRA-Standort nicht während Klon- oder Restore-Vorgängen und schlägt somit fehl.
+ a| 
+Ändern Sie das Archivziel in den tatsächlichen Speicherort des Archivprotokolls anstelle des FRA-Speicherorts.
+
+
+
+ a| 
+Der Klonvorgang schlägt mit der folgenden Fehlermeldung fehl: `Cannot perform operation: Clone Create. Root cause: ORACLE-00001: Error executing SQL: [ALTER DATABASE OPEN RESETLOGS;]. The command returned: ORA-01195: online backup of file 1 needs more recovery to be consistent.`
+ a| 
+Dieses Problem tritt auf, wenn Oracle Listener die Verbindung zur Datenbank nicht herstellen kann.
+ a| 
+Wenn Sie ein Backup mit der GUI von SnapManager klonen, führen Sie die folgenden Aktionen durch:
+
+. Klicken Sie im Repository-Baum auf *Repository* > *Host* > *Profil*, um die Backups anzuzeigen.
+. Klicken Sie mit der rechten Maustaste auf das Backup, das Sie klonen möchten, und wählen Sie *Clone* aus.
+. Geben Sie auf der Seite Clone Initialization die obligatorischen Werte ein, und wählen Sie die Methode Clone Specification aus.
+. Wählen Sie auf der Seite „Spezifikation klonen“ die Option *Parameter* aus.
+. Klicken Sie auf die Registerkarte *Parameter*.
+. Geben Sie im Feld *Parametername* den Namen als ein `_local_listener_` Und klicken Sie auf *OK*.
+. Aktivieren Sie das Kontrollkästchen *Standard überschreiben* für die Zeile Local_Listener.
+. Klicken Sie auf einen beliebigen Parameter, doppelklicken Sie dann auf den Parameter Local_Listener, und geben Sie den folgenden Wert ein:``*(ADDRESS=(PROTOCOL=TCP)(HOST=<your_host_name>)(PORT=<port#>))*``
+. Klicken Sie Auf *In Datei Speichern*.
+. Klicken Sie auf *Weiter* und fahren Sie mit dem Clone create Wizard fort.
+
+
+Wenn Sie ein Backup über CLI klonen, müssen Sie die folgenden Informationen in das Tag *<Parameter>* der Klon-Spezifikations-Datei einfügen:
+
+[listing]
+----
+
+<parameters>
+  <parameter>
+  <name>local_listener</name>
+  <value>(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=<hostname>)(PORT=<port#>)))</value>
+  </parameter>
+</parameters>
+----
+
+
+ a| 
+Der Klonvorgang schlägt mit einer Fehlermeldung fehl, die sagt, dass der von Ihnen verwendete Mountpoint bereits verwendet ist.
+ a| 
+Mit SnapManager können Sie einen Klon nicht über einem bestehenden Bereitstellungspunkt mounten. Ein unvollständiger Klon hat den Bereitstellungspunkt nicht entfernt.
+ a| 
+Geben Sie einen anderen Bereitstellungspunkt an, der vom Klon verwendet werden soll, oder heben Sie den problematischen Bereitstellungspunkt auf.
+
+
+
+ a| 
+Der Klonvorgang schlägt fehl mit einer Fehlermeldung, dass Datendateien keine .dbf-Erweiterung haben.
+ a| 
+Einige Versionen des Oracle NID-Dienstprogramms funktionieren nicht mit Datendateien, es sei denn, die Dateien verwenden eine .dbf-Erweiterung.
+ a| 
+* Benennen Sie die Datendatei um, um eine .dbf-Erweiterung zu erhalten.
+* Wiederholen Sie den Sicherungsvorgang.
+* Klonen des neuen Backups:
+
+
+
+
+ a| 
+Aufgrund der nicht erfüllten Anforderungen schlägt der Klonvorgang fehl.
+ a| 
+Sie versuchen, einen Klon zu erstellen. Einige der Voraussetzungen wurden jedoch nicht erfüllt.
+ a| 
+Fahren Sie wie unter _Erstellen eines Klons_ beschrieben fort, um die Voraussetzungen zu erfüllen.
+
+
+
+ a| 
+Nach dem Aufteilen des Klons kann SnapManager kein neues Profil generieren, und der Benutzer weiß nicht, ob das neue Profil erstellt wird.
+ a| 
+SnapManager kann nicht aufgefordert werden, wenn ein neues Profil nach dem Split-Vorgang des Klons nicht erstellt wird. Da die Eingabeaufforderung nicht angezeigt wird, können Sie davon ausgehen, dass das Profil erstellt wird.
+ a| 
+Geben Sie über die SnapManager-Befehlszeilenschnittstelle (CLI) den ein `clone split-result` Befehl zum Anzeigen des detaillierten Ergebnisses des Klon-Split-Vorgangs.
+
+
+
+ a| 
+SnapManager für SAP klont keine physischen Oracle Data Guard Standby Datenbanken (10.2.0.5).
+ a| 
+SnapManager für SAP deaktiviert den verwalteten Recovery-Modus nicht, während ein Offline-Backup der physischen Oracle 10gR2 (10.2.0.5) Standby-Datenbanken durchgeführt wird, die mit Oracle Data Guard Services erstellt wurden. Aufgrund dieses Problems ist das Offline Backup inkonsistent. Wenn SnapManager für SAP versucht, das Offline-Backup zu klonen, wird nicht einmal versucht, eine Wiederherstellung auf der geklonten Datenbank durchzuführen. Da das Backup inkonsistent ist, muss die geklonte Datenbank wiederhergestellt werden, und damit kann SAP den Klon nicht erfolgreich erstellen.
+ a| 
+Aktualisieren Sie die Oracle-Datenbank auf Oracle 11gR1 (Patch 11.1.0.7).
+
+
+
+ a| 
+Das Klonen eines Backups auf einem Remote-Host schlägt mit der folgenden Fehlermeldung fehl `Error: Access is denied.`
+ a| 
+Wenn im Mounten die IP-Adresse des Hosts dem Befehl Snap Mount bereitgestellt wird, kann der Klonvorgang fehlschlagen. Dieses Problem tritt auf, wenn sich der Host, auf dem sich die Datenbank befindet, in der Arbeitsgruppe befindet, während sich der Remote-Host in der Domäne befindet, oder umgekehrt.
+ a| 
+Sie müssen sicherstellen, dass sich sowohl der Remote-Host als auch der Host, auf dem sich die Datenbank befindet, in der Domäne und nicht in der Arbeitsgruppe befinden.
+
+|===

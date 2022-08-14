@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/concept-restore-backups-from-an-alternate-location-overview.html 
+sidebar: sidebar 
+keywords: restore, database, backup, alternate, location, overview 
+summary: Verwenden Sie zum Wiederherstellen eines Datenbank-Backups von einem anderen Standort die folgenden wichtigen Schritte, die jeweils weiter in diesem Abschnitt beschrieben werden. 
+---
+= Stellen Sie Backups aus einer Übersicht über einen alternativen Speicherort wieder her
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Verwenden Sie zum Wiederherstellen eines Datenbank-Backups von einem anderen Standort die folgenden wichtigen Schritte, die jeweils weiter in diesem Abschnitt beschrieben werden.
+
+* Führen Sie je nach Datenbank-Layout einen der folgenden Schritte aus:
++
+** Stellen Sie die erforderlichen Datendateien von Band, SnapVault, SnapMirror oder anderen Medien auf jedem beliebigen Filesystem wieder her, das auf dem Datenbank-Host gemountet ist.
+** Stellen Sie das erforderliche Dateisystem wieder her und mounten Sie es auf dem Datenbank-Host.
+** Stellen Sie eine Verbindung zu den erforderlichen RAW-Geräten her, die im lokalen Host vorhanden sind.
+
+
+* Erstellen Sie eine XML-Datei (Extensible Markup Language) für die Wiederherstellungsspezifikation, die die Zuordnungen enthält, die SnapManager vom alternativen Speicherort zum ursprünglichen Speicherort wiederherstellen muss. Speichern Sie die Datei an einem Speicherort, auf den SnapManager zugreifen kann.
+* Verwenden Sie SnapManager, um die Daten mithilfe der XML-Datei für die Wiederherstellungsspezifikation wiederherzustellen und wiederherzustellen.
+

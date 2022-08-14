@@ -1,0 +1,50 @@
+---
+permalink: windows/reference-the-smosmsap-server-start-command.html 
+sidebar: sidebar 
+keywords: command, start, host, server, run, snapmanager, sap, software, smsap_server, smsap 
+summary: Mit diesem Befehl wird der Hostserver gestartet, auf dem die SnapManager für SAP-Software ausgeführt wird. 
+---
+= Der Befehl smsap_Server Start
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl wird der Hostserver gestartet, auf dem die SnapManager für SAP-Software ausgeführt wird.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap_server start
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-quiet`*
++
+Gibt an, dass nur Fehlermeldungen auf der Konsole angezeigt werden. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Gibt an, dass Fehler-, Warn- und Informationsmeldungen auf der Konsole angezeigt werden.
+
+
+
+
+
+== Beispielbefehl
+
+Das folgende Beispiel startet den Host-Server.
+
+[listing]
+----
+smsap_server start
+SMSAP-17100: SnapManager Server started on secure port 25204 with PID 11250
+----

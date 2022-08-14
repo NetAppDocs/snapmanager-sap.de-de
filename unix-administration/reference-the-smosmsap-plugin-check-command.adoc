@@ -1,0 +1,69 @@
+---
+permalink: unix-administration/reference-the-smosmsap-plugin-check-command.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, install, custom, script, operation, backup, restore, clone, plug-in, automate, custom, restore, smsap, plugin, check 
+summary: 'SnapManager ermöglicht Ihnen die Installation und Verwendung benutzerdefinierter Skripte für verschiedene Vorgänge. SnapManager bietet Backup, Restore und Klon-Plug-ins, um Ihre individuellen Skripte vor und nach Backup-, Restore- und Klonvorgängen zu automatisieren. Bevor Sie das Backup-, Wiederherstellungs- und Klon-Plug-in verwenden, können Sie den Plugin Check-Befehl ausführen, um die Installation von Plug-in-Skripten zu überprüfen. Benutzerdefinierte Skripts werden in drei Verzeichnissen gespeichert: Richtlinie (für Skripte, die immer vor Backup-, Wiederherstellungs- oder Klonvorgang ausgeführt werden sollten), vor (für Vorverarbeitungsskripte) und Post (für Skripte bei der Nachbearbeitung).' 
+---
+= Der Befehl smsap Plugin Check
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht Ihnen die Installation und Verwendung benutzerdefinierter Skripte für verschiedene Vorgänge. SnapManager bietet Backup, Restore und Klon-Plug-ins, um Ihre individuellen Skripte vor und nach Backup-, Restore- und Klonvorgängen zu automatisieren. Bevor Sie das Backup-, Wiederherstellungs- und Klon-Plug-in verwenden, können Sie den Plugin Check-Befehl ausführen, um die Installation von Plug-in-Skripten zu überprüfen. Benutzerdefinierte Skripts werden in drei Verzeichnissen gespeichert: Richtlinie (für Skripte, die immer vor Backup-, Wiederherstellungs- oder Klonvorgang ausgeführt werden sollten), vor (für Vorverarbeitungsskripte) und Post (für Skripte bei der Nachbearbeitung).
+
+
+
+== Syntax
+
+[listing]
+----
+ smsap plugin check
+-osaccount os_db_user_name
+----
+
+
+== Parameter
+
+* `*-osaccount*`
++
+Gibt den Benutzernamen für die Betriebssystemdatenbank an. Wenn Sie die Option -oskonto nicht eingeben, prüft SnapManager die Plug-in-Skripte als Root-Benutzer und nicht als bestimmten Benutzer.
+
+
+
+'''
+
+
+== Beispiel
+
+Das folgende Beispiel zeigt, dass der Befehl Plugin Check das benutzerdefinierte Skript Policy 1 gefunden hat, das im Verzeichnis Policy als ausführbare Datei gespeichert ist. Das Beispiel zeigt auch, dass die beiden anderen im Vorverzeichnis gespeicherten benutzerdefinierten Skripte keine Fehlermeldungen ausgeben (angezeigt mit dem Status 0); das vierte benutzerdefinierte Skript (Post-Plug-in1), das im Post-Verzeichnis gefunden wurde, enthält jedoch Fehler (angezeigt mit dem Status 3).
+
+[listing]
+----
+smsap plugin check
+Checking plugin directory structure ...
+<installdir>/plugins/clone/policy
+OK: 'policy1' is executable
+<installdir>/plugins/clone/pre
+OK: 'pre-plugin1' is executable and returned status 0
+OK: 'pre-plugin2' is executable and returned status 0
+<installdir>/plugins/clone/post
+ERROR: 'post-plugin1' is executable and returned status 3
+<installdir>/plugins/backup/policy
+OK: 'policy1' is executable
+<installdir>/plugins/backup/pre
+OK: 'pre-plugin1' is executable and returned status 0
+OK: 'pre-plugin2' is executable and returned status 0
+<installdir>/plugins/backup/post
+ERROR: 'post-plugin1' is executable and returned status 3
+<installdir>/plugins/restore/policy
+OK: 'policy1' is executable
+<installdir>/plugins/restore/pre
+OK: 'pre-plugin1' is executable and returned status 0
+OK: 'pre-plugin2' is executable and returned status 0
+<installdir>/plugins/restore/post
+ERROR: 'post-plugin1' is executable and returned status 3
+Command complete.
+----
+'''

@@ -1,0 +1,108 @@
+---
+permalink: windows/reference-the-smosmsap-notification-updatesummarynotification-command.html 
+sidebar: sidebar 
+keywords: run, notification, update-summary-notification, command, enable, summary, repository, database, smsap 
+summary: Sie können den Befehl Notification Update-summary-notification ausführen, um eine zusammenfassende Benachrichtigung für eine Repository-Datenbank zu aktivieren. 
+---
+= Der Befehl smsap notification Update-summary-notification
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `notification update-summary-notification` Befehl zum Aktivieren der zusammenfassenden Benachrichtigung für eine Repository-Datenbank.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap notification update-summary-notification
+-repository
+-port repo_port
+-dbname  repo_service_name
+-host repo_host
+-login -username repo_username
+-email email-address1,email-address2
+-subject subject-pattern
+-frequency
+[-daily –time daily_time |
+-hourly –time hourly_time |
+-monthly –time monthly_time -date [1|2|3|...|31] |
+-weekly  –time weekly_time -day [1|2|3|4|5|6|7]]
+-profiles profile1,profile2
+-notification-host notification-host
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-repository`*
++
+Gibt die Details der Repository-Datenbank an.
+
+* *`-port _repo_port_`*
++
+Gibt die TCP-Portnummer an, die für den Zugriff auf die Repository-Datenbank verwendet wird.
+
+* *`-dbname _repo_service_name_`*
++
+Gibt den Namen der Repository-Datenbank an. Sie können entweder den globalen Namen oder die Systemkennung verwenden.
+
+* *`-host _repo_host_`*
++
+Gibt den Namen oder die IP-Adresse des Hosts an, auf dem sich die Repository-Datenbank befindet.
+
+* *`-login`*
++
+Gibt die Anmeldedaten für das Repository an. Dies ist optional. Wenn nicht angegeben, verwendet SnapManager standardmäßig den Verbindungsmodus für OS-Authentifizierung.
+
+* *`-username _repo_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Repository-Datenbank erforderlich ist.
+
+* *`-email _email-address1,e-mail-address2_`*
++
+Gibt E-Mail-Adressen der Empfänger an.
+
+* *`-subject _subject-pattern_`*
++
+Gibt das Muster für E-Mail-Betreff an.
+
+* *`-frequency { -daily --time _daily_time_  | -hourly --time _hourly_time_  | -monthly --time _monthly_time -date_  {1|2|3...|31 } | -weekly --time _weekly_time -day_ {1|2|3|4|5|6|7 } }`*
++
+Gibt den Terminplantyp und die Zeitplandauer an, wann die E-Mail-Benachrichtigung angezeigt werden soll.
+
+* *`-profiles _profile1, profile2_`*
++
+Gibt Profilnamen an, die E-Mail-Benachrichtigungen erfordern.
+
+* *`-notification-host _notification-host_`*
++
+Gibt den SnapManager-Server-Host an, von dem aus die Zusammenfassung Benachrichtigungs-E-Mail an die Empfänger gesendet wird. Sie können Hostnamen oder IP-Adressen für den Benachrichtigungs-Host angeben. Sie können auch die Host-IP oder den Host-Namen aktualisieren.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+Das folgende Beispiel ermöglicht eine zusammenfassende Benachrichtigung für eine Repository-Datenbank:
+
+[listing]
+----
+
+smsap notification update-summary-notification –repository –port 1521 –dbname repo2 –host 10.72.197.133 –login –username oba5 –email admin@org.com –subject success –frequency -daily -time 19:30:45 –profiles sales1
+----

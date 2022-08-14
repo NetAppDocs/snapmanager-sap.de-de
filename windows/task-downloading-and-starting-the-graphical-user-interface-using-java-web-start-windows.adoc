@@ -1,0 +1,115 @@
+---
+permalink: windows/task-downloading-and-starting-the-graphical-user-interface-using-java-web-start-windows.html 
+sidebar: sidebar 
+keywords: java, web, start, snapmanager, install, host, download, graphical, user, interface, gui, jre 
+summary: 'Sie können Java Web Start verwenden, wenn SnapManager nicht auf dem Host installiert ist. Java Web Start lädt SnapManager-Komponenten herunter und startet die grafische Benutzeroberfläche \(GUI\). Die unterstützten JRE-Versionen sind 1.5, 1.6 und 1.7.' 
+---
+= Herunterladen und Starten der grafischen Benutzeroberfläche mit Java Web Start
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Java Web Start verwenden, wenn SnapManager nicht auf dem Host installiert ist. Java Web Start lädt SnapManager-Komponenten herunter und startet die grafische Benutzeroberfläche (GUI). Die unterstützten JRE-Versionen sind 1.5, 1.6 und 1.7.
+
+Sie müssen sicherstellen, dass die folgenden Bedingungen erfüllt sind:
+
+* Der SnapManager Server wird ausgeführt.
+* Ein Webbrowser-Fenster ist geöffnet.
++
+.. Geben Sie im Web-Browser-Fenster von Microsoft Internet Explorer ein https://smsap-server.domain.com:port[].
++
+smsap-server.domain.com ist der vollqualifizierte Host-Name und die Domäne, auf der Sie SnapManager installiert haben, und Port ist der Listening-Port für den SnapManager-Server (standardmäßig 27314).
+
++
+
+NOTE: Sie müssen https im Browserfenster eingeben.
+
++
+Ein Dialogfeld mit der Meldung Es gibt ein Problem mit dem Sicherheitszertifikat der Website... möchten Sie fortfahren? Wird angezeigt.
+
+.. Klicken Sie auf *Ja* oder *Weiter*.
+.. Klicken Sie auf den Link Klicken Sie hier, um JRE 6.0 und die Anwendung herunterzuladen und zu installieren.
++
+Ein Link mit der Bezeichnung Download Java Web Start mit der Nachricht Diese Website benötigt möglicherweise das folgende ActiveX-Steuerelement: Java Plug-in 1.6"... „Klicken Sie hier, um die Installation anzuzeigen.
+
+.. Führen Sie im Fenster Installieren die folgenden Schritte aus:
++
+... Klicken Sie auf die Nachricht mit der Beschriftung Klicken Sie hier, um... zu installieren
++
+Es wird ein Menü *ActiveX-Steuerelement installieren* angezeigt.
+
+... Wählen Sie *ActiveX-Steuerelement installieren...*.
++
+Die Nachricht Internet Explorer - Sicherheitswarnung mit folgendem Text: "Möchten Sie diese Software installieren? Name: Java Plug-in 1.6 wird angezeigt.
+
+... Klicken Sie Auf *Installieren*.
++
+Es wird ein Fenster „Java Plug-in 1.6.“ für das Installationsprogramm für J2SE Runtime Environment 1.6 angezeigt.
+
+... Klicken Sie Auf *Installieren*.
+
+
++
+Es wird ein Fenster angezeigt, in dem Sie aufgefordert werden, J2SE Runtime Environment 1.6 zu installieren.
+
+.. Führen Sie im Fenster Installieren die folgenden Schritte aus:
++
+... Wählen Sie auf der Seite Lizenzvereinbarung die Option *Ich akzeptiere die Bedingungen in der Lizenzvereinbarung* und klicke auf *Weiter*.
+... Wählen Sie auf der Seite Einrichtungstyp die Option *typisch* aus, und klicken Sie auf *Weiter*.
+... Klicken Sie im Fenster Installation abgeschlossen auf *Fertig stellen*.
++
+SnapManager beginnt herunterzuladen.
+
+
+
++
+Dialogfeld „Datei herunterladen“ mit der Meldung Möchten Sie diese Datei speichern? Application.jnlp wird angezeigt.
+
+.. Führen Sie im Datei-Download-Fenster die folgenden Schritte aus:
++
+... Installieren Sie die neueste Version von JRE 1.6 auf dem Windows-Client.
+... Überprüfen Sie, ob Java installiert ist, indem Sie den folgenden Befehl ausführen: `java -version`
++
+Die Ausgabe sollte Java-Version 1.6.0_24 (Java 1.6) oder höher angeben.
+
+... Ändern Sie Ihre Windows-Konfigurationseinstellungen, um immer Dateien mit der Erweiterung jnlp mit dem Programm Java Web Start Launcher zu öffnen.
++
+Die Schritte zum Ändern der Windows-Konfigurationseinstellungen variieren je nach der verwendeten Windows-Version.
+
+... Geben Sie die SnapManager-URL ein, die Sie in Schritt 1 angegeben haben.
+
+
+
+
++
+Der Download von SnapManager startet auf dem Windows-Client und ein Dialogfeld Warnung - Sicherheit wird angezeigt.
+
++
+.. Führen Sie die folgenden Schritte aus.
++
+Der Inhalt der Meldungen und die Beschriftungen der Schaltflächen variieren je nach Plattform.
+
++
+... Klicken Sie im Dialogfeld Warnung - Sicherheit auf *Ja*.
++
+Ein Dialogfeld wird angezeigt.
+
+... Klicken Sie im Dialogfeld „nicht übereinstimmende Hostnamen“ auf *Ausführen*.
++
+Das Dialogfeld Warnung - Sicherheit mit einer Meldung über die Signatur der SnapManager-Anwendung wird angezeigt.
+
+... Klicken Sie Auf *Ausführen*.
++
+Ein Dialogfeld mit dem Titel Java Installer – Sicherheitswarnung und der Meldung Sicherheit - die digitale Signatur der Anwendung weist einen Fehler auf. Soll die Anwendung ausgeführt werden, wird angezeigt.
+
+... Klicken Sie Auf *Ausführen*.
++
+Der Browser lädt die SnapManager für SAP-Benutzeroberfläche herunter und startet sie.
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+---
+permalink: windows/task-deleting-profiles.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, incomplete, backup, free, deleting 
+summary: Sie können ein Profil jederzeit löschen, solange es keine erfolgreichen oder unvollständigen Backups enthält. Sie können Profile löschen, die freigegebene oder gelöschte Backups enthalten. 
+---
+= Profile werden gelöscht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Profil jederzeit löschen, solange es keine erfolgreichen oder unvollständigen Backups enthält. Sie können Profile löschen, die freigegebene oder gelöschte Backups enthalten.
+
+. Geben Sie zum Löschen eines Profils den folgenden Befehl ein:``smsap profile delete -profileprofile_name``
+
+
+*Verwandte Informationen*
+
+xref:reference-the-smosmsapprofile-delete-command.adoc[Der Befehl smsap profile delete]

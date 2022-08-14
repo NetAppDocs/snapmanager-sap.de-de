@@ -1,0 +1,100 @@
+---
+permalink: windows/task-pruning-archive-log-files.html 
+sidebar: sidebar 
+keywords: prune, archive, log, file, location, creating, create, pruning 
+summary: Sie können die Archiv-Log-Dateien aus den Archiv-Log-Speicherorten beschneiden, während Sie eine Sicherung erstellen. 
+---
+= Beschneiden von Archivprotokolldateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Archiv-Log-Dateien aus den Archiv-Log-Speicherorten beschneiden, während Sie eine Sicherung erstellen.
+
+* Archivprotokolldateien müssen durch den aktuellen Backup-Vorgang gesichert werden.
++
+Wenn der Beschnitt zusammen mit anderen Backups angegeben wird, die keine Archivprotokolldateien enthalten, werden die Archivprotokolldateien nicht beschnitten.
+
+* Die Datenbank muss sich im angehängten Status befinden.
++
+Wenn die Datenbank nicht angehängt ist, geben Sie die Option -Force zusammen mit dem Backup-Befehl ein.
+
+
+
+Während eines Backup-Vorgangs können Sie Folgendes angeben:
+
+* Beschnitt:
++
+** Löschen Sie alle Archivprotokolldateien.
+** Löschen Sie die Archivprotokolldateien bis zur angegebenen Systemänderungsnummer (SCN).
+** Löschen Sie die Archivprotokolldateien bis zum angegebenen Zeitpunkt.
+** Löschen Sie die Archivprotokolldateien vor dem angegebenen Zeitraum.
+
+
+* Ziel, von dem die Archivprotokolldateien beschnitten werden müssen.
++
+
+NOTE: Selbst wenn die Archivprotokolldatei Beschnitt in einem Ziel fehlschlägt, beschnitten SnapManager weiterhin die Archivprotokolldateien von den anderen Zielen.
+
+
+
+Vor dem Löschen der Archivprotokolldateien überprüft SnapManager Folgendes:
+
+* Archivprotokolldateien werden mindestens einmal gesichert.
+* Archivprotokolldateien werden, falls vorhanden, an die Oracle Dataguard Standby-Datenbank gesendet.
+* Archivprotokolldateien werden, falls vorhanden, durch den Oracle Stream-Erfassungsprozess erfasst.
+
+
+Wenn die Archivprotokolldateien gesichert, in den Standby-Modus versetzt und vom Erfassungsprozess erfasst werden, löscht SnapManager alle Archivprotokolldateien in einer einzigen Ausführung. Wenn es jedoch Archivprotokolldateien gibt, die nicht gesichert, nicht in den Standby-Modus geliefert oder nicht durch den Erfassungsprozess erfasst werden, löscht SnapManager die Archivprotokolldateien nacheinander. Das Löschen von Archivprotokollen-Dateien in einer einzigen Ausführung ist schneller als das Löschen von Archivprotokollen.
+
+SnapManager kann auch die Archivprotokolldateien gruppieren und Batch-by-Batch löschen. Jeder Batch hat maximal 998 Dateien. Dieser Wert kann unter 998 mit dem Konfigurationsparameter Maximum.archivelog.files.toprune.atATIME in der Datei smsap.config konfiguriert werden.
+
+SnapManager verwendet zum Löschen der Archivprotokolldateien den Befehl Oracle Recovery Manager (RMAN). SnapManager ist jedoch nicht mit den RMAN Aufbewahrungsrichtlinien und Löschrichtlinien integriert.
+
+
+NOTE: Wenn Sie die Archivprotokolldateien aus den Archivprotokollzielen löschen, schlägt das Beschneiden von Archivprotokolldateien fehl.
+
+SnapManager unterstützt das Beschneiden von Archiv-Log-Dateien in den folgenden Szenarien nicht:
+
+* Im Bereich Flash Recovery befinden sich Archivprotokolldateien.
+* Archivprotokolldateien befinden sich in der Standby-Datenbank.
+* Die Archivprotokolldateien werden sowohl von SnapManager als auch von RMAN gemanagt.
++
+.. Geben Sie den folgenden Befehl ein:
++
+`smsap backup create -profile profile_name {[-full {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-filesfiles [files]] | [-tablespaces-tablespaces [-tablespaces]] [-datalabellabel] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-labellabel] [-commentcomment][-backup-destpath1 [,[path2]]] [-exclude-destpath1 [,path2]]] [-prunelogs {-all | -untilSCNuntilSCN | -until-dateyyyy-MM-dd:HH:mm:ss | -before {-months | -days | -weeks | -hours}} -prune-destprune_dest1,[prune_dest2]] [-taskspectaskspec]} -dump [-force] [-quiet | -verbose]`
+
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Prune Archivprotokolldateien*
+ a| 
+Legen Sie die folgenden Optionen fest:
+
+*** -Prunelogs gibt an, die Archivprotokolldateien beim Erstellen einer Sicherung zu löschen.
++
+**** -All gibt an, alle Archiv-Log-Dateien zu löschen.
+**** -UntilSCN gibt an, die Archivprotokolldateien bis zum angegebenen SCN zu löschen.
+**** -Bis-date gibt an, dass die Archivprotokolle gelöscht werden, einschließlich des angegebenen Datums und der angegebenen Uhrzeit.
+**** -Vor {-Monaten
+
+
+
+
+
+
+| -Tage | -Wochen 
+
+
+| -Hours} gibt an, dass die Archiv-Log-Dateien vor dem angegebenen Zeitraum gelöscht werden.  a| 
+*Das Ziel, aus dem die Archiv-Log-Dateien beschnitten werden sollen*, sollte einbezogen werden
+
+|===
+
+
+

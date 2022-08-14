@@ -1,0 +1,21 @@
+---
+permalink: windows/task-updating-a-backup-schedule.html 
+sidebar: sidebar 
+keywords: list, schedule, operation, update, scheduling, frequency, cronstring, expression, user, backup, updating 
+summary: Sie können eine Liste geplanter Vorgänge anzeigen und gegebenenfalls aktualisieren. Sie können die Planungsfrequenz, die Startzeit des Zeitplans, den cronstring-Ausdruck und den Benutzer, der das Backup geplant hat, aktualisieren. 
+---
+= Aktualisieren eines Backup-Zeitplans
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Liste geplanter Vorgänge anzeigen und gegebenenfalls aktualisieren. Sie können die Planungsfrequenz, die Startzeit des Zeitplans, den cronstring-Ausdruck und den Benutzer, der das Backup geplant hat, aktualisieren.
+
+.Schritt
+. Geben Sie folgenden Befehl ein, um den Zeitplan für ein Backup zu aktualisieren:
++
+`smsap schedule update -profile profile_name-schedule-nameschedulename [-schedule-commentschedule comment] -interval {-hourly | -daily | -weekly | -monthly | -onetimeonly} -start-timestarttime-cronstringcronstring-runasuserrunasuser [-quiet | -verbose]`
+
+

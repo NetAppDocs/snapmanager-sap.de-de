@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/concept-scheduling-database-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, enable, schedule, database, backup, off-peak, hour, scheduling, retention, policy 
+summary: 'Mit SnapManager (3.2 oder höher) für SAP können Sie Datenbank-Backups regelmäßig während der Stoßzeiten planen, um eine hohe Performance zu gewährleisten. Zum Planen eines Backups können Sie ein Profil erstellen, das die Datenbankinformationen und die Aufbewahrungsrichtlinie enthält, und anschließend die Zeitpläne für das Backup festlegen.' 
+---
+= Planen von Datenbank-Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager (3.2 oder höher) für SAP können Sie Datenbank-Backups regelmäßig während der Stoßzeiten planen, um eine hohe Performance zu gewährleisten. Zum Planen eines Backups können Sie ein Profil erstellen, das die Datenbankinformationen und die Aufbewahrungsrichtlinie enthält, und anschließend die Zeitpläne für das Backup festlegen.
+
+
+NOTE: Sie müssen die Backups entweder als Root-Benutzer oder als Oracle-Benutzer planen. Wenn Sie versuchen, die Backups als nicht vorhandener Benutzer zu planen, zeigt SnapManager eine Fehlermeldung an: Ungültiger Benutzer: Benutzername: Kann keinen Zeitplan-Backup für einen bestimmten Benutzer erstellen
+
+Im Folgenden sind einige planungsbezogene Aufgaben aufgeführt:
+
+* Planen Sie ein Datenbank-Backup auf Stundenbasis, täglich, wöchentlich, monatlich oder einmalig.
+* Anzeigen einer Liste geplanter Backups, die einem Profil zugeordnet sind.
+* Aktualisierung eines geplanten Backups.
+* Einen Zeitplan vorübergehend aussetzen.
+* Setzen Sie den angehängten Zeitplan fort.
+* Löschen Sie einen Zeitplan.
+
+
+
+NOTE: Das Kontrollkästchen *Jetzt-Menü-Betrieb ausführen* ist deaktiviert, wenn eine geplante Sicherung für diesen Zeitplan ausgeführt wird.

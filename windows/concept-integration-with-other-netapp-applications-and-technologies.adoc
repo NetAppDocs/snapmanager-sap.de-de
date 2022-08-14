@@ -1,0 +1,62 @@
+---
+permalink: windows/concept-integration-with-other-netapp-applications-and-technologies.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, stand-alone, product, integrate, feature, netapp, enable, backup, amount, space, integration, application, technology, technologies 
+summary: SnapManager für SAP ist ein eigenständiges Produkt, das die Funktionen anderer NetApp Produkte integriert und so schnelle Backups ermöglicht, die nur wenig Speicherplatz benötigen. 
+---
+= Integration in andere Applikationen und Technologien von NetApp
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager für SAP ist ein eigenständiges Produkt, das die Funktionen anderer NetApp Produkte integriert und so schnelle Backups ermöglicht, die nur wenig Speicherplatz benötigen.
+
+SnapManager lässt sich mit den folgenden NetApp Applikationen und Technologien integrieren:
+
+|===
+| Anwendungen und Technologien | Beschreibung 
+
+
+ a| 
+SnapDrive
+ a| 
+SnapManager erstellt mithilfe von SnapDrive Snapshot Kopien des Storage. Snapshot-Kopien sorgen dafür, dass Backups platzsparend und schneller erstellt werden können als die Disk-to-Disk-Backups.
+
+
+
+ a| 
+FlexClone (eine lizenzierte Funktion von Data ONTAP)
+ a| 
+SnapManager erstellt mithilfe der FlexClone Funktion schnelle, platzsparende Klone von Backups.
+
+
+
+ a| 
+Snapshot (eine Funktion von Data ONTAP)
+ a| 
+Mit der Snapshot Technologie werden zeitpunktgenaue Kopien der Datenbank erstellt.
+
+
+
+ a| 
+SnapRestore (eine lizenzierte Funktion von Data ONTAP)
+ a| 
+SnapManager reduziert mit SnapRestore die durchschnittliche Zeit zum Recovery einer Datenbank. SnapRestore kann einzelne Dateien auf einem Volume mit mehreren Terabyte wiederherstellen, sodass der Betrieb schnell wieder aufgenommen werden kann.
+
+
+
+ a| 
+SnapVault (eine lizenzierte Funktion von Data ONTAP)
+ a| 
+SnapVault nutzt festplattenbasierte Backups für zuverlässiges Backup und Recovery von Datenbanken mit geringem Overhead.
+
+
+
+ a| 
+SnapMirror (eine lizenzierte Funktion der Data ONTAP)
+ a| 
+SnapMirror repliziert Datenbankdaten einfach, zuverlässig und kostengünstig über ein globales Netzwerk mit hoher Geschwindigkeit.
+
+|===

@@ -1,0 +1,65 @@
+---
+permalink: windows/concept-database-backup-management.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, back up, data, local, storage, resource, post-process, script, database 
+summary: SnapManager ermöglicht das Backup von Daten in lokalen Storage-Ressourcen mithilfe von Post-Processing-Skripten. 
+---
+= Backup von Datenbanken
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht das Backup von Daten in lokalen Storage-Ressourcen mithilfe von Post-Processing-Skripten.
+
+SnapManager bietet folgende Optionen zum Sichern, Wiederherstellen und Wiederherstellen der Daten in Ihrer Datenbank:
+
+* Sichern Sie die gesamte Datenbank oder einen Teil davon.
++
+Wenn Sie einen Teil davon sichern, geben Sie eine Gruppe von Tabellen oder eine Gruppe von Datendateien an.
+
+* Sichern Sie die Datendateien und archivieren Sie Log-Dateien separat.
+* Erstellen Sie ein Backup von Datenbanken im primären Storage (auch als lokaler Storage bezeichnet) und sichern Sie sie, indem Sie diese mithilfe von Nachbearbeitungsskripten auf sekundäre Speicherressourcen sichern.
+* Planen Sie routinemäßige Backups.
+
+
+*Wie sich SnapManager (3.2 oder höher) von früheren SnapManager Versionen* unterscheidet
+
+SnapManager (3.1 oder älter) ermöglicht Ihnen die Erstellung vollständiger Datenbank-Backups, die Datendateien, Kontrolldateien und Archivprotokolldateien enthalten.
+
+SnapManager (3.1 oder älter) verwaltet nur die Datendateien. Die Archivprotokolldateien werden mithilfe von Lösungen außerhalb von SnapManager aufbewahrt.
+
+SnapManager (3.1 oder früher) hat die folgenden Einschränkungen beim Management von Datenbank-Backups:
+
+* Performance-Einbußen
++
+Wenn Sie ein vollständiges Online-Datenbank-Backup durchführen (wenn sich die Datenbank im Backup-Modus befindet), reduziert sich die Performance der Datenbank für den Zeitraum, bis das Backup erstellt wird. In SnapManager (ab 3.2) können begrenzte Datenbank-Backups und häufige Archiv-Log-Backups erstellt werden. Durch häufige Backups für Archivprotokolle kann verhindert werden, dass die Datenbank im Backup-Modus platziert wird.
+
+* Manuelle Wiederherstellung und Wiederherstellung
++
+Wenn die erforderlichen Archivprotokolldateien nicht im aktiven Dateisystem vorhanden sind, müssen Datenbankadministratoren erkennen, welches Backup die Archivprotokolldateien enthält, die Datenbank-Backups mounten und die wiederhergestellte Datenbank wiederherstellen. Dieser Prozess ist zeitaufwändig.
+
+* Platzbeschränkungen
++
+Wenn ein Datenbankbackup erstellt wird, werden die Ziele für das Archivprotokoll voll, sodass die Datenbank nicht reagiert, bis ausreichend Speicherplatz auf dem Speicher erstellt wird. In SnapManager (3.2 oder höher) können die Archiv-Log-Dateien aus dem aktiven Dateisystem heraus geschnitten werden, um regelmäßig Speicherplatz freizugeben.
+
+
+
+*Warum Archiv-Log-Backups wichtig sind*
+
+Archivprotokolldateien sind erforderlich, um die Datenbank nach einer Wiederherstellung vorwärts zu verschieben. Jede Transaktion auf einer Oracle-Datenbank wird in den Archiv-Log-Dateien erfasst (wenn sich die Datenbank im Archiv-Log-Modus befindet). Datenbankadministratoren können die Datenbank-Backups mithilfe der Archivprotokolldateien wiederherstellen.
+
+*Vorteile von nur-archivlog Backups*
+
+* Separate Aufbewahrungsdauer für nur archivlog Backups
++
+Es kann weniger Aufbewahrungsdauer für die rein archivbasierten Backups haben, die für die Wiederherstellung erforderlich sind.
+
+* Schützt die nur archivlog Backups mit Nachverarbeitungsskripten
+* Verbessert die Performance der Datenbank
+* Konsolidiert Backups für Archivprotokolle
++
+SnapManager konsolidiert die Archiv-Protokoll-Backups jedes Mal, wenn Sie ein Backup erstellen, indem die doppelten Archiv-Log-Backups freigegeben werden.
+
+

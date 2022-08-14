@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-delete-profile.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, backup, current, operation, free, backup, deleting 
+summary: Sie können ein Profil löschen, solange es keine erfolgreichen Backups enthält, die derzeit in anderen Vorgängen verwendet werden. Sie können Profile löschen, die freigegebene oder gelöschte Backups enthalten. 
+---
+= Löschen Sie ein Profil
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Profil löschen, solange es keine erfolgreichen Backups enthält, die derzeit in anderen Vorgängen verwendet werden. Sie können Profile löschen, die freigegebene oder gelöschte Backups enthalten.
+
+. Geben Sie den folgenden Befehl ein: `smsap profile delete -profileprofile [-quiet | -verbose]`
++
+Sie können ein neues Profil löschen, das für die Klonteilung erstellt wurde. Beim Löschen wird die Warnmeldung „Wenn Sie das Profil löschen, können Sie das Profil nicht zerstören. Später wird in der SnapManager-Befehlszeilenschnittstelle angezeigt.
+
+
+
+[listing]
+----
+smsap profile delete -profile AUTO-REVEN
+----

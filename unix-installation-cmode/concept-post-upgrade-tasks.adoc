@@ -1,0 +1,17 @@
+---
+permalink: unix-installation-cmode/concept-post-upgrade-tasks.html 
+sidebar: sidebar 
+keywords: upgrade, version, snapmanager, update, exist, repository, backup, retention, class, assign, restore, post-upgrade, tasks 
+summary: Nach dem Upgrade auf eine neuere Version von SnapManager müssen Sie das vorhandene Repository aktualisieren. Darüber hinaus möchten Sie möglicherweise auch die Backup-Aufbewahrungsklasse, die den vorhandenen Backups zugewiesen ist, ändern und den Wiederherstellungsprozess ermitteln, den Sie verwenden können. 
+---
+= Aufgaben nach dem Upgrade
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nach dem Upgrade auf eine neuere Version von SnapManager müssen Sie das vorhandene Repository aktualisieren. Möglicherweise möchten Sie auch die Backup-Aufbewahrungsklasse, die dem bestehenden Backup zugewiesen ist, ändern. Ermitteln Sie dann, welchen Restore-Prozess Sie verwenden können.
+
+
+NOTE: Nach dem Upgrade auf SnapManager 3.3 oder höher müssen Sie einstellen `_sqlnet.authentication_services_` An *NONE*, wenn Sie Datenbank (DB) Authentifizierung als einzige Authentifizierungsmethode verwenden möchten. Diese Funktion wird für RAC-Datenbanken nicht unterstützt.

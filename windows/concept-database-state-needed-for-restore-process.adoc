@@ -1,0 +1,69 @@
+---
+permalink: windows/concept-database-state-needed-for-restore-process.html 
+sidebar: sidebar 
+keywords: state, database, restore, depend, process, perform, type, file 
+summary: Der Status der Datenbank, die wiederhergestellt werden soll, hängt von der Art des Wiederherstellungsprozesses, die Sie durchführen möchten, und der Art der Dateien ab, die enthalten sein sollen. 
+---
+= Für den Wiederherstellungsprozess benötigter Datenbankstatus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Status der Datenbank, die wiederhergestellt werden soll, hängt von der Art des Wiederherstellungsprozesses, die Sie durchführen möchten, und der Art der Dateien ab, die enthalten sein sollen.
+
+In der folgenden Tabelle ist der Status aufgeführt, in dem die Datenbank von der ausgewählten Wiederherstellungsoption und dem Typ der Dateien abhängig sein soll, die in die Wiederherstellung aufgenommen werden sollen:
+
+|===
+| Art der Wiederherstellung | Enthaltene Dateien | Datenbankstatus für diese Instanz 
+
+
+ a| 
+Nur Restore
+ a| 
+Kontrolldateien
+ a| 
+Herunterfahren
+
+
+
+ a| 
+Systemdateien
+ a| 
+Montieren oder herunterfahren
+
+
+
+ a| 
+Keine Systemdateien
+ a| 
+Alle Bundesstaaten
+
+
+
+ a| 
+Restore und Recovery
+ a| 
+Kontrolldateien
+ a| 
+Herunterfahren
+
+
+
+ a| 
+Systemdateien
+ a| 
+Montieren
+
+
+
+ a| 
+Keine Systemdateien
+ a| 
+Mount oder Offen
+
+|===
+Der von SnapManager für einen Wiederherstellungsvorgang erforderliche Datenbankzustand ist von dem ausgeführten Wiederherstellungstyp abhängig (vollständige, partielle oder Kontrolldateien). SnapManager übergibt die Datenbank nicht in einen niedrigeren Zustand (z. B. von Öffnen zu Mount), es sei denn, der `force` Option ist angegeben.
+
+SnapManager für SAP überprüft nicht, ob SAP ausgeführt wird. SnapManager for SAP wartet auf ein Timeout und fährt dann die Datenbank herunter, was eine Stunde zusätzlicher Wiederherstellungszeit hinzufügen kann.

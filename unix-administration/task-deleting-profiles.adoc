@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-delete-profiles.html 
+sidebar: sidebar 
+keywords: delete, profile, successful, incomplete, deleting, backup 
+summary: Sie können ein Profil jederzeit löschen, solange es keine erfolgreichen oder unvollständigen Backups enthält. Sie können Profile löschen, die freigegebene oder gelöschte Backups enthalten. 
+---
+= Profile löschen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Profil jederzeit löschen, solange es keine erfolgreichen oder unvollständigen Backups enthält. Sie können Profile löschen, die freigegebene oder gelöschte Backups enthalten.
+
+.Schritt
+. Geben Sie zum Löschen eines Profils den folgenden Befehl ein:
++
+`*smsap profile delete -profile _profile_name_*`
+
+

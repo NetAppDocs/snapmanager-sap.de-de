@@ -1,0 +1,96 @@
+---
+permalink: windows/reference-the-smosmsap-history-set-command.html 
+sidebar: sidebar 
+keywords: run, history, set, command, configure, operation, smsap 
+summary: Sie können den Befehl History Set ausführen, um die Vorgänge zu konfigurieren, für die Sie den Verlauf anzeigen möchten. 
+---
+= Der Befehl smsap history set
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `history set` Befehl zum Konfigurieren der Vorgänge, für die Sie den Verlauf anzeigen möchten.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap history set
+-profile {-name profile_name [profile_name1, profile_name2] | -all
+-repository
+-login [password repo_password]
+-username repo_username
+-host repo_host
+-dbname repo_dbname
+-port repo_port}
+-operation {-operations operation_name [operation_name1, operation_name2] | -all}
+-retain
+{-count retain_count | -daily daily_count | -monthly monthly_count | -weekly weekly_count}
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_`*
++
+Gibt den Namen des Profils an. Der Name kann bis zu 30 Zeichen lang sein und muss innerhalb des Hosts eindeutig sein.
+
+* *`-repository`*
++
+Gibt die Details der Datenbank an, in der das Profil gespeichert wird.
+
+* *`-dbname _repo_dbname_`*
++
+Gibt den Namen der Datenbank an, in der das Profil gespeichert wird. Sie können entweder den globalen Namen oder die Systemkennung verwenden.
+
+* *`-host _repo_host_`*
++
+Gibt den Namen oder die IP-Adresse des Hosts an, auf dem sich die Repository-Datenbank befindet.
+
+* *`-login`*
++
+Gibt die Anmeldedaten für das Repository an.
+
+* *`-username _repo_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Repository-Datenbank erforderlich ist.
+
+* *`-port _repo_port_`*
++
+Gibt die Portnummer des Transmission Control Protocol (TCP) an, die für den Zugriff auf die Repository-Datenbank verwendet wird.
+
+* *`-operation {-operations _operation_name_ [operation_name1, operation_name2] | -all`*
++
+Gibt die SnapManager Vorgänge an, für die Sie den Verlauf konfigurieren möchten.
+
+* *`-retain {-countretain_count | -dailydaily_count | -monthly-monthly_count | -weeklyweekly_count}`*
++
+Legt die Aufbewahrungsklasse des Backups zur Erstellung fest, prüft Backup, Wiederherstellung und Wiederherstellung und erstellt Klonvorgänge. Die Aufbewahrungsklasse wird basierend auf der Anzahl der Vorgänge, der Anzahl der Tage, Wochen oder Monate festgelegt.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispielbefehl
+
+Im folgenden Beispiel werden Informationen zum Sicherungsvorgang angezeigt:
+
+[listing]
+----
+smsap history set -profile -name PROFILE1 -operation -operations backup -retain -daily 6
+-verbose
+----

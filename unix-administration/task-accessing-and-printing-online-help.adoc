@@ -1,0 +1,25 @@
+---
+permalink: unix-administration/task-access-and-print-online-help.html 
+sidebar: sidebar 
+keywords: online, help, instruction, task, perform, snapmanager, graphical, user, interface, description, field, window, wizard, access, print 
+summary: Die Online-Hilfe enthält Anweisungen zu den Aufgaben, die Sie über die grafische Benutzeroberfläche von SnapManager ausführen können. Die Online-Hilfe enthält auch Beschreibungen der Felder in den Fenstern und Assistenten. 
+---
+= Online-Hilfe aufrufen und drucken
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Online-Hilfe enthält Anweisungen zu den Aufgaben, die Sie über die grafische Benutzeroberfläche von SnapManager ausführen können. Die Online-Hilfe enthält auch Beschreibungen der Felder in den Fenstern und Assistenten.
+
+.Schritte
+. Führen Sie eine der folgenden Aktionen aus:
++
+** Klicken Sie im Hauptfenster auf *Hilfe* > *Hilfe Inhalt*.
+** Klicken Sie in einem beliebigen Fenster oder Assistenten auf *Hilfe*, um Hilfe für dieses Fenster anzuzeigen.
+
+
+. Verwenden Sie das *Inhaltsverzeichnis* im linken Fensterbereich, um durch die Themen zu navigieren.
+. Klicken Sie oben im Hilfefenster auf das Druckersymbol, um einzelne Themen zu drucken.
+

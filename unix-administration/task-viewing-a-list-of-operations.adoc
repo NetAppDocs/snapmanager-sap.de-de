@@ -1,0 +1,35 @@
+---
+permalink: unix-administration/task-view-a-list-of-operations.html 
+sidebar: sidebar 
+keywords: view, summary, list, operation, perform, profile 
+summary: Sie können eine Zusammenfassung aller Vorgänge anzeigen, die für ein Profil durchgeführt wurden. 
+---
+= Zeigen Sie eine Liste der Vorgänge an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Zusammenfassung aller Vorgänge anzeigen, die für ein Profil durchgeführt wurden.
+
+*Über diese Aufgabe*
+
+Sie können die folgenden Informationen anzeigen, wenn Sie Vorgänge auflisten, die einem bestimmten Profil zugeordnet sind:
+
+* Start- und Enddatum bei Ausführung des Vorgangs
+* Betriebsstatus
+* Vorgangs-ID
+* Art des Vorgangs
+* Host, auf dem er ausgeführt wurde
+
+
+.Schritt
+. Verwenden Sie den folgenden Befehl, um die Zusammenfassungsinformationen aller Vorgänge aufzulisten:
++
+`*smsap operation list profile -profile _profile_name_ -delimiter _character_ [-quiet | -verbose]*`
+
++
+Wenn die Option -Trennzeichen angegeben wird, listet der Befehl jede Zeile in einer separaten Zeile auf und die Attribute in dieser Zeile werden durch das angegebene Zeichen getrennt.
+
+

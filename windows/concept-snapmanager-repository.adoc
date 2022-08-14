@@ -1,0 +1,19 @@
+---
+permalink: windows/concept-snapmanager-repository.html 
+sidebar: sidebar 
+keywords: repository, store, information, snapmanager, operation, time, backup, tablespace, data, data, file, storage, system, clone, snapshot, copies, copy, create 
+summary: Im Repository werden Informationen zu verschiedenen SnapManager-Vorgängen gespeichert, beispielsweise die Zeit von Backups, Tabellen und Datendateien, die gesichert wurden, bei Storage-Systemen, bei erstellten Klonen und bei Snapshot Kopien. 
+---
+= SnapManager Repository
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Im Repository werden Informationen zu verschiedenen SnapManager-Vorgängen gespeichert, beispielsweise die Zeit von Backups, Tabellen und Datendateien, die gesichert wurden, bei Storage-Systemen, bei erstellten Klonen und bei Snapshot Kopien.
+
+Die Repository-Datenbank kann nicht in derselben Datenbank vorhanden sein und darf auch nicht Teil derselben Datenbank sein, die von SnapManager gesichert wird. Dies liegt daran, dass das Repository die Namen der Datenbank-Snapshot-Kopien speichert, die während des Backup-Betriebs erstellt wurden. Das Repository muss in einer anderen Datenbank als der zu sichernden Datenbank erstellt werden. Das heißt, Sie müssen mindestens zwei Datenbanken haben: Die SnapManager Repository-Datenbank und die von SnapManager gemanagte Zieldatenbank. Wenn Sie die SnapManager-Services ausführen, müssen beide Datenbanken betriebsbereit sein.
+
+
+NOTE: SnapManager-Vorgänge dürfen nicht über die GUI oder die CLI ausgeführt werden, wenn die Repository-Datenbank ausfällt.

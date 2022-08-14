@@ -1,0 +1,68 @@
+---
+permalink: windows/task-preview-backup-restore-information.html 
+sidebar: sidebar 
+keywords: preview, information, backup, restore, process, snapmanager, sap, analyze, determine, successful 
+summary: Sie können eine Vorschau von Informationen zu einem Backup-Wiederherstellungsprozess vor seiner Einführung anzeigen, um Informationen über die Berechtigung zur Wiederherstellung, die SnapManager für SAP auf Ihrem Backup gefunden. SnapManager analysiert die Daten für Ihr Backup, um festzustellen, ob der Wiederherstellungsprozess erfolgreich abgeschlossen werden kann. 
+---
+= Vorschau der Backup-Wiederherstellungsinformationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Vorschau von Informationen zu einem Backup-Wiederherstellungsprozess vor seiner Einführung anzeigen, um Informationen über die Berechtigung zur Wiederherstellung, die SnapManager für SAP auf Ihrem Backup gefunden. SnapManager analysiert die Daten für Ihr Backup, um festzustellen, ob der Wiederherstellungsprozess erfolgreich abgeschlossen werden kann.
+
+
+
+== Über diese Aufgabe
+
+Die Vorschau zur Wiederherstellung enthält die folgenden Informationen:
+
+* Zur Wiederherstellung jeder Datei kann der Wiederherstellungsmechanismus (Storage-seitige Dateisystem-Wiederherstellung, Storage-seitige Datei-Wiederherstellung oder Host-seitige Dateikopie) verwendet werden.
+* Warum effizientere Mechanismen nicht verwendet wurden, um jede Datei wiederherzustellen, wenn Sie die angeben `-verbose` Option.
+
+
+Wenn Sie den angeben `-preview` Wählen Sie im `backup restore` Befehl, SnapManager stellt nichts wieder her, listet aber die wiederherzustellenden Dateien auf und gibt an, wie sie wiederhergestellt werden.
+
+
+NOTE: Sie können alle Arten von Wiederherstellungsmechanismen in einer Vorschau anzeigen. Die Vorschau zeigt Informationen über bis zu 20 Dateien.
+
+.Schritte
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -preview -verbose*`
+
++
+*Beispiel*
+
++
+Geben Sie beispielsweise Folgendes ein:
+
++
+[listing]
+----
+smsap backup restore -profile targetdb1_prof1
+      -label full_bkup_sales_nov_08  -complete -preview -verbose
+----
++
+Das folgende Beispiel zeigt die wiederherzustellenden Dateien und listet die verschiedenen Methoden auf, die jeweils verwendet werden:
+
++
+[listing]
+----
+The following files will be restored via storage side full file system
+restore:
+E:\disks\sysaux.dbf
+E:\disks\system.dbf
+
+The following files will be restored via host side file copy restore:
+E:\disks\undotbs1.dbf
+E:\disks\undotbs2.dbf
+----
+. Prüfen Sie die Gründe, warum andere Wiederherstellungsprozesse nicht verwendet werden können.
+. Starten Sie den Wiederherstellungsvorgang ohne `-preview` Option, wenn nur Gründe angezeigt werden, die überschreibbar sind.
++
+Sie können nicht obligatorische Prüfungen weiterhin überschreiben.
+
+

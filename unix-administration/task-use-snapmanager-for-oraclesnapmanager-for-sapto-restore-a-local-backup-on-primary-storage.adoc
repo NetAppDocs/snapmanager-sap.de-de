@@ -1,0 +1,54 @@
+---
+permalink: unix-administration/task-use-snapmanager-for-oraclesnapmanager-for-sapto-restore-a-local-backup-on-primary-storage.html 
+sidebar: sidebar 
+keywords: restore, local, backup, exist, primary, storage, entire, process, perform, snapmanager, sap 
+summary: Sie können lokale Backups, die sich im Primärspeicher befinden, wiederherstellen. Der gesamte Prozess findet mit SnapManager für SAP statt. 
+---
+= Verwenden Sie SnapManager für SAP, um ein lokales Backup im Primärspeicher wiederherzustellen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können lokale Backups, die sich im Primärspeicher befinden, wiederherstellen. Der gesamte Prozess findet mit SnapManager für SAP statt.
+
+*Über diese Aufgabe*
+
+Sie können auch eine Vorschau der Informationen zu einem Backup-Wiederherstellungsprozess anzeigen. Möglicherweise möchten Sie dies tun, um Informationen über die Berechtigung zur Wiederherstellung eines Backups anzuzeigen. SnapManager analysiert die Daten für ein Backup, um zu ermitteln, ob der Wiederherstellungsprozess mithilfe der Volume-basierten Wiederherstellung oder der dateibasierten Restore-Methode abgeschlossen werden kann.
+
+In der Vorschau der Wiederherstellung werden die folgenden Informationen angezeigt:
+
+* Welcher Wiederherstellungsmechanismus (schnelle Wiederherstellung, Filesystem-Wiederherstellung auf Storage-Seite, Dateiwiederherstellung auf Storage-Seite oder Wiederherstellung von Host-seitigen Dateikopien) wird zum Wiederherstellen jeder Datei verwendet.
+* Warum effizientere Mechanismen nicht verwendet wurden, um jede Datei wiederherzustellen.
+
+
+In der Vorschau des Wiederherstellungsplans, SnapManager nichts wiederherstellt. In der Vorschau werden Informationen von bis zu 20 Dateien angezeigt.
+
+Wenn Sie eine Vorschau einer Wiederherstellung von Datendateien, aber die Datenbank ist nicht gemountet, dann SnapManager mountet die Datenbank. Wenn die Datenbank nicht gemountet werden kann, schlägt der Vorgang fehl und SnapManager gibt die Datenbank in ihren ursprünglichen Zustand zurück.
+
+.Schritte
+. Klicken Sie in der Struktur *Repository* mit der rechten Maustaste auf das Backup, das Sie wiederherstellen möchten, und wählen Sie *Wiederherstellen*.
+. Klicken Sie auf der Startseite des Wiederherstellungs- und Wiederherstellungsassistenten auf *Weiter*.
+. Wählen Sie auf der Seite *Konfigurationsinformationen wiederherstellen* die Option *Datei/Tablespace wiederherstellen mit Steuerdateien*.
+. Klicken Sie auf *Herunterfahren der Datenbank zulassen, falls erforderlich*.
++
+Falls erforderlich ändert SnapManager den Datenbankstatus. Wenn beispielsweise die Datenbank offline ist und sie online sein muss, erzwingt SnapManager sie online.
+
+. Klicken Sie auf der Seite *Recovery Configuration Information* auf *Alle Protokolle*.
++
+SnapManager stellt die Datenbank für die letzte Transaktion wieder her und wendet alle erforderlichen Protokolle an.
+
+. Zeigen Sie auf der Seite *Konfiguration des Quellorts wiederherstellen* die Informationen zum Backup auf der primären und klicken Sie auf *Weiter*.
++
+Wenn das Backup nur auf dem Primärspeicher besteht, stellt SnapManager das Backup aus dem Primärspeicher wieder her.
+
+. Wählen Sie auf der Seite *Volume Restore Configuration Information* die Option *Versuch Volume Restore*, um die Methode zur Volume-Wiederherstellung zu versuchen.
+. Klicken Sie auf *Fallback to file-based restore*.
++
+Dadurch kann SnapManager die dateibasierte Wiederherstellungsmethode verwenden, wenn die Wiederherstellungsmethode des Volumes nicht verwendet werden kann.
+
+. Klicken Sie auf *Vorschau*, um die Eignungsprüfungen für schnelle Wiederherstellung und Informationen zu obligatorischen und überfrierbaren Prüfungen anzuzeigen.
+. Überprüfen Sie auf der Seite * Operation* die eingegebenen Informationen und klicken Sie auf *Restore*.
+. Um Details zum Prozess anzuzeigen, klicken Sie auf *Betriebsdetails*.
+

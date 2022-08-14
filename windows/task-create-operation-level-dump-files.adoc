@@ -1,0 +1,33 @@
+---
+permalink: windows/task-create-operation-level-dump-files.html 
+sidebar: sidebar 
+keywords: smsap, operation, dump, command, name, id, fail, log, information, level, profile, host, environment, create, operation-level 
+summary: Sie können den Befehl smsap Operation dump mit dem Namen oder der ID des fehlgeschlagenen Vorgangs verwenden, um Protokollinformationen über einen bestimmten Vorgang zu erhalten. Sie können unterschiedliche Protokollebenen festlegen, um Informationen zu einem bestimmten Vorgang, Profil, Host oder einer bestimmten Umgebung zu erfassen. 
+---
+= Erstellen von Dump-Dateien auf Betriebsebene
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das verwenden `smsap operation dump` Befehl mit dem Namen oder der ID des fehlgeschlagenen Vorgangs, um Protokollinformationen über einen bestimmten Vorgang abzurufen. Sie können unterschiedliche Protokollebenen festlegen, um Informationen zu einem bestimmten Vorgang, Profil, Host oder einer bestimmten Umgebung zu erfassen.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap operation dump -id _guid_*`
+
++
+
+NOTE: Der `smsap operation dump` Befehl stellt einen Super-Satz der Informationen zur Verfügung, die vom bereitgestellt werden `smsap profile dump` Befehl, der wiederum einen Super-Satz der Informationen zur Verfügung gestellt von `smsap system dump` Befehl.
+
++
+Speicherverzeichnis der Speicherdatei:
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----
+

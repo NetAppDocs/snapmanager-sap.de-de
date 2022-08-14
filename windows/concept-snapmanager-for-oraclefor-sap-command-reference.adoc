@@ -1,0 +1,39 @@
+---
+permalink: windows/concept-snapmanager-for-oraclefor-sap-command-reference.html 
+sidebar: sidebar 
+keywords: snapmanager, command, reference, valid, syntax, parameter, argument, example, sap 
+summary: Die SnapManager-Befehlsreferenz enthält die gültige Syntax, Optionen, Parameter und Argumente, die Sie zusammen mit Beispielen mit den Befehlen bereitstellen sollten. 
+---
+= Befehlsreferenz für SnapManager für SAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die SnapManager-Befehlsreferenz enthält die gültige Syntax, Optionen, Parameter und Argumente, die Sie zusammen mit Beispielen mit den Befehlen bereitstellen sollten.
+
+Die folgenden Probleme gelten für die Verwendung von Befehlen:
+
+* Bei Befehlen wird die Groß-/Kleinschreibung beachtet.
+* SnapManager akzeptiert bis zu 200 Zeichen und Labels mit bis zu 80 Zeichen.
+* Wenn die Shell auf Ihrem Host die Anzahl der Zeichen begrenzt, die in einer Befehlszeile angezeigt werden können, können Sie die verwenden `cmdfile` Befehl.
+* Verwenden Sie keine Leerzeichen in Profilnamen oder Namen.
+* Verwenden Sie in der Klonspezifikation keine Leerzeichen am Klonspeicherort.
+
+
+SnapManager kann drei Meldungsebenen in der Konsole anzeigen:
+
+* Fehlermeldungen
+* Warnmeldungen
+* Informationsmeldungen
+
+
+Sie können festlegen, wie Meldungen angezeigt werden sollen. Wenn Sie nichts angeben, wird in SnapManager nur Fehlermeldungen und Warnmeldungen an der Konsole angezeigt. Verwenden Sie eine der folgenden Befehlszeilenoptionen, um die Menge der Ausgabe, die SnapManager in der Konsole angezeigt wird:
+
+* `-quiet`: Zeigt nur Fehlermeldungen an der Konsole an.
+* `-verbose`: Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+NOTE: Unabhängig vom Standardverhalten oder der Detailebene, die Sie für die Anzeige angeben, schreibt SnapManager immer alle Nachrichtentypen in die Protokolldateien.

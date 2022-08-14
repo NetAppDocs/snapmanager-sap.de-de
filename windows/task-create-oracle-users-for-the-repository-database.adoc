@@ -1,0 +1,51 @@
+---
+permalink: windows/task-create-oracle-users-for-the-repository-database.html 
+sidebar: sidebar 
+keywords: create, oracle, user, repository, database, assign, privilege, operation 
+summary: Sie können einen Oracle-Benutzer für die Repository-Datenbank erstellen und bestimmte Berechtigungen zuweisen, um verschiedene Vorgänge in der Repository-Datenbank auszuführen. 
+---
+= Erstellen Sie Oracle-Benutzer für die Repository-Datenbank
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können einen Oracle-Benutzer für die Repository-Datenbank erstellen und bestimmte Berechtigungen zuweisen, um verschiedene Vorgänge in der Repository-Datenbank auszuführen.
+
+
+
+== Über diese Aufgabe
+
+Sie müssen dem Oracle-Benutzer die Verbindungsberechtigungen und Ressourcenberechtigungen zuweisen. Sie müssen keinen Benutzer für die Repository-Datenbank mit sysdba-Berechtigungen erstellen.
+
+
+NOTE: Sie müssen jedoch einen Oracle-Benutzer mit der sysdba-Rolle für die Zieldatenbank erstellen.
+
+.Schritte
+. Melden Sie sich bei SQL *Plus an.
++
+Geben Sie an der Eingabeaufforderung den folgenden Befehl ein:
+
++
+`*sqlplus '/ as sysdba'*`
+
++
+[listing]
+----
+SQL*Plus: Release 11.2.0.1.0 Production on Wed Jun 1 06:01:26 2011
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+----
+. Zum Erstellen eines Benutzers z. B. `_repo1_user_`, Für das Repository mit dem Administrator-Passwort, zum Beispiel, `_adminpw1_`, Geben Sie an der SQL-Eingabeaufforderung den folgenden Befehl ein:
++
+`*SQL> create user _repo1_user_ identified by _adminpw1_;*`
+
+. Geben Sie den folgenden Befehl ein, um dem Benutzer Verbindungsberechtigungen und Ressourcenberechtigungen zu gewähren:
++
+`*grant connect, resource to _repo1_user_;*`
+
+

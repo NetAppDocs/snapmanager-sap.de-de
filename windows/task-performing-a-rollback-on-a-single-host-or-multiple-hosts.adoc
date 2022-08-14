@@ -1,0 +1,66 @@
+---
+permalink: windows/task-performing-a-rollback-on-a-single-host-or-multiple-hosts.html 
+sidebar: sidebar 
+keywords: perform, rollback, single, multiple, snapmanager, server, host, command-line, interface, cli, multiple 
+summary: 'Sie können auf einem oder mehreren SnapManager-Server-Hosts ein Rollback durchführen, indem Sie die Befehlszeilenschnittstelle \(CLI\) verwenden.' 
+---
+= Durchführen eines Rollbacks auf einem oder mehreren Hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können auf einem oder mehreren SnapManager Server Hosts ein Rollback durchführen, indem Sie die Befehlszeilenschnittstelle (CLI) verwenden.
+
+Sie müssen sicherstellen, dass alle Voraussetzungen für die Durchführung eines Rollbacks abgeschlossen sind.
+
+. Geben Sie den folgenden Befehl ein, um ein Rollback auf einem einzelnen Host durchzuführen:
++
+`smsaprepository rollback-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-rollbackhosthost_with_target_database`
+
++
+Das folgende Beispiel zeigt den Befehl zum Rollback aller Zieldatenbanken, die auf hostA gemountet sind, und eine Repository-Datenbank namens repoA, die sich auf dem Repository-Host, repo_Host, befindet:
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA
+----
+. Geben Sie den folgenden Befehl ein, um ein Rollback auf mehreren Hosts durchzuführen: `smsaprepository rollback-repository-dbnamerepo_service_name-hostrepo_host-login-usernamerepo_username-portrepo_port-rollbackhosthost_with_target_database1,host_with_target_database2`
++
+
+NOTE: Geben Sie bei mehreren Hosts die durch Komma getrennten Hostnamen ein, und stellen Sie sicher, dass zwischen dem Komma und dem nächsten Hostnamen kein Platz vorhanden ist.Stellen Sie außerdem sicher, dass Sie den ganzen Satz von mehreren Hostnamen in doppelte Anführungszeichen eingeben.
+
++
+Das folgende Beispiel zeigt den Befehl zum Rollback aller Zieldatenbanken, die auf den Hosts gemountet sind, hostA, hostB und eine Repository-Datenbank namens repoA auf dem Repository-Host, repo_Host:
+
++
+[listing]
+----
+
+smsap repository rollback
+    -repository
+      -dbname repoA
+      -host repo_host
+      -login
+       -username repouser
+       -port 1521
+     -rollbackhost hostA,hostB
+----
++
+Die Hosts, Profile, Zeitpläne, Backups und Klone, die mit den Profilen der Zieldatenbanken für den Host verbunden sind, werden in das frühere Repository zurückgesetzt.
+
+
+
+*Verwandte Informationen*
+
+xref:concept-prerequisites-for-performing-a-rollback.adoc[Voraussetzungen für die Durchführung eines Rollbacks]

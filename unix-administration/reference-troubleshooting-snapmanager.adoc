@@ -1,0 +1,302 @@
+---
+permalink: unix-administration/reference-troubleshooting-snapmanager.html 
+sidebar: sidebar 
+keywords: information, common, issue, resolve, troubleshooting, snapmanager 
+summary: Hier finden Sie Informationen über einige der häufigsten Probleme, die auftreten können, und über deren Behebung. 
+---
+= SnapManager zur Fehlerbehebung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Hier finden Sie Informationen über einige der häufigsten Probleme, die auftreten können, und über deren Behebung.
+
+In der folgenden Tabelle werden häufige Probleme und mögliche Lösungen beschrieben:
+
+[cols="1a,3a"]
+|===
+| Frage, die nur mit Problemen zu tun hat | Mögliche Lösung 
+
+
+ a| 
+Werden die Zieldatenbank und der Listener ausgeführt?
+ a| 
+Führen Sie die aus `lsnrctl status` Befehl. Stellen Sie sicher, dass die Datenbankinstanz beim Listener registriert ist.
+
+
+
+ a| 
+Ist der Storage sichtbar?
+ a| 
+Führen Sie die aus `snapdrive storage show -all` Befehl.
+
+
+
+ a| 
+Ist der Storage beschreibbar?
+ a| 
+Bearbeiten Sie eine Datei im Bereitstellungspunkt, den Sie gerade erstellt haben. Verwenden Sie die `touch filename` Befehl. Wenn die Datei erstellt wird, ist Ihr Speicher beschreibbar. Sie müssen sicherstellen, dass der Speicher vom Benutzer beschreibbar ist, auf dem SnapManager ausgeführt wird (z. B. als Root auf UNIX).
+
+
+
+ a| 
+Wird der SnapManager Server ausgeführt?
+ a| 
+Laufen `smsap_server status` Und versuchen Sie, den Server mit dem zu starten `smsap_server start` Befehl.
+
+Bevor Sie SnapManager-Befehle für Profile mit der grafischen Benutzeroberfläche (GUI) oder der Befehlszeilenschnittstelle (CLI) initiieren können, muss der Server ausgeführt werden. Sie können Repositorys erstellen oder aktualisieren, ohne den Server zu starten. Um jedoch alle anderen SnapManager-Vorgänge auszuführen, muss der Server ausgeführt werden.
+
+Geben Sie zum Starten des SnapManager-Servers den folgenden Befehl ein: ``smsap_server start.``
+
+
+
+ a| 
+Sind alle Komponenten erforderlich, um SnapManager korrekt auszuführen?
+ a| 
+Führen Sie die aus `smsap system verify` Befehl zur Überprüfung, ob SnapDrive ordnungsgemäß eingerichtet ist.
+
+
+
+ a| 
+Verfügen Sie über die richtige Version von SnapManager?
+ a| 
+Verwenden Sie die `smsap version` Befehl zum Überprüfen der SnapManager-Version.
+
+
+
+ a| 
+Haben Sie sich die Protokolldateien von SnapManager angesehen, um zu ermitteln, ob die Fehlermeldungen helfen können, das Problem zu isolieren?
+ a| 
+SnapManager zeichnet alle Log-Einträge in einem Satz rotierender Log-Dateien auf. Die Protokolldateien finden Sie unter ``/var/log/smsap.``
+
+Die Protokolldateien finden Sie unter ``C:\program_files\NetApp\SnapManager for SAP\logs.``
+
+Es könnte auch hilfreich sein, sich die Protokolle an folgender Stelle anzusehen:
+
+``/usr_home/.netapp/smsap/3.3.0/log/``
+
+Jedes Betriebsprotokoll wird in seine eigene Protokolldatei des Formulars geschrieben `smsap_of_date_time.log.`
+
+
+
+ a| 
+Wenn auf einem Storage-System, auf dem Data ONTAP nicht ausgeführt wird, Archivprotokolle gespeichert sind, haben Sie diese von Überlegungen für Backups mit SnapManager ausgeschlossen?
+ a| 
+Der `smsap.config` Datei ermöglicht es Ihnen, bestimmte Archivprotokolldateien auszuschließen. Für UNIX befinden sich die Dateien an folgendem Speicherort: `/opt/NetApp/smsap/properties/smsap.config`
+
+Verwenden Sie das in der Datei erwähnte Format, um die lokalen Archivprotokolle auszuschließen. Weitere Informationen finden Sie im Thema „`SBenetzungskonfigurationseigenschaften`“.
+
+Sie können die Ziele für das Archivprotokoll auch ausschließen, wenn Sie ein Backup von der SnapManager-CLI erstellen. Weitere Informationen finden Sie im Thema „`Datenbanksicherungen erstellen`“.
+
+Sie können die Ziele für das Archivprotokoll auch ausschließen, wenn Sie ein Backup von der SnapManager-GUI erstellen.
+
+
+
+ a| 
+Haben Sie eine FlexClone Lizenz, wenn Sie SnapManager mit NFS Datenbanken verwenden?
+ a| 
+Zur Nutzung aller Vorteile von SnapManager mit NFS-Datenbanken ist eine FlexClone Lizenz erforderlich. SnapManager erledigt diese Aufgaben mit der FlexClone Funktion:
+
+* Backups von NFS-Datenbanken mounten
+* Backup von NFS-Datenbanken überprüfen
+* Klonen von NFS-Datenbanken
+
+
+
+
+ a| 
+Konnte keine Verbindung zum Repository hergestellt werden?
+ a| 
+Wenn die Verbindung zu einem Repository fehlschlägt, führen Sie das aus `lsnrctl status` Befehl in der Repository-Datenbank und prüfen Sie die aktiven Servicenamen. Wenn SnapManager eine Verbindung zur Repository-Datenbank herstellt, wird der Servicename der Datenbank verwendet. Je nach Einrichtung des Listeners kann dies der kurze Servicename oder der vollqualifizierte Servicename sein. Wenn SnapManager eine Verbindung zu einer Datenbank für einen Backup-, Restore- oder anderen Vorgang herstellt, verwendet er den Host-Namen und den SID. Wenn das Repository nicht korrekt initialisiert wird, weil es derzeit nicht erreichbar ist, erhalten Sie eine Fehlermeldung, in der Sie gefragt werden, ob Sie das Repository entfernen möchten. Sie können das Repository aus Ihrer aktuellen Ansicht entfernen, sodass Sie Vorgänge für andere Repositories ausführen können.
+
+Prüfen Sie außerdem, ob die Repository-Instanz ausgeführt wird, indem Sie das ausführen `ps -eaf grep _instance - name_` Befehl.
+
+
+
+ a| 
+Kann das System den Hostnamen auflösen?
+ a| 
+Überprüfen Sie, ob sich der angegebene Hostname in einem anderen Subnetz befindet. Wenn Sie eine Fehlermeldung erhalten, dass SnapManager den Hostnamen nicht auflösen kann, fügen Sie den Hostnamen in die Hostdatei hinzu.Fügen Sie den Hostnamen zur Datei hinzu, die sich unter befindet `/etc/hosts:`
+
+`*xxx.xxx.xxx.xxx hostname IP address*`
+
+
+
+ a| 
+Führt SnapDrive aus?
+ a| 
+Überprüfen Sie, ob der SnapDrive Daemon ausgeführt wird:
+
+`*-snapdrived status*`
+
+Wenn der Daemon nicht ausgeführt wird, wird eine Meldung angezeigt, die angibt, dass ein Verbindungsfehler vorliegt.
+
+
+
+ a| 
+Welche Storage-Systeme sind für den Zugriff mit SnapDrive konfiguriert?
+ a| 
+Führen Sie den Befehl aus:
+
+`*-snapdrive config list*`
+
+
+
+ a| 
+Wie kann die SnapManager GUI Performance verbessert werden?
+ a| 
+* Stellen Sie sicher, dass Sie über gültige Benutzeranmeldeinformationen für das Repository, den Profilhost und das Profil verfügen.
++
+Wenn Ihre Anmeldedaten ungültig sind, löschen Sie die Benutzeranmeldeinformationen für das Repository, den Profilhost und das Profil. Setzen Sie dieselben Benutzeranmeldeinformationen zurück, die Sie zuvor für das Repository, den Profilhost und das Profil festgelegt haben. Weitere Informationen zum erneuten Einstellen der Benutzeranmeldeinformationen finden Sie unter „`SFestlegen von Anmeldeinformationen nach Löschen des Anmeldeinformationscache`“.
+
+* Schließen Sie die nicht verwendeten Profile.
++
+Wenn mehr Profile geöffnet werden, wird die Performance der SnapManager GUI beeinträchtigt.
+
+* Überprüfen Sie, ob Sie *beim Start öffnen* im Fenster Benutzereinstellungen im Menü *Admin* in der SnapManager-Benutzeroberfläche aktiviert haben.
++
+Wenn diese Option aktiviert ist, dann die Benutzerkonfiguration `(user.config) file available at /root/.netapp/smsap/3.3.0/gui/state is displayed as openOnStartup=PROFILE.`
+
++
+Da *beim Start öffnen* aktiviert ist, müssen Sie über die SnapManager-Benutzeroberfläche nach kürzlich geöffneten Profilen suchen `lastOpenProfiles` In der Benutzerkonfiguration `(user.config)` Datei: `lastOpenProfiles=_PROFILE1,PROFILE2,PROFILE3,..._`
+
++
+Sie können die aufgeführten Profilnamen löschen und immer eine minimale Anzahl von Profilen als offen halten.
+
+* Das geschützte Profil benötigt mehr Zeit zur Aktualisierung als das nicht geschützte Profil.
++
+Das geschützte Profil wird in einem Zeitintervall auf der Grundlage des im angegebenen Werts aktualisiert `protectionStatusRefreshRate` Parameter der Benutzerkonfiguration `(user.config)` Datei:
+
++
+Sie können den Wert aus dem Standardwert (300 Sekunden) erhöhen, sodass die geschützten Profile erst nach dem festgelegten Zeitintervall aktualisiert werden.
+
+* Löschen Sie vor der Installation der neuen SnapManager-Version in der UNIX-basierten Umgebung die clientseitigen Einträge von SnapManager, die an folgender Stelle verfügbar sind:
++
+`/root/.netapp`
+
+
+
+
+
+ a| 
+Wenn mehrere SnapManager Vorgänge gestartet und gleichzeitig im Hintergrund ausgeführt werden, benötigt die SnapManager GUI mehr Zeit für die Aktualisierung. Wenn Sie mit der rechten Maustaste auf das Backup klicken (das bereits gelöscht ist, aber immer noch in der SnapManager GUI angezeigt wird), sind die Backup-Optionen für dieses Backup nicht im Fenster Backup oder Clone aktiviert.
+ a| 
+Sie müssen warten, bis die SnapManager GUI aktualisiert wird, und dann den Backup-Status überprüfen.
+
+
+
+ a| 
+Was würden Sie tun, wenn die Oracle-Datenbank nicht auf Englisch eingestellt ist?
+ a| 
+SnapManager-Vorgänge können fehlschlagen, wenn die Sprache für eine Oracle-Datenbank nicht auf Englisch festgelegt ist. Legen Sie die Sprache der Oracle-Datenbank auf Englisch fest:
+
+. Fügen Sie Folgendes unter den ersten Kommentaren in hinzu `/etc/init.d/smsap_server`
++
+** NLS_LANG=American_America
+** NLS_LANG exportieren
+
+
+. Starten Sie den SnapManager-Server mit folgendem Befehl neu: `smsap_server restart`
+
+
+
+NOTE: Wenn die Anmeldeskripte wie z. B. `.bash_profile, .bashrc,` Und `.cshrc` Für den Oracle-Benutzer ist festgelegt auf `*NLS_LANG*`, Sie müssen das Skript bearbeiten, um nicht zu überschreiben `*NLS_LANG*`.
+
+
+
+ a| 
+Was würden Sie tun, wenn die Backup-Planung fehlschlägt, wenn die Repository-Datenbank auf mehr als eine IP verweist und jede IP einen anderen Hostnamen hat?
+ a| 
+. Beenden Sie den SnapManager-Server.
+. Löschen Sie die Zeitplandateien im Repository-Verzeichnis von den Hosts, auf denen Sie den Backup-Zeitplan auslösen möchten.
++
+Die Namen der Zeitplandateien können in den folgenden Formaten vorliegen:
+
++
+** `repository#repo_username#repository_database_name#repository_host#repo_port`
+** `repository-repo_usernamerepository_database_name-repository_host-repo_port`
++
+
+NOTE: Sie müssen sicherstellen, dass Sie die Zeitplandatei im Format löschen, das den Repository-Details entspricht.
+
+
+
+. Starten Sie den SnapManager-Server neu.
+. Öffnen Sie andere Profile unter dem gleichen Repository von der SnapManager GUI, um sicherzustellen, dass keine Terminplaninformationen dieser Profile fehlen.
+
+
+
+
+ a| 
+Was würden Sie tun, wenn der SnapManager-Vorgang mit dem Fehler der Dateisperre für Zugangsdaten fehlschlägt?
+ a| 
+SnapManager sperrt die Anmeldeinformationsdatei vor dem Aktualisieren und entsperrt sie nach dem Aktualisieren.Wenn mehrere Operationen gleichzeitig ausgeführt werden, kann einer der Operationen die Anmeldeinformationsdatei sperren, um sie zu aktualisieren. Wenn ein anderer Vorgang versucht, gleichzeitig auf die Datei mit gesperrten Anmeldeinformationen zuzugreifen, schlägt der Vorgang mit dem Dateisperrfehler fehl.
+
+Konfigurieren Sie in der Datei smsap.config die folgenden Parameter, je nach Häufigkeit der gleichzeitigen Operationen:
+
+* `fileLock.retryInterval` = 100 Millisekunden
+* `fileLock.timeout` = 5000 Millisekunden
+
+
+
+NOTE: Die den Parametern zugewiesenen Werte müssen in Millisekunden liegen.
+
+
+
+ a| 
+Was würden Sie tun, wenn der Zwischenstatus des Backup Verify-Vorgangs auf der Registerkarte Monitor fehlgeschlagen angezeigt wird, obwohl der Backup Verify-Vorgang noch ausgeführt wird?
+ a| 
+Die Fehlermeldung wird in der Datei sm_gui.log protokolliert. Sie müssen in der Protokolldatei nachsehen, um die neuen Werte für den Vorgang zu bestimmen.heartbeatIntervall und Operation.heartbeatThreshold Parameter, die dieses Problem lösen werden.
+
+. Fügen Sie die folgenden Parameter in der Datei smsap.config hinzu:
++
+** `operation.heartbeatInterval` = 5000
+** `operation.heartbeatThreshold` = 5000 der von SnapManager zugewiesene Standardwert ist 5000.
+
+
+. Diesen Parametern die neuen Werte zuweisen.
++
+
+NOTE: Die den Parametern zugewiesenen Werte müssen in Millisekunden liegen.
+
+. Starten Sie den SnapManager-Server neu, und führen Sie den Vorgang erneut aus.
+
+
+
+
+ a| 
+Was ist zu tun, wenn ein Heap-Space-Problem auftritt?
+ a| 
+Wenn während des SnapManager für SAP-Betriebs ein Heap-Space-Problem auftritt, müssen Sie die folgenden Schritte durchführen:
+
+. Navigieren Sie zum Installationsverzeichnis für SnapManager für SAP.
+. Öffnen Sie das `launchjava` Datei von `_installationdirectory_/bin/launchjava` Pfad:
+. Erhöhen Sie den Wert des `java -Xmx160m` Java-Heap-space-Parameter.
++
+So können Sie beispielsweise den Standardwert von 160 m auf 200 m erhöhen.
+
++
+
+NOTE: Wenn Sie in den früheren Versionen von SnapManager für SAP den Wert des Java Heap-space-Parameters erhöht haben, sollten Sie diesen Wert beibehalten.
+
+
+
+
+
+ a| 
+Was würden Sie tun, wenn Sie die geschützten Backups nicht zum Wiederherstellen oder Klonen verwenden können?
+ a| 
+Dieses Problem wird beobachtet, wenn Sie SnapManager 3.3.1 mit Clustered Data ONTAP verwendet haben und ein Upgrade auf SnapManager 3.4 durchgeführt haben. Die Backups wurden mithilfe von Post-Skripten in SnapManager 3.3 gesichert. Ab SnapManager 3.4 sind die Backups entweder über _SnapManager_cDOT_Mirror_ oder _SnapManager_cDOT_Vault_ Richtlinien gesichert, die beim Erstellen eines Profils ausgewählt werden. Nach einem Upgrade auf SnapManager 3.4 können Sie eventuell noch die alten Profile nutzen und so Backups mit Backup-Skripten schützen. Sie können sie aber nicht zur Wiederherstellung oder zum Klonen mit SnapManager verwenden.
+
+Sie müssen das Profil aktualisieren und entweder die Richtlinie _SnapManager_cDOT_Mirror_ oder _SnapManager_cDOT_Vault_ auswählen und das Post-Skript, das zur Datensicherung in SnapManager 3.3 verwendet wurde, löschen.
+
+
+
+ a| 
+Was würden Sie tun, wenn geplante Backups nicht gesichert werden (SnapVault)?
+ a| 
+Nach dem Upgrade auf SnapManager 3.4 und der Aktualisierung des Profils zur Verwendung der Richtlinie _SnapManager_cDOT_Vault_ zur Sicherung müssen Sie alte Backup-Zeitpläne löschen und neue Zeitpläne erstellen, um beim Erstellen des Zeitplans das SnapVault-Label zu spezifizieren.
+
+|===

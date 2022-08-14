@@ -1,0 +1,85 @@
+---
+permalink: unix-installation-cmode/reference-smsap-isg-snapmanager-licensing.html 
+sidebar: sidebar 
+keywords: snapmanager, license, storage, system, license, require, enable, operation, license, per-server, database, per-storage 
+summary: 'Zur Aktivierung des SnapManager Betriebs sind eine SnapManager Lizenz und mehrere Storage-System-Lizenzen erforderlich. Die SnapManager Lizenz ist in zwei Lizenzmodellen erhältlich: Lizenzierung pro Server. Bei diesem Modell befindet sich die SnapManager Lizenz auf jedem Datenbank-Host und die Lizenzierung erfolgt pro Storage-System. In diesem Modell befindet sich die SnapManager Lizenz im Storage-System.' 
+---
+= SnapManager Lizenzierung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Zur Aktivierung des SnapManager Betriebs sind eine SnapManager Lizenz und mehrere Storage-System-Lizenzen erforderlich. Die SnapManager Lizenz ist in zwei Lizenzmodellen verfügbar: _Lizenzierung pro Server_, bei denen sich die SnapManager Lizenz auf jedem Datenbank-Host befindet, und _pro-Storage-System-Lizenzierung_, bei dem sich die SnapManager Lizenz im Storage-System befindet.
+
+Die SnapManager Lizenzanforderungen lauten wie folgt:
+
+|===
+| Lizenz | Beschreibung | Bei Bedarf 
+
+
+ a| 
+SnapManager pro Server
+ a| 
+Eine Host-seitige Lizenz für einen bestimmten Datenbank-Host.Lizenzen sind nur für Datenbank-Hosts erforderlich, auf denen SnapManager installiert ist. Für das Storage-System ist keine SnapManager Lizenz erforderlich.
+ a| 
+Auf dem SnapManager-Host. Auf primären und sekundären Storage-Systemen ist keine SnapManager-Lizenz erforderlich, wenn die Lizenzierung pro Server verwendet wird.
+
+
+
+ a| 
+SnapManager pro Storage-System
+ a| 
+Eine Storage-seitige Lizenz, die eine beliebige Anzahl von Datenbank-Hosts unterstützt. Nur erforderlich, wenn Sie keine Serverlizenz auf dem Datenbank-Host verwenden.
+ a| 
+Auf primären und sekundären Storage-Systemen.
+
+
+
+ a| 
+SnapRestore
+ a| 
+Eine erforderliche Lizenz zum Wiederherstellen von Datenbanken durch SnapManager.
+ a| 
+Auf primären und sekundären Storage-Systemen.erforderlich auf SnapMirror Zielsystemen zur Remote-Verifizierung
+
+Erforderlich auf SnapVault Zielsystemen, um eine Remote-Verifizierung und die Wiederherstellung aus einem Backup durchzuführen.
+
+
+
+ a| 
+FlexClone
+ a| 
+Eine optionale Lizenz zum Klonen von Datenbanken.
+ a| 
+Auf primären und sekundären Storage-Systemen.erforderlich auf SnapVault Zielsystemen beim Erstellen von Klonen aus einem Backup.
+
+
+
+ a| 
+SnapMirror
+ a| 
+Eine optionale Lizenz zum Spiegeln von Backups auf ein Ziel-Speichersystem.
+ a| 
+Auf primären und sekundären Storage-Systemen.
+
+
+
+ a| 
+SnapVault
+ a| 
+Eine optionale Lizenz zur Archivierung von Backups auf einem Ziel-Speichersystem.
+ a| 
+Auf primären und sekundären Storage-Systemen.
+
+
+
+ a| 
+Protokolle
+ a| 
+NFS-, iSCSI- oder FC-Lizenzen sind abhängig vom verwendeten Protokoll erforderlich.
+ a| 
+Auf primären und sekundären Storage-Systemen. Ist auf SnapMirror Zielsystemen erforderlich, um Daten bereitzustellen, wenn ein Quell-Volume nicht verfügbar ist.
+
+|===

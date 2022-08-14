@@ -1,0 +1,111 @@
+---
+permalink: unix-administration/concept-about-different-protection-policies.html 
+sidebar: sidebar 
+keywords: policies, policy, protect, backup, secondary, tertiary, storage, system, protection 
+summary: Sie können verschiedene Richtlinien zum Schutz der Backups auf den sekundären oder tertiären Speichersystemen auswählen. 
+---
+= Allgemeines zu unterschiedlichen Sicherungsrichtlinien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können verschiedene Richtlinien zum Schutz der Backups auf den sekundären oder tertiären Speichersystemen auswählen.
+
+Wenn Sie Data ONTAP 7-Mode verwenden und SnapManager mit Protection Manager integriert ist, müssen Sie beim Erstellen des Profils eine der folgenden Sicherungsrichtlinien auswählen. Die Protection Manager Management Console bietet Vorlagen für die Konfiguration von Sicherungsrichtlinien für die Datensätze. Obwohl die Richtlinien für Disaster Recovery-Schutz in der Benutzeroberfläche von SnapManager aufgeführt sind, werden diese Richtlinien nicht unterstützt.
+
+[cols="1a,3a"]
+|===
+| Richtlinie | Beschreibung 
+
+
+ a| 
+Backup
+ a| 
+Ein Datensatz wird lokal und über SnapVault oder SnapMirror vom primären auf den sekundären Storage gesichert.
+
+
+
+ a| 
+Zurück, dann Spiegel
+ a| 
+Ein Datensatz wird mithilfe von SnapVault oder SnapMirror vom primären auf den sekundären Storage gesichert und dann zu einem SnapMirror Partner gespiegelt.
+
+
+
+ a| 
+Nur lokale Snapshot-Kopien
+ a| 
+Ein Datensatz verwendet nur lokale Snapshot-Kopien im Primär-Storage.
+
+
+
+ a| 
+Spiegelung
+ a| 
+Ein Datensatz wird mithilfe von SnapMirror vom primären zu einem sekundären Storage gespiegelt.
+
+
+
+ a| 
+Spiegelung und Backup
+ a| 
+Ein Datensatz wird mithilfe von SnapMirror vom primären zum sekundären Storage gespiegelt und anschließend mithilfe von SnapVault oder SnapMirror auf dem sekundären Storage gesichert.
+
+
+
+ a| 
+Spiegelung und Spiegelung
+ a| 
+Ein Datensatz wird von dem primären auf den sekundären Storage von zwei SnapMirror Partnern gespiegelt.
+
+
+
+ a| 
+Spiegel, dann Backup
+ a| 
+Ein Datensatz wird mithilfe von SnapMirror vom primären zum sekundären Storage gespiegelt und anschließend mithilfe von SnapVault oder SnapMirror auf tertiären Storage-Systemen gesichert.
+
+
+
+ a| 
+Spiegeln, dann spiegeln
+ a| 
+Ein Datensatz wird mithilfe von SnapMirror vom primären zum sekundären Storage gespiegelt und anschließend zu einem weiteren SnapMirror Partner gespiegelt.
+
+
+
+ a| 
+Kein Schutz
+ a| 
+Ein Datensatz verfügt über keine Snapshot Kopien, Backups oder Sicherungskopien beliebiger Spiegelungskopien.
+
+
+
+ a| 
+Nur Remote Backup
+ a| 
+Die Daten in einem Storage-System werden mithilfe von SnapVault oder SnapMirror Remote auf einem sekundären Storage gesichert. Die lizenzierte Applikation führt kein lokales Backup auf dem primären Storage durch. Diese Schutzrichtlinie kann auf Systeme anderer Hersteller angewendet werden, auf denen Open Systems SnapVault installiert ist.
+
+|===
+Wenn Sie Clustered Data ONTAP verwenden, müssen Sie während der Erstellung des Profils eine der folgenden Schutzrichtlinien auswählen.
+
+[cols="1a,1a"]
+|===
+| Richtlinie | Beschreibung 
+
+
+ a| 
+SnapManager_cDOT_Mirror
+ a| 
+Spiegelung des Backups
+
+
+
+ a| 
+SnapManager_cDOT_Vault
+ a| 
+Vaults the Backup.
+
+|===

@@ -1,0 +1,29 @@
+---
+permalink: windows/task-authorize-user-access-to-the-repository.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, set, credential, user, repository, restrict, prevent, access, host, database, authorize 
+summary: Mit SnapManager können Sie Anmeldedaten für Datenbankbenutzer für den Zugriff auf das Repository festlegen. Mithilfe von Zugangsdaten können Sie den Zugriff auf die SnapManager-Hosts, Repositorys, Profile und Datenbanken einschränken oder verhindern. 
+---
+= Zugriff auf das Repository autorisieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager können Sie Anmeldedaten für Datenbankbenutzer für den Zugriff auf das Repository festlegen. Mithilfe von Zugangsdaten können Sie den Zugriff auf die SnapManager-Hosts, Repositorys, Profile und Datenbanken einschränken oder verhindern.
+
+
+
+== Über diese Aufgabe
+
+Wenn Sie die Anmeldeinformationen mithilfe des festlegen `credential set` Befehl, SnapManager fordert Sie nicht zur Eingabe eines Passworts auf.
+
+Sie können Benutzeranmeldeinformationen festlegen, wenn Sie SnapManager oder höher installieren.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap credential set -repository -dbname _repo_service_name_ -host _repo_host_ -login -username _repo_username_ [-password _repo_password_] -port _repo_port_*`
+
+

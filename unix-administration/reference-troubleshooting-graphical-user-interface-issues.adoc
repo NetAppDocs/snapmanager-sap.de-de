@@ -1,0 +1,206 @@
+---
+permalink: unix-administration/reference-troubleshooting-graphical-user-interface-issues.html 
+sidebar: sidebar 
+keywords: information, common, graphical, user, interface, gui, issue, resolve, troubleshooting 
+summary: 'Sie finden Informationen zu einigen Problemen der grafischen Benutzeroberfläche (GUI), die Ihnen bei der Problembehebung helfen könnten.' 
+---
+= Fehlerbehebung bei Problemen mit der grafischen Benutzeroberfläche
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie finden Informationen zu einigen Problemen der grafischen Benutzeroberfläche (GUI), die Ihnen bei der Problembehebung helfen könnten.
+
+|===
+| Problem | Erklärung | Behelfslösung 
+
+
+ a| 
+Beim Zugriff auf die SnapManager GUI zur Durchführung eines Vorgangs wird möglicherweise die folgende Fehlermeldung angezeigt: `SMSAP-20111 : Authentication failed for user on host.`
+ a| 
+Dieses Problem tritt auf, wenn das Kennwort des Benutzers in dem Host geändert wird, auf dem der SnapManager-Server ausgeführt wird.Nachdem das Passwort geändert wurde, wird der Anmeldeinformationscache, der für den Benutzer erstellt wird, der die GUI gestartet hat, ungültig. Die SnapManager-GUI verwendet zur Authentifizierung weiterhin die Zugangsdaten im Cache und schlägt somit fehl.
+ a| 
+Sie müssen eine der folgenden Aufgaben durchführen:
+
+* Löschen Sie die Anmeldeinformationen des Benutzers, dessen Passwort geändert wurde, und fügen Sie dann die neuen Anmeldeinformationen in den Cache ein, indem Sie die folgenden Befehle ausführen:
++
+.. `smsap credential delete`
+.. `smsap credential set`
+
+
+* Löschen Sie den gesamten Cache, indem Sie den ausführen `smsap credential clear command`. Öffnen Sie die GUI erneut, und legen Sie die Anmeldeinformationen fest, falls Sie dazu aufgefordert werden.
+
+
+
+
+ a| 
+Die Sicherheitswarnung wird angezeigt, wenn Sie Java Web Start verwenden, um auf die SnapManager-GUI zuzugreifen.
+ a| 
+Beim Zugriff auf die SnapManager-GUI mit Java Web Start wird eine Sicherheitswarnung angezeigt.Dieses Problem tritt auf, weil JNLP-JARs selbstsigniert sind und die von SnapManager verwendete Java-Version keine selbstsignierten Jars auf hoher Sicherheitsstufe zulässt.
+ a| 
+Ändern Sie entweder die Sicherheitseinstellungen im java-Bedienfeld auf Medium, oder fügen Sie die SnapManager-GUI-URL zur Ausnahmeliste hinzu.
+
+
+
+ a| 
+In der SnapManager Webstart-GUI wird die falsche Version angezeigt.
+ a| 
+Nachdem Sie beim Start der Web-Start-GUI die SnapManager von einer neueren Version auf eine frühere Version heruntergestuft haben, wird die neuere Version der SnapManager Web-Start-GUI gestartet.
+ a| 
+Sie müssen den Cache auch löschen, indem Sie die folgenden Schritte durchführen:
+
+. Starten Sie die Konsole.
+. Geben Sie Folgendes ein: `*javaws -viewer*`
+. Klicken Sie im Java Cache Viewer-Bildschirm mit der rechten Maustaste auf die SnapManager-Anwendung und wählen Sie *Löschen* aus.
+
+
+
+
+ a| 
+Wenn Sie die GUI neu starten und versuchen, die Backups auf ein bestimmtes Profil zu überprüfen, werden nur die Namen der Profile angezeigt.
+ a| 
+SnapManager zeigt erst Informationen zu einem Profil an, wenn Sie es öffnen.
+ a| 
+Führen Sie folgende Schritte aus:
+
+. Klicken Sie mit der rechten Maustaste auf das Profil und wählen Sie im Menü * Öffnen* aus.
++
+SnapManager zeigt das Dialogfeld Profilauthentifizierung an.
+
+. Geben Sie den Benutzernamen und das Kennwort des Hosts ein.
++
+SnapManager zeigt die Sicherungsliste an.
+
+
+
+
+NOTE: Sie müssen das Profil nur einmal authentifizieren, solange die Anmeldeinformationen gültig sind und im Cache verbleiben.
+
+
+
+ a| 
+Wenn Sie das erste Repository in der GUI öffnen, wird eine Fehlermeldung wie die folgende angezeigt: `The Profile name XXXX clashes with previously loaded repository.`
+ a| 
+Identisch benannte Profile können nicht in einem Repository vorhanden sein. Sie können auch nur ein Repository gleichzeitig öffnen.
+ a| 
+Verwenden Sie die in Konflikt stehenden Profile von zwei verschiedenen Betriebssystembenutzern oder benennen Sie das Profil um, indem Sie eine SQL-Anweisung für das Repository erstellen: `*UPDATE SMSAP_33_PROFILE SET NAME = 'NEW_NAME' WHERE NAME = 'OLD_NAME'*`
+
+
+
+ a| 
+Es wird eine Fehlermeldung angezeigt, die der folgenden ähnelt: SMSAP-01092: `Unable to initialize repository repo1@ does not exist:repo1SMSAP-11006: Cannot resolve host does not exist`
+ a| 
+Das Repository ist unzugänglich, vielleicht weil es nicht mehr existiert. Die GUI initialisiert die Liste der Repositorys aus der Anmeldedatei.
+ a| 
+In der Fehlermeldung wird gefragt, ob Sie dieses Repository entfernen möchten, damit kein Versuch unternommen wird, es in der Zukunft zu laden. Wenn Sie nicht auf dieses Repository zugreifen müssen, klicken Sie auf *Löschen*, um es aus der GUI-Ansicht zu entfernen. Dadurch wird der Verweis auf das Repository in der Anmeldedatei entfernt, und die GUI versucht nicht, das Repository erneut zu laden.
+
+
+
+ a| 
+Die Profilerstellung schlägt fehl, da die Hostanmeldeinformationen in den Plattformen SUSE Linux Enterprise Server 10 und SUSE Linux Enterprise Server 11 nicht authentifiziert werden.
+ a| 
+SnapManager verwendet zur Authentifizierung von Benutzern das Pluggable Authentication Module (PAM). Bei den SUSE Linux Enterprise Server-Plattformen 10 und 11 gibt es keine `snapmanager` Datei standardmäßig im `/etc/pam.d` Verzeichnis, das die erforderlichen Authentifizierungsdetails enthält. Daher schlagen die Host-Anmeldedaten fehl.
+ a| 
+So melden Sie sich auf den SUSE Linux Enterprise Server 10- und 11-Plattformen erfolgreich am Host an:
+
+. Erstellen Sie ein `snapmanager` Datei ein ``/etc/pam.d/.``
+. Fügen Sie den folgenden Inhalt hinzu `snapmanager` Datei befindet sich unter ``/etc/pam.d/snapmanager:``
++
+[listing]
+----
+
+#%PAM-1.0
+auth     include   common-auth
+account  include   common-account
+password include   common-password
+session  include   common-session
+----
+. Speichern Sie die Datei, und versuchen Sie es erneut, die Profilerstellung zu erstellen.
+
+
+
+
+ a| 
+SnapManager benötigt eine längere Zeit, um die Baumstruktur der Datenbank zu laden, und führt dazu, dass auf der SnapManager-Benutzeroberfläche eine Fehlermeldung mit einem Timeout angezeigt wird.
+ a| 
+Wenn Sie versuchen, einen Teil-Backup-Vorgang von der SnapManager-Benutzeroberfläche auszuführen, versucht SnapManager, die Anmeldeinformationen für alle Profile zu laden. Wenn ungültige Einträge vorliegen, versucht SnapManager, den Eintrag zu validieren. Dies führt dazu, dass eine Fehlermeldung mit einem Timeout angezeigt wird.
+ a| 
+Löschen Sie die Anmeldeinformationen des nicht verwendeten Hosts, Repositorys und Profils mithilfe des `credential delete` Befehl über die SnapManager Befehlszeilenschnittstelle (CLI).
+
+
+
+ a| 
+Nach der Teilung des Klons kann SnapManager kein neues Profil generieren, und Sie wissen nicht, ob das neue Profil erstellt wird.
+ a| 
+SnapManager fordert Sie nicht auf, wenn ein neues Profil nach dem Split-Vorgang des Klons nicht erstellt wird. Da für den fehlgeschlagenen Vorgang keine Meldung angezeigt wird, gehen Sie möglicherweise davon aus, dass das Profil erstellt wird.
+ a| 
+Um zu wissen, ob ein neues Profil für den Klon-Split-Vorgang erstellt wird, führen Sie die folgenden Schritte aus:
+
+. Klicken Sie auf die Registerkarte *Monitor*, klicken Sie mit der rechten Maustaste auf den Eintrag Clone Split Operation und wählen Sie *Eigenschaften*.
+. Klicken Sie im Fenster Profileigenschaften auf die Registerkarte *Protokolle*, um die Protokolle für die Klonteiloperation und die Profilerstellung anzuzeigen.
+
+
+
+
+ a| 
+Die benutzerdefinierten Skripte, die für die vor- oder Nachbearbeitungsaktivität vor oder nach dem Backup-, Restore- oder Klonvorgang ausgeführt werden, sind in der SnapManager GUI nicht sichtbar.
+ a| 
+Wenn Sie nach dem Start des jeweiligen Assistenten benutzerdefinierte Skripts in den benutzerdefinierten Speicherort für Backup, Wiederherstellung oder Klonen hinzufügen, werden die benutzerdefinierten Skripts nicht unter der Liste Verfügbare Skripts angezeigt.
+ a| 
+Starten Sie den SnapManager-Hostserver neu, und öffnen Sie dann die SnapManager-GUI.
+
+
+
+ a| 
+Sie können die in SnapManager (3.1 oder früher) erstellte XML-Datei für die Klonspezifikation nicht verwenden.
+ a| 
+Aus SnapManager 3.2 für SAP wird der Abschnitt Aufgabenspezifikation (Task-Specification) als separate XML-Datei für die Aufgabenspezifikation bereitgestellt.
+ a| 
+Wenn Sie SnapManager 3.2 für SAP verwenden, müssen Sie den Abschnitt für die Aufgabenspezifikation aus der XML für die Klonspezifikation entfernen oder eine neue XML-Datei für die Klonspezifikation erstellen. SnapManager 3.3 oder höher unterstützt nicht die XML-Datei für die Klonspezifikation, die in SnapManager 3.2 oder älteren Versionen erstellt wurde.
+
+
+
+ a| 
+Der Betrieb von SnapManager auf der Benutzeroberfläche wird nicht fortgesetzt, nachdem Sie die Benutzeranmeldeinformationen über die gelöscht haben `smsap credential clear` Befehl über die SnapManager CLI oder durch Klicken auf *Admin* > *Anmeldeinformationen* > *Löschen* > *Cache* in der SnapManager-Benutzeroberfläche.
+ a| 
+Die für Repositorys, Hosts und Profile festgelegten Anmeldeinformationen werden gelöscht. SnapManager überprüft vor dem Starten eines Vorgangs die Benutzeranmeldeinformationen.Wenn die Benutzeranmeldeinformationen ungültig sind, kann sich SnapManager nicht authentifizieren. Wenn ein Host oder ein Profil aus dem Repository gelöscht wird, sind die Benutzeranmeldeinformationen weiterhin im Cache verfügbar. Diese unnötigen Einträge mit Anmeldeinformationen verlangsamen die SnapManager-Vorgänge von der GUI.
+ a| 
+Starten Sie die SnapManager GUI neu, je nachdem, wie der Cache gelöscht wird.
+
+[NOTE]
+====
+* Wenn Sie den Anmeldeinformationscache von der SnapManager-GUI gelöscht haben, müssen Sie die SnapManager-Benutzeroberfläche nicht beenden.
+* Wenn Sie den Anmeldeinformationscache über die SnapManager-CLI gelöscht haben, müssen Sie die SnapManager-Benutzeroberfläche neu starten.
+* Wenn Sie die verschlüsselte Anmeldedatei manuell gelöscht haben, müssen Sie die SnapManager-GUI neu starten.
+
+
+====
+Legen Sie die Anmeldeinformationen fest, die Sie für das Repository, den Profilhost und das Profil angegeben haben. Wenn in der SnapManager-GUI kein Repository unter der Struktur Repositories zugeordnet ist, führen Sie die folgenden Schritte aus:
+
+. Klicken Sie auf *Aufgaben* > *vorhandenes Repository hinzufügen*
+. Klicken Sie mit der rechten Maustaste auf das Repository, klicken Sie auf *Öffnen* und geben Sie die Benutzeranmeldeinformationen im Fenster * Repository Credentials Authentication* ein.
+. Klicken Sie mit der rechten Maustaste auf den Host im Repository, klicken Sie auf *Öffnen* und geben Sie die Benutzeranmeldeinformationen in *Host Authentication* ein.
+. Klicken Sie mit der rechten Maustaste auf das Profil unter dem Host, klicken Sie auf *Öffnen* und geben Sie die Benutzeranmeldeinformationen in *Profilauthentifizierung* ein.
+
+
+
+
+ a| 
+Die Fehlermeldung `Unable to list the protection policies for the following reason: Protection Manager is temporarily unavailable` Wird angezeigt, wenn Sie im Dropdown-Menü *Protection Manager Protection Policy* im Fenster Profileigenschaften und auf der Seite Richtlinieneinstellungen des Assistenten zum Erstellen von Profilen * Keine* auswählen.
+ a| 
+Der Protection Manager ist nicht mit SnapManager konfiguriert, oder der Protection Manager wird nicht ausgeführt.
+ a| 
+Es ist keine Aktion erforderlich.
+
+
+
+ a| 
+Sie können die SnapManager-Benutzeroberfläche nicht über die Java Web Start GUI öffnen, da die SSL-Verschlüsselung (Secure Sockets Layer) des Browsers schwächer ist.
+ a| 
+SnapManager unterstützt keine SSL-Chiffren, die schwächer als 128 Bit sind.
+ a| 
+Aktualisieren Sie die Browserversion und überprüfen Sie die Verschlüsselungsstärke.
+
+|===

@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/task-resume-backup-schedules.html 
+sidebar: sidebar 
+keywords: administrator, option, suspend, backup, schedule, resuming, resume 
+summary: Administratoren haben die Möglichkeit, den angehängten Backup-Zeitplan fortzusetzen. 
+---
+= Setzen Sie die Backup-Pläne fort
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Administratoren haben die Möglichkeit, den angehängten Backup-Zeitplan fortzusetzen.
+
+*Über diese Aufgabe*
+
+Wenn Sie versuchen, die aktiven Zeitpläne fortzusetzen, wird möglicherweise die Fehlermeldung angezeigt: `"Cannot resume: schedule <schedulename> already in resume state"`.
+
+. Um den angehängten Backup-Zeitplan fortzusetzen, geben Sie den folgenden Befehl ein:
++
+`*smsap schedule resume -profile _profile_name_ -schedule-name _schedulename_ [-quiet | -verbose]*`
+
+

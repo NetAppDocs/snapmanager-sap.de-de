@@ -1,0 +1,16 @@
+---
+permalink: windows/concept-performing-management-operations.html 
+sidebar: sidebar 
+keywords: perform, management, task, set, up, configure, snapmanager, manage, normal, operation, restore, clone 
+summary: Sie können Managementaufgaben ausführen, nachdem Sie SnapManager eingerichtet und konfiguriert haben. Diese Aufgaben ermöglichen Ihnen das Management des normalen Betriebs, der über Backup, Wiederherstellung und Klonen hinaus geht. 
+---
+= Durchführung von Managementvorgängen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Managementaufgaben ausführen, nachdem Sie SnapManager eingerichtet und konfiguriert haben. Diese Aufgaben ermöglichen Ihnen das Management des normalen Betriebs, der über Backup, Wiederherstellung und Klonen hinaus geht.
+
+Administratoren können Vorgänge entweder über die grafische Benutzeroberfläche oder über die Befehlszeilenschnittstelle ausführen.

@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/concept-licenses-required-for-data-protection.html 
+sidebar: sidebar 
+keywords: ensure, license, require, data, protection, install, enable, primary, secondary, storage, system 
+summary: Sie müssen sicherstellen, dass die für die Datensicherung erforderlichen Lizenzen auf den primären und sekundären Storage-Systemen installiert und aktiviert werden. 
+---
+= Lizenzen für Datensicherung in SnapManager erforderlich
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen sicherstellen, dass die für die Datensicherung erforderlichen Lizenzen auf den primären und sekundären Storage-Systemen installiert und aktiviert werden.
+
+Primäre Speichersysteme erhalten die aktuellsten Transaktions-Updates für die Oracle-Datenbank, speichern die Daten und stellen lokalen Backup-Schutz der Datenbank sicher. Das primäre Storage-System verwaltet außerdem Datenbankdatendateien, Log-Dateien und Kontrolldateien. Sekundäre Speichersysteme fungieren als Remote-Speicher für die geschützten Backups.
+
+Zur Datensicherung müssen auf den primären Storage-Systemen die folgenden Lizenzen installiert und aktiviert sein:
+
+
+NOTE: Wenn Sie die Datensicherung auf den sekundären Storage-Systemen aktivieren möchten, müssen Sie diese Lizenzen auch auf den sekundären Storage-Systemen installieren und aktivieren.
+
+* Data ONTAP 7-Mode (7.3.1 oder höher) oder Clustered Data ONTAP (8.2 oder höher)
+* SnapVault (je nach Schutzrichtlinie)
+* SnapRestore
+* SnapMirror (abhängig von der Sicherungsrichtlinie)
+* Für das Network File System (NFS) und Klonen ist FlexClone erforderlich.
++
+FlexClone ist außerdem nur erforderlich, wenn SnapDrive für die Verwendung von FlexClone in SAN-Umgebungen konfiguriert ist.
+
+* Das entsprechende Protokoll, z. B. NFS, Internet Small Computer System Interface (iSCSI) oder Fibre Channel (FC)
+
+
+SnapVault oder SnapMirror sollten sich auf den primären und sekundären Storage-Systemen basierend auf den verwendeten Sicherungsrichtlinien befinden. Für grundlegende Backup-Sicherungsrichtlinien ist nur SnapVault auf den zugehörigen Systemen installiert. Für Richtlinien mit Spiegelschutz muss SnapMirror auf den unterstützenden Systemen installiert werden. Für die Disaster Recovery-Richtlinien für Backup und Spiegelung ist SnapMirror auf den unterstützenden Systemen installiert.

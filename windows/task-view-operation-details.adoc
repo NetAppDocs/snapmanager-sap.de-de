@@ -1,0 +1,36 @@
+---
+permalink: windows/task-view-operation-details.html 
+sidebar: sidebar 
+keywords: view, detail, information, particular, profile, verify, success, failure, operation, resource, operation 
+summary: Sie können detaillierte Informationen zu einem bestimmten Profil anzeigen, um den Erfolg oder den Fehler einer Operation zu überprüfen. Zudem können Sie die verwendeten Storage-Ressourcen für einen bestimmten Vorgang ermitteln. 
+---
+= Zeigen Sie die Betriebsdetails an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können detaillierte Informationen zu einem bestimmten Profil anzeigen, um den Erfolg oder den Fehler einer Operation zu überprüfen. Zudem können Sie die verwendeten Storage-Ressourcen für einen bestimmten Vorgang ermitteln.
+
+
+
+== Über diese Aufgabe
+
+Sie können die folgenden Details zu einer bestimmten Operation anzeigen:
+
+* Vorgangs-ID
+* Art des Vorgangs
+* Ob die Operation erzwungen wurde
+* Laufzeitinformationen, einschließlich Status, Start- und Enddatum des Vorgangs
+* Der Host, auf dem der Vorgang ausgeführt wurde, einschließlich der Prozess-ID und der SnapManager-Version
+* Repository-Informationen
+* Verwendete Storage-Ressourcen
+
+
+.Schritt
+. Um die detaillierten Informationen für eine bestimmte Vorgangs-ID anzuzeigen, geben Sie den folgenden Befehl ein:
++
+`*smsap operation show -profile _profile_name_ [-label _label_ | -id _id_] [-quiet | -verbose]*`
+
+

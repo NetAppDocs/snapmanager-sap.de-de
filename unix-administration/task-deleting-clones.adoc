@@ -1,0 +1,48 @@
+---
+permalink: unix-administration/task-delete-clones.html 
+sidebar: sidebar 
+keywords: delete, clone, size, snapshot, copy, backup, guarantee, data, deleting 
+summary: 'Sie können die Klone löschen, wenn die Größe der Snapshot-Kopie zwischen 10 % und 20 % des Backups reicht. Dies garantiert außerdem, dass der Klon die aktuellsten Daten enthält.' 
+---
+= Klone löschen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Klone löschen, wenn die Größe der Snapshot-Kopie zwischen 10 % und 20 % des Backups reicht. Dies garantiert außerdem, dass der Klon die aktuellsten Daten enthält.
+
+*Über diese Aufgabe*
+
+Die Bezeichnung ist die eindeutige Kennung für jeden Klon in einem Profil. Sie können den Klon mit dem Klonnamen oder der ID, jedoch nicht mit der System-ID (SID) löschen.
+
+
+NOTE: Die Klon-SID und die Klonbezeichnung sind nicht identisch.
+
+Wenn Sie einen Klon löschen, muss die Datenbank ausgeführt werden. Andernfalls werden viele Dateien und Verzeichnisse für den vorhandenen Klon nicht gelöscht. Dies führt zu mehr Arbeit, bevor ein weiterer Klon erstellt werden kann.
+
+Die für bestimmte Oracle-Parameter im Klon angegebenen Verzeichnisse werden beim Löschen des Klons zerstört und sollten nur Daten für die geklonte Datenbank enthalten: Archivprotokoll-Ziele, Hintergrund-, Core- und BenutzerabDump-Ziele. Die Audit-Dateien werden nicht gelöscht.
+
+
+NOTE: Sie können einen Klon nicht löschen, wenn der Klon in anderen Vorgängen verwendet wird.
+
+Optional können Sie die Dump-Dateien nach einem erfolgreichen oder fehlgeschlagenen Klonlöschen sammeln.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap clone delete -profile _profile_name_ [-label _label_ | -id _guid_] [-syspassword _syspassword_]| [login-username _db_username_ -password] _db_password_ -port _db_port_] [-asminstance- asmusername _asm_username_ -asmpassword _asm_password_][-force][-dump][-quiet]|[-verbose]*`
+
+
+
+'''
+
+
+== Beispiel
+
+[listing]
+----
+smsap clone delete -profile targetdb1_prof1 -label sales0908_clone1
+----
+'''

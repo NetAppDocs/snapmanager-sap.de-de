@@ -1,0 +1,102 @@
+---
+permalink: windows/reference-the-smosmsapclone-delete-command.html 
+sidebar: sidebar 
+keywords: run, clone, delete, command, operation, smsap 
+summary: Sie können den Befehl „Klon löschen“ ausführen, um einen Klon zu löschen. Sie können einen Klon nicht löschen, wenn der Klon für einen Vorgang verwendet wird. 
+---
+= Der Befehl smsap Clone delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `clone delete` Befehl zum Löschen eines Klons. Sie können einen Klon nicht löschen, wenn der Klon für einen Vorgang verwendet wird.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap clone delete
+-profile profile_name
+[-id guid | -label clone_name]
+[-login
+[-username db_username -password db_password -port db_port]
+]
+[-syspassword syspassword]
+-force
+[-dump]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt den Namen des Profils an, das den zu löschenden Klon enthält. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-force`*
++
+Löscht den Klon, auch wenn dem Klon Ressourcen zugeordnet sind.
+
+* *`-id _guid_`*
++
+Gibt die GUID für den zu löschenden Klon an. Die GUID wird von SnapManager beim Erstellen eines Klons generiert. Sie können das verwenden `smsap clone list` Befehl zum Anzeigen der GUID für jeden Klon.
+
+* *`-label _name_`*
++
+Gibt die Bezeichnung für den zu löschenden Klon an.
+
+* *`-syspassword _syspassword_`*
++
+Gibt das Kennwort für den Benutzer mit Systemprivilegierten an.
+
++
+
+NOTE: Sie müssen das Passwort für den Benutzer mit Systemberechtigungen angeben, wenn die angegebenen Datenbankanmeldeinformationen nicht für den Benutzer mit Systemprivilegierten identisch sind.
+
+* *`-login`*
++
+Ermöglicht die Eingabe der Anmeldedaten für die Datenbank.
+
+* *`-username _db_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Datenbank erforderlich ist.
+
+* *`-password _db_password_`*
++
+Gibt das Kennwort an, das für den Zugriff auf die Datenbank erforderlich ist.
+
+* *`-port _db_port_`*
++
+Gibt die TCP-Portnummer an, die für den Zugriff auf die Datenbank verwendet wird, die das Profil beschreibt.
+
+* *`-dump`*
++
+Gibt an, die Speicherauszugsdateien nach dem Löschen des Klons zu sammeln.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel wird der Klon gelöscht:
+
+[listing]
+----
+smsap clone delete -profile SALES1 -label SALES_May
+Operation Id [8abc01ec0e79004b010e79006da60001] succeeded.
+----

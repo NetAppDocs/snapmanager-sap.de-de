@@ -1,0 +1,108 @@
+---
+permalink: unix-installation-cmode/task-prepare-storage-systems-for-snapvault-replication.html 
+sidebar: sidebar 
+keywords: snapmanager, perform, disk-to-disk, backup, replication, configure, data-protection, relationship, source, destination, volume, initialize, snapvault, data, block, prepare, storage, system, replication 
+summary: Bevor Sie SnapManager zur Durchführung der Disk-to-Disk Backup-Replizierung verwenden können, müssen Sie eine Datensicherungsbeziehung zwischen den Quell- und Ziel-Volumes konfigurieren und dann die Beziehung initialisieren. Bei der Initialisierung erstellt SnapVault eine Snapshot Kopie des Quell-Volume, überträgt dann die Kopie und alle Datenblöcke, auf die sie auf das Ziel-Volume verweist. 
+---
+= Storage-Systeme für die SnapVault-Replizierung vorbereiten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie SnapManager zur Durchführung der Disk-to-Disk-Backup-Replizierung verwenden können, müssen Sie eine _Datensicherungsbeziehung_ zwischen den Quell- und Ziel-Volumes konfigurieren und anschließend die Beziehung initialisieren. Bei der Initialisierung erstellt SnapVault eine Snapshot Kopie des Quell-Volume, überträgt dann die Kopie und alle Datenblöcke, auf die sie auf das Ziel-Volume verweist.
+
+
+
+== Was Sie benötigen
+
+* Sie müssen ein Cluster-Administrator sein.
+
+
+
+
+== Über diese Aufgabe
+
+Sie können SnapVault Beziehungen mit der ONTAP Befehlszeilenschnittstelle (CLI) oder mit OnCommand System Manager erstellen. Das folgende Verfahren dokumentiert die Verwendung der CLI.
+
+
+IMPORTANT: Wenn Sie Datenbankdateien und Transaktions-Logs auf verschiedenen Laufwerken speichern, müssen Sie für die Transaktions-Logs Beziehungen zwischen den Quell- und Ziel-Volumes für die Datenbankdateien sowie zwischen den Quell- und Ziel-Volumes erstellen.
+
+Die folgende Abbildung zeigt das Verfahren zur Initialisierung einer SnapVault Beziehung:
+
+image::../media/snapvault_steps_clustered.gif[Diese Abbildung zeigt das Verfahren zum Initialisieren einer SnapVault Beziehung: Identifizieren des Ziel-Clusters,creating a destination volume,creating a policy]
+
+.Schritte
+. Ermitteln des Ziel-Clusters
+. Verwenden Sie auf dem Ziel-Cluster die `volume create` Befehl mit dem `-type` DP-Option zum Erstellen eines SnapVault Ziel-Volume, das mit dem Quell-Volume größer oder gleich ist.
++
+
+IMPORTANT: Die Spracheinstellung des Zielvolumens muss mit der Spracheinstellung des Quellvolumens übereinstimmen.
+
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird ein 2 GB großes Ziel-Volume namens dstvolB in SVM2 auf dem Aggregat node01_aggr erstellt:
+
++
+[listing]
+----
+cluster2::> volume create -vserver SVM2 -volume dstvolB -aggregate node01_aggr -type DP
+-size 2GB
+----
+. Verwenden Sie auf der Ziel-SVM den `snapmirror policy create` Befehl zum Erstellen einer SnapVault-Richtlinie
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird die SVM-weite Richtlinie SVM1-Vault erstellt:
+
++
+[listing]
+----
+SVM2::> snapmirror policy create -vserver SVM2 -policy SVM1-vault
+----
++
+
+NOTE: Für die SnapVault-Beziehung dürfen keine Cron-Zeitpläne oder Snapshot-Kopierrichtlinien definiert werden. Das gilt für Sie, wenn Sie einen Backup-Zeitplan erstellen.
+
+. Verwenden Sie die `snapmirror create` Befehl mit dem `-type XDP` Und das `-policy` Parameter, um eine SnapVault-Beziehung zu erstellen und eine Vault-Richtlinie zuzuweisen.
++
+Der XDP-Typ definiert die Beziehung als eine SnapVault-Beziehung.
+
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird eine SnapVault-Beziehung zwischen dem Quell-Volume srcvolA auf SVM1 und dem Ziel-Volume dstvolB auf SVM2 erstellt und der Richtlinie SVM1-Vault zugewiesen:
+
++
+[listing]
+----
+SVM2::> snapmirror create -source-path SVM1:srcvolA -destination-path SVM2:dstvolB
+-type XDP -policy SVM1-vault
+----
+. Verwenden Sie die `snapmirror initialize` Befehl zum Initialisieren der Beziehung.
++
+Der Initialisierungsvorgang führt einen _Baseline Transfer_ zum Ziel-Volume durch. SnapMirror erstellt eine Snapshot-Kopie des Quell-Volume und überträgt dann die Kopie mit allen Datenblöcken, die er auf das Ziel-Volume verweist.
+
++
+*Beispiel*
+
++
+Mit dem folgenden Befehl wird die Beziehung zwischen dem Quell-Volume srcvolA auf SVM1 und dem Ziel-Volume dstvolB auf SVM2 initialisiert:
+
++
+[listing]
+----
+SVM2::> snapmirror initialize -destination-path SVM2:dstvolB
+----
+
+
+*Verwandte Informationen*
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-clus-peer/home.html["ONTAP 9 Cluster Peering Express Guide"^]
+
+http://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-buvault/home.html["ONTAP 9 Volume Backup mit SnapVault Express Guide"^]

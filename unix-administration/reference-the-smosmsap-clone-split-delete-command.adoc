@@ -1,0 +1,55 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-split-delete-command.html 
+sidebar: sidebar 
+keywords: delete, clone, command, split, operation, cycle, entry, repository, database, smsap, split-delete 
+summary: Mit diesem Befehl können Sie einen Eintrag für den geteilten Klon-Vorgang aus einer Repository-Datenbank löschen. 
+---
+= Der Befehl smsap Clone Split-delete
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl können Sie einen Eintrag für den geteilten Klon-Vorgang aus einer Repository-Datenbank löschen.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-delete
+-profile _profile_ [-host _hostname_\]
+[-label _split-label_ | -id _split-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_*`
++
+Gibt den Profilnamen des Klons an.
+
+* `*-host _hostname_*`
++
+Gibt den Hostnamen an, in dem der Klon vorhanden ist.
+
+* `*-label _split-label_*`
++
+Gibt den Namen an, der durch den Prozess zum Starten des geteilten Klons generiert wurde.
+
+* `*-id _split-id_*`
++
+Gibt die eindeutige ID an, die durch den Prozess zum Starten des geteilten Klons generiert wird.
+
+* `*-quiet*`
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*-verbose*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+

@@ -1,0 +1,73 @@
+---
+permalink: windows/reference-the-smosmsapbackup-list-command.html 
+sidebar: sidebar 
+keywords: run, backup, list, command, display, information, profile, information, retention, class, protection, smsap, status 
+summary: Sie können den Befehl Backup list ausführen, um Informationen zu den Backups in einem Profil anzuzeigen, einschließlich Informationen zur Aufbewahrungsklasse und zum Sicherungsstatus. 
+---
+= Der Befehl smsap Backup list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `backup list` Befehl zum Anzeigen von Informationen über die Backups in einem Profil, einschließlich Informationen über die Aufbewahrungsklasse und den Sicherungsstatus.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap backup list
+-profile profile_name
+-delimiter character
+[-data | -archivelogs | -all]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt das Profil an, für das Sie Backups auflisten möchten. Das Profil enthält die Kennung der Datenbank und andere Datenbankinformationen.
+
+* *`-delimiter _character_`*
++
+Zeigt jede Zeile in einer eigenen Zeile an. Die Attribute in der Zeile werden durch das angegebene Zeichen getrennt.
+
+* *`-data`*
++
+Gibt die Datendateien an.
+
+* *`-archivelogs`*
++
+Gibt die Archivprotokolldateien an.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an. Schließen Sie die -verbose Option zum Anzeigen der Backup-IDs an.
+
+
+
+
+
+== Beispiel
+
+Im folgenden Beispiel werden die Backups für DAS SALES1-Profil aufgeführt:
+
+[listing]
+----
+smsap backup list -profile SALES1 -verbose
+Start Date          Status  Scope  Mode    Primary  Label      Retention   Protection
+------------------- ------- ------ ------- -------- -----      --------    ----------
+2007-08-10 14:12:31 SUCCESS FULL   ONLINE  EXISTS   backup2    HOURLY      NOT REQUESTED
+2007-08-05 12:08:37 SUCCESS FULL   ONLINE  EXISTS   backup4    UNLIMITED   NOT REQUESTED
+2007-08-04 22:03:09 SUCCESS FULL   ONLINE  EXISTS   backup6    UNLIMITED   NOT REQUESTED
+----

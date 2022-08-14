@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-view-a-list-of-backups.html 
+sidebar: sidebar 
+keywords: check, backup, create, profile, state, smsap, list, command, information, information 
+summary: Sie können überprüfen, welche Backups für ein Profil und den Backup-Status erstellt wurden, indem Sie den Befehl smsap Backup list verwenden. Der Befehl zeigt für jedes Profil zuerst die Informationen zum letzten Backup an und fährt dann fort, bis die Informationen für alle Backups angezeigt werden. 
+---
+= Zeigen Sie eine Liste von Backups an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können überprüfen, welche Backups für ein Profil und den Backup-Status erstellt wurden, indem Sie die verwenden `smsap backup list` Befehl. Der Befehl zeigt für jedes Profil zuerst die Informationen zum letzten Backup an und fährt dann fort, bis die Informationen für alle Backups angezeigt werden.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup list -profile _profile_name_ [-delimiter _character_] [data | -archivelogs] [-quiet | -verbose]*`
+
+

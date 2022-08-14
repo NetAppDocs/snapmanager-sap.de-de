@@ -1,0 +1,29 @@
+---
+permalink: windows/task-creating-profile-level-dump-files.html 
+sidebar: sidebar 
+keywords: find, log, information, particular, profile, smsap, dump, command, name, profile-level, creating, create 
+summary: Mithilfe des Befehls smsap Profile dump mit dem Namen des Profils können Sie Protokollinformationen zu einem bestimmten Profil finden. 
+---
+= Erstellen von Dump-Dateien auf Profilebene
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mithilfe des Befehls smsap Profile dump mit dem Namen des Profils können Sie Protokollinformationen zu einem bestimmten Profil finden.
+
+. Geben Sie den folgenden Befehl ein: `smsap profile dump -profileprofile_name`
++
+Speicherverzeichnis der Speicherdatei:
+
++
+[listing]
+----
+Path:\<user-home>\Application Data\NetApp\smsap\3.3.0\smsap_dump_8abc01c814649ebd0114649ec69d0001.jar
+----
++
+
+NOTE: Wenn beim Erstellen eines Profils ein Fehler auftritt, verwenden Sie den Befehl ssapsystem dump. Nachdem Sie ein Profil erfolgreich erstellt haben, verwenden Sie die Befehle ssapoperation dump und ssapprofile dump.
+
+

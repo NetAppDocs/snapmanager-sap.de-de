@@ -1,0 +1,15 @@
+---
+permalink: unix-installation-7mode/reference-trademark.html 
+sidebar: sidebar 
+keywords: trademark, information 
+summary: Markeninformationen 
+---
+= Markeninformationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+Active IQ, AltaVault, Arch Design, ASUP, AutoSupport, Campaign Express, Clustered Data ONTAP, Customer Fitness, Data ONTAP, DataMotion, Element, Fitness, Flash Accel, Flash Cache, Flash Pool FlexArray, FlexCache, FlexClone, FlexPod, FlexScale, FlexShare, FlexVol, FPolicy, Fueled by SolidFire, GetSuccessful, Helix Design, LockVault, ONTAP managen, MetroCluster, MultiStore, NetApp, NetApp Insight, OnCommand, ONTAP, ONTAPI, RAID DP, RAID-TEC, SANscreen, SANshare, SANtricity SecureShare, Simplicity, Simulate ONTAP, Snap Creator, SnapCenter, SnapCopy, SnapDrive, Integration, SnapLock, SnapManager, SnapMirror, SnapMover, SnapProtect, SnapRestore, Snapshot SnapValidator, SnapVault, SolidFire, SolidFire Helix, StorageGRID SyncMirror, Tech OnTap, Unbound Cloud und WAFL sind Marken oder eingetragene Marken von NetApp Inc. In den USA und/oder in anderen Ländern. Alle anderen Markennamen oder Produkte sind Marken oder eingetragene Marken der jeweiligen Rechtsinhaber und als solche anzuerkennen. Eine aktuelle Liste der NetApp Marken finden Sie im Internet.
+
+http://www.netapp.com/us/legal/netapptmlist.aspx[]

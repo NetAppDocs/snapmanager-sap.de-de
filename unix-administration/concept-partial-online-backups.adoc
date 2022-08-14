@@ -1,0 +1,34 @@
+---
+permalink: unix-administration/concept-partial-online-backups.html 
+sidebar: sidebar 
+keywords: full, backup, perform, partial, backup, tablespace, database, snapmanager, online 
+summary: Anstelle eines kompletten Backups können Sie wählen, ob Sie ein partielles Backup der Tabellen in einer Datenbank durchführen möchten. Während SnapManager eine Snapshot Kopie von Volumes für vollständige Backups erstellt, erstellt SnapManager eine Snapshot Kopie jedes angegebenen Tablespaces für partielle Backups. 
+---
+= Teilweise Online-Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Anstelle eines kompletten Backups können Sie wählen, ob Sie ein partielles Backup der Tabellen in einer Datenbank durchführen möchten. Während SnapManager eine Snapshot Kopie von Volumes für _Full_ Backups erstellt, erstellt SnapManager für _partial_ Backups eine Snapshot Kopie von jedem angegebenen Tablespace.
+
+Da die Ebene des Tablespaces die unterste Ebene ist, die Oracle den Backup-Modus ermöglicht, verarbeitet SnapManager Backups auf Ebene des Tablespaces, auch wenn Sie eine Datendatei in einem Tablespace angeben.
+
+Bei einem partiellen Backup ist jeder Tablespace im Backup-Modus für eine kürzere Zeit im Vergleich zu einem vollständigen Backup vorhanden. Während eines Online-Backups steht die Datenbank Benutzern jederzeit zur Verfügung. Die Datenbank muss jedoch mehr Arbeit erledigen, und der Host muss mehr physische I/O-Vorgänge durchführen Außerdem erstellt SnapManager Snapshot-Kopien von jedem angegebenen Tablespaces oder jedem Tablespace, der eine angegebene Datendatei anstelle des gesamten Volume enthält, mehr Snapshot Kopien.
+
+SnapManager nimmt Snapshot Kopien bestimmter Tabellen oder Datendateien in Anspruch. Der partielle Backup-Algorithmus ist eine Schleife, die SnapManager wiederholt, bis eine Snapshot-Kopie von jedem angegebenen Tablespace oder einer Datendatei erstellt wurde.
+
+
+NOTE: Obwohl Sie eine partielle Sicherung durchführen können, wird empfohlen, immer eine vollständige Sicherung der gesamten Datenbank durchzuführen.
+
+SnapManager führt während eines partiellen Backups folgende Aktionen durch:
+
+. Platziert den Tablespaces, der die Datendateien enthält, in den Backup-Modus.
+. Erstellt eine Snapshot-Kopie aller Volumes, die vom Tablespace verwendet werden.
+. Entfernt den Tablespace aus dem Backup-Modus.
+. Setzen Sie diesen Prozess fort, bis eine Snapshot Kopie aller Tabellen oder Dateien erstellt wurde.
+. Erzwingt einen Protokollschalter und archiviert dann die Protokolldateien.
+. Generiert Backup-Kontrolldateien
+. Erstellt eine Snapshot Kopie der Log-Dateien und der Backup-Kontrolldateien.
+

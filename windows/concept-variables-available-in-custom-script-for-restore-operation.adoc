@@ -1,0 +1,226 @@
+---
+permalink: windows/concept-variables-available-in-custom-script-for-restore-operation.html 
+sidebar: sidebar 
+keywords: snapmanager, context, information, form, environment, variable, restore, operation, perform, script, original, host, backup, restore 
+summary: SnapManager stellt Kontextinformationen in Form von Umgebungsvariablen für den durchgefürhten Wiederherstellungsvorgang bereit. Ihr Skript kann beispielsweise den Namen des ursprünglichen Hosts und die Bezeichnung des wiederhergestellten Backups abrufen. 
+---
+= Variablen, die in den Taskskripten für den Wiederherstellungsvorgang verfügbar sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager stellt Kontextinformationen in Form von Umgebungsvariablen für den durchgefürhten Wiederherstellungsvorgang bereit. Ihr Skript kann beispielsweise den Namen des ursprünglichen Hosts und die Bezeichnung des wiederhergestellten Backups abrufen.
+
+In der folgenden Tabelle sind die Umgebungsvariablen aufgeführt, die Sie in Ihren Skripten verwenden können:
+
+|===
+| Variablen | Beschreibung | Formatieren 
+
+
+ a| 
+`_SM_OPERATION_ID_`
+ a| 
+Gibt die ID des aktuellen Vorgangs an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_PROFILE_NAME_`
+ a| 
+Gibt den Namen des verwendeten Profils an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_HOST_`
+ a| 
+Gibt den Hostnamen der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_OS_USER_`
+ a| 
+Gibt den Betriebssystemeigentümer der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_OS_GROUP_`
+ a| 
+Gibt die Betriebssystemgruppe der Datenbank an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_TYPE_`
+ a| 
+Gibt den Typ des Backups an (online, offline oder Auto)
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_LABEL_`
+ a| 
+Gibt die Sicherungsbezeichnung an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_ID_`
+ a| 
+Gibt die Backup-ID an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_BACKUP_PROFILE_`
+ a| 
+Gibt das Profil an, das für die Sicherung verwendet wird
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_RECOVERY_TYPE_`
+ a| 
+Gibt die Informationen zur Wiederherstellungskonfiguration an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_VOLUME_RESTORE_MODE_`
+ a| 
+Gibt die Wiederherstellungskonfiguration des Volumes an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_FILER_NAME_`
+ a| 
+Gibt den Namen des Ziel-Storage-Systems an
+
+[NOTE]
+====
+Wenn mehrere Speichersysteme verwendet werden, müssen die Namen des Speichersystems durch Kommas getrennt werden.
+
+==== a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_TARGET_VOLUME_NAME_`
+ a| 
+Gibt den Namen des Zielvolumes an
+
+[NOTE]
+====
+Der Name des Ziel-Volumes muss mit dem Namen des Storage-Geräts vorangestellt sein, beispielsweise SM_TARGET_FILER_NAME/SM_TARGET_VOLUME_NAME.
+
+==== a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_HOST_FILE_SYSTEM_`
+ a| 
+Gibt das Host-Dateisystem an
+ a| 
+Zeichenfolge
+
+
+
+ a| 
+`_SM_SNAPSHOT_NAMES_`
+ a| 
+Gibt die Snapshot-Liste an
+
+[NOTE]
+====
+Der Name der Snapshot Kopien muss mit dem Namen des Storage-Systems und dem Volume-Namen vorangestellt sein. Die Namen der Snapshot Kopien werden durch Kommata getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_ARCHIVE_LOGS_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Archivprotokolle an
+
+[NOTE]
+====
+Wenn die Archivprotokolle in mehr als einem Verzeichnis liegen, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_REDO_LOGS_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Wiederherstellungsprotokolle an
+
+[NOTE]
+====
+Wenn sich die Redo-Logs in mehreren Verzeichnissen befinden, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_CONTROL_FILES_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Kontrolldateien an
+
+[NOTE]
+====
+Wenn die Steuerdateien in mehreren Verzeichnissen liegen, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+
+
+ a| 
+`_SM_DATA_FILES_DIRECTORY_`
+ a| 
+Gibt das Verzeichnis der Datendateien an
+
+[NOTE]
+====
+Wenn sich die Datendateien in mehreren Verzeichnissen befinden, werden die Namen dieser Verzeichnisse durch Kommas getrennt.
+
+==== a| 
+String-Array
+
+|===

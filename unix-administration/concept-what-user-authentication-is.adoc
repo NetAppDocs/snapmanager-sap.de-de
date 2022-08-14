@@ -1,0 +1,44 @@
+---
+permalink: unix-administration/concept-what-user-authentication-is.html 
+sidebar: sidebar 
+keywords: role-base, access, control, snapmanager, authenticate, operating, system, os, smsap, credential, set, authentication 
+summary: 'Zusätzlich zur rollenbasierten Zugriffssteuerung (Role Based Access Control, RBAC) authentifiziert SnapManager den Benutzer mithilfe einer Betriebssystem-Anmeldung auf dem Host, auf dem der SnapManager Server ausgeführt wird. Sie können die Benutzerauthentifizierung entweder durch Eingabeaufforderungen für Passwörter für Vorgänge oder durch Verwendung des Smsap-Anmeldeinformationsset aktivieren.' 
+---
+= Was ist die Benutzerauthentifizierung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Zusätzlich zur rollenbasierten Zugriffssteuerung (Role Based Access Control, RBAC) wird der Benutzer über eine Betriebssystem-Anmeldung auf dem Host, auf dem der SnapManager Server ausgeführt wird, authentifiziert. Sie können die Benutzerauthentifizierung entweder durch Eingabeaufforderungen für Passwörter zu Vorgängen oder mithilfe des aktivieren `smsap credential set`.
+
+Die Anforderungen an die Benutzerauthentifizierung hängen davon ab, wo der Vorgang ausgeführt wird.
+
+* Wenn sich der SnapManager-Client auf demselben Server wie der SnapManager-Host befindet, werden Sie durch die BS-Anmeldedaten authentifiziert.
++
+Sie werden nicht zur Eingabe eines Passworts aufgefordert, da Sie bereits beim Host angemeldet sind, auf dem der SnapManager-Server ausgeführt wird.
+
+* Wenn der SnapManager-Client und der SnapManager-Server auf verschiedenen Hosts sind, muss SnapManager Sie mit beiden OS-Anmeldedaten authentifizieren.
++
+SnapManager fordert Sie zur Eingabe von Passwörtern für jeden Vorgang auf, wenn Sie Ihre BS-Anmeldeinformationen nicht im SnapManager-Benutzereinweiscache gespeichert haben. Wenn Sie das eingeben `smsap credential set -host` Befehl, Sie speichern die OS-Anmeldeinformationen in Ihrer SnapManager-Cachedatei für Zugangsdaten, sodass SnapManager nicht zur Eingabe des Passworts für einen Vorgang aufgefordert wird.
+
+
+
+Wenn Sie mit dem SnapManager-Server authentifiziert sind, gelten Sie als effektiver Benutzer. Der effektive Benutzer für einen Vorgang muss ein gültiges Benutzerkonto auf dem Host sein, auf dem der Vorgang ausgeführt wird. Wenn Sie beispielsweise einen Klonvorgang ausführen, sollten Sie sich beim Ziel-Host für den Klon einloggen können.
+
+
+NOTE: SnapManager für SAP kann die Autorisierung von Benutzern, die in zentralen Active Directory-Diensten erstellt wurden, z. B. LDAP und ADS, möglicherweise nicht unterstützen. Um sicherzustellen, dass die Authentifizierung nicht fehlschlägt, müssen Sie festlegen `configurable auth.disableServerAuthorization` Bis `*true*`.
+
+Als effektiver Benutzer können Sie die Anmeldeinformationen folgendermaßen verwalten:
+
+* Optional können Sie SnapManager so konfigurieren, dass Benutzeranmeldeinformationen in der SnapManager-Benutzeranmeldedatei gespeichert werden.
++
+Standardmäßig werden in SnapManager keine Host-Anmeldedaten gespeichert. Sie können dies ändern, beispielsweise, wenn Sie benutzerdefinierte Skripte haben, die Zugriff auf einen Remote-Host benötigen. Der Remote-Klonvorgang ist ein Beispiel für eine SnapManager-Operation, die die Anmeldedaten eines Benutzers für einen Remote-Host benötigt. Um die Anmeldedaten des SnapManager-Benutzerhosts im SnapManager-Benutzeranmeldungs-Cache zu speichern, legen Sie den fest `host.credentials.persist` Eigenschaft an `*true*` Im `smsap.config` Datei:
+
+* Sie können den Benutzerzugriff auf das Repository autorisieren.
+* Sie können den Benutzerzugriff auf Profile autorisieren.
+* Sie können alle Benutzeranmeldeinformationen anzeigen.
+* Sie können die Anmeldeinformationen eines Benutzers für alle Ressourcen (Hosts, Repositorys und Profile) löschen.
+* Anmeldedaten für einzelne Ressourcen (Hosts, Repositorys und Profile) können gelöscht werden.
+

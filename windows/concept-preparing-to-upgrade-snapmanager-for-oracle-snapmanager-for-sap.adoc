@@ -1,0 +1,26 @@
+---
+permalink: windows/concept-preparing-to-upgrade-snapmanager-for-oracle-snapmanager-for-sap.html 
+sidebar: sidebar 
+keywords: environment, upgrade, snapmanager, software, hardware, browser, database, operate, system, requirement, information, interoperability, matrix, prepare 
+summary: Die Umgebung, in der Sie ein SnapManager-Upgrade durchführen möchten, muss die spezifischen Software-, Hardware-, Browser-, Datenbank- und Betriebssystemanforderungen erfüllen. Aktuelle Informationen zu den Anforderungen finden Sie in der Interoperabilitäts-Matrix. 
+---
+= SnapManager wird vorbereitet
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Umgebung, in der Sie ein SnapManager-Upgrade durchführen möchten, muss die spezifischen Software-, Hardware-, Browser-, Datenbank- und Betriebssystemanforderungen erfüllen. Aktuelle Informationen zu den Anforderungen finden Sie im http://support.netapp.com/NOW/products/interoperability/["Interoperabilitätsmatrix"^].
+
+Sie müssen vor dem Upgrade sicherstellen, dass Sie die folgenden Aufgaben ausführen:
+
+* Führen Sie die erforderlichen Vorinstallationsaufgaben aus.
+* Laden Sie das neueste Installationspaket von SnapManager für SAP herunter.
+* Installieren und konfigurieren Sie die entsprechende Version von SnapDrive für Windows auf allen Ziel-Hosts.
+* Erstellen eines Backups der vorhandenen Repository-Datenbank SnapManager für SAP
+
+
+*Verwandte Informationen*
+
+http://support.netapp.com/NOW/products/interoperability/["Interoperabilitätsmatrix"^]

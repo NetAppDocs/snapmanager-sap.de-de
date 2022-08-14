@@ -1,0 +1,72 @@
+---
+permalink: windows/task-perform-backup-restore-and-clone-operations-using-prescript-and-post-scripts.html 
+sidebar: sidebar 
+keywords: script, initiate, backup, restore, clone, operation, snapmanager, task-enable, page, create, wizard, restore, recover, create, parameter, prescript, post-script 
+summary: Sie können Ihr eigenes Skript verwenden, während Sie Backup-, Restore- oder Klonvorgang initiieren. SnapManager zeigt eine Seite für die Aktivierung von Aufgaben im Assistenten zum Erstellen von Backups, zum Wiederherstellen oder Wiederherstellen oder zum Erstellen von Klonen an, wo Sie das Skript auswählen und Werte für alle Parameter angeben können, die vom Skript benötigt werden. 
+---
+= Führen Sie Backup-, Restore- und Klonvorgänge mithilfe von Prescript und Post-Scripts durch
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Ihr eigenes Skript verwenden, während Sie Backup-, Restore- oder Klonvorgang initiieren. SnapManager zeigt eine Seite für die Aktivierung von Aufgaben im Assistenten zum Erstellen von Backups, zum Wiederherstellen oder Wiederherstellen oder zum Erstellen von Klonen an, wo Sie das Skript auswählen und Werte für alle Parameter angeben können, die vom Skript benötigt werden.
+
+
+
+== Was Sie benötigen
+
+* Installieren Sie die Plug-in-Skripte am richtigen Speicherort für die SnapManager-Installation.
+* Überprüfen Sie, ob die Plug-ins korrekt installiert sind, indem Sie das verwenden `smsap plugin check` Befehl.
+* Stellen Sie sicher, dass Sie die BASH-Shell verwenden.
+
+
+
+
+== Über diese Aufgabe
+
+Führen Sie in der Befehlszeilenschnittstelle (CLI) den Skriptnamen auf, wählen Sie die Parameter aus und legen Sie die Werte fest.
+
+.Schritte
+. Um zu überprüfen, ob Sie die BASH-Shell verwenden, geben Sie den folgenden Befehl an der Eingabeaufforderung ein:
++
+`*bash*`
+
++
+Alternativ können Sie den eingeben `which-bash` Befehl an der Eingabeaufforderung und verwenden Sie die Befehlsausgabe als Startparameter des Skripts.
+
++
+Die BASH-Shell funktioniert einwandfrei, wenn kein Fehler auftritt.
+
+. Geben Sie für den Backup-Vorgang das ein `-taskspec` Option und geben Sie den absoluten Pfad der XML-Datei für die Aufgabenspezifikation für die Durchführung einer Vorverarbeitung oder einer Nachverarbeitung vor oder nach dem Backup-Vorgang an:
++
+`*smsap backup create -profile _profile_name_ {[-full {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited}] [-verify] | [-data [[-files _files_ [files]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] [-datalabel _label_] {-online | -offline | -auto} [-retain {-hourly | [-daily | -weekly | -monthly | -unlimited]} [-verify] | [-archivelogs [-label _label_] [-comment _comment_] [-backup-dest _path1_ [,[_path2_]]] [-exclude-dest _path1_ [,_path2_]]] [-prunelogs {-all | -untilSCN _untilSCN_ | -before {-date _yyyy-MM-dd HH:mm:ss_ | -months | -days | -weeks | -hours}} -prune-dest _prune_dest1_,[_prune_dest2_]] [-taskspec _taskspec_] [-include-with-online-backups | -no-include-with-online-backups]} -dump [-force] [-quiet | -verbose]*`
+
++
+Wenn der Backup-Plug-in-Vorgang fehlgeschlagen ist, werden nur der Plug-in-Name und der Rückgabecode angezeigt. Ihr Plug-in-Skript muss Protokollmeldungen enthalten und die Meldungen an die benutzerdefinierten Protokolldateien weiterleiten.
+
+. Geben Sie für die Wiederherstellung des Backups den ein `-taskspec` Option und geben Sie den absoluten Pfad der XML-Datei für die Aufgabenspezifikation für die Durchführung einer Vorverarbeitung oder einer Nachbearbeitungsaktivität vor oder nach der Wiederherstellung an:
++
+`*smsap backup restore -profile _profile_name_ {-label _<label>_ | -id _<id>_} {-files _<files>_|-tablespaces _<tablespaces>_ | -complete | -controlfiles} [-recover {_-alllogs_ | _-nologs_ | -until _<until>_}][-restorespec _<restorespec>_] [-taskspec _<taskspec>_] [-verify][-force] backup restore -fast [require | override | fallback | off] [-preview] -dump [-quiet | -verbose]*`
+
++
+Wenn der Vorgang zum Wiederherstellen des Plug-ins fehlgeschlagen ist, werden nur der Plug-in-Name und der Rückgabecode angezeigt. Ihr Plug-in-Skript muss Protokollmeldungen enthalten und die Meldungen an die benutzerdefinierten Protokolldateien weiterleiten.
+
+. Geben Sie für den Vorgang zum Erstellen des Klons das ein `-taskspec` Option und geben Sie den absoluten Pfad der XML-Datei für die Aufgabenspezifikation für die Durchführung einer Vorverarbeitung oder einer Nachverarbeitung an, die vor oder nach dem Klonvorgang stattfinden soll:
++
+`*smsap clone create -profile _profile_name_ {-backup-label _backup_name_ | -backup-id _<backup-id>_| -current} -newsid _new_sid-_ clonespec _full_path_to_clonespecfile_ [-reserve _<yes, no, inherit>_] [-host _<host>_] [-label _<label>_] [-comment _<comment>_] {-taskspec _<taskspec>_] -dump [-quiet | -verbose]*`
+
++
+Wenn der Klon-Plug-in-Vorgang fehlgeschlagen ist, werden nur der Plug-in-Name und der Rückgabecode angezeigt. Ihr Plug-in-Skript muss Protokollmeldungen enthalten und die Meldungen an die benutzerdefinierten Protokolldateien weiterleiten.
+
+
+
+
+
+== Beispiel für die Erstellung eines Backups mithilfe der XML-Datei für die Aufgabenspezifikation
+
+[listing]
+----
+smsap backup create -profile SALES1 -full -online -taskspec sales1_taskspec.xml -force -verify
+----

@@ -1,0 +1,45 @@
+---
+permalink: windows/concept-about-control-file-and-archive-log-file-handling.html 
+sidebar: sidebar 
+keywords: snapmanager, control, file, archive, log, backup, recovery, handle 
+summary: SnapManager enthält die Kontrolldateien und enthält optional Archivprotokolldateien für jedes Backup. Archivprotokolldateien werden für Recovery-Vorgänge verwendet. 
+---
+= Über die Handhabung von Steuerdateien und Archivprotokolldateien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager enthält die Kontrolldateien und enthält optional Archivprotokolldateien für jedes Backup. Archivprotokolldateien werden für Recovery-Vorgänge verwendet.
+
+Die Datenbank verwendet Steuerdateien, um Namen, Standorte und Größe der Datenbankdateien zu identifizieren. SnapManager umfasst in jedem Backup Kontrolldateien, da beim Restore-Prozess Kontrolldateien verwendet werden.
+
+Die Änderungen an einer Datenbank werden mithilfe der Online-Wiederherstellungsprotokolle verfolgt, die schließlich archiviert und als archivierte Wiederherstellungsprotokolle (oder Archivprotokolle) bekannt sind. SnapManager (3.2 oder höher) ermöglicht Ihnen das separate Backup von Datendateien und die Archivierung von Protokolldateien mit verschiedenen Aufbewahrungs- und Frequenzbereichen. SnapManager kann Backups nur der Archivprotokolle oder kombinierten Backups von Datendateien und Archivprotokollen erstellen. SnapManager bietet umfassendes, automatisiertes Management von Archivprotokollen und manuelle Eingriffe in das Datenbank-Recovery und ermöglicht nach dem Backup auch die Erstellung von Archivprotokollen von einem oder mehreren Archivprotokollzielen.
+
+
+NOTE: Verwenden Sie zum Versehen, welche Tabellen und Datendateien in ein Backup enthalten sind, das `backup show command` Oder das Fenster Backup Properties.
+
+Die folgende Tabelle zeigt, wie SnapManager Protokolldateien während jeder Ausführung und Archivierung verarbeitet:
+
+|===
+| Art des Vorgangs | Kontrolldateien | Archivierung von Protokolldateien 
+
+
+ a| 
+Backup
+ a| 
+Bei jedem Backup enthalten
+ a| 
+Kann bei jedem Backup berücksichtigt werden
+
+
+
+ a| 
+Wiederherstellen
+ a| 
+Sowohl allein als auch zusammen mit den Tabellen oder Datendateien können wiederhergestellt werden
+ a| 
+Kann für den Wiederherstellungsprozess verwendet werden
+
+|===

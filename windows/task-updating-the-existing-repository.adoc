@@ -1,0 +1,44 @@
+---
+permalink: windows/task-updating-the-existing-repository.html 
+sidebar: sidebar 
+keywords: update, exist, repository, upgrading, upgrade, snapmanager, path, updating 
+summary: Sie müssen das vorhandene Repository nicht aktualisieren, wenn Sie ein Upgrade von SnapManager 3.3.x auf SnapManager 3.4 oder höher durchführen. Für alle anderen Upgrade-Pfade müssen Sie jedoch das vorhandene Repository aktualisieren, damit Sie nach dem Upgrade darauf zugreifen können. 
+---
+= Das vorhandene Repository wird aktualisiert
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen das vorhandene Repository nicht aktualisieren, wenn Sie ein Upgrade von SnapManager 3.3.x auf SnapManager 3.4 oder höher durchführen. Für alle anderen Upgrade-Pfade müssen Sie jedoch das vorhandene Repository aktualisieren, damit Sie nach dem Upgrade darauf zugreifen können.
+
+* Der aktualisierte SnapManager-Server muss gestartet und verifiziert worden sein.
+* Ein Backup des vorhandenen Repositorys muss vorhanden sein.
+* Wenn Sie ein Upgrade von einer älteren Version als SnapManager 3.1 auf SnapManager 3.3 oder höher durchführen, müssen Sie zuerst auf SnapManager 3.2 aktualisieren.
++
+Nach dem Upgrade auf SnapManager 3.2 können Sie dann ein Upgrade auf SnapManager 3.3 oder höher durchführen.
+
+* Nach dem Aktualisieren des Repositorys können Sie das Repository nicht mit einer früheren SnapManager-Version verwenden.
++
+.. Aktualisieren des vorhandenen Repositorys: `smsap repository update -repository -dbname repository_service_name -host repository_host_name -login -username repository_user_name -port repository_port`
++
+*** Der Repository-Benutzername, der Repository-Dienstname und der Repository-Hostname können aus alphanumerischen Zeichen, einem Minuszeichen, einem Unterstrich und einem Zeitraum bestehen.
+*** Der Repository-Port kann eine beliebige gültige Portnummer sein. Die anderen Optionen, die beim Aktualisieren des vorhandenen Repositorys verwendet werden, sind wie folgt:
+*** Die Option Kraft
+*** Die Option noprompt
+*** Die ruhige Option
+*** Die ausführliche Option
+
+
+
+
++
+[listing]
+----
+smsap repository update -repository -dbname HR1
+-host server1 -login -username admin -port 1521
+----
+
+
+Starten Sie den SnapManager-Server neu, um die zugehörigen Zeitpläne neu zu starten.

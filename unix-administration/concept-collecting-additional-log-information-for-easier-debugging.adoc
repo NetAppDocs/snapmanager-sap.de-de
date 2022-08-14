@@ -1,0 +1,43 @@
+---
+permalink: unix-administration/concept-collecting-additional-log-information-for-easier-debugging.html 
+sidebar: sidebar 
+keywords: log, debug, snapmanager, fail, operation, external, environment, variable, server 
+summary: Wenn Sie zusätzliche Protokolle benötigen, um einen fehlgeschlagenen SnapManager-Vorgang zu debuggen, müssen Sie eine externe Umgebungsvariable Server.log.Level festlegen. Diese Variable überschreibt die Standard-Protokollebene und lädt alle Protokollmeldungen in der Protokolldatei ab. Sie können beispielsweise die Protokollebene in DEBUG ändern, die zusätzliche Meldungen protokolliert und beim Debuggen von Problemen helfen kann. 
+---
+= Sammeln zusätzlicher Protokollinformationen für eine einfachere Fehlersuche
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie zusätzliche Protokolle benötigen, um einen fehlgeschlagenen SnapManager-Vorgang zu debuggen, müssen Sie eine externe Umgebungsvariable Server.log.Level festlegen. Diese Variable überschreibt die Standard-Protokollebene und lädt alle Protokollmeldungen in der Protokolldatei ab. Sie können beispielsweise die Protokollebene in DEBUG ändern, die zusätzliche Meldungen protokolliert und beim Debuggen von Problemen helfen kann.
+
+Die SnapManager-Protokolle sind an folgenden Orten zu finden:
+
+* `/var/log/smsap`
+
+
+Um die Standard-Protokollebene außer Kraft zu setzen, müssen Sie die folgenden Schritte durchführen:
+
+. Erstellen Sie ein `platform.override` Textdatei im SnapManager-Installationsverzeichnis.
+. Fügen Sie die hinzu `server.log.level` Parameter in `platform.override` Textdatei.
+. Einen Wert (_TRACE, DEBUG, INFO, WARN, ERROR, FATAL oder PROGRESS_) an den `server.log.level` Parameter.
++
+Um z. B. die Protokollebene in _ERROR_ zu ändern, setzen Sie den Wert von `server.log.level` Zu _FEHLER_.
+
++
+`*server.log.level=ERROR*`
+
+. Starten Sie den SnapManager-Server neu.
+
+
+
+NOTE: Wenn keine zusätzlichen Protokollinformationen erforderlich sind, können Sie den löschen `server.log.level` Parameter von `platform.override` Textdatei.
+
+SnapManager verwaltet das Volumen der Server-Protokolldateien auf der Grundlage der benutzerdefinierten Werte der folgenden Parameter im `smsap.config` Datei:
+
+* `log.max_log_files`
+* `log.max_log_file_size`
+* `log.max_rolling_operation_factory_logs`
+

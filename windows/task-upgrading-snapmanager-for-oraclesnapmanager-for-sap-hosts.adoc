@@ -1,0 +1,78 @@
+---
+permalink: windows/task-upgrading-snapmanager-for-oraclesnapmanager-for-sap-hosts.html 
+sidebar: sidebar 
+keywords: upgrade, exist, snapmanager, host, version, simultaneous, result, downtime, schedule, operation, time, upgrading 
+summary: Sie können ein Upgrade aller vorhandenen SnapManager-Hosts durchführen, um die neueste Version von SnapManager zu verwenden. Alle Hosts werden gleichzeitig aktualisiert. Dies kann jedoch zu einer Ausfallzeit aller SnapManager-Hosts und der geplanten Operationen während dieser Zeit führen. 
+---
+= Aktualisieren von SnapManager-Hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Upgrade aller vorhandenen SnapManager-Hosts durchführen, um die neueste Version von SnapManager zu verwenden. Alle Hosts werden gleichzeitig aktualisiert. Dies kann jedoch zu einer Ausfallzeit aller SnapManager-Hosts und der geplanten Operationen während dieser Zeit führen.
+
+. Stoppen Sie den SnapManager-Server, indem Sie die folgenden Schritte ausführen:
++
+.. Wählen Sie im Fenster Windows Services *NetApp SnapManager für SAP* aus.
+.. Klicken Sie im linken Bereich auf *Stopp*.
+
+
+. Doppelklicken Sie auf die SnapManager-Installationsdatei.
++
+|===
+| Wenn das Betriebssystem... | Verwenden Sie dann... 
+
+
+ a| 
+Windows x86
+ a| 
+netapp.smsap.windows-x86-version_number.exe
+
+
+
+ a| 
+Windows x64
+ a| 
+netapp.smsap.windows-x64-version_number.exe
+
+|===
++
+Die folgende Meldung wird angezeigt: Der Herausgeber konnte nicht überprüft werden. Möchten Sie diese Software wirklich ausführen?
+
+. Klicken Sie auf *OK*.
++
+Das Fenster Einführung wird angezeigt.
+
+. Klicken Sie Auf *Weiter*.
++
+Das Fenster Installationsordner auswählen wird angezeigt.
+
+. Klicken Sie auf *Weiter*, um den Standard-Installationsort zu akzeptieren oder einen neuen Speicherort auszuwählen.
++
+Der Standardspeicherort ist: C:\Programme\NetApp\SnapManager für SAP.
+
+. Klicken Sie im Fenster Menüverfügbarkeit auf *Weiter*.
+. Geben Sie im Fenster Diensteigenschaften angeben die Konto- und Kennwortinformationen für den Windows-Dienst ein.
++
+Das angegebene Konto muss Mitglied der folgenden Gruppen sein:
+
++
+** Die lokale Administrationsgruppe des Speichersystems
+** Die lokale Administratorgruppe
+** Die ORA_DBA-Gruppe, die Sie angeben können, ob der Dienst nach dem Neustart automatisch gestartet werden muss oder der Dienst manuell gestartet werden muss.
+
+
+. Klicken Sie im Fenster Übersicht vor der Installation auf *Installieren*.
+. Klicken Sie im Fenster „Installation abgeschlossen“ auf *Weiter*.
+. Klicken Sie im Fenster wichtige Informationen auf *Fertig*, um den Installer zu beenden.
+
+
+*Verwandte Informationen*
+
+xref:concept-preparing-to-install-snapmanager-for-oraclesnapmanager-for-sap.adoc[Installation von SnapManager für SAP wird vorbereitet]
+
+xref:concept-preinstallation-tasks.adoc[Aufgaben vor der Installation]
+
+xref:task-downloading-snapmanager-for-oraclesnapmanager-for-sap-installation-package.adoc[Das Installationspaket für SnapManager für SAP wird heruntergeladen]

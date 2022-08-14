@@ -1,0 +1,36 @@
+---
+permalink: windows/concept-what-snapmanager-database-backups-are.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, backup, task, assign, retention, class, database 
+summary: SnapManager ermöglicht Ihnen die Durchführung verschiedener Backup-Aufgaben. Sie können Aufbewahrungsklassen zuweisen, um festzulegen, wie lange das Backup aufbewahrt werden kann. Sobald diese Frist erreicht ist, wird das Backup gelöscht. 
+---
+= Welche SnapManager Datenbank-Backups sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht Ihnen die Durchführung verschiedener Backup-Aufgaben. Sie können Aufbewahrungsklassen zuweisen, um festzulegen, wie lange das Backup aufbewahrt werden kann. Sobald diese Frist erreicht ist, wird das Backup gelöscht.
+
+* Erstellen von Backups auf dem primären Storage
+* Erstellen Sie mit Nachbearbeitungsskripten geschützte Backups auf den sekundären Storage-Ressourcen
+* Überprüfen Sie, ob die Backups erfolgreich abgeschlossen wurden
+* Zeigen Sie eine Liste von Backups an
+* Planen Sie Backups über die grafische Benutzeroberfläche
+* Verwalten Sie die Anzahl der beibehaltenen Backups
+* Kostenlose Backup-Ressourcen
+* Mounten und unmounten Sie Backups
+* Backups löschen
+
+
+SnapManager erstellt Backups mithilfe einer der folgenden Aufbewahrungsklassen:
+
+* Stündlich
+* Täglich
+* Wöchentlich
+* Monatlich
+* Unbegrenzt
+
+
+Wenn neue Datendateien zur Datenbank hinzugefügt werden, sollten Sie sofort eine neue Sicherung erstellen. Wenn Sie außerdem ein Backup wiederherstellen, das vor dem Hinzufügen der neuen Datendateien erstellt wurde, und versuchen Sie, es nach dem Hinzufügen der neuen Datendateien zu einem Punkt wiederherzustellen, kann der automatische Recovery-Prozess fehlschlagen. Weitere Informationen zum Prozess zur Wiederherstellung der nach einem Backup hinzugefügten Datendateien finden Sie in der Oracle-Dokumentation.

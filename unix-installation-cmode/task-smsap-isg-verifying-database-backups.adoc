@@ -1,0 +1,42 @@
+---
+permalink: unix-installation-cmode/task-smsap-isg-verify-database-backups.html 
+sidebar: sidebar 
+keywords: verify, backup, database, ensure, backed-up, file, corrupt 
+summary: Sie können die Sicherung Ihrer Datenbank überprüfen, um sicherzustellen, dass die gesicherten Dateien nicht beschädigt sind. 
+---
+= Datenbank-Backups prüfen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Sicherung Ihrer Datenbank überprüfen, um sicherzustellen, dass die gesicherten Dateien nicht beschädigt sind.
+
+
+
+== Über diese Aufgabe
+
+Wenn Sie beim Erstellen eines Backups nicht das Kontrollkästchen *Backup überprüfen mit dem Dienstprogramm Oracle DBVERIFY* aktiviert haben, müssen Sie diese Schritte manuell durchführen, um die Sicherung zu überprüfen. Wenn Sie das Kontrollkästchen aktiviert haben, überprüft SnapManager das Backup automatisch.
+
+.Schritte
+. Wählen Sie aus der Struktur *Repositories* das Profil aus.
+. Klicken Sie mit der rechten Maustaste auf das Backup, das Sie überprüfen möchten, und wählen Sie *Überprüfen*.
+. Klicken Sie Auf *Fertig Stellen*.
++
+Wenn der Vorgang fehlschlägt, klicken Sie auf *Betriebsdetails*, um anzuzeigen, was den Vorgang zum Scheitern verurteilt hat.
+
++
+Klicken Sie im Baum *Repository* mit der rechten Maustaste auf das Backup und klicken Sie dann auf *Eigenschaften*, um die Ergebnisse des Verifizierungsvorgangs anzuzeigen.
+
+
+
+
+
+== Nachdem Sie fertig sind
+
+Sie können gesicherte Dateien verwenden, um Wiederherstellungsvorgänge durchzuführen. Informationen zur Durchführung von Wiederherstellungsvorgängen über die SnapManager-Benutzeroberfläche (UI) finden Sie in der _Online-Hilfe_. Wenn Sie mithilfe der Befehlszeilenschnittstelle (CLI) Wiederherstellungsvorgänge ausführen möchten, finden Sie im Handbuch „_SnapManager for SAP Administration Guide for UNIX_“.
+
+*Verwandte Informationen*
+
+https://library.netapp.com/ecm/ecm_download_file/ECMP12481453["SnapManager 3.4.1 für SAP – Administratorhandbuch für UNIX"^]

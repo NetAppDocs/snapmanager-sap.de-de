@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/concept-restoration-of-the-data-from-file-systems.html 
+sidebar: sidebar 
+keywords: restore, data, alternate, location, necessary, file, system, local, host, restoration 
+summary: Bevor Sie Daten von einem alternativen Speicherort wiederherstellen, müssen Sie das erforderliche Filesystem wiederherstellen und es auf dem lokalen Host mounten. 
+---
+= Wiederherstellung von Daten aus dem Dateisystem
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie Daten von einem alternativen Speicherort wiederherstellen, müssen Sie das erforderliche Filesystem wiederherstellen und es auf dem lokalen Host mounten.
+
+Sie können den Wiederherstellungsvorgang von einem alternativen Speicherort aufrufen, um die Dateien von alternativen Dateisystemen auf aktive Dateisysteme zu kopieren.
+
+Um diesen Vorgang durchzuführen, müssen Sie die alternativen Mount-Punkte angeben, von denen die ursprünglichen Mount-Punkte und die Namen der ursprünglichen Snapshot-Kopie wiederhergestellt werden sollen, indem Sie eine Spezifikationsdatei für die Wiederherstellung erstellen.
+
+
+NOTE: Der Name der Snapshot Kopie ist eine erforderliche Komponente, da dasselbe Filesystem mehrmals in einer einzelnen Backup-Operation gesichert werden kann (z. B. einmal für die Datendateien und einmal für die Log-Datei).

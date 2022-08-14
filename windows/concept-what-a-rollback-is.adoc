@@ -1,0 +1,26 @@
+---
+permalink: windows/concept-what-a-rollback-is.html 
+sidebar: sidebar 
+keywords: rollback, operation, enable, revert, version, snapmanager, perform, roll, upgrade 
+summary: Mit dem Rollback-Vorgang können Sie nach einem Rolling Upgrade auf eine frühere SnapManager-Version zurücksetzen. 
+---
+= Was ist ein Rollback
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit dem Rollback-Vorgang können Sie nach einem Rolling Upgrade auf eine frühere SnapManager-Version zurücksetzen.
+
+
+NOTE: Bevor Sie ein Rollback durchführen können, müssen Sie sicherstellen, dass alle Hosts unter der Repository-Datenbank aufgelöst werden können.
+
+Wenn Sie ein Rollback durchführen, werden die folgenden Schritte zurückgesetzt:
+
+* Backups, die erstellt, freigegeben und gelöscht wurden, verwenden Sie dazu die SnapManager Version, von der Sie ein Rollback durchführen
+* Klone, die anhand eines Backups erstellt wurden, die mit der SnapManager Version erstellt wurden, von der aus Sie ein Rollback durchführen
+* Profildaten wurden mithilfe der SnapManager-Version geändert, von der aus Sie ein Rollback ausführen
+
+
+Die Funktionen, die in der von Ihnen verwendeten SnapManager-Version verfügbar waren, aber in der Version, auf die Sie zurückrollt, nicht verfügbar sind, werden nicht unterstützt. Wenn Sie beispielsweise ein Rollback von SnapManager 3.3 oder neuer zu SnapManager 3.1 durchführen, wird die Verlaufskonfiguration für Profile in SnapManager 3.3 oder höher nicht auf die Profile in SnapManager 3.1 zurückgesetzt. Dies liegt daran, dass die Verlaufskonfiguration in SnapManager 3.1 nicht verfügbar war.

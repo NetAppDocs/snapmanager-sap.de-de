@@ -1,0 +1,40 @@
+---
+permalink: windows/task-consolidating-archive-log-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, consolidate, archivelog-only, archive, log, backup, duplicate, consolidation, consolidating 
+summary: SnapManager konsolidiert die nur-Archivierten Backups jedes Mal, wenn Sie ein Backup erstellen, indem die doppelten, nur-Archivierten Backups freigesetzt werden. Standardmäßig ist Konsolidierung aktiviert. 
+---
+= Konsolidierung von Backups für Archivprotokolle
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager konsolidiert die nur-Archivierten Backups jedes Mal, wenn Sie ein Backup erstellen, indem die doppelten, nur-Archivierten Backups freigesetzt werden. Standardmäßig ist Konsolidierung aktiviert.
+
+SnapManager erkennt die nur archivlog Backups, die in anderen Backups Archivprotokolle haben und gibt ihnen die Möglichkeit, eine Mindestanzahl an nur Archivprotokoll-Dateien aufrechtzuerhalten.
+
+Wenn die nur Archivprotokolle durch Konsolidierung freigegeben werden, dann werden diese Backups basierend auf der Aufbewahrungsdauer des Archivprotokolls gelöscht.
+
+Wenn sich die Datenbank während der Konsolidierung des Archivprotokolls im Shutdown- oder Nomount-Status befindet, ändert SnapManager die Datenbank in den Bereitstellungsstatus.
+
+Wenn die Sicherung oder Beschneidung von Archiv-Log-Dateien fehlschlägt, dann wird die Konsolidierung nicht durchgeführt. Die Konsolidierung von nur-archivlog Backups wird nur nach erfolgreichen Backups und erfolgreichen Anstiftungen verfolgt.
+
+. Um die Konsolidierung der nur archivlog Backups zu ermöglichen, ändern Sie die Konfigurationsparameter-Konsolidierung und setzen Sie den Wert in der SnapManager-Konfigurationsdatei (smsap.config) als wahr.
++
+Sobald der Parameter festgelegt ist, werden die archivlog-only Backups konsolidiert.
+
++
+Wenn das neu erstellte Archivprotokoll-only Backup die gleichen Archivprotokolldateien in einem der früheren nur-Archivprotokolle enthält, dann werden die Backups des früheren Archivprotokolls freigegeben.
+
++
+
+NOTE: SnapManager konsolidiert nicht das Backup des Archivprotokolls, das zusammen mit dem Datendateien-Backup aufgenommen wurde. SnapManager konsolidiert das nur archivBackup.
+
++
+
+NOTE: SnapManager konsolidiert die Archiv-Log-Backups selbst dann, wenn der Benutzer die Archiv-Log-Dateien manuell aus den Archiv-Log-Zielen löscht oder wenn die Archiv-Log-Dateien beschädigt sind und möglicherweise die Sicherung enthalten.
+
+. Um die Konsolidierung der Backups des Archivprotokolls zu deaktivieren, ändern Sie die Konsolidierung der Konfigurationsparameter und setzen Sie den Wert in der SnapManager-Konfigurationsdatei (smsap.config) als false.
+

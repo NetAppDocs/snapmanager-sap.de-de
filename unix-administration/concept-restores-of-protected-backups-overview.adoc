@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/concept-restores-of-protected-backups-overview.html 
+sidebar: sidebar 
+keywords: restore, method, backup, data, secondary, primary, storage, protect, overview 
+summary: Sie können die Wiederherstellungsmethode wählen, mit der die Backup-Daten vom sekundären Storage in den primären Storage wiederhergestellt werden sollen. 
+---
+= Wiederherstellung von geschützten Backups – Übersicht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Wiederherstellungsmethode wählen, mit der die Backup-Daten vom sekundären Storage in den primären Storage wiederhergestellt werden sollen.
+
+In der folgenden Tabelle werden die verschiedenen Szenarien und Methoden erläutert, die zum Wiederherstellen eines Backups aus dem sekundären Storage verwendet werden können:
+
+[cols="1a,3a"]
+|===
+| Ziel wiederherstellen | Erklärung 
+
+
+ a| 
+Direkt auf den Primärspeicher
+ a| 
+Liefert die Daten vom sekundären Storage-System direkt an den ursprünglichen Standort auf dem primären Storage-System über dasselbe Netzwerk zurück, das zur Sicherung der Daten verwendet wurde.
+
+SnapManager verwendet, wann immer dies möglich ist, die Methode Direct Storage. Diese Methode ist nicht möglich, wenn sich die Daten in einem Dateisystem im Storage Area Network (SAN) befinden und wenn eine der folgenden Bedingungen gelten:
+
+* Andere nicht aus Datenbanken stammende Dateien werden nicht im selben Dateisystem wiederhergestellt.
+* Es wurden Snapshot Kopien der Kontrolldateien und Datendateien in einem wiederherzustellenden Filesystem zu unterschiedlichen Zeiten erstellt.
+* Die Logical Unit Number (LUN) befindet sich in einer Volume-Gruppe, aber andere LUNs in derselben Volume-Gruppe werden nicht wiederhergestellt.
+
+
+
+
+ a| 
+Direkt zum Host
+ a| 
+Klonen der Daten auf dem sekundären Storage-System und Mounten der geklonten Daten auf dem Host Nachdem die Daten geklont und gemountet wurden, kopiert SnapManager sie am ursprünglichen Speicherort.
+
+
+
+ a| 
+Indirekt zu Storage oder Host
+ a| 
+Liefert die Daten aus dem sekundären Storage-System an einen neuen Standort auf dem Primärsystem über dasselbe Netzwerk zurück, mit dem die Daten gesichert und der neue Storage auf dem Host gemountet werden konnte. Nachdem die Daten zurückgegeben und gemountet wurden, kopiert SnapManager sie am ursprünglichen Speicherort. Die Rückgabemethode für indirekte Speicher kann eine lange Zeit in Anspruch nehmen.
+
+SnapManager kopiert Daten zunächst auf ein Scratch Volume auf dem primären Host, bevor SnapManager es zum Wiederherstellen und Wiederherstellen der Datenbank verwendet. Ob die Scratch-Daten automatisch gelöscht werden, hängt vom verwendeten Protokoll ab.
+
+* Bei SAN löscht SnapManager die zurückgegebenen Daten.
+* Bei Network-Attached Storage (NAS) löscht SnapManager den Inhalt der zurückgegebenen qtrees, löscht jedoch nicht die qtrees selbst. Um die qtrees zu löschen, sollten Administratoren das Scratch Volume mounten und die qtrees mit dem UNIX rmdir Befehl entfernen.
+
+
+|===
+Wenn Sie Daten nicht direkt an den Storage zurückgeben können, kann SnapManager Daten entweder direkt an den Host oder indirekt an den Storage oder den Host zurückgeben. Die Methode hängt von der Richtlinie ab, in der festgelegt wird, ob das Unternehmen eine direkte Verbindung zum sekundären Storage zulässt oder dass Daten über das Storage-Netzwerk kopiert werden müssen. Sie können diese Richtlinie verwalten, indem Sie Konfigurationsinformationen in der Datei smsap.config setzen.

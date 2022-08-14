@@ -1,0 +1,88 @@
+---
+permalink: windows/reference-the-smosmsap-history-list-command.html 
+sidebar: sidebar 
+keywords: command, enable, view, list, history, detail, snapmanager, operation, smsap 
+summary: Mit diesem Befehl können Sie eine Liste der Verlaufsdetails für den SnapManager-Vorgang anzeigen. 
+---
+= Der Befehl smsap history list
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl können Sie eine Liste der Verlaufsdetails für den SnapManager-Vorgang anzeigen.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap history list
+-profile {-name profile_name [profile_name1, profile_name2] | -all
+-repository
+-login [-password repo_password]
+-username repo_username
+-host repo_host
+-dbname repo_dbname
+-port repo_port}
+-operation {-operations operation_name [operation_name1, operation_name2] | -all}
+[-delimiter character]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_`*
++
+Gibt den Namen des Profils an. Dieser Name kann bis zu 30 Zeichen lang sein und muss innerhalb des Hosts eindeutig sein.
+
+* *`-repository`*
++
+Die Optionen, die dem -Repository folgen, geben die Details der Datenbank an, in der das Profil gespeichert wird.
+
+* *`-dbname _repo_dbname_`*
++
+Gibt den Namen der Datenbank an, in der das Profil gespeichert wird. Verwenden Sie entweder den globalen Namen oder den SID.
+
+* *`-host _repo_host_`*
++
+Gibt den Namen oder die IP-Adresse des Hostcomputers an, auf dem die Repository-Datenbank ausgeführt wird.
+
+* *`-login`*
++
+Startet die Repository-Anmeldedaten.
+
+* *`-username _repo_username_`*
++
+Gibt den Benutzernamen an, der für den Zugriff auf die Datenbank erforderlich ist, in der das Repository gespeichert ist.
+
+* *`-port _repo_port_`*
++
+Gibt die TCP-Portnummer an, die für den Zugriff auf die Datenbank verwendet wird, in der das Repository gespeichert ist.
+
+* *`-operation {-operationsoperation_name [operation_name1, operation_name2] | -all`*
++
+Gibt den SnapManager-Vorgang an, für den Sie den Verlauf konfigurieren.
+
+* *`-quiet`*
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+
+
+== Beispielbefehl
+
+[listing]
+----
+smsap history list -profile -name PROFILE1 -operation -operations backup -verbose
+----

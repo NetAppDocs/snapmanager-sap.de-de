@@ -1,0 +1,19 @@
+---
+permalink: unix-administration/concept-why-you-should-prune-archive-log-files.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, delete, archive, log, file, active, system, back, up, prune 
+summary: Mit SnapManager für SAP können Sie Archivprotokolldateien aus dem aktiven, bereits gesicherten Dateisystem löschen. 
+---
+= Warum sollten Sie Archiv Log-Dateien beschneiden
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager für SAP können Sie Archivprotokolldateien aus dem aktiven, bereits gesicherten Dateisystem löschen.
+
+Durch Beschneidung kann SnapManager Backups einzelner Archiv-Log-Dateien erstellen. Durch Beschneidung und die Richtlinie zur Aufbewahrung von Backups wird beim Säuberen von Backups der Speicherplatz für das Archiv-Protokoll freigegeben.
+
+
+NOTE: Sie können die Archivprotokolldateien nicht beschneiden, wenn der Flash Recovery Area (FRA) für Archivprotokolldateien aktiviert ist. Wenn Sie den Speicherort für das Archivprotokoll im Bereich Flash Recovery angeben, müssen Sie sicherstellen, dass Sie auch den Speicherort für das Archivprotokoll im angeben `archive_log_dest` Parameter.

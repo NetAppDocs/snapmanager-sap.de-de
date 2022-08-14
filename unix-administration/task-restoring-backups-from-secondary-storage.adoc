@@ -1,0 +1,78 @@
+---
+permalink: unix-administration/task-restore-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, protect, backup, secondary, storage, copy, data, back, primary, storage, restoring 
+summary: Sie können geschützte Backups von sekundärem Storage wiederherstellen und wählen, wie die Daten zurück auf den primären Storage kopiert werden sollen. 
+---
+= Wiederherstellung von Backups aus dem sekundären Storage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können geschützte Backups von sekundärem Storage wiederherstellen und wählen, wie die Daten zurück auf den primären Storage kopiert werden sollen.
+
+*Über diese Aufgabe*
+
+Sie können das verwenden `backup restore` Befehl mit dem `-from-secondary` Option zum Wiederherstellen von Daten aus dem sekundären Storage. Wenn Sie den nicht angeben `-from-secondary` Die Option, SnapManager stellt die Daten aus den Snapshot Kopien im Primärspeicher wieder her.
+
+Sie können das nicht verwenden `-from-secondary` Option, wenn das Backup auf dem Primärspeicher besteht. Das primäre Backup muss freigegeben werden, bevor ein Backup aus dem Sekundärspeicher wiederhergestellt werden kann. Wenn Sie ein temporäres Volume verwenden, müssen Sie das Volume mithilfe der angeben `-temp-volume` Option.
+
+Sie müssen das angeben `-copy-id` Wenn Sie die Option angeben `-from-secondary` Option. Wenn sich mehrere Backups auf dem sekundären Speichersystem befinden, wird der angezeigt `-copy-id` Die Option wird verwendet, um anzugeben, welche Backup-Kopie auf dem sekundären Speicher für den Wiederherstellungsvorgang verwendet werden soll.
+
+
+NOTE: Wenn Sie Data ONTAP in 7-Mode verwenden, müssen Sie einen gültigen Wert für das angeben `-copy-id` Option. Wenn Sie jedoch Clustered Data ONTAP verwenden, bietet Ihnen das `-copy-id` Option ist nicht erforderlich.
+
+Beim Wiederherstellen von Daten aus dem Sekundärspeicher versucht SnapManager zunächst, Daten direkt aus dem sekundären Speichersystem auf dem primären Speichersystem (ohne Beteiligung des Hosts) wiederherzustellen. Wenn SnapManager diese Art der Wiederherstellung nicht durchführen kann (z. B. wenn die Dateien nicht Teil des Dateisystems sind), dann wird SnapManager zurück zu einer Host-seitigen Dateikopie zurückkehren. SnapManager verfügt über zwei Methoden zur Wiederherstellung einer Host-seitigen Dateikopie aus dem sekundären Storage. Die von SnapManager gewählte Methode wird im konfiguriert `smsap.config` Datei:
+
+* Wenn `_restore.secondaryAccessPolicy_ = *direct*`, SnapManager klont die Daten auf sekundärem Storage, mountet die geklonten Daten vom sekundären Storage-System auf den Host und kopiert dann Daten aus dem Klon in die aktive Umgebung.
++
+Dies ist die standardmäßige sekundäre Zugriffsrichtlinie.
+
+* Wenn `_restore.secondaryAccessPolicy_ = *indirect*`, SnapManager kopiert die Daten zunächst auf ein temporäres Volume im Primärspeicher, mountet die Daten vom temporären Volume auf den Host und kopiert dann Daten aus dem temporären Volume in die aktive Umgebung.
++
+Diese Richtlinie sollte nur verwendet werden, wenn der Host keinen direkten Zugriff auf das sekundäre Speichersystem hat. Wiederherstellungen mit der indirekten Methode dauern doppelt so lange wie die direkte Methode, da zwei Kopien der Daten erstellt werden.
+
+
+
+.Schritt
+. Führen Sie eine der folgenden Aktionen aus:
++
+[cols="1a,3a"]
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+Stellen Sie eine vollständige Datenbank wieder her, wenn das ausgewählte Backup auf dem primären Speicher vorhanden ist
+ a| 
+Geben Sie den folgenden Befehl ein:
+
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete -recover -alllogs[-copy-id _id_]*`
+
+
+
+ a| 
+Stellen Sie eine vollständige Datenbank wieder her, wenn das ausgewählte Backup nicht im primären Speicher vorhanden ist
+ a| 
+Geben Sie den folgenden Befehl ein:
+`*smsap backup restore -profile _profile_name_ -label _label_ -complete-recover -alllogs-from-secondary [-temp-volume _<temp_volume>_] [-copy-id _id_]*`
+
+|===
+
+
+'''
+
+
+== Beispiel
+
+Mit dem folgenden Befehl wird ein geschütztes Backup aus dem sekundären Speichersystem wiederhergestellt:
+
+[listing]
+----
+smsap backup restore -profile PAYDB -label daily_monday -complete
+-recover alllogs -from-secondary -copy-id 3042 -temp-volume smsap_scratch_restore_volume
+Operation Id [8abc011215d385920115d38599470001] succeeded.
+----
+'''

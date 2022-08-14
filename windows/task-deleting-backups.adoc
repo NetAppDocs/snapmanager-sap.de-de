@@ -1,0 +1,30 @@
+---
+permalink: windows/task-deleting-backups.html 
+sidebar: sidebar 
+keywords: delete, backup, free, space, occupy, remove, snapshot, copies, copy, volume, deleting 
+summary: Sie müssen Backups löschen, wenn Sie sie nicht mehr benötigen. Dadurch wird der Speicherplatz frei, den diese Backups belegen. Wenn Sie Backups entfernen, reduzieren Sie die Wahrscheinlichkeit, dass pro Volume 255 Snapshot Kopien erreicht werden. 
+---
+= Backups werden gelöscht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen Backups löschen, wenn Sie sie nicht mehr benötigen. Dadurch wird der Speicherplatz frei, den diese Backups belegen. Wenn Sie Backups entfernen, reduzieren Sie die Wahrscheinlichkeit, dass pro Volume 255 Snapshot Kopien erreicht werden.
+
+* Sie müssen sicherstellen, dass das Backup nicht zum Erstellen eines Klons verwendet wurde.
+
+
+Sie können Backups, die unbegrenzt aufbewahrt werden, ohne die Aufbewahrungsklasse zu ändern.
+
+Optional können Sie die Dump-Dateien nach dem erfolgreichen oder fehlgeschlagenen Backup-Löschvorgang sammeln.
+
+Wenn Sie die Backups des Archivprotokolls löschen möchten, müssen Sie die für die Sicherung des Archivprotokolls festgelegte Aufbewahrungsdauer überprüfen. Wenn das Backup des Archivprotokolls innerhalb der Aufbewahrungsdauer liegt und die Archivprotokolldateien für die Wiederherstellung einer wiederhergestellten Datenbank erforderlich sind, können Sie das Backup des Archivprotokolls nicht löschen.
+
+. Überprüfen Sie, ob die Vorgänge abgeschlossen sind, indem Sie den folgenden Befehl eingeben: `smsap operation list -profileprofile_name-dump-quiet-verbose`
+. Geben Sie zum Löschen eines Backups den folgenden Befehl ein:``smsap backup delete -profile profile_name [-label label [data | -archivelogs] | -idid | -all] [-force] [ -dump] [-quiet | -verbose]``
++
+Verwenden Sie die Option -Force, um das Entfernen des Backups zu erzwingen. Wenn Sie das Entfernen eines Backups erzwingen, bei dem unvollständige Vorgänge ausgeführt werden, ist das Backup möglicherweise inkonsistent.
+
+

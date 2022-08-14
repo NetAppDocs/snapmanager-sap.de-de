@@ -1,0 +1,25 @@
+---
+permalink: windows/task-restarting-the-snapmanager-windows-host-server.html 
+sidebar: sidebar 
+keywords: restart, snapmanager, server, service, window, host 
+summary: Sie können den SnapManager-Server über das Fenster Dienste neu starten. 
+---
+= Starten Sie den SnapManager-Hostserver neu
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können den SnapManager-Server über das Fenster Dienste neu starten.
+
+. Klicken Sie Auf *Start* > *Systemsteuerung* > *Verwaltung* > *Services*.
+. Wählen Sie im Fenster Services NetAppSnapManager 3.3 für SAP aus.
+. Sie können den Server auf eine der folgenden Arten neu starten:
++
+.. Klicken Sie im linken Bereich auf *Neustart*.
+.. Klicken Sie mit der rechten Maustaste auf NetAppSnapManager 3.3 für SAP und wählen Sie im Dropdown-Menü die Option *Neustart* aus.
+.. Doppelklicken Sie auf NetAppSnapManager 3.3 für SAP und klicken Sie im Fenster Eigenschaften auf *Neustart*.
+
+
+

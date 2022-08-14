@@ -1,0 +1,76 @@
+---
+permalink: unix-administration/task-update-target-database-hostname-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: snapmanager, sap, ability, update, host, name, target, database, profile 
+summary: 'Mit SnapManager (3.2 oder höher) für SAP kann der Hostname der Zieldatenbank im SnapManager-Profil aktualisiert werden.' 
+---
+= Aktualisieren Sie den Host-Namen der Zieldatenbank, der einem Profil zugeordnet ist
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit SnapManager (3.2 oder höher) für SAP kann der Hostname der Zieldatenbank im SnapManager-Profil aktualisiert werden.
+
+*Was Sie brauchen*
+
+* Das Home-Verzeichnis des lokalen Benutzers muss die Zuordnung zu den Profilen und Repositorys kennen.
+* Die Sitzungen der SnapManager Graphical User Interface (GUI) müssen geschlossen werden.
+* In einer RAC-Umgebung (Real Application Clusters) müssen die auf dem im Profil angegebenen Host verfügbaren Klone oder gemounteten Backups gelöscht und abgehängt werden.
+
+
+*Über diese Aufgabe*
+
+Sie können das Profil mit dem neuen Hostnamen aktualisieren, indem Sie nur die CLI verwenden.
+
+*Szenarien werden nicht unterstützt, wenn der Hostname der Zieldatenbank im Profil* geändert werden soll
+
+Die folgenden Szenarien werden beim Ändern des Hostnamen der Zieldatenbank im Profil nicht unterstützt:
+
+* Ändern des Host-Namens der Zieldatenbank mithilfe der SnapManager-GUI
+* Rollback der Repository-Datenbank nach Aktualisierung des Host-Namens der Zieldatenbank des Profils durchführen
+* Aktualisieren mehrerer Profile für einen neuen Hostnamen der Zieldatenbank durch Ausführen eines einzigen Befehls
+* Ändern des Host-Namens der Zieldatenbank, wenn ein SnapManager-Vorgang ausgeführt wird
+* Ändern des Host-Namens der Zieldatenbank, wenn SnapManager auf Solaris installiert ist und wenn die Datenbank-LUNs (Logical Unit Numbers) mithilfe eines Host-gemounteten Dateisystems mit SVM-Stack erstellt werden.
+
+
+
+NOTE: Nachdem Sie den Hostnamen der Zieldatenbank im Profil aktualisiert haben, wird nur der Hostname der Zieldatenbank geändert. Alle anderen Konfigurationsparameter, die im Profil festgelegt sind, werden beibehalten.
+
+Nachdem Sie den Host-Namen der neuen Zieldatenbank in einem geschützten Profil aktualisiert haben, werden für das aktualisierte Profil dieselben Datensatz- und Sicherungsrichtlinien beibehalten.
+
+Nachdem Sie den Hostnamen für den Zielhost geändert haben, müssen Sie sicherstellen, dass Sie den Hostnamen für alle vorhandenen geschützten Profile aktualisieren, bevor Sie die neuen geschützten Profile erstellen. Um den Hostnamen für ein Profil zu aktualisieren, führen Sie das aus `smsap profile update` Befehl.
+
+Nachdem Sie den Hostnamen der Zieldatenbank aktualisiert haben, können Sie den Klon nicht trennen oder das Backup unmounten, wenn das Clone oder bereitgestellte Backup nicht auf dem neuen Host verfügbar ist. In solchen Szenarien führen die Ausführung der SnapManager Vorgänge vom neuen Host zu Ausfällen sowie zu veralteten Einträgen im früheren Host. Um SnapManager-Vorgänge durchzuführen, müssen Sie zu dem früheren Host-Namen mithilfe von zurückkehren `profile update`.
+
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap profile update -profile _profile_ [-profile-password _profile_password_][-database-dbname _db_dbname_ -host _db_host_ [-sid _db_sid_] [-login-username _db_username_ -password _db_password_ -port _db_port_]] [{-rman{-controlfile | {-login-username _rman_username_ -password _rman_password_ -tnsname _rman_tnsname_}}} | -remove-rman]-osaccount _osaccount_ -osgroup _osgroup_ [-retain [-hourly [-count _n_] [-duration _m_]] [-daily [-count _n_] [-duration _m_]] [-weekly [-count _n_] [-duration _m_]] [-monthly [-count _n_] [-duration _m_]]] [-comment _comment_][-snapname-pattern _pattern_][[-protect [-protection-policy _policy_name_]]| [[-noprotect]] [-summary-notification] [-notification [-success -email _email_address1, email_address2_ -subject _subject_pattern_] [-failure -email _email_address1, email_address2_ -subject _subject_pattern_]] [-separate-archivelog-backups-retain-archivelog-backups -hours _hours_ | -days _days_ | -weeks _weeks_ | -months _months_ [-protect [-protection-policy _policy_name_] | -noprotect] [-include-with-online-backups | -no-include-with-online-backups]] [-dump]*`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+``[-force] [-noprompt]``
+
++
+``[-quiet | -verbose]``
+
++
+[cols="1a,2a"]
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Ändern Sie den Hostnamen der Zieldatenbank*
+ a| 
+`Specify -host _new_db_host_`
+
+|===
+. Geben Sie den folgenden Befehl ein, um den Host-Namen der Zieldatenbank des Profils anzuzeigen:
++
+`*smsap profile show*`
+
+

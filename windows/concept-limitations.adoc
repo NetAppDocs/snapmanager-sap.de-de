@@ -1,0 +1,163 @@
+---
+permalink: windows/concept-limitations.html 
+sidebar: sidebar 
+keywords: aware, scenario, limitation, environment, work, snapmanager 
+summary: Sie müssen die Szenarien und Einschränkungen kennen, die sich auf Ihre Umgebung auswirken können. 
+---
+= Einschränkungen bei der Arbeit mit SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Szenarien und Einschränkungen kennen, die sich auf Ihre Umgebung auswirken können.
+
+*Einschränkungen im Zusammenhang mit Datenbank-Layouts und Plattformen*
+
+* SnapManager unterstützt Steuerdateien auf einem Dateisystem und unterstützt keine Steuerdateien auf RAW-Geräten.
+* SnapManager arbeitet in einer Microsoft Clustering-Umgebung (MSCS), erkennt jedoch den Status der MSCS-Konfiguration (aktiv oder passiv) nicht und überträgt kein aktives Management eines Repositorys in einen Standby-Server in einem MSCS-Cluster.
+* Die Repository-Datenbank kann auf einem Host vorhanden sein, auf den über mehrere IP-Adressen zugegriffen werden kann.
++
+Wenn über mehrere IP-Adressen auf das Repository zugegriffen wird, wird die Zeitplandatei für jede der IP-Adressen erstellt. Wenn die Backup-Planung für ein Profil (z. B. Profil A) unter einer der IP-Adressen (z. B. IP1) erstellt wird, wird die Zeitplandatei nur für diese IP-Adresse aktualisiert. Wenn von einer anderen IP-Adresse auf Profil A zugegriffen wird (z. B. IP2), wird das geplante Backup nicht aufgeführt, da die Terminplandatei von IP2 keinen Eintrag für den unter IP1 erstellten Zeitplan hat.
+
++
+Sie können warten, bis der Zeitplan von dieser IP-Adresse und der Zeitplandatei ausgelöst wird, oder Sie können den Server neu starten.
+
+
+
+*Einschränkungen in Bezug auf die SnapManager-Konfiguration*
+
+* SnapManager unterstützt Datenbanken auf MultiStore Storage-Systemen unter folgenden Anforderungen:
++
+** Sie müssen SnapDrive konfigurieren, um Passwörter für MultiStore Storage-Systeme festzulegen.
+** SnapDrive kann keine Snapshot Kopie einer LUN oder Datei in einem qtree in einem MultiStore Storage-System erstellen, wenn sich das zugrunde liegende Volume nicht im selben MultiStore Storage-System befindet.
+
+
+* SnapManager unterstützt nicht den Zugriff auf zwei SnapManager Server, die auf verschiedenen Ports über einen einzelnen Client laufen (sowohl über CLI als auch über GUI).
++
+Die Port-Nummern sollten auf dem Ziel- und den Remote-Hosts identisch sein.
+
+* SnapManager-Vorgänge schlagen fehl und Sie können nicht auf die GUI zugreifen, wenn die Repository-Datenbank ausfällt.
++
+Sie müssen überprüfen, ob die Repository-Datenbank ausgeführt wird, wenn Sie SnapManager-Vorgänge durchführen.
+
+* SnapManager unterstützt keine Live Partition Mobility (LPM) und Live Application Mobility (LAM).
+* SnapManager unterstützt Oracle Wallet Manager und Transparent Data Encryption (TDE) nicht.
+* MetroCluster-Konfigurationen werden von SnapManager in RDM-Umgebungen (Raw Device Mapping) nicht unterstützt, da MetroCluster-Konfigurationen noch von der Virtual Storage Console (VSC) unterstützt werden müssen.
+
+
+*Einschränkungen im Zusammenhang mit der Profilverwaltung*
+
+* Wenn Sie das Profil aktualisieren, um die Backups des Archivprotokolls voneinander zu trennen, können Sie auf dem Host keinen Rollback-Vorgang durchführen.
+* Wenn Sie ein Profil von der GUI aktivieren, um Archiv-Protokoll-Backups zu erstellen, und später versuchen, das Profil mithilfe des Fensters „Multi Profile Update“ oder des Fensters „Profile Update“ zu aktualisieren, können Sie dieses Profil nicht ändern, um ein vollständiges Backup zu erstellen.
+* Wenn Sie im Fenster Multi Profile Update mehrere Profile aktualisieren und bei einigen Profilen die Option *Backup Archivilogs separat* aktiviert ist und andere Profile die Option deaktiviert haben, ist die Option *Archivprotokolle separat* sichern deaktiviert.
+* Wenn Sie mehrere Profile aktualisieren und einige Profile die Option *Backup Archivilogs separat* aktivieren und andere Profile die Option deaktiviert haben, ist die Option *Backup Archivilogs separat* im Fenster Multi Profile Update deaktiviert.
+* Wenn Sie das Profil umbenennen, können Sie den Host nicht zurückführen.
+
+
+*Einschränkungen im Zusammenhang mit Rolling Upgrade oder Rollback-Vorgängen*
+
+* Wenn Sie versuchen, eine frühere Version von SnapManager für einen Host zu installieren, ohne den Rollback-Vorgang auf dem Host im Repository durchzuführen, können Sie Folgendes möglicherweise nicht ausführen:
++
+** Sehen Sie sich die Profile an, die in früheren oder neueren Versionen von SnapManager für den Host erstellt wurden.
+** Greifen Sie auf Backups oder Klone zu, die in früheren oder neueren Versionen von SnapManager erstellt wurden.
+** Führen Sie Rolling Upgrade- oder Rollback-Vorgänge auf dem Host durch.
+
+
+* Nachdem Sie die Profile getrennt haben, um Backups für Archivprotokolle zu erstellen, können Sie im zugehörigen Host Repository keinen Rollback-Vorgang durchführen.
+
+
+*Einschränkungen im Zusammenhang mit Backup-Vorgängen*
+
+* Wenn der Backup während der Recovery bereits angehängt ist, mounted SnapManager den Backup nicht erneut und verwendet das bereits bereitgestellte Backup.
++
+Wenn das Backup von einem anderen Benutzer gemountet wird und Sie keinen Zugriff auf das zuvor bereitgestellte Backup haben, muss der andere Benutzer Ihnen die Berechtigung erteilen.
+
++
+Alle Archivprotokolldateien haben Leseberechtigung für Benutzer, die einer Gruppe zugewiesen sind. Sie haben möglicherweise nicht die Zugriffsberechtigung für die Archivprotokolldatei, wenn das Backup von einer anderen Benutzergruppe gemountet wird. Benutzer können die gemounteten Archivprotokolldateien manuell erteilen und den Wiederherstellungsvorgang oder die Wiederherstellung wiederholen.
+
+* SnapManager legt den Backup-Status als „`PROTECTED`“ fest, selbst wenn eine der Snapshot-Kopien des Datenbank-Backups auf das sekundäre Storage-System übertragen wird.
+* Sie können die Aufgabenspezifikationsdatei nur für geplante Backups aus SnapManager 3.2 oder höher verwenden.
+* Wenn die Repository-Datenbank auf mehr als eine IP-Adresse verweist und jede IP-Adresse einen anderen Hostnamen hat, ist der Backup-Planungsvorgang für eine IP-Adresse erfolgreich, schlägt aber für die andere IP-Adresse fehl.
+* In ONTAP Umgebungen unterstützt SnapManager nicht mehrere sekundäre Ziele für ein Quell-Volume.
+
+
+*Einschränkungen im Zusammenhang mit Wiederherstellungsvorgängen*
+
+* SnapManager unterstützt nicht die Wiederherstellung von Datenbank-Backups mithilfe eines schnellen Wiederherstellens oder von Volume-basierten Restore-Vorgängen in Windows.
++
+SnapManager 3.3 zeigt eine Fehlermeldung an, wenn Sie versuchen, eine schnelle Wiederherstellung aus der SnapManager CLI durchzuführen.
+
+
+
+*Einschränkungen im Zusammenhang mit Klonvorgängen*
+
+* SnapManager 3.3 oder höher unterstützt nicht mit der XML-Datei für die Klonspezifikation, die in den Versionen vor SnapManager 3.2 erstellt wurde.
+* Wenn sich temporäre Tablespaces an einem anderen Speicherort als dem Datendateien befinden, erstellt ein Klonvorgang die Tabellen im Datendateien.
++
+Wenn jedoch temporäre Tablespaces Oracle Managed Files (OMFs) sind, die sich an einem anderen Speicherort als dem Datendateien befinden, erstellt der Klonvorgang nicht die Tabellen im Datendateien. Die OMFs werden nicht von SnapManager verwaltet.
+
+* SnapManager kann eine RAC-Datenbank nicht klonen, wenn Sie die auswählen `-resetlogs` Option.
+
+
+*Einschränkungen im Zusammenhang mit Archiv-Log-Dateien und Backups*
+
+* SnapManager unterstützt keine Anschnitt von Archiv-Log-Dateien aus dem Flash-Recovery-Bereich Ziel.
+* SnapManager unterstützt nicht das Aufheben von Archivprotokolldateien vom Standby-Ziel.
+* Die Backups für das Archivprotokoll werden basierend auf der Aufbewahrungsdauer und der standardmäßigen stündlichen Aufbewahrungsklasse beibehalten.
++
+Wenn die Klasse für die Backup-Aufbewahrung des Archivprotokolls über die SnapManager Befehlszeilenschnittstelle oder Benutzeroberfläche geändert wird, gilt die geänderte Aufbewahrungsklasse nicht für das Backup, da die Backups des Archivprotokolls basierend auf der Aufbewahrungsdauer aufbewahrt werden.
+
+* Wenn Sie die Archivprotokolldateien aus den Zielen des Archivprotokolls löschen, enthält die Backup des Archivprotokolls keine Archivprotokolldateien, die älter sind als die fehlende Archivprotokolldatei.
++
+Wenn die letzte Archivprotokolldatei fehlt, schlägt die Sicherung des Archivprotokolls fehl.
+
+* Wenn Sie die Archivprotokolldateien aus den Archivprotokollzielen löschen, schlägt das Beschneiden von Archivprotokolldateien fehl.
+* SnapManager konsolidiert die Archiv-Log-Backups, selbst wenn Sie die Archiv-Log-Dateien aus den Archiv-Log-Zielen löschen oder wenn die Archiv-Log-Dateien beschädigt sind.
+
+
+*Einschränkungen im Zusammenhang mit der Änderung des Host-Namens der Zieldatenbank*
+
+Die folgenden SnapManager Vorgänge werden nicht unterstützt, wenn Sie den Host-Namen der Zieldatenbank ändern:
+
+* Ändern des Host-Namens der Zieldatenbank von der SnapManager-GUI.
+* Rollback der Repository-Datenbank nach Aktualisierung des Host-Namens der Zieldatenbank des Profils durchführen.
+* Gleichzeitige Aktualisierung mehrerer Profile für einen neuen Hostnamen der Zieldatenbank.
+* Ändern des Host-Namens der Zieldatenbank, wenn ein SnapManager-Vorgang ausgeführt wird.
+
+
+*Einschränkungen im Zusammenhang mit der SnapManager CLI oder GUI*
+
+* Die CLI-Befehle von SnapManager für das `profile create` Für Vorgänge, die über die SnapManager GUI generiert werden, gibt es keine Verlaufskonfigurationsoptionen.
++
+Sie können das nicht verwenden `profile create` Befehl zum Konfigurieren der Verlaufs-Aufbewahrungseinstellungen über die SnapManager-CLI.
+
+* SnapManager zeigt die GUI in Mozilla Firefox nicht an, wenn auf dem Windows-Client keine Java Runtime Environment (JRE) verfügbar ist.
+* SnapManager 3.3 zeigt die SnapManager-Benutzeroberfläche in Microsoft Internet Explorer 6 unter Windows Server 2008 und Windows 7 nicht an.
+* Wenn beim Aktualisieren des Host-Namens der Zieldatenbank mithilfe der SnapManager CLI eine oder mehrere offene SnapManager GUI-Sitzungen vorliegen, reagieren nicht alle offenen SnapManager GUI-Sitzungen.
+* Wenn Sie SnapManager unter Windows installieren und die CLI in UNIX starten, werden die Funktionen angezeigt, die unter Windows nicht unterstützt werden.
+
+
+*Einschränkungen im Zusammenhang mit SnapMirror und SnapVault*
+
+* In einigen Szenarien können Sie das letzte Backup, das mit der ersten Snapshot Kopie verbunden ist, nicht löschen, wenn das Volume eine SnapVault-Beziehung eingerichtet hat.
++
+Sie können das Backup nur löschen, wenn Sie die Beziehung unterbrechen. Dieses Problem liegt an einer ONTAP-Einschränkung bei Basis-Snapshot-Kopien. In einer SnapMirror Beziehung wird die Snapshot Basiskopie von der SnapMirror Engine erstellt und in einer SnapVault Beziehung ist die Snapshot Basiskopie das Backup, das mit SnapManager erstellt wurde. Die Basis-Snapshot-Kopie verweist bei jedem Update auf das neueste Backup, das mithilfe von SnapManager erstellt wird.
+
+
+
+*Einschränkungen im Zusammenhang mit Data Guard Standby-Datenbanken*
+
+* SnapManager unterstützt keine Standby-Datenbanken für die logische Datenwache.
+* SnapManager unterstützt keine Standby-Datenbanken für Active Data Guard.
+* SnapManager erlaubt keine Online-Backups von Data Guard Standby-Datenbanken.
+* SnapManager erlaubt keine partiellen Backups von Data Guard Standby-Datenbanken.
+* SnapManager erlaubt nicht die Wiederherstellung von Data Guard Standby-Datenbanken.
+* SnapManager erlaubt keine Beschneidung von Archivprotokolldateien für Data Guard Standby-Datenbanken.
+* SnapManager unterstützt den Broker nicht.
+
+
+*Verwandte Informationen*
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site"^]

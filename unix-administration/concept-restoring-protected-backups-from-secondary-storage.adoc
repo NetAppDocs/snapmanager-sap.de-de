@@ -1,0 +1,14 @@
+---
+permalink: unix-administration/concept-restoring-protected-backups-from-secondary-storage.html 
+sidebar: sidebar 
+keywords: restore, backup, protect, secondary, storage, primary, restoring, 
+summary: Sie können geschützte Backups aus dem sekundären Storage wiederherstellen. Sie können jedoch keine Backups aus dem Sekundärspeicher wiederherstellen, wenn das Backup auch auf dem Primärspeicher vorhanden ist. 
+---
+= Wiederherstellen geschützter Backups aus dem sekundären Speicher
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können geschützte Backups aus dem sekundären Storage wiederherstellen. Sie können jedoch keine Backups aus dem Sekundärspeicher wiederherstellen, wenn das Backup auch auf dem Primärspeicher vorhanden ist.

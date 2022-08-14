@@ -1,0 +1,30 @@
+---
+permalink: unix-administration/concept-requirements-for-using-databases-with-nfs-and-snapmanager.html 
+sidebar: sidebar 
+keywords: requirement, database, network, file, system, nfs, snapmanager, root, attribute, caching, cache, sybolic, link 
+summary: 'Sie müssen die Anforderungen für die Verwendung von Datenbanken mit Network File System (NFS) und SnapManager kennen. Die Empfehlungen umfassen die Ausführung als root, Attribut-Caching und symbolische Links.' 
+---
+= Anforderungen für die Verwendung von Datenbanken mit NFS und SnapManager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Anforderungen für die Verwendung von Datenbanken mit Network File System (NFS) und SnapManager kennen. Die Empfehlungen umfassen die Ausführung als root, Attribut-Caching und symbolische Links.
+
+* Sie müssen SnapManager als Root ausführen. SnapManager muss auf die Dateisysteme zugreifen können, die Datendateien, Kontrolldateien, Online-Wiederherstellungsprotokolle, Archivprotokolle und den Datenbank-Home enthalten.
++
+Legen Sie eine der folgenden NFS-Exportoptionen fest, um sicherzustellen, dass Root auf die Dateisysteme zugreifen kann:
+
++
+** Stamm=`_host name_`
+** rw=`_host name_`, Anon=0
+
+
+* Sie müssen das Attribut-Caching für alle Volumes deaktivieren, die Datenbankdatendateien, Kontrolldateien, Redo- und Archivprotokolle und die Datenbank-Startseite enthalten.
++
+Exportieren Sie die Volumes mithilfe der optionen noac (für Solaris und AIX) oder actimeo=0 (für Linux).
+
+* Sie müssen die Datenbankdatendateien aus dem lokalen Speicher mit NFS verknüpfen, um nur symbolische Links auf Mount-Punkt-Ebene zu unterstützen.
+

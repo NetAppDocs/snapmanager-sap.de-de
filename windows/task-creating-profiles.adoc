@@ -1,0 +1,127 @@
+---
+permalink: windows/task-creating-profiles.html 
+sidebar: sidebar 
+keywords: creating, create, profile, assign, oracle, database, policy, set, retention, count, class 
+summary: Beim Erstellen von Profilen können Sie dem Profil ein bestimmtes Oracle-Datenbankbenutzerkonto zuweisen. Sie können die Aufbewahrungsrichtlinie für das Profil festlegen und die Anzahl und Dauer der Aufbewahrung für jede Aufbewahrungsklasse festlegen. 
+---
+= Profile werden erstellt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Beim Erstellen von Profilen können Sie dem Profil ein bestimmtes Oracle-Datenbankbenutzerkonto zuweisen. Sie können die Aufbewahrungsrichtlinie für das Profil festlegen und die Anzahl und Dauer der Aufbewahrung für jede Aufbewahrungsklasse festlegen.
+
+Wenn Sie die Werte der Parameter -Login, -password und -Port der Datenbank nicht angeben, verwendet der Authentifizierungsmodus des Betriebssystems die Standardanmeldeinformationen.
+
+Während der Erstellung eines Profils führt SnapManager eine Überprüfung der Berechtigung zur Wiederherstellung durch, um den Wiederherstellungsmechanismus zu bestimmen, mit dem die Datenbank wiederhergestellt werden kann.
+
+Mit SnapManager (3.2 oder höher) können Sie Archivprotokolldateien von den Datendateien trennen, während Sie ein neues Profil erstellen oder ein vorhandenes Profil aktualisieren. Nachdem Sie die Sicherung mit dem Profil getrennt haben, können Sie entweder nur die Datendateien-only-Backup oder Archiv-Log-only-Backup der Datenbank erstellen. Sie können das neue Profil oder das aktualisierte Profil verwenden, um das Backup zu erstellen, das sowohl die Datendateien als auch die Archivprotokolldateien enthält. Sie können das Profil jedoch nicht zum Erstellen der vollständigen Sicherung oder zum Zurücksetzen der Einstellungen verwenden.
+
+*Profile zur Erstellung vollständiger und partieller Backups*
+
+Sie können Profile erstellen, um das vollständige Datenbank-Backup mit den Datendateien, Kontrolldateien, Archivprotokolldateien und partiellen Datenbank-Backups zu erstellen, die bestimmte Datendateien oder Tablespaces enthalten, alle Kontrolldateien und alle Archivprotokolldateien. SnapManager erlaubt Ihnen nicht, mithilfe der Profile, die für vollständige und teilweise Backups erstellt wurden, separate Archiv-Log-Backups zu erstellen.
+
+*Profile zur Erstellung von nur-Datendateien-Backups und nur archivalogs-Backups*
+
+Wenn Sie ein neues Profil erstellen, können Sie -separatem-archivlog-Backups einbeziehen und das Archiv-Log-Backup von der Datendatei-Sicherung trennen. Sie können das vorhandene Profil auch aktualisieren, um die Sicherung des Archivprotokolls von der Datensicherung der Datendatei zu trennen.
+
+Mithilfe der neuen Profiloptionen können Sie die Backups des Archivprotokolls trennen und folgende SnapManager-Vorgänge durchführen:
+
+* Erstellen Sie eine Backup-Datei für Archivprotokolle
+* Löschen Sie eine Sicherung des Archivprotokolls
+* Mounten Sie ein Backup für das Archivprotokoll
+* Kostenlose Backup eines Archivprotokolls
+
+
+Während das Profil erstellt wird, um Archiv-Log-Backups von der Datensicherung zu trennen, wenn die Archiv-Log-Dateien nicht in der Datenbank vorhanden sind, für die das Profil erstellt wird, dann ist eine Warnung Archived Log-Datei nicht im aktiven Dateisystem vorhanden. Die Versionen der archivierten Protokolldatei, die früher als die Version des <Archiv-Log-Threads> -Protokolls waren, werden nicht in die Sicherung aufgenommen. Selbst wenn Sie Backups für diese Datenbank erstellen, sind die Archiv-Log-Dateien in den Datenbank-Backups nicht verfügbar.
+
+
+NOTE: Wenn beim Erstellen eines Profils ein Fehler auftritt, verwenden Sie den Befehl ssapsystem dump. Nachdem Sie ein Profil erstellt haben, verwenden Sie die Befehle ssapoperation dump und ssapprofile dump, wenn Sie einen Fehler haben.
+
+. Um ein Profil mit einem Benutzernamen, Kennwort und Port (Oracle-Authentifizierung) zu erstellen, geben Sie den folgenden Befehl ein:
++
+`smsap profile create -profileprofile [-profile-passwordprofile_password] -repository-dbnamerepo_dbname-hostrepo_host-portrepo_port-login-usernamerepo_username-database-dbnamedb_dbname-hostdb_host [-siddb_sid] [-login-usernamedb_username-passworddb_password-portdb_port] [-rman {-controlfile | {-login-usernamerman_username-passwordrman_password-tnsnamerman_tnsname} } ] [-retain [-hourly [-countn] [-durationm]] [-daily [-countn] [-durationm]] [-weekly [-countn] [-durationm]] [-monthly [-countn] [-durationm]]] [-commentcomment][-snapname-patternpattern][-summary-notification] [-notification [-success-emailemail_address1, email_address2-subjectsubject_pattern] [-failure-emailemail_address1, email_address2-subjectsubject_pattern]][-separate-archivelog-backups-retain-archivelog-backups-hourshours | -daysdays | -weeksweeks| -monthsmonths [-include-with-online-backups | -no-include-with-online-backups]] [-dump]`
+
++
+Weitere Optionen für diesen Befehl:
+
++
+[-Force] [-noprompt]
+
++
+Je nach Zugriffsart auf die Datenbank können Sie auch weitere Optionen bei der Erstellung von Profilen berücksichtigen.
+
++
+|===
+| Wenn... | Dann... 
+
+
+ a| 
+*Sie möchten die Datenbankauthentifizierung verwenden, um ein Profil zu erstellen*
+ a| 
+Geben Sie die Anmeldedaten für die Datenbank an.
+
+
+
+ a| 
+*Sie wollen eine Backup Retention Policy für Backups* angeben
+ a| 
+Geben Sie entweder den Aufbewahrungszähler oder die Dauer für eine Aufbewahrungsklasse oder beides an. Die Dauer ist in Einheiten der Klasse (z. B. Stunden für Stunde, Tage für Tag).
+
+** -Hourly ist die stündliche Aufbewahrungsklasse, für die [-count n] [-duration m] der Aufbewahrungszähler und die Aufbewahrungsdauer sind, bzw..
+** -Daily ist die tägliche Aufbewahrungsklasse, für die [-count n] [-durationm] die Aufbewahrungszahl und Aufbewahrungsdauer sind, bzw..
+** -Weekly ist die wöchentliche Aufbewahrungsklasse, für die [-count n] [-duration m] der Aufbewahrungszähler und die Aufbewahrungsdauer sind, bzw..
+** -Monthly ist die monatliche Aufbewahrungsklasse, für die [-count n] [-durationm] der Aufbewahrungszähler und die Aufbewahrungsdauer sind, bzw..
+
+
+
+
+ a| 
+*Sie möchten die E-Mail-Benachrichtigung für den Abschlussstatus der Datenbankvorgänge* aktivieren
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** -Summary-notification ermöglicht Ihnen die Konfiguration einer E-Mail-Benachrichtigung für mehrere Profile unter einer Repository-Datenbank.
+** -Notification ermöglicht Ihnen, eine E-Mail-Benachrichtigung über den Status des Datenbankvorgangs für ein Profil zu erhalten.
+** -Success-emailemail_address2 ermöglicht es Ihnen, eine E-Mail-Benachrichtigung über den erfolgreichen Datenbankvorgang zu erhalten, der mit einem neuen oder vorhandenen Profil durchgeführt wird.
+** -Failure-emailemail_address2 ermöglicht es Ihnen, eine E-Mail-Benachrichtigung über den fehlgeschlagenen Datenbankvorgang zu erhalten, der mit einem neuen oder vorhandenen Profil durchgeführt wird.
+** -Subjectsubject_Text gibt den Subjekttext für die E-Mail-Benachrichtigung an, während ein neues Profil oder ein vorhandenes Profil erstellt wird. Wenn die Benachrichtigungseinstellungen nicht für das Repository konfiguriert sind und Sie versuchen, mithilfe der CLI Profile- oder Übersichtsbenachrichtigungen zu konfigurieren, wird die folgende Meldung im Konsole-Protokoll protokolliert: SMSAP-14577: Benachrichtigungseinstellungen nicht konfiguriert.
++
+Wenn Sie die Benachrichtigungseinstellungen konfiguriert haben und versuchen, eine zusammenfassende Benachrichtigung mithilfe der CLI zu konfigurieren, ohne dass eine zusammenfassende Benachrichtigung für das Repository aktiviert wird, wird die folgende Meldung im Konsole-Protokoll angezeigt: __**__SMSAP-14575: Für dieses Repository ist keine Zusammenfassung der Benachrichtigungskonfiguration verfügbar
+
+
+
+
+
+ a| 
+*Sie wollen Archivprotokolldateien getrennt von Datendateien* sichern
+ a| 
+Geben Sie die folgenden Optionen und Variablen an:
+
+** -Separate-archivlog-Backups ermöglicht es Ihnen, das Archiv-Log-Backup vom Datendatei-Backup zu trennen.
+** -Retention-archivlog-Backups legt die Aufbewahrungsdauer für Archiv-Log-Backups fest. Sie müssen eine positive Aufbewahrungsdauer angeben.
++
+Die Backups für das Archivprotokoll werden basierend auf der Aufbewahrungsdauer des Archivprotokolls aufbewahrt. Die Backups der Datendateien werden gemäß den bestehenden Aufbewahrungsrichtlinien beibehalten.
+
+** -Include-with-Online-Backups beinhalten das Archiv-Log-Backup zusammen mit dem Online-Datenbank-Backup.
++
+Mit dieser Option können Sie ein Backup- und Archivprotokoll für Online-Datendateien zum Klonen erstellen. Wenn diese Option eingestellt ist, werden bei jeder Erstellung eines Backups von Online-Datendateien die Archiv-Logs-Backups zusammen mit den Datendateien sofort erstellt.
+
+** -No-include-with-Online-Backups beinhalten nicht das Archiv-Log-Backup zusammen mit dem Datenbank-Backup.
+
+
+
+
+ a| 
+*Nach der erfolgreichen Profilerfassungsoperation* können Sie die Dump-Dateien sammeln
+ a| 
+Geben Sie die -dump-Option am Ende des Befehls zum Erstellen von Profilen an.
+
+|===
+
+
+*Verwandte Informationen*
+
+xref:concept-how-to-collect-dump-files.adoc[So sammeln Sie Speicherauszugsdateien]

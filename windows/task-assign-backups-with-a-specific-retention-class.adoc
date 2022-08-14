@@ -1,0 +1,21 @@
+---
+permalink: windows/task-assign-backups-with-a-specific-retention-class.html 
+sidebar: sidebar 
+keywords: dba, retention, class, hourly, daily, weekly, monthly, backup, eligible, assign 
+summary: Datenbankadministratoren können Backups mit einer bestimmten Aufbewahrungsklasse stündlich, täglich, wöchentlich oder monatlich durchführen. Durch das Zuweisen einer bestimmten Aufbewahrungsklasse können die unter dieser Änderung durchgeführten Backups gelöscht werden. 
+---
+= Weisen Sie Backups mit einer bestimmten Aufbewahrungsklasse zu
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Datenbankadministratoren können Backups mit einer bestimmten Aufbewahrungsklasse stündlich, täglich, wöchentlich oder monatlich durchführen. Durch das Zuweisen einer bestimmten Aufbewahrungsklasse können die unter dieser Änderung durchgeführten Backups gelöscht werden.
+
+.Schritt
+. Um eine bestimmte Backup-Aufbewahrungsklasse zuzuweisen, geben Sie den folgenden Befehl ein:
++
+`*smsap backup update -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_} -retain [-hourly | -daily | -weekly | -monthly ]*`
+
+

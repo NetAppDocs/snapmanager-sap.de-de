@@ -1,0 +1,60 @@
+---
+permalink: unix-administration/reference-the-smosmsap-profile-destroy-command.html 
+sidebar: sidebar 
+keywords: command, delete, split, clone, database, profile, snapmanager, process, smsap, destroy 
+summary: 'Dieser Befehl löscht den Split Clone (Datenbank) zusammen mit dem Profil, das von SnapManager während des Klon-Split-Prozesses generiert wurde.' 
+---
+= Der Befehl smsap Profile destroy
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieser Befehl löscht den Split Clone (Datenbank) zusammen mit dem Profil, das von SnapManager während des Klon-Split-Prozesses generiert wurde.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap profile destroy
+-profile _profile_
+[-host _hostname_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_*`
++
+Gibt das Profil an, das SnapManager nach einem erfolgreichen Klonteilungsprozess generiert.
+
+* `*-host _hostname_*`
++
+Gibt den Hostnamen an, in dem der geteilte Klon vorhanden ist.
+
+* `*-quiet*`
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*-verbose*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+
+
+'''
+
+
+== Beispielbefehl
+
+Im folgenden Beispiel wird das Profil SALES1 gelöscht.
+
+[listing]
+----
+smsap profile destroy -profile SALES1
+----
+'''

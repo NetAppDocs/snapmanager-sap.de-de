@@ -1,0 +1,171 @@
+---
+permalink: windows/task-create-backup-schedules.html 
+sidebar: sidebar 
+keywords: schedule, backup, time, frequency, suit, data, environment, create 
+summary: Sie können ein Backup so planen, dass es zu der Zeit und Häufigkeit erfolgt, die für Ihre Daten und Ihre Umgebung geeignet sind. 
+---
+= Erstellen von Backup-Zeitplänen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können ein Backup so planen, dass es zu der Zeit und Häufigkeit erfolgt, die für Ihre Daten und Ihre Umgebung geeignet sind.
+
+
+
+== Über diese Aufgabe
+
+Ab SnapManager 3.2 für SAP können Sie die Backups der Archivprotokolldateien separat planen. Sie müssen jedoch das Profil verwenden, das Sie erstellt haben, um die Archivprotokolldateien zu trennen.
+
+Wenn Sie die Backups der Datendateien und Archivprotokolldateien gleichzeitig geplant haben, erstellt SnapManager zuerst die Datensicherung.
+
+Wenn Sie das Planungsintervall als auswählen `-onetimeonly`, Dann sind alle Beschneiungsmöglichkeiten verfügbar. Wenn Sie ein anderes Planungsintervall als auswählen `-onetimeonly`, Dann die Beschneidung Optionen `-until-SCN` Und `-until-date` Werden nicht unterstützt, und die folgende Fehlermeldung wird angezeigt: `The archive log pruning option you have specified, -until-scn or -until-date for the schedule interval hourly is invalid. Specify either the -onetimeonly option for the schedule interval, or prune the archive logs using any one of the option all, or -before {-months | -days | -weeks| -hours}`.
+
+Wenn in Microsoft Windows Server Failover Cluster (WSFC) und Microsoft Cluster Server (MSCS) Umgebungen ein Failover erfolgt, müssen Sie den SnapManager für SAP Server neu starten, damit die Service-Adresse (virtuelle) dem aktiven Host zugeordnet wird und die SnapManager-Zeitpläne auf den aktiven SnapManager Host angepasst werden.
+
+
+NOTE: Wenn in einem anderen Repository derselbe Profil- und Planungsname vorhanden ist, wird der Backup-Planungsvorgang in diesem Repository nicht gestartet. Der Vorgang wird mit folgender Meldung beendet: `operation is already running`.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap schedule create -profile _profile_name_ {[-full {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-data [-files _files_ [_files_]] | [-tablespaces _-tablespaces_ [_-tablespaces_]] {-online | -offline | -auto}[-retain [-hourly | -daily | -weekly | -monthly | -unlimited] [-verify]] | [-archivelogs]} [-comment _comment_][-backup-dest _path1_ [,[_path2_]] [-exclude-dest _path1_ [,_path2_]] [-prunelogs{-all | -untilSCN _untilSCN_ | -until-date _yyyy-MM-dd HH:mm:ss_ | -before {-months | -weeks | -days | -hours}} -prune-dest _prune_dest1_,_prune_dest2_] -schedule-name _schedule_name_ [-schedule-comment _schedule_comment_] -interval {-hourly | -daily | -weekly | -monthly | -onetimeonly} -cronstring _cronstring_ -start-time {_start-time_ _start_time_ _<yyyy-MM-dd HH:mm>_} -runasuser _-runasuser_ [-force] [-taskspec _-taskspec_] [-quiet | -verbose]*`
+
++
+|===
+| Ihr Ziel ist | Dann... 
+
+
+ a| 
+*Planen Sie eine Sicherung einer Online- oder Offline-Datenbank*
+ a| 
+Angeben `-offline` Oder `-online` So planen Sie ein Backup der Offline- oder Online-Datenbank. Wenn Sie diese angeben, können Sie sie nicht verwenden `-auto`.
+
+
+
+ a| 
+*Lassen Sie SnapManager die Planung einer Datenbank handhaben, unabhängig davon, ob sie online oder offline ist*
+ a| 
+Angeben `-auto`. Wenn Sie angeben `-auto`, Sie können nicht verwenden `--offline` Oder `-online`.
+
+
+
+ a| 
+*Planen Sie eine Sicherung von Datendateien*
+ a| 
+Angeben `-data` `-files` Liste der durch Kommas getrennten Dateien. Verwenden Sie zum Beispiel die Dateinamen f1,f2,f3.
+
+
+
+ a| 
+*Planen Sie eine partielle Sicherung bestimmter Tabellen*
+ a| 
+Angeben `-tablespaces` Tablespaces getrennt nach Kommas auflisten. Verwenden Sie zum Beispiel ts1,ts2,ts3.
+
+
+
+ a| 
+*Planen der Sicherung von Archiv-Log-Dateien*
+ a| 
+Geben Sie Folgendes an:
+
+** `-archivelogs` So planen Sie die Sicherung der Archivprotokolldateien
+** `-backup-dest` So planen Sie Zielorte für Archivprotokolldateien, die in das Backup aufgenommen werden sollen
+** `-exclude-dest` So planen Sie, dass die Ziele für das Archivprotokoll vom Backup ausgeschlossen werden
+
+
+
+
+ a| 
+*Geben Sie die Werte der Aufbewahrungsklasse an*
+ a| 
+Angeben `-retain` Und geben Sie an, ob das Backup gemäß einer der folgenden Aufbewahrungsklassen aufbewahrt werden soll:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-unlimited`SnapManager ist standardmäßig auf Stundenbasis eingestellt.
+
+
+
+
+ a| 
+*Planen eines Beschneidung von Archivprotokolldateien*
+ a| 
+Geben Sie Folgendes an: ** `-prunelogs` So prune die Archivprotokolldateien während der Planung eines Backups ** `-prune-dest` So geben Sie das Archiv-Protokollziel an, von dem die Archivprotokolldateien beschnitten werden
+
+
+
+ a| 
+* Einen Namen für den Terminplan angeben*
+ a| 
+Angeben `-schedule-name`.
+
+
+
+ a| 
+*Sicherung der Datenbank in einem bestimmten Zeitintervall* planen
+ a| 
+Geben Sie die an `interval` Wählen Sie die folgende Option aus, und wählen Sie das Zeitintervall aus, mit dem die Backups erstellt werden sollen:
+
+** `-hourly`
+** `-daily`
+** `-weekly`
+** `-monthly`
+** `-onetimeonly`
+
+
+
+
+ a| 
+*Konfigurieren Sie einen Zeitplan*
+ a| 
+Angeben `-cronstring` Und fügen Sie die folgenden sieben Unterausdrücke ein, die die einzelne Option beschreiben:
+
+** 1 bezieht sich auf Sekunden.
+** 2 bezieht sich auf Minuten.
+** 3 bezieht sich auf Stunden.
+** 4 bezieht sich auf einen Tag im Monat.
+** 5 bezieht sich auf den Monat.
+** 6 bezieht sich auf einen Tag in einer Woche.
+** (Optional) 7 bezieht sich auf das Jahr.
+
+
+[NOTE]
+====
+Wenn Sie Ihr Backup mit unterschiedlichen Zeiten in geplant haben `-cronstring` Und `-start-time`, Dann wird der Zeitplan der Sicherung überschrieben und durch den ausgelöst `-start-time`.
+
+====
+
+
+ a| 
+*Fügen Sie einen Kommentar zum Backup-Zeitplan*
+ a| 
+Angeben `-schedule-comment` Gefolgt von der Beschreibungszeichenfolge.
+
+
+
+ a| 
+*Geben Sie die Startzeit der Zeitplanoperation an*
+ a| 
+Angeben `-start-time` Im Format yyyy-mm-dd hh:mm.
+
+
+
+ a| 
+*Ändern Sie den Benutzer des geplanten Backup-Vorgangs während der Planung des Backups*
+ a| 
+Angeben `-runasuser`. Der Vorgang wird ausgeführt als Benutzer (Root-Benutzer oder Oracle-Benutzer), der den Zeitplan erstellt hat. Sie können jedoch Ihre eigene Benutzer-ID verwenden, wenn Sie gültige Anmeldeinformationen sowohl für das Datenbankprofil als auch für den Host haben.
+
+
+
+ a| 
+*Aktivieren Sie eine Voraufgabe oder Nachaufgabe des Backup-Zeitplanvorgangs, indem Sie die XML-Datei mit der XML-Datei für die vor- und Nachaufgabe* verwenden
+ a| 
+Geben Sie die an `-taskspec` Option und geben Sie den absoluten Pfad der XML-Datei für die Aufgabenspezifikation für die Durchführung einer Vorverarbeitung oder einer Nachbearbeitungsaktivität vor oder nach dem Backup-Zeitplan an.
+
+|===
+

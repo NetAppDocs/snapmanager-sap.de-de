@@ -1,0 +1,29 @@
+---
+permalink: windows/task-mounting-backups.html 
+sidebar: sidebar 
+keywords: snapmanager, automatic, handle, mount, backup, host, available, scenario, tools, oracle, recovery, manager, rman, file 
+summary: 'SnapManager übernimmt automatisch das Mounten eines Backups, um es dem Host zur Verfügung zu stellen. Sie können Backups auch in Szenarien einbinden, in denen Sie ein externes Tool wie Oracle Recovery Manager \(RMAN\) für den Zugriff auf die Dateien im Backup verwenden.' 
+---
+= Montage von Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager übernimmt automatisch das Mounten eines Backups, um es dem Host zur Verfügung zu stellen. Sie können Backups auch in Szenarien einbinden, in denen Sie ein externes Tool wie Oracle Recovery Manager (RMAN) für den Zugriff auf die Dateien im Backup verwenden.
+
+Der Befehl smsap Backup Mount zeigt eine Liste der Pfade an, in denen die Snapshot Kopien, die aus dem Backup bestehen, gemountet wurden.
+
+
+NOTE: Optional können Sie die Dump-Dateien nach einem erfolgreichen oder fehlgeschlagenen Backup-Mount-Vorgang sammeln.
+
+. Geben Sie zum Mounten eines Backups den folgenden Befehl ein:
++
+`smsap backup mount -profile profile_name label [data | -archivelogs] | -id id} [-host-host] [-dump] [-quiet | -verbose]`
+
+
+
+*Verwandte Informationen*
+
+xref:reference-the-smosmsapbackup-mount-command.adoc[Der Befehl smsap Backup Mount]

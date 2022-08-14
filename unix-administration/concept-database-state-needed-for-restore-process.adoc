@@ -1,0 +1,42 @@
+---
+permalink: unix-administration/concept-database-state-needed-for-restore-process.html 
+sidebar: sidebar 
+keywords: state, database, restore, process, perform 
+summary: Der Status der Datenbank, die wiederhergestellt werden soll, hängt von der Art des Wiederherstellungsprozesses, die Sie durchführen möchten, und der Art der Dateien ab, die enthalten sein sollen. 
+---
+= Für den Wiederherstellungsprozess benötigter Datenbankstatus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Status der Datenbank, die wiederhergestellt werden soll, hängt von der Art des Wiederherstellungsprozesses, die Sie durchführen möchten, und der Art der Dateien ab, die enthalten sein sollen.
+
+In der folgenden Tabelle ist der Status aufgeführt, in dem die Datenbank von der ausgewählten Wiederherstellungsoption und dem Typ der Dateien abhängig sein soll, die in die Wiederherstellung aufgenommen werden sollen:
+
+[cols="1,1,1,1"]
+|===
+| Art der Wiederherstellung | Enthaltene Dateien | Datenbankstatus für diese Instanz | Datenbank-Status für andere Instanz (nur RAC) 
+
+
+.3+| Nur Restore | Kontrolldateien | Herunterfahren | Herunterfahren 
+
+
+| Systemdateien | Montieren oder herunterfahren | Montieren oder herunterfahren 
+
+
+| Keine Systemdateien | Alle Bundesstaaten | Alle Bundesstaaten 
+
+
+.3+| Restore und Recovery | Kontrolldateien | Herunterfahren | Herunterfahren 
+
+
+| Systemdateien | Montieren | Montieren oder herunterfahren 
+
+
+| Keine Systemdateien | Mount oder Offen | Alle 
+|===
+Der von SnapManager für einen Wiederherstellungsvorgang erforderliche Datenbankzustand ist von dem ausgeführten Wiederherstellungstyp abhängig (vollständige, partielle oder Kontrolldateien). SnapManager übergibt die Datenbank nicht in einen niedrigeren Zustand (z. B. von Öffnen auf Mount), es sei denn, die Force-Option ist angegeben.
+
+SnapManager für SAP überprüft nicht, ob SAP ausgeführt wird. SnapManager for SAP wartet auf ein Timeout und fährt dann die Datenbank herunter, was eine Stunde zusätzlicher Wiederherstellungszeit hinzufügen kann.

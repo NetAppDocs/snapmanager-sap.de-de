@@ -1,0 +1,37 @@
+---
+permalink: windows/task-viewing-a-list-of-operations.html 
+sidebar: sidebar 
+keywords: view, summary, listing, operation, perform, profile, list 
+summary: Sie können eine Zusammenfassung aller Vorgänge anzeigen, die für ein Profil durchgeführt wurden. 
+---
+= Anzeigen einer Liste von Vorgängen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Zusammenfassung aller Vorgänge anzeigen, die für ein Profil durchgeführt wurden.
+
+Sie können die folgenden Informationen anzeigen, wenn Sie Vorgänge auflisten, die einem bestimmten Profil zugeordnet sind:
+
+* Start- und Enddatum bei Ausführung des Vorgangs
+* Betriebsstatus
+* Vorgangs-ID
+* Art des Vorgangs
+* Host, auf dem er ausgeführt wurde
+
+
+.Schritt
+. Verwenden Sie den folgenden Befehl, um die Zusammenfassungsinformationen aller Vorgänge aufzulisten:
++
+`smsap operation list profile -profile profile_name -delimitercharacter [-quiet | -verbose]`
+
++
+Wenn die Option -Trennzeichen angegeben wird, listet der Befehl jede Zeile in einer separaten Zeile auf und die Attribute in dieser Zeile werden durch das angegebene Zeichen getrennt.
+
+
+
+*Verwandte Informationen*
+
+xref:reference-the-smosmsapoperation-list-command.adoc[Befehl smsap Operation list]

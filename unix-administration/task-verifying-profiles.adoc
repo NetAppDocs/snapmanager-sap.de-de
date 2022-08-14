@@ -1,0 +1,21 @@
+---
+permalink: unix-administration/task-verify-profiles.html 
+sidebar: sidebar 
+keywords: verify, exist, profile, set, up, correct, snapmanager, environment, accessible 
+summary: Sie können überprüfen, ob ein vorhandenes Profil korrekt eingerichtet wurde. Wenn Sie ein Profil überprüfen, überprüft SnapManager die Umgebung auf das von Ihnen angegebene Profil und überprüft, ob das Profil eingerichtet ist und auf die Datenbank in diesem Profil zugegriffen werden kann. 
+---
+= Verifizieren von Profilen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können überprüfen, ob ein vorhandenes Profil korrekt eingerichtet wurde. Wenn Sie ein Profil überprüfen, überprüft SnapManager die Umgebung auf das von Ihnen angegebene Profil und überprüft, ob das Profil eingerichtet ist und auf die Datenbank in diesem Profil zugegriffen werden kann.
+
+.Schritt
+. Um zu überprüfen, ob das Profil ordnungsgemäß eingerichtet ist, geben Sie folgenden Befehl ein:
++
+`*smsap profile verify -profile _profile_name_*`
+
+

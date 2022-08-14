@@ -1,0 +1,40 @@
+---
+permalink: windows/task-free-backups.html 
+sidebar: sidebar 
+keywords: free, backup, delete, snapshot, copies, copy, metadata, function, space, smsap 
+summary: Sie können Backups freigeben, die die Snapshot Kopien löschen, ohne die Backup-Metadaten zu löschen. Diese Funktion gibt den Speicherplatz frei, der durch das Backup belegt wird. Sie können den kostenlosen Befehl smsap Backup verwenden, um die Backups zu befreien. 
+---
+= Kostenlose Backups
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können Backups freigeben, die die Snapshot Kopien löschen, ohne die Backup-Metadaten zu löschen. Diese Funktion gibt den Speicherplatz frei, der durch das Backup belegt wird. Sie können den smsap benutzen `backup free` Befehl zum Freigeben der Backups.
+
+
+
+== Was Sie benötigen
+
+Damit ein Backup zur Freigabe berechtigt ist, müssen Sie Folgendes sicherstellen:
+
+* Das Backup war erfolgreich
+* Backup soll nicht angehängt werden
+* Backup verfügt nicht über Klone
+* Der Backup darf nicht durch eine Richtlinie zur unbegrenzten Aufbewahrung beibehalten werden
+* Das Backup wird nicht bereits freigegeben
+
+
+
+
+== Über diese Aufgabe
+
+Sie können den angeben `-dump` Option als optionaler Parameter zum Sammeln der Speicherauszugsdateien nach dem erfolgreichen oder fehlgeschlagenen Sicherungsvorgang.
+
+.Schritt
+. Geben Sie den folgenden Befehl ein:
++
+`*smsap backup free -profile _profile_name_ {-label _label_ [data | -archivelogs] | -id _id_ | -all} -force[-dump] [-quiet] [-force]*`
+
+

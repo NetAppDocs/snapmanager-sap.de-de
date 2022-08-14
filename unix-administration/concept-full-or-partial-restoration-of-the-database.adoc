@@ -1,0 +1,20 @@
+---
+permalink: unix-administration/concept-full-or-partial-restoration-of-the-database.html 
+sidebar: sidebar 
+keywords: snapmanager, provide, flexibility, restore, full, database, specific, tablespace, control, file, combination, full, partial 
+summary: SnapManager bietet die Flexibilität, komplette Datenbanken, bestimmte Tabellen, Dateien, Kontrolldateien oder eine Kombination dieser Einheiten wiederherzustellen. SnapManager ermöglicht die Datenwiederherstellung über einen dateibasierten Wiederherstellungsprozess oder einen schnelleren, Volume-basierten Wiederherstellungsprozess. Datenbankadministratoren können den Prozess auswählen, den sie verwenden möchten, oder SnapManager entscheiden lassen, welcher Prozess für Sie geeignet ist. 
+---
+= Vollständige oder teilweise Wiederherstellung von Datenbanken
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager bietet die Flexibilität, komplette Datenbanken, bestimmte Tabellen, Dateien, Kontrolldateien oder eine Kombination dieser Einheiten wiederherzustellen. SnapManager ermöglicht die Wiederherstellung von Daten mithilfe eines dateibasierten Wiederherstellungsprozesses mit einem schnelleren, Volume-basierten Wiederherstellungsprozess. Datenbankadministratoren können den Prozess auswählen, den sie verwenden möchten, oder SnapManager entscheiden lassen, welcher Prozess für Sie geeignet ist.
+
+SnapManager ermöglicht Datenbankadministratoren (DBAs) die Vorschau von Restore-Vorgängen. Mit der Vorschaufunktion können DBAs jeden Wiederherstellungsvorgang auf Datei-für-Datei-Basis anzeigen.
+
+Datenbankadministratoren können das Level angeben, auf das SnapManager bei der Durchführung von Restore-Vorgängen wiederhergestellt und Informationen wiederhergestellt werden. Beispielsweise können DBAs Daten zu bestimmten Zeitpunkten wiederherstellen. Der Wiederherstellungspunkt kann ein Datum und eine Uhrzeit oder eine Oracle System Change Number (SCN) sein.
+
+Mit SnapManager (3.2 oder höher) können Datenbank-Backups automatisch und ohne Eingriff des Datenbankadministrators wiederhergestellt werden. Sie können SnapManager verwenden, um Backups für Archivprotokolle zu erstellen und dann diese Backups für Archivprotokolle zu verwenden, um die Datenbank-Backups wiederherzustellen und wiederherzustellen. Selbst wenn die Archivprotokolldateien des Backups in einem externen Archivprotokoll verwaltet werden, können Sie diesen externen Speicherort angeben, damit diese Archivprotokolle zur Wiederherstellung der wiederhergestellten Datenbank beitragen können.

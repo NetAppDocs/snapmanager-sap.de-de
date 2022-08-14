@@ -1,0 +1,69 @@
+---
+permalink: windows/concept-what-snapmanager-operation-states-are.html 
+sidebar: sidebar 
+keywords: snapmanager, operation, backup, restore, clone, state, indicate, progress 
+summary: 'SnapManager-Vorgänge (Backup, Wiederherstellung und Klon) können den jeweiligen Status aufweisen, wobei jeder Status den Fortschritt des Vorgangs angibt.' 
+---
+= Die Status der SnapManager-Operation lauten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager-Vorgänge (Backup, Wiederherstellung und Klon) können den jeweiligen Status aufweisen, wobei jeder Status den Fortschritt des Vorgangs angibt.
+
+|===
+| Betriebsstatus | Beschreibung 
+
+
+ a| 
+Erfolgreich
+ a| 
+Die Operation wurde erfolgreich abgeschlossen.
+
+
+
+ a| 
+Wird Ausgeführt
+ a| 
+Der Vorgang wurde gestartet, ist aber noch nicht abgeschlossen. Ein Backup, das zwei Minuten dauert, wird beispielsweise um 11:00 Uhr morgens erstellt. Wenn Sie die Registerkarte *Zeitplan* um 11:01 Uhr aufrufen, wird der Vorgang als ausgeführt angezeigt.
+
+
+
+ a| 
+Kein Vorgang gefunden
+ a| 
+Der Zeitplan wurde nicht ausgeführt oder das letzte Backup wurde gelöscht.
+
+
+
+ a| 
+Fehlgeschlagen
+ a| 
+Der Vorgang ist fehlgeschlagen. SnapManager hat den Abbruchvorgang automatisch ausgeführt und den Vorgang bereinigt.
+
+|===
+
+
+== Wiederherstellbare und nicht wiederherstellbare Ereignisse
+
+Ein wiederherstellbares SnapManager Ereignis hat die folgenden Probleme:
+
+* Die Datenbank wird nicht auf einem Storage-System gespeichert, auf dem Data ONTAP ausgeführt wird.
+* SnapDrive für Windows ist nicht installiert oder kann nicht auf das Speichersystem zugreifen.
+* SnapManager erstellt keine Snapshot Kopie bzw. stellt keinen Storage bereit, wenn das Volume über keinen freien Speicherplatz verfügt, die maximale Anzahl an Snapshot Kopien erreicht oder eine unerwartete Ausnahme auftritt.
+
+
+Wenn ein wiederherstellbares Ereignis eintritt, wird SnapManager abgebrochen und versucht, den Host, die Datenbank und das Storage-System auf den Startstatus zurückzusetzen. Schlägt der Abbruchvorgang fehl, behandelt SnapManager den Vorfall als nicht wiederherstellbares Ereignis.
+
+Wenn eines der folgenden Ereignisse eintritt, tritt ein nicht behebbares (Out-of-Band)-Ereignis auf:
+
+* Ein Systemproblem tritt auf, z. B. wenn ein Host ausfällt.
+* Der SnapManager-Prozess wird angehalten.
+* Der Abbruch innerhalb des Band schlägt fehl, wenn das Speichersystem ausfällt, die Nummer der logischen Einheit (LUN) oder das Speichervolume offline ist oder das Netzwerk ausfällt.
+
+
+Wenn ein nicht behebbares Ereignis eintritt, wird SnapManager sofort abgebrochen. Der Host, die Datenbank und das Speichersystem sind möglicherweise nicht an den ursprünglichen Status zurückgekehrt. In diesem Fall müssen Sie nach Ausfall des SnapManager-Vorgangs eine Bereinigung durchführen, indem Sie die verwaiste Snapshot Kopie löschen und die SnapManager-Sperrdatei entfernen.
+
+Wenn Sie die SnapManager-Sperrdatei löschen möchten, navigieren Sie zu `$ORACLE_HOME` Auf dem Zielcomputer löschen und löschen `sm_lock_TargetDBName` Datei: Nach dem Löschen der Datei müssen Sie den SnapManager für SAP-Server neu starten.

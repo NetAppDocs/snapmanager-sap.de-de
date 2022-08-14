@@ -1,0 +1,23 @@
+---
+permalink: windows/task-resuming-backup-schedules.html 
+sidebar: sidebar 
+keywords: administrator, option, resume, suspend, backup, schedule, resuming 
+summary: Administratoren haben die Möglichkeit, den angehängten Backup-Zeitplan fortzusetzen. 
+---
+= Wiederaufnahme der Backup-Pläne
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Administratoren haben die Möglichkeit, den angehängten Backup-Zeitplan fortzusetzen.
+
+Wenn Sie versuchen, die aktiven Zeitpläne wieder aufzunehmen, wird möglicherweise die Fehlermeldung „kann nicht fortgesetzt werden: Zeitplan <planename> bereits im Status „fortsetzen“ angezeigt.
+
+.Schritt
+. Um den angehängten Backup-Zeitplan fortzusetzen, geben Sie den folgenden Befehl ein:
++
+`smsap schedule resume -profile profile_name-schedule-nameschedulename [-quiet | -verbose]`
+
+

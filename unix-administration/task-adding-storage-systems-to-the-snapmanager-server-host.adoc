@@ -1,0 +1,37 @@
+---
+permalink: unix-administration/task-add-storage-systems-to-the-snapmanager-server-host.html 
+sidebar: sidebar 
+keywords: add, storage, system, operating, operate, cluster, data, ontap, autosupport, snapmanager, 7-mode 
+summary: Sie müssen die Storage-Systeme, die in Clustered Data ONTAP ausgeführt werden, zum SnapManager Server Host hinzufügen, um AutoSupport zu aktivieren. Ab SnapManager 3.3 wurde AutoSupport nur auf Storage-Systemen mit 7-Mode unterstützt. 
+---
+= Ergänzen Sie den SnapManager Server-Host um Storage-Systeme, die in Clustered Data ONTAP betrieben werden
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen die Storage-Systeme, die in Clustered Data ONTAP ausgeführt werden, zum SnapManager Server Host hinzufügen, um AutoSupport zu aktivieren. Ab SnapManager 3.3 wurde AutoSupport nur auf Storage-Systemen mit 7-Mode unterstützt.
+
+.Schritt
+. Ergänzen Sie den SnapManager Server-Host um Storage-Systeme, die in Clustered Data ONTAP betrieben werden.
++
+[cols="1a,3a"]
+|===
+| Wenn... | Führen Sie dann den folgenden Befehl aus... 
+
+
+ a| 
+Admin Storage Virtual Machine (SVM, ehemals bekannt als Vserver) wird in Clustered Data ONTAP ausgeführt
+ a| 
+`*snapdrive config set -cserver _user_name_ _storage_name_*`
+
+
+
+ a| 
+SVM wird in Clustered Data ONTAP betrieben
+ a| 
+`*snapdrive config set -vserver _user_name_ _storage_name_*`
+
+|===
+

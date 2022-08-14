@@ -1,0 +1,74 @@
+---
+permalink: unix-administration/concept-when-can-you-use-fast-restore.html 
+sidebar: sidebar 
+keywords: rule, apply, fast, restore, achieve, optimal, performance, guidelines 
+summary: Spezifische Regeln gelten für den Einsatz von schneller Wiederherstellung, um eine optimale Wiederherstellungsleistung zu erreichen. In manchen Fällen können Sie kein schnelles Restore verwenden. 
+---
+= Richtlinien für den Zeitpunkt, zu dem Sie schnelle Wiederherstellungen verwenden können
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Spezifische Regeln gelten für den Einsatz von schneller Wiederherstellung, um eine optimale Wiederherstellungsleistung zu erreichen. In manchen Fällen können Sie kein schnelles Restore verwenden.
+
+Zur Erzielung einer optimalen Restore-Performance (Volume-Wiederherstellung oder vollständige Festplattengruppenwiederherstellung) müssen folgende Regeln eingehalten werden:
+
+* Nur vollständige Restores von vollständigen Backups können schnell wiederhergestellt werden.
+* Nur Datendateien können schnell wiederhergestellt werden.
+* Datendateien müssen die einzigen Dateien eines Volumes sein, um schnell wiederhergestellt werden zu können.
++
+Auch wenn temporäre Datendateien auf dem Volume liegen können, müssen Steuerdateien, Protokolle, pfiles oder andere Dateien auf einem separaten Volume von den Datendateien gespeichert werden. Sie müssen eine Oracle-Datenbank mit Datendateien auf einem separaten Volume von Kontrolldateien, archivierten Protokollen und Online-Protokolldateien einrichten.
+
+* Das Volume muss Datendateien für nur eine Datenbank enthalten.
+* Es können mehrere Dateisysteme verwendet werden, aber die Dateien in diesen Dateisystemen müssen Datendateien für nur eine Datenbank sein.
+* Für SAP ist ein etwas anderes Datei-Layout erforderlich.
++
+Der Abschnitt „`Allgemeines Layout und Konfiguration`“ enthält Details.
+
+* Wenn `BRRESTORE` Wird zur Wiederherstellung der Datenbank verwendet, wird fast Restore mit dem fast Parameter in der Backup Utility Parameterdatei verwendet.
+
+
+
+NOTE: Um zu überprüfen, ob ein zuvor erstelltes Backup mithilfe der schnellen Wiederherstellung wiederhergestellt werden kann, kann die verwendet werden `-preview` Option des `smsap backup restore` Befehl.
+
+Die schnelle Wiederherstellung kann in den folgenden Fällen nicht verwendet werden:
+
+* Bei teilweise Backups
+* Auf Backups aus dem sekundären Storage, wenn das Backup auch auf dem primären Speicher vorhanden ist
++
+Diese können nicht mithilfe der Datei- oder Volume-basierten Wiederherstellung wiederhergestellt werden.
+
+* Auf Backups, die mit SnapVault gesichert sind
++
+Der schnelle Wiederherstellungsprozess kann nicht für Backups verwendet werden, die vor dem letzten geschützten Backup erstellt wurden. Sie können jedoch den schnellen Wiederherstellungsprozess für Backups verwenden, die nach dem letzten geschützten Backup erstellt wurden. Denken Sie beispielsweise an Backups A, B und C. B ist das letzte Backup, das mit SnapVault auf den sekundären Storage übertragen wird. Sie können B und C schnell wiederherstellen, aber Sie können A nicht schnell wiederherstellen, da sie vor dem letzten geschützten Backup erstellt wurde. SnapVault benötigt eine Basis-SnapVault, um den Zeitunterschied zu berechnen und zum sekundären Storage zu senden, wenn das nächste Backup in den sekundären Storage übertragen wird. Das letzte geschützte Backup fungiert als Basis-Snapshot Kopie. Daher verhindert ein schneller Wiederherstellungsprozess, dass SnapVault die Baseline erkennen kann.
+
+* FlexClones oder LUN-Klone, die Snapshot Kopien verwenden, die nach der Snapshot Kopie, auf die das Volume zurückgesetzt wird, erstellt wurden
++
+Beispielsweise können die Klone auf ein späteres Backup zurückzuführen sein, das durch SnapManager gemountet oder geklont wird.
+
+* LUNs, die nicht Teil der aktiven SnapDrive Snapshot Kopie sind
+
+
+Sie können keine schnelle Wiederherstellung zusammen mit anderen Arten von Wiederherstellungen für dasselbe Backup durchführen. Wenn beispielsweise ein Datenvolumen mit dem schnellen Restore-Prozess wiederhergestellt werden kann, aber ein anderes Daten-Volume kann nicht, so wird es mit dem schnellen Restore-Prozess auch nicht wiederhergestellt. In diesem Fall können Sie eine dateibasierte Wiederherstellung auswählen.
+
+Darüber hinaus sollten Sie die folgenden Punkte zu Datenbank-Wiederherstellungen in Betracht ziehen:
+
+* SnapManager stellt niemals Archivprotokolle oder Wiederherstellungsprotokolle wieder her, bindet aber das Backup von Archivprotokolldateien und verwendet sie für die Wiederherstellung.
+* SnapManager stellt niemals Dateien durch Volume Restore unter Kontrolle.
+* Wenn Sie Steuerdateien und Datendateien wiederherstellen möchten, führt SnapManager die Wiederherstellung in zwei Schritten durch.
++
+SnapManager stellt zuerst die Kontrolldateien und dann die Datendateien wieder her.
+
+* Wenn SnapManager temporäre Dateien in demselben Volume wie die standardmäßigen Tablespaces findet, müssen Sie zur Wiederherstellung auf Volume-Ebene keine Überschreibung erstellen.
++
+Nach einer Volume-Wiederherstellung wird der TEMP Tablespace wieder online gestellt.
+
+
+
+Sowohl SnapManager für SAP als auch die BACKINT-Schnittstelle verwenden die gleiche Logik, wenn Sie bestimmen, welcher Wiederherstellungsmechanismus verwendet werden kann. Es können alle Wiederherstellungsmethoden verwendet werden, unabhängig davon, ob das Backup mit SnapManager für SAP oder der BACKINT Schnittstelle durchgeführt wurde und ob die Wiederherstellung über SnapManager für SAP oder die BACKINT Schnittstelle durchgeführt wird.
+
+*Verwandte Informationen*
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site: mysupport.netapp.com"]

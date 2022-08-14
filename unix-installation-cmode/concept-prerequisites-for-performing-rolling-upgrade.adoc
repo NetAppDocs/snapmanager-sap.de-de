@@ -1,0 +1,50 @@
+---
+permalink: unix-installation-cmode/concept-prerequisites-for-performing-rolling-upgrade.html 
+sidebar: sidebar 
+keywords: perform, roll, upgrade, ensure, environment, certain, requirement, prerequisite 
+summary: Bevor Sie ein Rolling Upgrade durchführen, müssen Sie sicherstellen, dass Ihre Umgebung bestimmte Anforderungen erfüllt. 
+---
+= Voraussetzungen für Rolling Upgrades
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie ein Rolling Upgrade durchführen, müssen Sie sicherstellen, dass Ihre Umgebung bestimmte Anforderungen erfüllt.
+
+* Wenn Sie eine ältere Version als SnapManager 3.1 verwenden und ein Rolling Upgrade auf SnapManager 3.3 oder höher durchführen möchten, müssen Sie zuerst auf 3.2 und dann auf die neueste Version aktualisieren.
++
+Sie können direkt von SnapManager 3.2 auf SnapManager 3.3 oder höher aktualisieren.
+
+* Externe Skripte, die zur Durchführung externer Datensicherung oder Datenaufbewahrung verwendet werden, müssen gesichert werden.
+* Die SnapManager-Version, auf die Sie aktualisieren möchten, muss installiert sein.
++
+
+NOTE: Wenn Sie ein Upgrade von einer älteren Version als SnapManager 3.1 auf SnapManager 3.3 oder höher durchführen, müssen Sie zuerst SnapManager 3.2 installieren und ein Rolling Upgrade durchführen. Nach dem Upgrade auf 3.2 können Sie SnapManager 3.3 oder höher installieren und ein weiteres Rolling Upgrade auf SnapManager 3.3 oder höher durchführen.
+
+* Die SnapDrive für UNIX-Version, die von der SnapManager-Version unterstützt wird, auf die Sie aktualisieren möchten, muss installiert sein.
++
+Die SnapDrive-Dokumentation enthält Details zur Installation von SnapDrive.
+
+* Die Repository-Datenbank muss gesichert werden.
+* Die SnapManager Repository-Auslastung sollte mindestens betragen.
+* Wenn der zu aktualisierenden Host ein Repository verwendet, dürfen SnapManager-Vorgänge nicht auf den anderen Hosts ausgeführt werden, die dasselbe Repository verwenden.
++
+Die Vorgänge, die auf den anderen Hosts geplant oder ausgeführt werden, warten bis das Rolling Upgrade abgeschlossen ist.
+
++
+
+NOTE: Es wird empfohlen, ein Rolling Upgrade durchzuführen, wenn das Repository am wenigsten ausgelastet ist, z. B. über das Wochenende oder wenn Vorgänge nicht geplant sind.
+
+* Profile, die auf dieselbe Repository-Datenbank verweisen, müssen mit unterschiedlichen Namen in den SnapManager-Server-Hosts erstellt werden.
++
+Wenn Sie Profile mit dem gleichen Namen verwenden, schlägt das Rolling Upgrade der Repository-Datenbank ohne Warnung fehl.
+
+* SnapManager-Vorgänge dürfen nicht auf dem Host ausgeführt werden, der gerade aktualisiert wird.
+
+
+
+NOTE: Das Rolling Upgrade wird länger ausgeführt, wenn die Anzahl der Backups der Hosts, die zusammen aktualisiert werden, steigt. Die Dauer des Upgrades kann je nach Anzahl der Profile und Backups variieren, die mit einem bestimmten Host verbunden sind.
+
+http://mysupport.netapp.com/["Dokumentation auf der NetApp Support Site: mysupport.netapp.com"^]

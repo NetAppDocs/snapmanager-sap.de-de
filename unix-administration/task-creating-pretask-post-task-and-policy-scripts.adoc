@@ -1,0 +1,193 @@
+---
+permalink: unix-administration/task-create-pretask-post-task-and-policy-scripts.html 
+sidebar: sidebar 
+keywords: snapmanager, enable, create, script, preprocessing, activity, post-processing, policy, task, backup, restore, clone, operation, pretask, post-task, creating 
+summary: SnapManager ermöglicht das Erstellen von Skripten für die Vorverarbeitung, die Nachbearbeitung und die Richtlinienaufgaben für Backup, Wiederherstellung und Klonvorgänge. Sie müssen die Skripte in das richtige Installationsverzeichnis platzieren, um die Vorverarbeitung, die Nachbearbeitungsaktivität und die Richtlinienaufgaben des SnapManager-Vorgangs auszuführen. 
+---
+= Erstellen von vor-, Post-Task- und Richtlinienskripten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+SnapManager ermöglicht das Erstellen von Skripten für die Vorverarbeitung, die Nachbearbeitung und die Richtlinienaufgaben für Backup, Wiederherstellung und Klonvorgänge. Sie müssen die Skripte in das richtige Installationsverzeichnis platzieren, um die Vorverarbeitung, die Nachbearbeitungsaktivität und die Richtlinienaufgaben des SnapManager-Vorgangs auszuführen.
+
+*Über diese Aufgabe*
+
+*Skriptinhalt vor und nach der Aufgabe*
+
+Alle Skripte müssen Folgendes enthalten:
+
+* Spezifische Vorgänge (prüfen, beschreiben und ausführen)
+* (Optional) vordefinierte Umgebungsvariablen
+* Spezifischer Fehlercode (Rückgabecode (rc))
+
+
+
+NOTE: Sie müssen den korrekten Code für die Fehlerbehandlung angeben, um das Skript zu validieren.
+
+Sie können die Vortaskskripte für viele Zwecke verwenden, zum Beispiel, um einen Festplattenspeicher vor dem Start des SnapManager-Vorgangs zu bereinigen. So können Sie beispielsweise auch die Skripts für die Nachbearbeitung verwenden, um einschätzen zu können, ob SnapManager über genügend Festplattenspeicher verfügt, um den Vorgang abzuschließen.
+
+*Policy Task Skript Inhalt*
+
+Sie können das Richtlinienskript ausführen, ohne bestimmte Aufgaben wie das Prüfen, Beschreiben und Ausführen von auszuführen. Das Skript enthält die vordefinierten Umgebungsvariablen (optional) und den spezifischen Code zur Fehlerbehandlung.
+
+Das Richtlinienskript wird vor der Backup-, Wiederherstellungs- und Klonvorgänge ausgeführt.
+
+* Unterstützte Formate*
+
+Als Prescript und Post-Script kann eine Shell-Script-Datei mit .sh-Erweiterung verwendet werden.
+
+*Skript-Installationsverzeichnis*
+
+Das Verzeichnis, in dem Sie das Skript installieren, beeinflusst die Verwendung. Sie können die Skripte in das Verzeichnis platzieren und das Skript ausführen, bevor oder nach dem Backup-, Wiederherstellungs- oder Klonvorgang erfolgt. Sie müssen das Skript in das in der Tabelle angegebene Verzeichnis legen und es auf optionaler Basis verwenden, wenn Sie den Backup-, Wiederherstellungs- oder Klonvorgang angeben.
+
+
+NOTE: Sie müssen sicherstellen, dass das Plugin-Verzeichnis die ausführbare Berechtigung hat, bevor Sie die Skripte für den SnapManager-Betrieb verwenden.
+
+[cols="1a,3a,3a,3a"]
+|===
+| Aktivität | Backup | Wiederherstellen | Klon 
+
+
+ a| 
+Vorverarbeitung
+ a| 
+<default_Installation_Directory>/Plugins/Backup/create/pre
+ a| 
+<default_Installation_Directory>/Plugins/restore/create/pre
+ a| 
+<default_Installation_Directory>/Plugins/Clone/create/pre
+
+
+
+ a| 
+Nachbearbeitet
+ a| 
+<default_Installation_Directory>/ Plugins/Backup/create/post
+ a| 
+<default_Installation_Directory>/Plugins/restore/create/post
+ a| 
+<default_Installation_Directory>/Plugins/Clone/create/post
+
+
+
+ a| 
+Richtlinienbasiert
+ a| 
+<default_Installation_Directory>/Plugins/Backup/create/Policy
+ a| 
+<default_Installation_Directory>/Plugins/restore/create/Policy
+ a| 
+<default_Installation_Directory>/Plugins/Clone/create/Policy
+
+|===
+*Sample scripts Position*
+
+Im Folgenden sind einige Beispiele für die Skripte vor und nach der Aufgabe für die Backup- und Klonvorgänge aufgeführt, die im Installationspfad verfügbar sind:
+
+* <default_Installation_Directory>/Plugins/examples/Backup/create/pre
+* <default_Installation_Directory>/Plugins/examples/Backup/create/post
+* <default_Installation_Directory>/Plugins/examples/Clone/create/pre
+* <default_Installation_Directory>/Plugins/examples/Clone/create/post
+
+
+*Was Sie im Skript ändern können*
+
+Wenn Sie ein neues Skript erstellen, können Sie nur die Operationen beschreiben und ausführen ändern. Jedes Skript muss die folgenden Variablen enthalten: `_context, timeout,_` Und `_parameter_`.
+
+Die Variablen, die Sie in der Beschreiben-Funktion des Skripts beschrieben haben, müssen zu Beginn des Skripts deklariert werden. In können Sie neue Parameterwerte hinzufügen `parameter=()` Und dann die Parameter in der Funktion Ausführen verwenden.
+
+'''
+
+
+== Beispielskript
+
+Im Folgenden ist ein Beispielskript mit einem vom Benutzer angegebenen Rückgabecode zur Schätzung des Speicherplatzes im SnapManager-Host:
+
+[listing]
+----
+
+    #!/bin/bash
+    # $Id: //depot/prod/capstan/main/src/plugins/unix/examples/backup/create/pre/disk_space_estimate.sh#5 $
+    name="disk space estimation ($(basename $0))"
+    description="pre tasks for estimating the space on the target system"
+    context=
+    timeout="0"
+    parameter=()
+    EXIT=0
+    PRESERVE_DIR="/tmp/preserve/$(date +%Y%m%d%H%M%S)"
+    function _exit {
+       rc=$1
+       echo "Command complete."
+       exit $rc
+    }
+    function usage {
+       echo "usage: $(basename $0) { -check | -describe | -execute }"
+       _exit 99
+    }
+    function describe {
+       echo "SM_PI_NAME:$name"
+       echo "SM_PI_DESCRIPTION:$description"
+       echo "SM_PI_CONTEXT:$context"
+       echo "SM_PI_TIMEOUT:$timeout"
+       IFS=^
+       for entry in ${parameter[@]}; do
+           echo "SM_PI_PARAMETER:$entry"
+       done
+       _exit 0
+    }
+    function check {
+       _exit 0
+    }
+    function execute {
+       echo "estimating the space on the target system"
+       # Shell script to monitor or watch the disk space
+       # It will display alert message, if the (free available) percentage
+       # of space is >= 90%
+       # ----------------------------------------------------------------------
+       # Linux shell script to watch disk space (should work on other UNIX oses )
+       # set alert level 90% is default
+       ALERT=90
+       df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+       do
+         #echo $output
+         usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+         partition=$(echo $output | awk '{ print $2 }' )
+       if [ $usep -ge $ALERT ]; then
+           echo "Running out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" |
+       fi
+       done
+      _exit 0
+     }
+    function preserve {
+        [ $# -ne 2 ] && return 1
+        file=$1
+        save=$(echo ${2:0:1} | tr [a-z] [A-Z])
+        [ "$save" == "Y" ] || return 0
+        if [ ! -d "$PRESERVE_DIR" ] ; then
+           mkdir -p "$PRESERVE_DIR"
+           if [ $? -ne 0 ] ; then
+               echo "could not create directory [$PRESERVE_DIR]"
+               return 1
+           fi
+        fi
+        if [ -e "$file" ] ; then
+            mv "$file" "$PRESERVE_DIR/."
+        fi
+        return $?
+    }
+    case $(echo $1 | tr [A-Z] [a-z]) in
+        -check)    check
+                  ;;
+        -execute)  execute
+                  ;;
+        -describe) describe
+                  ;;
+     *)         echo "unknown option $1"
+              usage
+              ;;
+     esac
+----
+'''

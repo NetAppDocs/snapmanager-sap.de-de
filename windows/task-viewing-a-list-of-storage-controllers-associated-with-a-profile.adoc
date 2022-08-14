@@ -1,0 +1,42 @@
+---
+permalink: windows/task-viewing-a-list-of-storage-controllers-associated-with-a-profile.html 
+sidebar: sidebar 
+keywords: view, list, storage, system, associate, particular, profile 
+summary: Sie können eine Liste der Speichersysteme anzeigen, die einem bestimmten Profil zugeordnet sind. 
+---
+= Anzeigen einer Liste von Speichersystemen, die einem Profil zugeordnet sind
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können eine Liste der Speichersysteme anzeigen, die einem bestimmten Profil zugeordnet sind.
+
+Die Liste zeigt die Namen des Speichersystems an, die dem jeweiligen Profil zugeordnet sind.
+
+
+NOTE: Wenn für das Profil keine Backups verfügbar sind, können Sie den dem Profil zugeordneten Namen des Speichersystems nicht anzeigen.
+
+.Schritt
+. Um Informationen zu Storage-Systemen anzuzeigen, die einem bestimmten Profil zugeordnet sind, geben Sie den folgenden Befehl ein:
++
+`smsap storage list -profileprofile [-quiet | -verbose]`
+
+
+
+
+
+== Beispiel
+
+[listing]
+----
+smsap storage list -profile mjubllian
+----
+[listing]
+----
+Sample Output:
+Storage Controllers
+--------------------
+STCO1110-RTP07OLD
+----

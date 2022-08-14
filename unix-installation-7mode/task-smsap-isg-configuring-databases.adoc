@@ -1,0 +1,14 @@
+---
+permalink: unix-installation-7mode/task-smsap-isg-configure-databases.html 
+sidebar: sidebar 
+keywords: configure, database, target, back, up, snapmanager, repository, store, metadata, configuring 
+summary: Sie müssen mindestens zwei Datenbanken konfigurieren. Eine Zieldatenbank, für die Sie ein Backup mit SnapManager und einer Repository-Datenbank zum Speichern der Metadaten der Zieldatenbank erstellen möchten. Die Zieldatenbank und die SnapManager Repository-Datenbank müssen konfiguriert und online sein, bevor SnapManager Vorgänge durchgeführt werden können. 
+---
+= Konfigurieren von Datenbanken
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen mindestens zwei Datenbanken konfigurieren: Eine Zieldatenbank, die Sie mit SnapManager sichern möchten, und eine Repository-Datenbank zum Speichern der Zieldatenbank-Metadaten. Die Zieldatenbank und die SnapManager Repository-Datenbank müssen konfiguriert und online sein, bevor SnapManager Vorgänge durchgeführt werden können.

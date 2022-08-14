@@ -1,0 +1,63 @@
+---
+permalink: windows/reference-the-smosmsap-operation-show-command.html 
+sidebar: sidebar 
+keywords: run, operation, show, command, list, summary, information, profile, client, user, pc, smsap 
+summary: 'Sie können den Befehl „Operation show“ ausführen, um die Zusammenfassungsinformationen aller Vorgänge, die für das angegebene Profil durchgeführt wurden, aufzulisten. Die Ausgabe listet den Client-Benutzer (den Benutzer für den Client-PC) und den effektiven Benutzer (den Benutzer in SnapManager, der auf dem ausgewählten Host gültig ist) auf.' 
+---
+= Befehl smsap Operation show
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ausführen `operation show` Befehl zum Auflisten der Zusammenfassungsinformationen aller Vorgänge, die für das angegebene Profil durchgeführt werden. Die Ausgabe listet den Client-Benutzer (den Benutzer für den Client-PC) und den effektiven Benutzer (den Benutzer in SnapManager, der auf dem ausgewählten Host gültig ist) auf.
+
+
+
+== Syntax
+
+[listing]
+----
+
+smsap operation show
+-profile profile_name
+[-label label | -id id]
+[-quiet | -verbose]
+----
+
+
+== Parameter
+
+* *`-profile _profile_name_`*
++
+Gibt den Namen des Profils an. Dieser Name kann bis zu 30 Zeichen lang sein und muss innerhalb des Hosts eindeutig sein.
+
+* *`-label _label_`*
++
+Gibt die Bezeichnung für den Vorgang an.
+
+* *`-id _id_`*
++
+Gibt die Kennung für den Vorgang an.
+
+* *`-quiet`*
++
+Optional: Zeigt nur Fehlermeldungen in der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* *`-verbose`*
++
+Optional: Zeigt Fehler-, Warn- und Informationsmeldungen in der Konsole an.
+
+
+
+
+
+== Beispiel
+
+In der folgenden Befehlszeile werden detaillierte Informationen über einen Vorgang angezeigt:
+
+[listing]
+----
+smsap operation show -id 8ac861781d0ac992011d0ac999680001  -profile CER
+----

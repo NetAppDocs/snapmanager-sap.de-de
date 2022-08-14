@@ -1,0 +1,56 @@
+---
+permalink: unix-administration/reference-the-smosmsap-clone-stopsplit-command.html 
+sidebar: sidebar 
+keywords: command, stop, run, clone, split, process, split-stop, smsap 
+summary: Mit diesem Befehl wird der Splittprozess für den ausgeführten Klon angehalten. 
+---
+= Der Befehl smsap Clone Split-stop
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit diesem Befehl wird der Splittprozess für den ausgeführten Klon angehalten.
+
+
+
+== Syntax
+
+[listing, subs="+macros"]
+----
+pass:quotes[smsap clone split-stop
+-profile _profile_
+[-host _hostname_\]
+[-label _split-label_ | -id _split-id_\]
+[-quiet | -verbose\]]
+----
+
+
+== Parameter
+
+* `*-profile _profile_*`
++
+Gibt den Profilnamen des Klons an.
+
+* `*-host _hostname_*`
++
+Gibt den Hostnamen an, in dem der Klon vorhanden ist.
+
+* `*-label _split-label_*`
++
+Gibt den durch den Klonprozess generierten Namen an.
+
+* `*-id _split-id_*`
++
+Gibt die eindeutige ID an, die durch den Klonprozess generiert wurde.
+
+* `*-quiet*`
++
+Zeigt nur Fehlermeldungen auf der Konsole an. Standardmäßig werden Fehler- und Warnmeldungen angezeigt.
+
+* `*-verbose*`
++
+Zeigt Fehler-, Warn- und Informationsmeldungen an der Konsole an.
+
+

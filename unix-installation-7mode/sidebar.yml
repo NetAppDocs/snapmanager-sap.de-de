@@ -1,0 +1,111 @@
+---
+section: unix-installation-7mode
+title: Installation and Setup for UNIX 7-Mode
+entries:
+- title: Produktübersicht
+  url: "/unix-installation-7mode/reference-smsap-isg-product-overview.html"
+  entries:
+  - title: Architektur von SnapManager
+    url: "/unix-installation-7mode/reference-smsap-isg-snapmanager-architecture.html"
+- title: Implementierungs-Workflow
+  url: "/unix-installation-7mode/reference-smsap-isg-deployment-workflow.html"
+- title: Vorbereitungen für die Implementierung
+  url: "/unix-installation-7mode/task-smsap-isg-prepare-for-deployment.html"
+  entries:
+  - title: SnapManager Lizenzierung
+    url: "/unix-installation-7mode/reference-smsap-isg-snapmanager-licensing.html"
+  - title: Unterstützte Konfigurationen
+    url: "/unix-installation-7mode/reference-supported-configurations.html"
+  - title: Unterstützte Speichertypen
+    url: "/unix-installation-7mode/reference-supported-storage-types.html"
+  - title: UNIX Host-Anforderungen
+    url: "/unix-installation-7mode/reference-smsap-isg-host-requirements.html"
+- title: Konfigurieren von Datenbanken
+  url: "/unix-installation-7mode/task-smsap-isg-configure-databases.html"
+  entries:
+  - title: Konfigurieren Sie die Zieldatenbank
+    url: "/unix-installation-7mode/task-smsap-isg-configure-the-target-database.html"
+  - title: Erstellen Sie einen Oracle-Datenbankbenutzer für die Zieldatenbank
+    url: "/unix-installation-7mode/task-create-an-oracle-user-for-the-target-database.html"
+  - title: Erstellen Sie die Repository-Datenbankinstanz
+    url: "/unix-installation-7mode/task-create-the-repository-database-instance.html"
+  - title: Erstellen Sie einen Oracle-Benutzer für die Repository-Datenbankinstanz
+    url: "/unix-installation-7mode/task-create-an-oracle-user-for-the-repository-database-instance.html"
+  - title: Überprüfen Sie die Oracle Listener-Konfiguration
+    url: "/unix-installation-7mode/task-verify-the-oracle-listener-configuration.html"
+- title: Installation von SnapManager
+  url: "/unix-installation-7mode/task-smsap-isg-install-snapmanager.html"
+  entries:
+  - title: Integration in SAP BR* Tools
+    url: "/unix-installation-7mode/task-smsap-isg-integrate-with-sap-br-tools.html"
+- title: SnapManager einrichten
+  url: "/unix-installation-7mode/task-set-up-snapmanager.html"
+  entries:
+  - title: Starten Sie den SnapManager-Server
+    url: "/unix-installation-7mode/task-smsap-isg-start-the-snapmanager-server.html"
+  - title: Greifen Sie auf die Benutzeroberfläche von SnapManager zu
+    url: "/unix-installation-7mode/task-smsap-isg-access-the-snapmanager-user-interface.html"
+  - title: Konfigurieren Sie das SnapManager-Repository
+    url: "/unix-installation-7mode/task-smsap-isg-configure-the-snapmanager-repository.html"
+- title: Vorbereiten der Speichersysteme für die SnapMirror- und SnapVault-Replizierung
+  url: "/unix-installation-7mode/reference-prepare-storage-systems-for-snapmirror-and-snapvault-replication.html"
+  entries:
+  - title: Verständnis der Unterschiede zwischen SnapMirror und SnapVault
+    url: "/unix-installation-7mode/concept-understanding-the-differences-between-snapmirror-and-snapvault.html"
+  - title: Storage-Systeme für die SnapMirror Replizierung vorbereiten
+    url: "/unix-installation-7mode/task-prepare-storage-systems-for-snapmirror-replication-7-mode.html"
+  - title: Storage-Systeme für die SnapVault-Replizierung vorbereiten
+    url: "/unix-installation-7mode/task-prepare-storage-systems-for-snapvault-replication-7-mode.html"
+- title: Sichern und Überprüfen Ihrer Datenbanken
+  url: "/unix-installation-7mode/concept-backing-up-and-verifying-your-databases.html"
+  entries:
+  - title: SnapManager Backup – Überblick
+    url: "/unix-installation-7mode/concept-smsap-isg-snapmanager-backup-overview.html"
+  - title: Backup-Strategie definieren
+    url: "/unix-installation-7mode/concept-smsap-isg-defining-a-backup-strategy.html"
+  - title: Erstellen Sie ein Profil für Ihre Datenbank
+    url: "/unix-installation-7mode/task-smsap-isg-create-a-profile-for-your-database.html"
+  - title: Sichern Sie Ihre Datenbank
+    url: "/unix-installation-7mode/task-smsap-isg-back-up-your-database.html"
+  - title: Datenbank-Backups prüfen
+    url: "/unix-installation-7mode/task-smsap-isg-verify-database-backups.html"
+  - title: Planen Sie regelmäßige Backups
+    url: "/unix-installation-7mode/task-smsap-isg-schedule-recurring-backups.html"
+- title: Deinstallieren Sie die Software von einem UNIX-Host
+  url: "/unix-installation-7mode/task-smsap-isg-uninstall-the-software-from-a-unix-host.html"
+- title: Upgrade von SnapManager
+  url: "/unix-installation-7mode/concept-upgrading-snapmanager-for-oracle-snapmanager-for-sap.html"
+  entries:
+  - title: SnapManager wird vorbereitet
+    url: "/unix-installation-7mode/concept-preparing-to-upgrade-snapmanager-for-oracle-snapmanager-for-sap.html"
+  - title: Aktualisieren Sie die SnapManager-Hosts
+    url: "/unix-installation-7mode/task-upgrade-snapmanager-for-oracle-snapmanager-for-sap-hosts.html"
+  - title: Aufgaben nach dem Upgrade
+    url: "/unix-installation-7mode/concept-post-upgrade-tasks.html"
+    entries:
+    - title: Aktualisieren Sie das vorhandene Repository
+      url: "/unix-installation-7mode/task-update-the-existing-repository.html"
+    - title: Ändern Sie die Backup-Aufbewahrungsklasse
+      url: "/unix-installation-7mode/task-modify-the-backup-retention-class.html"
+    - title: Prozessarten wiederherstellen
+      url: "/unix-installation-7mode/concept-restore-process-identification.html"
+  - title: Aktualisieren von SnapManager-Hosts mithilfe von Rolling Upgrade
+    url: "/unix-installation-7mode/concept-upgrading-snapmanager-hosts-by-using-rolling-upgrade.html"
+    entries:
+    - title: Voraussetzungen für Rolling Upgrades
+      url: "/unix-installation-7mode/concept-prerequisites-for-performing-rolling-upgrade.html"
+    - title: Führen Sie Rolling Upgrade auf einem einzelnen oder mehreren Hosts durch
+      url: "/unix-installation-7mode/task-perform-rolling-upgrade-on-a-single-host-or-multiple-hosts.html"
+    - title: Was ist ein Rollback
+      url: "/unix-installation-7mode/concept-what-a-rollback-is.html"
+      entries:
+      - title: Einschränkungen bei der Durchführung eines Rollbacks
+        url: "/unix-installation-7mode/concept-limitations-for-performing-a-rollback.html"
+      - title: Voraussetzungen für die Durchführung eines Rollbacks
+        url: "/unix-installation-7mode/concept-prerequisites-for-performing-a-rollback.html"
+      - title: Führen Sie ein Rollback auf einem oder mehreren Hosts durch
+        url: "/unix-installation-7mode/task-perform-a-rollback-on-a-single-host-or-multiple-hosts.html"
+      - title: Aufgaben nach dem Rollback ausführen
+        url: "/unix-installation-7mode/task-post-rollback-tasks.html"
+- title: Weitere Schritte
+  url: "/unix-installation-7mode/reference-smsap-isg-where-to-go-next.html"

@@ -1,0 +1,24 @@
+---
+permalink: unix-administration/concept-what-protection-policies-are.html 
+sidebar: sidebar 
+keywords: protection, policy, policies, govern, database, backup, profile 
+summary: Sicherungsrichtlinien sind Regeln, die die Sicherheit von Datenbank-Backups regeln. Sie können die Schutzrichtlinien während der Erstellung des Profils auswählen. 
+---
+= Was sind Sicherungsrichtlinien
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sicherungsrichtlinien sind Regeln, die die Sicherheit von Datenbank-Backups regeln. Sie können die Schutzrichtlinien während der Erstellung des Profils auswählen.
+
+Eine Schutzrichtlinie definiert die folgenden Parameter:
+
+* Wann Kopien auf den sekundären Storage übertragen werden sollten
+* Die maximale Datenmenge, die zu geplanten Zeiten übertragen werden soll
+* Wie lange die Kopien der einzelnen Backup-Standorte aufbewahrt werden sollen
+* Warnmeldungen und Fehlerschwellwerte für Verzögerungszeiten
+
+
+Wenn Schutz aktiviert ist, erstellt SnapManager einen Datensatz für die Datenbank. Ein Datenset besteht aus einer Sammlung von Storage Sets und Konfigurationsinformationen, die ihren Daten zugeordnet sind. Zu den mit einem Datensatz verknüpften Speichersätzen zählen ein primärer Speichersatz für den Export von Daten auf Clients sowie der Satz an Replikaten und Archiven, die sich auf anderen Speichergruppen befinden. Datensätze stellen exportierbare Anwenderdaten dar. Wenn der Administrator den Schutz für eine Datenbank deaktiviert, löscht SnapManager den Datensatz.
