@@ -262,7 +262,6 @@
   <block id="f66ac937ace8e2c37798d093be193581" category="list-text">Erstellung platzsparender Backup-Klone auf dem Primärspeicher</block>
   <block id="e019cc619973f4400963b86f6dade854" category="summary">Mit SnapManager (3.2 oder höher) für SAP kann der Hostname der Zieldatenbank im SnapManager-Profil aktualisiert werden.</block>
   <block id="f9065d50a59ac684423c5d381c4d3326" category="doc">Aktualisieren Sie den Host-Namen der Zieldatenbank, der einem Profil zugeordnet ist</block>
-  <block id="eed5ddc8f738970611f01ee16f2a17e5" category="section-title">Was Sie benötigen</block>
   <block id="f7e4e38e7b78f78e664201776dcbf759" category="list-text">Das Home-Verzeichnis des lokalen Benutzers muss die Zuordnung zu den Profilen und Repositorys kennen.</block>
   <block id="bddf809b81540c390a83df973c74bfa4" category="list-text">Die Sitzungen der SnapManager Graphical User Interface (GUI) müssen geschlossen werden.</block>
   <block id="afff92a1ba4f5546940a1256d77f6afe" category="paragraph">Sie können das Profil mit dem neuen Hostnamen aktualisieren, indem Sie nur die CLI verwenden.</block>
@@ -8253,4 +8252,5 @@
   <block id="7e5a244ed934853124d9aebb1b86928e" category="sidebar">Installation und Einrichtung von UNIX für Clustered Data ONTAP</block>
   <block id="c03b7f290aff6f050d870f85741bbec1" category="sidebar">Installation and Setup for UNIX 7-Mode</block>
   <block id="d23d52eb082db2b040f7a1483c79d790" category="sidebar">Administration für UNIX</block>
+  <block id="d59db7846bd10b6d60d21543df9faa9e" category="section-title">Was Sie benötigen</block>
 </blocks>
