@@ -1,0 +1,39 @@
+---
+indexpage:
+  title: SnapManager for SAP-Dokumentation
+  summary: SnapManager für SAP automatisiert und vereinfacht komplexe, manuelle und
+    zeitintensive Prozesse, die im Zusammenhang mit Backup, Recovery und dem Klonen
+    von Datenbanken anfallen. Mithilfe von SnapManager mit ONTAP SnapMirror Technologie
+    können Sie Backup-Kopien auf einem anderen Volume erstellen. Mit der ONTAP SnapVault
+    Technologie werden Backups effizient auf Festplatten archiviert.
+  keywords: snapmanager, sap, installation, setup, deployment, workflow, configuration,product.
+  lead: SnapManager für SAP automatisiert und vereinfacht komplexe, manuelle und zeitintensive
+    Prozesse, die im Zusammenhang mit Backup, Recovery und dem Klonen von Datenbanken
+    anfallen. Mithilfe von SnapManager mit ONTAP SnapMirror Technologie können Sie
+    Backup-Kopien auf einem anderen Volume erstellen. Mit der ONTAP SnapVault Technologie
+    werden Backups effizient auf Festplatten archiviert.
+  tiles:
+  - title: Los geht's
+    links:
+    - title: Produktübersicht
+      url: "/unix-installation-cmode/reference-smsap-isg-product-overview.html"
+    - title: Versionshinweise
+      url: reference-releasenotes.html
+  - title: Administration
+    links:
+    - title: SnapManager für UNIX wird konfiguriert
+      url: "/unix-administration/concept-configuring-snapmanager-for-oraclesap.html"
+    - title: Konfigurieren von SnapManager für Windows
+      url: "/windows/concept-configuring-snapmanager-for-oraclesap.html"
+  - title: Installation und Einrichtung
+    links:
+    - title: Implementierungs-Workflow (7-Mode)
+      url: "/unix-installation-7mode/reference-smsap-isg-deployment-workflow.html"
+    - title: Implementierungs-Workflow (Cluster-Mode)
+      url: "/unix-installation-cmode/reference-smsap-isg-deployment-workflow.html"
+  - title: Mehr Ressourcen
+    links:
+    - title: NetApp Support
+      url: https://mysupport.netapp.com/site/global/dashboard
+    - title: NetApp Communitys
+      url: https://community.netapp.com/
